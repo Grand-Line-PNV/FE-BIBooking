@@ -4,9 +4,11 @@ import store from "./redux";
 
 function App() {
   return (
-    <Provider store={store}>
-      Home
-    </Provider>
+    <div>
+      <div className="page" id='login'>
+        <div className="container">HOME</div>
+      </div>
+    </div>
   );
 }
 

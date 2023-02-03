@@ -15,8 +15,11 @@
     "react-router-dom": "^6.3.0",
     "sweetalert2": "^11.4.23",
     "web-vitals": "^2.1.4",
-    "@reduxjs/toolkit": "^1.9.1",
-    "react-redux": "^8.0.5"
+    "react-redux": "7.2.3",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "6.0.0",
+    "@react-native-async-storage/async-storage": "react-native-async-storage/async-storage",
+    "@reduxjs/toolkit": "1.5.1"
   },
   "scripts": {
     "start": "node node_modules/react-scripts/scripts/start.js",

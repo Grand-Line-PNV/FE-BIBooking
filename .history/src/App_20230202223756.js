@@ -4,9 +4,7 @@ import store from "./redux";
 
 function App() {
   return (
-    <Provider store={store}>
-      Home
-    </Provider>
+    <Provider></Provider>
   );
 }
 
