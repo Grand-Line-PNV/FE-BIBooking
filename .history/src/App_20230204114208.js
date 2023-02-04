@@ -11,7 +11,7 @@ const cx = classNames.bind();
 function App() {
   return (
     <Provider store={store}>
-      <Button className={cx("back-btn")} outline={true}>
+      <Button  outline={true}>
         <FontAwesomeIcon icon={faChevronLeft} />
         Khánh Linh
       </Button>{" "}

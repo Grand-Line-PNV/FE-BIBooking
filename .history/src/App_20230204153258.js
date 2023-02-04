@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import Button from "./components/Button/Button";
 
-const cx = classNames.bind();
+const cx = classNames.bind(); 
 
 function App() {
   return (
