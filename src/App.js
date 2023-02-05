@@ -1,20 +1,16 @@
 import "./App.css";
 import { Provider } from "react-redux";
 import store from "./redux";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
-import Button from './components/Button/Button'
+import LoginScreen from "./view/pages/Auth/Login/LoginScreen";
+
 
 const cx = classNames.bind();
 
 function App() {
   return (
     <Provider store={store}>
-      <Button className={cx("back-btn")} outline={true}>
-        <FontAwesomeIcon icon={faChevronLeft} />
-        Khánh Linh
-      </Button>{" "}
+      <LoginScreen></LoginScreen>
     </Provider>
   );
 }
