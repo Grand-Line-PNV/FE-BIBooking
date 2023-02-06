@@ -8,7 +8,7 @@
     .title {
         margin-left: 44px;
         font-weight: 700;
-        background: -webkit-linear-gradient( #F16736, #F0A237, #ED3237);
+        background: -webkit-linear-gradient(#F16736, #F0A237, #ED3237);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -30,11 +30,12 @@
             height: 70%;
             background-image: linear-gradient(rgba(251, 188, 5), rgba(243, 128, 29), rgba(251, 188, 5));
             z-index: 1;
-            .sologan{
+
+            .sologan {
                 color: var(--white);
                 width: 270px;
                 font-size: 25px;
-                margin: 40px 0px 0px 35px ;
+                margin: 40px 0px 0px 35px;
             }
 
         }
@@ -48,63 +49,97 @@
             background-color: white;
             z-index: 1;
 
-            .choose-role {
-                width: 185px;
-                margin: 50px 52%;
-                position: relative;
-                // box-shadow: 0 0 20px 9px #ff61241f;
-                border: 1px solid #F16736;            
-                border-radius: 30px;
-                opacity: 1;
+            .rectangle2-form {
+                margin: 20px 44px 0px 44px;
 
-                .toggle-btn {
-                    padding: 10px 20px;
-                    cursor: pointer;
-                    background: transparent;
-                    border: 0;
-                    outline: none;
+                .choose-role {
+                    height: 40;
+                    width: 185px;
+                    margin: 50px 54%;
                     position: relative;
-                    font-weight: 700;
+                    box-shadow: 0 0 20px 9px #ff61241f;
+                    border: 1px solid #F16736;
+                    border-radius: 30px;
+                    opacity: 1;
+
+                    .toggle-btn {
+                        padding: 10px 20px;
+                        cursor: pointer;
+                        background: transparent;
+                        border: 0;
+                        outline: none;
+                        position: relative;
+                        font-weight: 700;
+                    }
+
+                    .btn {
+                        height: 100%;
+                        background-image: linear-gradient(rgba(251, 188, 5), rgba(243, 128, 29), #ED3237);
+                        position: absolute;
+                        border-radius: 30px;
+                        transition: .5s;
+                    }
+
                 }
 
-                .btn {
-                    height: 100%;
-                    background-image: linear-gradient(rgba(251, 188, 5), rgba(243, 128, 29), #ED3237);
-                    position: absolute;
-                    border-radius: 30px;
-                    transition: .5s;
+                .button {
+                    .button-login {
+                        margin-right: 14px;
+                    }
                 }
-               
-            }
-            .button{
-                margin: 20px 0px 0px 44px;
-                .button-login{
-                    margin-right: 20px;
+
+
+                .status-account {
+                    display: flex;
+                    margin: 3% 15%;
+
+                    h4 {
+                        color: rgb(111, 111, 218);
+                        margin-left: 5px;
+                    }
                 }
-            }
-            .status-account{
-                display: flex;
-                margin: 3% 25%;
-                h4{
-                    color: rgb(111, 111, 218);
-                    margin-left: 5px;
+
+                .form-login {
+                    margin: 20px 0px 20px 0px;
+                    width: 100%;
+
+                    .form {
+                        margin: 20px 0px 10px 0px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
+
+                    input[type="text"], input[type="password"], input[type="email"],
+                    [tabindex] {
+                        width: 100%;
+                        height: 30px;
+                    }
+                    input[type="checkbox"]{
+
+                        margin: 15px 5px 0px 0px;
+                    }
+
                 }
-            }
+                .remember-container{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
             
+            }
 
 
         }
-
+.brand-login{
+    transition: .5s;
+}
         .background-image {
             margin-top: 10%;
-            margin-right: 29%;
-            z-index: 99;
+            margin-right: 38%;
+            z-index: 2;
             height: 50%;
-            width: 40%;
+            width: 35%;
         }
     }
 }
-
-
-
-.choose-role {}

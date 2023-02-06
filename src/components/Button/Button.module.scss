@@ -39,15 +39,19 @@
     color: var(--white);
     background-color: var(--primary);
     border-color: var(--primary);
+    transition: .5s;
     &:hover{
+        color: var(--black);
         border-color: var(--primary);
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)),#FE2C55;
+        background: var(--white);
+
     }
 }
 .outline{
     color: var(--primary);
     border-color: currentColor;
     &:hover{
+        color: var(--white);
         border-color: currentColor;
         background-color: #F16736;
     }
