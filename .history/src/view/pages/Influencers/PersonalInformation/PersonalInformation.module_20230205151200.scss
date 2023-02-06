@@ -1,0 +1,18 @@
+.yourclass {
+height: 0;
+position: relative;
+padding-bottom: 56.25%;
+}
+.yourclass > * {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.PersonalInfor__page{
+    width: 100%;
+    height: 100vh;
+    background-color: red;
+}

@@ -1,0 +1,12 @@
+:root {
+    // color
+    --Wheat-color: #f5d8ae;
+    --Linear-orange-color: linear-gradient(180deg, #F0A237 0%, #F16736 50.31%, #ED3237 100%);
+    --Inter-font-family: linear-gradient(180deg, #F0A237 0%, #F16736 50.31%, #ED3237 100%);
+    font-family: ;
+}
+.PersonalInfor__page{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--Wheat-color);
+}
