@@ -6,6 +6,6 @@ const cx = classNames.bind(styles);
 
 export default function Header() {
   <>
-    
+    <div>Header</div>
   </>;
 }
