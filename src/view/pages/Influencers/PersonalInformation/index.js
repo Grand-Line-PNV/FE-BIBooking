@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./PersonalInformation.module.scss";
-import { Logo, Saly1 } from "../../../../assets/images";
 import Button from "../../../../components/Button/Button";
 import Information from "./Information";
 import VerifyAccount from "./VerifyAccount";

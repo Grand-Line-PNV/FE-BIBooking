@@ -1,0 +1,54 @@
+.header {
+  padding-top: 50px;
+  padding-bottom: 90px;
+    // background-color: rgba(0, 0, 0, 0.116);
+  &-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    img {
+      //   padding-left: 30px;
+      //   padding-right: 9px;
+    }
+  }
+
+  &-auth {
+    display: flex;
+    align-items: center;
+    gap: 0 30px;
+    text-transform: capitalize;
+  }
+
+  &-signup {
+    padding: 13px 45px;
+    border-radius: 100rem;
+    color: red;
+    border: 1px solid;
+    font-weight: 500;
+  }
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0 40px;
+  &-link {
+    color: inherit;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    padding: 25px 0 50px;
+  }
+  .menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header-auth {
+    display: none;
+  }
+}
