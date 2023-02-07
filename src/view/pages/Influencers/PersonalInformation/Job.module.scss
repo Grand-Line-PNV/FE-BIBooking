@@ -1,0 +1,59 @@
+.job {
+  // position: relative;
+  // z-index: 100;
+  & .job-title {
+    margin-top: 20px;
+    background: linear-gradient(
+      180deg,
+      #f0a237 0%,
+      #f16736 50.83%,
+      #ed3237 100%
+    );
+    background-clip: text;
+    color: transparent;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 44px;
+    letter-spacing: 0.1em;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+  }
+  & .list-job {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px 0;
+    & a {
+      text-decoration: none;
+    }
+    & li {
+      list-style: none;
+    }
+    & .list-job-item {
+      width: 120px;
+      height: 50px;
+      // background: #ffffff;
+      // opacity: 0.5;
+      // border: 2px solid #b4aeae;
+      border-radius: 30px;
+      display: flex;
+      cursor: pointer;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+      & .list-job-link {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        color: #534E4E;
+      }
+    }
+  }
+  & .submit {
+    text-align: center;
+    margin-top: 50px;
+  }
+}
