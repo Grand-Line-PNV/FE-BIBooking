@@ -1,0 +1,79 @@
+.information {
+  // position: relative;
+  // z-index: 100;
+  & .information-title {
+    margin-top: 20px;
+    background: linear-gradient(
+      180deg,
+      #f0a237 0%,
+      #f16736 50.83%,
+      #ed3237 100%
+    );
+    background-clip: text;
+    color: transparent;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 44px;
+    letter-spacing: 0.1em;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+  }
+  & .form {
+    display: flex;
+    //   background-color: red;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-between;
+    & .form-control-left {
+    }
+    & .form-group {
+      display: flex;
+      flex-direction: column;
+      & .form-label {
+        color: var(--SonicSilver-color);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 51px;
+      }
+      & .form-input {
+        background: #ffffff;
+        border: 2px solid #b4aeae;
+        border-radius: 99px;
+        width: 185px;
+        height: 40px;
+        font-weight: 500;
+        font-style: normal;
+        font-size: 17px;
+        //   text-align: center;
+        padding: 13px;
+      }
+      & .input-radio {
+        display: flex;
+        gap: 20px;
+        & .label-radio {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 17px;
+          line-height: 51px;
+          color: var(--SonicSilver-color);
+        }
+        & .radio {
+          width: 30px;
+          height: 30px;
+          background: #ffffff;
+          opacity: 0.5;
+          border: 2px solid #b4aeae;
+        }
+      }
+    }
+    & .form-control-right {
+      margin-top: 198px;
+    }
+  }
+  & .submit {
+    text-align: center;
+    margin-top: 50px;
+  }
+}

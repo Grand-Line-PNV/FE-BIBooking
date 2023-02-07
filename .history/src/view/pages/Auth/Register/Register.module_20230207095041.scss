@@ -1,0 +1,218 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(
+    rgba(251, 188, 5, 0.22),
+    rgba(243, 128, 29, 0.3735),
+    rgba(251, 188, 5, 0.22)
+  );
+  z-index: 1;
+
+  .title {
+    margin-left: 44px;
+    font-weight: 700;
+    background: -webkit-linear-gradient(#f16736, #f0a237, #ed3237);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .background-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    position: relative;
+
+    .rectangle1 {
+      margin-left: -35%;
+
+      position: absolute;
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+      width: 30%;
+      height: 70%;
+      background-image: linear-gradient(
+        rgba(251, 188, 5),
+        rgba(243, 128, 29),
+        rgba(251, 188, 5)
+      );
+      z-index: 1;
+
+      .sologan {
+        color: var(--white);
+        width: 270px;
+        font-size: 25px;
+        margin: 40px 0px 0px 35px;
+      }
+    }
+
+    .rectangle2 {
+      position: absolute;
+      margin-left: 30%;
+      width: 40%;
+      height: 70%;
+      border-radius: 30px;
+      background-color: white;
+      z-index: 1;
+
+      .rectangle2-form {
+        margin: 20px 44px 0px 44px;
+
+        .choose-role {
+          height: 40;
+          width: 185px;
+          margin: 50px 59%;
+          position: relative;
+          box-shadow: 0 0 20px 9px #ff61241f;
+          border: 1px solid #f16736;
+          border-radius: 30px;
+          opacity: 1;
+
+          .toggle-btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            outline: none;
+            position: relative;
+            font-weight: 700;
+          }
+
+          .btn {
+            height: 100%;
+            background-image: linear-gradient(
+              rgba(251, 188, 5),
+              rgba(243, 128, 29),
+              #ed3237
+            );
+            position: absolute;
+            border-radius: 30px;
+            transition: 0.5s;
+          }
+        }
+
+        .button {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .status-account {
+          display: flex;
+          margin-top: 3%;
+          justify-content: center;
+          h4 {
+            color: rgb(111, 111, 218);
+            margin-left: 5px;
+          }
+        }
+
+        .form-login {
+          margin: 20px 0px 20px 0px;
+          width: 100%;
+
+          .form {
+            margin: 20px 0px 10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+
+          input[type="text"],
+          input[type="password"],
+          input[type="email"],
+          [tabindex] {
+            width: 100%;
+            height: 30px;
+          }
+          input[type="checkbox"] {
+            margin: 15px 5px 0px 0px;
+          }
+        }
+      }
+    }
+    .brand-login {
+      transition: 0.5s;
+    }
+    .background-image {
+      margin-top: 10%;
+      margin-right: 38%;
+      z-index: 2;
+      height: 50%;
+      width: 35%;
+    }
+  }
+}
+
+:root {
+    // color
+    --Wheat-color: #f5d8ae;
+    --SonicSilver-color: #7b7777;
+    --Linear-orange-color: linear-gradient(
+      180deg,
+      #f0a237 0%,
+      #f16736 50.31%,
+      #ed3237 100%
+    );
+    //   --Inter-font-family: "Inter", sans-serif;
+  }
+  .auth {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--Wheat-color);
+    //   font-family: var(--Inter-font-family);
+    & .container {
+      width: 65%;
+      // height: 50vh;
+      // background-color: white;
+      margin: 0 auto;
+      border-radius: 20px;
+      & .auth-container {
+        width: 65%;
+        margin: 0 auto;
+        height: 70vh;
+        display: flex;
+        position: relative;
+        & .block-left {
+          width: 40%;
+          background: var(--Linear-orange-color);
+          text-align: center;
+          border-top-left-radius: 30px;
+          border-bottom-left-radius: 30px;
+          & .auth-title {
+            padding-top: 70px;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 17px;
+            line-height: 44px;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          }
+          & .saly1-img {
+            width: 42rem;
+            object-fit: cover;
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            left: 0;
+            transform: translateX(-75px);
+          }
+        }
+        & .block-right {
+          width: 60%;
+          background-color: white;
+          border-radius: 30px;
+          transform: translateX(-25px);
+          & .block-container {
+            width: 90%;
+            height: 65vh;
+            margin: 0 auto;
+            margin-top: 70px;
+            position: relative;
+          }
+        }
+      }
+    }
+  }
+  
