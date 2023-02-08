@@ -1,0 +1,65 @@
+@import "normalize.css";
+:root {
+  --white: rgba(255, 255, 255, 1);
+  --primary: #f16736;
+  --black: #000;
+  --text-color: #333;
+  --Linear-orange-color: linear-gradient(
+    180deg,
+    #f0a237 0%,
+    #f16736 50.83%,
+    #ed3237 100%
+  );
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  text-rendering: optimizeSpeed;
+  font-family: "Inter", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: #EEF4FF;
+}
+button,
+input,
+[tabindex] {
+  outline: none;
+  border: none;
+}
+a[href] {
+  color: var(--text-color);
+  text-decoration: none;
+}
+input,
+textarea,
+select,
+button {
+  outline: none;
+}
+
+input {
+  line-height: normal;
+}
+
+label,
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
