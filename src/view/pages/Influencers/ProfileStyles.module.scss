@@ -12,7 +12,6 @@
     &-content {
         width: 100%;
         max-width: 555px;
-        padding-left: 30px;
     }
 
     &-image {
@@ -58,6 +57,172 @@
     }
 }
 
+
+// ------Profile Personal Information --------------
+
+.infor {
+    padding-bottom: 100px;
+
+    &-container {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0 40px;
+    }
+
+
+    &-content {
+        width: 100%;
+        max-width: 555px;
+    }
+
+    &-desc {
+        display: flex;
+        justify-content: center;
+
+        p {
+            width: 500px;
+            margin-bottom: 10px;
+
+        }
+    }
+
+    &-detail {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 0 50px;
+
+        .label-infor {
+            padding-bottom: 15px;
+            width: 250px;
+        }
+    }
+}
+
+//-----------------------Social Media--------------------
+.socialMedia {
+    padding-bottom: 100px;
+
+    &-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0 40px;
+    }
+
+    &-content {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .default {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0 100px;
+        margin-bottom: 25px;
+        border-radius: 50px;
+
+    }
+
+    .facebook {
+        background-color: rgba(196, 196, 237, 0.3);
+
+        .socialMedia-icon {
+            border-color: blue;
+        }
+
+    }
+
+    .instagram {
+        background-color: rgba(237, 228, 196, 0.3);
+
+        .socialMedia-icon {
+            border-color: #F0A237;
+        }
+    }
+
+    .youtube {
+        background-color: rgba(237, 196, 196, 0.3);
+
+        .socialMedia-icon {
+            border-color: red;
+        }
+    }
+
+    .tiktok {
+        background-color: rgba(98, 98, 112, 0.3);
+
+        .tiktok-btn {
+            background-color: transparent;
+        }
+
+    }
+
+    &-icon {
+        background-color: white;
+        height: 80px;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+        border-style: solid;
+        border-width: 1px;
+
+        img {
+            width: 60px;
+        }
+    }
+}
+
+//-----------------------Gender Ratio
+.genderRatio {
+    padding-bottom: 100px;
+
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0 100px;
+        text-align: center;
+        width: 100%;
+        padding-bottom: 30px;
+    }
+}
+//-------------------My Services
+.myServices {
+    padding-bottom:100px;
+    &-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .services{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 1000px;
+
+
+    }
+}
+//-----------------------Use all-------------------------
+.heading {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: calc(70 / 50);
+    color: #F0A237;
+}
+
+// -------------Responsive-------------
 @media screen and (max-width: 1024px) {
     .intro-image {
         transform: none;
@@ -68,17 +233,58 @@
 @media screen and (max-width: 800px) {
     .intro-container {
         flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .intro {
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    //Infor
+    .infor-detail {
+        flex-direction: column-reverse;
         align-items: flex-start;
     }
+
+    .infor-desc {
+        max-width: 800px;
+    }
+
+    .infor-detail {
+        text-align: center;
+        align-items: center;
+        gap: 0 50px;
+    }
+
+    //Social Media
+    .default {
+        padding: 10px;
+        flex-direction: column;
+        border-radius: 10px !important;
+        text-align: center;
+        width: 400px;
+
+        h5,
+        h6 {
+            padding: 10px;
+        }
+    }
+
 }
 
 @media screen and (max-width: 400px) {
+
+    ////Intro
+
+
+
     .intro-heading {
-        font-size: 30px;
+        font-size: 25px;
     }
 
-    .intro-desc p {
-        max-width: 400px;
+    .intro-desc {
+        max-width: 380px;
     }
 
     .intro-image {
@@ -94,44 +300,61 @@
             width: 180px;
         }
     }
-}
 
-// ------Profile Personal Information --------------
-
-.infor {
-    padding-bottom: 100px;
-
-    &-container {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0 40px;
-    }
-
-    
-    &-heading {
-        font-size: 30px;
-        font-weight: 600;
+    .heading {
+        font-size: 25px;
+        font-weight: 500;
         margin-bottom: 20px;
         line-height: calc(70 / 50);
         color: #F0A237;
     }
 
-    &-desc {
-        padding-bottom: 20px;
-
+    //Infor
+    .infor-desc {
+        max-width: 400px;
     }
 
-    &-detail {
-        text-align: left;
+    //Social Media
+    .socialMedia {
+        padding-bottom: 15px;
+    }
+
+    .subcribles {
+        width: 300px;
+        padding: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 0 400px;
 
-        .label-infor {
-            padding-bottom: 15px;
+
+    }
+
+    .interaction {
+        width: 300px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+    }
+
+    .user {
+        width: 300px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    ///GenderRatio
+    .genderRatio {
+        padding-bottom: 100px;
+
+        .content {
+            gap: 0 50px;
         }
     }
+
 }
