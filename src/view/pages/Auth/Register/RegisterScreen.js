@@ -1,7 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Register.module.scss";
-import { Logo, Saly1 } from "../../../../assets/images/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -37,24 +36,22 @@ const RegisterScreen = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <div>
-      <div className={cx("wrapper")}>
-        <div className={cx("title")}>
-          <h1>B&I Booking</h1>
-        </div>
-        <div className={cx("background-login")}>
-          <img
-            src="https://iili.io/H1b1u2f.png"
-            className={cx("background-image")}
-            alt=""
-          />
-          <div className={cx("rectangle1")}>
-            <h3 className={cx("sologan")}>
-              Join with us and grow the platform
-            </h3>
-          </div>
-          <div className={cx("rectangle2")}>
-            <div className={cx("rectangle2-form")}>
+    <section className={cx("register")}>
+      <div className={cx("container")}>
+        <h1 className={cx("register-logo")}>B&I Booking</h1>
+        <div className={cx("register-container")}>
+          <div className={cx("content")}>
+            <img
+              src="https://iili.io/H1b1u2f.png"
+              alt="login-image"
+              className={cx("login-image")}
+            />
+            <div className={cx("register-sologan")}>
+              <h2 className={cx("welcome")}>
+                Join with us and grow the platform
+              </h2>
+            </div>
+            <div className={cx("register-form")}>
               <div className={cx("choose-role")}>
                 <div
                   style={{ width: width, right: right }}
@@ -75,95 +72,66 @@ const RegisterScreen = () => {
                   Influencer
                 </button>
               </div>
-              <h2>Create Account</h2>
-              <div className={cx("button")}>
-                <Button
-                  className={cx("button-login")}
-                  outline={true}
-                  leftIcon={
-                    <img src="https://iili.io/H1LYZ5g.png" width="25px" />
-                  }
-                >
-                  {" "}
-                  Sign up Google
-                </Button>
-                <Button
-                  outline={true}
-                  leftIcon={
-                    <img src='https://iili.io/H1LYtea.png"' width="25px" />
-                  }
-                >
-                  {" "}
-                  Sign up Facebook
-                </Button>
-              </div>
-              <div
-                className={cx("brand-login")}
-                style={{
-                  display: showBrandLogin ? "none" : "block",
-                  transition: "0.5s",
-                }}
-              >
-                <h4
-                  style={{
-                    color: "gray",
-                    textAlign: "center",
-                    marginTop: "5px",
-                  }}
-                >
-                  ___ OR ___
-                </h4>
-                <div className={cx("form-login")}>
-                  <div className={cx("form")}>
-                    <label>User name</label>
-                    <FontAwesomeIcon icon={faUser} />
-                  </div>
-                  <input type="email" placeholder="Enter user name" />
-                  <hr />
-                  <div className={cx("form")}>
-                    <label>Email</label>
-                    <FontAwesomeIcon icon={faEnvelope} />
-                  </div>
-                  <input type="email" name="email" placeholder="Enter email" />
-                  <hr />
-                  <div className={cx("form")}>
-                    <label>Password</label>
-                    <FontAwesomeIcon
-                      icon={faLock}
-                      onClick={handleLockOpen}
-                      style={{ display: lock === "none" ? "block" : "none" }}
-                    />
-                    <FontAwesomeIcon
-                      icon={faLockOpen}
-                      style={{ display: lock }}
-                      onClick={handleLockClose}
-                    />
-                  </div>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter Password"
-                    name="password"
+
+              <h2>Welcome back!</h2>
+              <div className={cx("form-login")}>
+                <div className={cx("form")}>
+                  <label>User name</label>
+                  <FontAwesomeIcon icon={faUser} />
+                </div>
+                <input type="text" placeholder="Enter user" name="user" />
+                <hr />
+                <div className={cx("form")}>
+                  <label>Email</label>
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </div>
+                <input type="email" placeholder="Enter email" name="email" />
+                <hr />
+                <div className={cx("form")}>
+                  <label>Password</label>
+                  <FontAwesomeIcon
+                    icon={faLock}
+                    onClick={handleLockOpen}
+                    style={{ display: lock === "none" ? "block" : "none" }}
                   />
-                  <hr />
+                  <FontAwesomeIcon
+                    icon={faLockOpen}
+                    style={{ display: lock }}
+                    onClick={handleLockClose}
+                  />
                 </div>
-                <div style={{ textAlign: "center" }}>
-                  <Button
-                    primary={true}
-                    style={{ width: "250px" }}
-                  >
-                    Create Account
-                  </Button>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter Password"
+                  name="password"
+                />
+                <hr />
+                <div className={cx("remember-container")}>
+                  <div>
+                    <input type="checkbox" id="checkbox" name="" value="" />
+                    <span style={{marginLeft:'5px'}}>Remember me</span>
+                  </div>
+                  <div>
+                    <span>
+                      <strong>Forgot Password!</strong>
+                    </span>
+                  </div>
                 </div>
+              </div>
+              <div style={{textAlign: "center"}}>
+                <Button primary={true} style={{ width: "250px" }}>
+                  Login
+                </Button>
               </div>
               <div className={cx("status-account")}>
-                <p>Already have an account?</p>
-                <h4>Log in</h4>
+                <p>Don't have an account?</p>
+                <h4>Sign up here!</h4>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
