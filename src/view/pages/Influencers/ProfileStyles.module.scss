@@ -194,24 +194,143 @@
         padding-bottom: 30px;
     }
 }
-//-------------------My Services
+
+//-------------------My Services---------------
 .myServices {
-    padding-bottom:100px;
-    &-container{
+    padding-bottom: 100px;
+
+    &-container {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
     }
-    .services{
+
+    .services {
         display: flex;
         justify-content: space-around;
         align-items: center;
         width: 1000px;
+    }
 
+    .service {
+        padding-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .service-point {
+        width: 75px;
+        height: 60px;
+        // height: 60px;
+        background-color: #F16736;
+        margin: 10px;
+        border-radius: 10px;
     }
 }
+
+//-----------------Campaign joined--------------
+.campaignJoined {
+    padding-bottom: 100px;
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+    }
+
+    .campaigns {
+        padding: 5px;
+        margin: 10px;
+        width: 400px;
+        padding: 10px;
+        border-color: #F0A237;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 20px;
+        transition: transform .2s;
+        cursor: pointer;
+
+        &:hover{
+            transform: scale(1.05);
+            border: 1px solid #F16736;
+            box-shadow: 0px;
+        }
+
+        .campaign {
+            padding: 10px;
+
+        }
+
+        .campaign-body {
+            margin: 20px 0px 20px 0px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+//----------------FeedBack---------------------
+.feedBack {
+    padding-bottom: 100px;
+
+    &-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .content{
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+    }
+    .feedBack{
+        padding: 5px;
+        width: 400px;
+        margin: 10px;
+        background-color: var(--white);
+        box-shadow: 1px 1px 1px #d2d6dd;
+        border-radius: 20px;
+        transition: transform .2s;
+        cursor: pointer;
+        &:hover{
+            transform: scale(1.05);
+            border: 1px solid #F16736;
+            box-shadow: 0px;
+        }
+
+    }
+    &-infor {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap:0 10px;
+
+    }
+
+    &-avatar {
+        width: 60px;
+        border-radius: 100%;
+    }
+    &-star{
+        color: #F0A237;
+    }
+}
+
 //-----------------------Use all-------------------------
 .heading {
     text-align: center;
@@ -350,11 +469,50 @@
 
     ///GenderRatio
     .genderRatio {
-        padding-bottom: 100px;
+        padding-bottom: 30px;
 
         .content {
             gap: 0 50px;
         }
     }
+
+    //MyService
+    .myServices {
+
+        padding-bottom: 30px;
+    }
+
+    .services {
+        flex-direction: column;
+    }
+
+    .service {
+        width: 400px;
+    }
+
+    .service-point {
+        width: 90px !important;
+    }
+
+    //Campaign joined
+    .campaignJoined {
+        .content {
+            flex-direction: column;
+        }
+
+        .campaigns {
+            width: 360px;
+        }
+    }
+    .feedBack{
+        padding-bottom: 30px;
+        .content{
+            flex-direction: column;
+        }
+        .feedBack{
+            width: 360px;    
+        }
+    }
+
 
 }

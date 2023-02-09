@@ -1,11 +1,10 @@
-import classNames from "classnames/bind";
-import styles from "./ProfileStyles.module.scss";
 import ProfileIntro from "./ProfileIntro";
 import ProfileInfor from "./ProfileInfor";
 import ProfileSocialMedia from "./ProfileSocialMedia";
 import ProfileGenderRatio from "./ProfileGenderRatio";
 import ProfileMyServices from "./ProfileMyServices";
-// const cx = classNames.bind(styles);
+import ProfileCampaignJoined from "./ProfileCampaignJoined";
+import ProfileFeedback from "./ProfileFeedback";
 const ProfileScreen = () => {
   return (
     <div>
@@ -14,6 +13,8 @@ const ProfileScreen = () => {
       <ProfileSocialMedia/>
       <ProfileGenderRatio/>
       <ProfileMyServices/>
+      <ProfileCampaignJoined/>
+      <ProfileFeedback/>
     </div>
   );
 };

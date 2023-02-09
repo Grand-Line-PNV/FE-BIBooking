@@ -11,35 +11,68 @@ const ProfileMyServices = () => {
             <h2 className={cx("heading")}>My Services</h2>
             <div className={cx("services")}>
               <div>
-                <div>
-                  <h4>Edit image</h4>
-                  Lorem Ipsum is simply dummy text of the printing <br/>and
-                  typesetting industry.                </div>
-                <div>
-                  <h4>Edit image</h4>
-                  <span>
-                    Lorem Ipsum is simply dummy text of the printing <br/>and
-                    typesetting industry.
-                  </span>
+                <div className={cx("service")}>
+                  <div className={cx("service-point")}></div>
+                  <div>
+                    <h4>Edit image</h4>
+                    <span>
+                      Lorem Ipsum is simply dummy text of the printing 
+                      and typesetting industry.
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <h4>Edit image</h4>
-                  Lorem Ipsum is simply dummy text of the printing <br/>and
-                  typesetting industry.                </div>
+                <div className={cx("service")}>
+                  <div className={cx("service-point")}></div>
+                  <div>
+                    <h4>Create a video</h4>
+                    <span>
+                      Lorem Ipsum is simply dummy text of the printing 
+                      and typesetting industry.
+                    </span>
+                  </div>
+                </div>
+                <div className={cx("service")}>
+                  <div className={cx("service-point")}></div>
+                  <div>
+                    <h4>Writen content</h4>
+                    <span>
+                      Lorem Ipsum is simply dummy text of the printing 
+                      and typesetting industry.
+                    </span>
+                  </div>
+                </div>
               </div>
               <div>
-                <div>
-                  <h4>Edit image</h4>
-                  Lorem Ipsum is simply dummy text of the printing <br/>and
-                  typesetting industry.                </div>
-                <div>
-                  <h4>Edit image</h4>
-                  Lorem Ipsum is simply dummy text of the printing <br/>and
-                  typesetting industry.                </div>
-                <div>
-                  <h4>Edit image</h4>
-Lorem Ipsum is simply dummy text of the printing <br/>and
-                    typesetting industry.                </div>
+                <div className={cx("service")}>
+                  <div className={cx("service-point")}></div>
+                  <div>
+                    <h4>Model</h4>
+                    <span>
+                      Lorem Ipsum is simply dummy text of the printing 
+                      and typesetting industry.
+                    </span>
+                  </div>
+                </div>
+                <div className={cx("service")}>
+                  <div className={cx("service-point")}></div>
+                  <div>
+                    <h4>Post story</h4>
+                    <span>
+                      Lorem Ipsum is simply dummy text of the printing 
+                      and typesetting industry.
+                    </span>
+                  </div>
+                </div>
+                <div className={cx("service")}>
+                  <div className={cx("service-point")}></div>
+                  <div>
+                    <h4>Post status</h4>
+                    <span>
+                      Lorem Ipsum is simply dummy text of the printing 
+                      and typesetting industry.
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

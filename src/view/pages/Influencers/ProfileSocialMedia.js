@@ -1,13 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 import Button from "../../../components/Button/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faInstagram,
-  faTiktok,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
+
 const cx = classNames.bind(styles);
 
 const ProfileSocialMedia = () => {
