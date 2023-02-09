@@ -124,7 +124,7 @@ const RegisterScreen = () => {
                     <label>Email</label>
                     <FontAwesomeIcon icon={faEnvelope} />
                   </div>
-                  <input type="email" placeholder="Enter email" />
+                  <input type="email" name="email" placeholder="Enter email" />
                   <hr />
                   <div className={cx("form")}>
                     <label>Password</label>
@@ -142,6 +142,7 @@ const RegisterScreen = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter Password"
+                    name="password"
                   />
                   <hr />
                 </div>

@@ -113,7 +113,7 @@ const LoginScreen = () => {
                     <label>Email</label>
                     <FontAwesomeIcon icon={faEnvelope} />
                   </div>
-                  <input type="email" placeholder="Enter email" />
+                  <input type="email" placeholder="Enter email" name="email"/>
                   <hr />
                   <div className={cx("form")}>
                     <label>Password</label>
@@ -131,6 +131,7 @@ const LoginScreen = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter Password"
+                    name="password"
                   />
                   <hr />
                   <div className={cx("remember-container")}>

@@ -16,6 +16,40 @@
   padding: 0;
 }
 
+.heading {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: calc(43 / 30);
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.heading-small {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: calc(20 / 29);
+}
+
+.text {
+  line-height: calc(26 / 18);
+}
+
+.text-medium {
+  font-weight: 500;
+}
+
+.animation {
+  transform-origin: 0 0;
+  opacity: 1;
+  transition-property: transform, opacity;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+}
+
+.required{
+  color: rgba(255, 0, 0, 0.83);
+}
+
 *,
 *::before,
 *::after {
@@ -31,7 +65,7 @@ body {
   font-size: 1.6rem;
   line-height: 1.5;
   color: var(--text-color);
-  background-color: #EEF4FF;
+  // background-color: #EEF4FF;
 }
 button,
 input,
