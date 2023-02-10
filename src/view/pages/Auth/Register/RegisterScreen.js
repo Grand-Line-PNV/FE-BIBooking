@@ -1,6 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./Register.module.scss";
+import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -16,14 +16,11 @@ const RegisterScreen = () => {
   const [right, setRight] = useState("30");
   const [lock, setLock] = useState("none");
   const [showPassword, setShowPassword] = useState(false);
-  const [showBrandLogin, setShowBrandLogin] = useState(false);
   const handleToggleRight = () => {
     setWidth("105px");
     setRight("0px");
-    setShowBrandLogin(!showBrandLogin);
   };
   const handleToggleLeft = () => {
-    setShowBrandLogin(!showBrandLogin);
     setWidth("81px");
     setRight("103px");
   };
@@ -36,22 +33,21 @@ const RegisterScreen = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <section className={cx("register")}>
-      <div className={cx("container")}>
-        <h1 className={cx("register-logo")}>B&I Booking</h1>
-        <div className={cx("register-container")}>
+    <section className={cx("background")}>
+        <h1 className={cx("logo")}>B&I Booking</h1>
+        <div className={cx("container")}>
           <div className={cx("content")}>
             <img
               src="https://iili.io/H1b1u2f.png"
-              alt="login-image"
-              className={cx("login-image")}
+              alt="loginImage"
+              className={cx("image")}
             />
-            <div className={cx("register-sologan")}>
+            <div className={cx("sologan")}>
               <h2 className={cx("welcome")}>
                 Join with us and grow the platform
               </h2>
             </div>
-            <div className={cx("register-form")}>
+            <div className={cx("forms")}>
               <div className={cx("choose-role")}>
                 <div
                   style={{ width: width, right: right }}
@@ -74,7 +70,7 @@ const RegisterScreen = () => {
               </div>
 
               <h2>Welcome back!</h2>
-              <div className={cx("form-login")}>
+              <div >
                 <div className={cx("form")}>
                   <label>User name</label>
                   <FontAwesomeIcon icon={faUser} />
@@ -104,33 +100,23 @@ const RegisterScreen = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter Password"
                   name="password"
+                  
                 />
                 <hr />
-                <div className={cx("remember-container")}>
-                  <div>
-                    <input type="checkbox" id="checkbox" name="" value="" />
-                    <span style={{marginLeft:'5px'}}>Remember me</span>
-                  </div>
-                  <div>
-                    <span>
-                      <strong>Forgot Password!</strong>
-                    </span>
-                  </div>
-                </div>
+
               </div>
               <div style={{textAlign: "center"}}>
-                <Button primary={true} style={{ width: "250px" }}>
-                  Login
+                <Button primary={true} className={cx("btn-submit")}>
+                  Register
                 </Button>
               </div>
               <div className={cx("status-account")}>
-                <p>Don't have an account?</p>
-                <h4>Sign up here!</h4>
+                <p>Already have an account?</p>
+                <h4>Log in here!</h4>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 };

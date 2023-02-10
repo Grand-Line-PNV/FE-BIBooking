@@ -1,3 +1,5 @@
+@import './Login/LoginStyle.module.scss';
+@import './ForgotPassword/ForgotPassword.module.scss';
 :root {
   // color
   --Wheat-color: #f5d8ae;
@@ -10,61 +12,163 @@
   );
   //   --Inter-font-family: "Inter", sans-serif;
 }
-.auth {
-  width: 100%;
+.background {
+  background-image: linear-gradient(rgba(251, 188, 5, 0.22),
+      rgba(243, 128, 29, 0.3735),
+      rgba(251, 188, 5, 0.22));
   height: 100vh;
-  background-color: var(--Wheat-color);
-  //   font-family: var(--Inter-font-family);
-  & .container {
-    width: 65%;
-    // height: 50vh;
-    // background-color: white;
-    margin: 0 auto;
-    border-radius: 20px;
-    & .auth-container {
-      width: 65%;
-      margin: 0 auto;
-      height: 70vh;
-      display: flex;
+  width: 100%;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo {
+    margin-left: 44px;
+    font-weight: 700;
+    background: -webkit-linear-gradient(#f16736, #f0a237, #ed3237);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    height: 650px;
+    position: relative;
+
+  }
+
+  .image {
+    margin: 180px 510px 0px 0px;
+    position: absolute;
+    z-index: 2;
+    width: 400px;
+    height: 500px;
+  }
+
+  .sologan {
+    width: 350px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-image: linear-gradient(rgba(251, 188, 5),
+        rgba(243, 128, 29),
+        rgba(251, 188, 5));
+    z-index: 1;
+
+    .welcome {
+      color: var(--white);
+      width: 270px;
+      font-size: 25px;
+      margin: 40px 0px 0px 35px;
+    }
+
+
+  }
+
+  .forms {
+    margin-left: -10%;
+    width: 500px;
+    border-radius: 30px;
+    background-color: white;
+    z-index: 1;
+    padding: 0 40px 0 40px;
+
+    .choose-role {
+      height: 40;
+      width: 185px;
+      margin: 50px 59%;
       position: relative;
-      & .block-left {
-        width: 40%;
-        background: var(--Linear-orange-color);
-        text-align: center;
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        & .auth-title {
-          padding-top: 70px;
-          font-style: normal;
-          font-weight: 800;
-          font-size: 17px;
-          line-height: 44px;
-          letter-spacing: 0.1em;
-          color: #ffffff;
-          text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        }
-        & .saly1-img {
-          width: 42rem;
-          object-fit: cover;
-          position: absolute;
-          z-index: 1;
-          bottom: 0;
-          left: 0;
-          transform: translateX(-75px);
-        }
+      box-shadow: 0 0 20px 9px #ff61241f;
+      border: 1px solid #f16736;
+      border-radius: 30px;
+      opacity: 1;
+      transition: 0.5s;
+
+
+      .toggle-btn {
+        padding: 10px 20px;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        outline: none;
+        position: relative;
+        font-weight: 700;
+
       }
-      & .block-right {
-        width: 60%;
-        background-color: white;
+
+      .btn {
+        height: 100%;
+        background-image: linear-gradient(rgba(251, 188, 5),
+            rgba(243, 128, 29),
+            #ed3237);
+        position: absolute;
         border-radius: 30px;
-        transform: translateX(-25px);
-        & .block-container {
-          width: 90%;
-          height: 65vh;
-          margin: 0 auto;
-          margin-top: 70px;
-          position: relative;
+        transition: 0.5s;
+      }
+    }
+
+    .form {
+      margin: 20px 0px 10px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .button {
+    display: flex;
+    justify-content: space-between;
+  }
+.btn-submit{
+  width: 100%;
+  margin: 20px 0px 0px 0px;
+}
+  .status-account {
+    display: flex;
+    margin-top: 3%;
+    justify-content: center;
+
+    h4 {
+      color: rgb(111, 111, 218);
+      margin-left: 5px;
+    }
+  }
+
+  
+}
+
+@media screen and (max-width: 400px) {
+  .background {
+    .logo{
+      text-align: center;
+      margin: 0;
+    }
+    .container {
+
+      .content {
+        flex-direction: column;
+        .sologan {
+          display: none;
         }
+        .image{
+          display: none;
+        }
+        .forms {
+          width: 400px;
+          margin-left: 0;
+        }
+        .choose-role{
+          margin: 20px auto;
+        }
+        .status-account {
+          margin: 10px 0px 20px 0px;
+        }
+
       }
     }
   }

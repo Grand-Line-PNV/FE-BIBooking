@@ -4,17 +4,21 @@ import styles from '../Auth.module.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
+  faKey,
   faLockOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 const cx = classNames.bind(styles);
 
-const LoginScreen = () => {
+const ForgotPassword = () => {
   const [width, setWidth] = useState("80px");
   const [right, setRight] = useState("30");
   const [lock, setLock] = useState("none");
   const [showPassword, setShowPassword] = useState(false);
+  const [lock2, setLock2] = useState("none");
+  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
+
   const handleToggleRight = () => {
     setWidth("105px");
     setRight("0px");
@@ -31,6 +35,16 @@ const LoginScreen = () => {
     setLock("block");
     setShowPassword(!showPassword);
   };
+  const handleLock = () => {
+    setLock2("block");
+    setConfirmShowPassword(!showConfirmPassword);
+
+  }
+  const handleUnLock = () => {
+    setLock2("none");
+    setConfirmShowPassword(!showConfirmPassword);
+
+  }
   return (
     <section className={cx("background")}>
         <h1 className={cx("logo")}>B&I Booking</h1>
@@ -68,7 +82,7 @@ const LoginScreen = () => {
                 </button>
               </div>
 
-              <h2>Welcome back!</h2>
+              <h2>Forgot Password!</h2>
               <div>
                 <div className={cx("form")}>
                   <label>Email</label>
@@ -77,16 +91,42 @@ const LoginScreen = () => {
                 <input type="email" placeholder="Enter email" name="email" />
                 <hr />
                 <div className={cx("form")}>
-                  <label>Password</label>
+                <label>OTP</label>
+                <FontAwesomeIcon icon={faKey} />
+              </div>
+              <input type="text" placeholder="Enter OTP" name="otp" />
+              <hr />
+              <div className={cx("form")}>
+              <label>New Password</label>
+              <FontAwesomeIcon
+                icon={faLock}
+                onClick={handleLockOpen}
+                style={{ display: lock === "none" ? "block" : "none" }}
+              />
+              <FontAwesomeIcon
+                icon={faLockOpen}
+                style={{ display: lock }}
+                onClick={handleLockClose}
+              />
+            </div>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter Password"
+              name="password"
+              
+            />
+            <hr />
+            <div className={cx("form")}>
+                  <label>Confirm Password</label>
                   <FontAwesomeIcon
                     icon={faLock}
-                    onClick={handleLockOpen}
-                    style={{ display: lock === "none" ? "block" : "none" }}
+                    onClick={handleLock}
+                    style={{ display: lock2 === "none" ? "block" : "none" }}
                   />
                   <FontAwesomeIcon
                     icon={faLockOpen}
-                    style={{ display: lock }}
-                    onClick={handleLockClose}
+                    style={{ display: lock2 }}
+                    onClick={handleUnLock}
                   />
                 </div>
                 <input
@@ -96,26 +136,17 @@ const LoginScreen = () => {
                   
                 />
                 <hr />
-                <div className={cx("remember-container")}>
-                  <div>
-                    <input type="checkbox" id="checkbox" name="" value="" />
-                    <span style={{marginLeft:'5px'}}>Remember me</span>
-                  </div>
-                  <div>
-                    <span>
-                      <strong>Forgot Password!</strong>
-                    </span>
-                  </div>
-                </div>
+
               </div>
               <div style={{textAlign: "center"}}>
                 <Button primary={true} className={cx("btn-submit")}>
-                  Login
+                  Send
                 </Button>
               </div>
-              <div className={cx("status-account")}>
-                <p>Dont have an account?</p>
-                <h4>Sign up here!</h4>
+              <div style={{textAlign: "center"}}>
+                <Button outline={true} className={cx("btn-submit")}>
+                  Cancel
+                </Button>
               </div>
             </div>
           </div>
@@ -124,4 +155,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default ForgotPassword;

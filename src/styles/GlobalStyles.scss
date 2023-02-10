@@ -1,16 +1,16 @@
 @import "normalize.css";
+
 :root {
   --white: rgba(255, 255, 255, 1);
   --primary: #f16736;
   --black: #000;
   --text-color: #333;
-  --Linear-orange-color: linear-gradient(
-    180deg,
-    #f0a237 0%,
-    #f16736 50.83%,
-    #ed3237 100%
-  );
+  --Linear-orange-color: linear-gradient(180deg,
+      #f0a237 0%,
+      #f16736 50.83%,
+      #ed3237 100%);
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -46,7 +46,7 @@
   transition-timing-function: ease;
 }
 
-.required{
+.required {
   color: rgba(255, 0, 0, 0.83);
 }
 
@@ -59,6 +59,7 @@
 html {
   font-size: 62.5%;
 }
+
 body {
   text-rendering: optimizeSpeed;
   font-family: "Inter", sans-serif;
@@ -67,16 +68,32 @@ body {
   color: var(--text-color);
   // background-color: #EEF4FF;
 }
+
 button,
 input,
 [tabindex] {
   outline: none;
   border: none;
 }
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+[tabindex] {
+  width: 100%;
+  height: 30px;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 a[href] {
   color: var(--text-color);
   text-decoration: none;
 }
+
 input,
 textarea,
 select,
