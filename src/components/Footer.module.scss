@@ -26,13 +26,14 @@
   &-links {
     list-style-type: none;
   }
-    color: white;
   &-item {
     margin-bottom: 10px;
   }
   &-link {
-    color: inherit;
     line-height: calc(30 / 16);
+  }
+  & .footer-link{
+    color: white;
   }
   .social {
     display: flex;
