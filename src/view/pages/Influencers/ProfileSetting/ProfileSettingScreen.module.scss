@@ -37,7 +37,7 @@
   }
   &-path {
   }
-  &-title {
+  & .profile-title {
     margin: 20px 0;
   }
   & .form-inf {
@@ -69,7 +69,6 @@
           & .label-radio {
             font-style: normal;
             font-weight: 500;
-            font-size: 17px;
             color: var(--SonicSilver-color);
           }
           & .radio {
