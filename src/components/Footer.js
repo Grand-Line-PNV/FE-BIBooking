@@ -5,7 +5,6 @@ import { LogoHomePage } from "../assets/images/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
-  faLinkedin,
   faLinkedinIn,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
