@@ -1,21 +1,21 @@
-import { Fragment } from "react";
+import { Fragment,} from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 const cx = classNames.bind(styles);
 
-const ForgotPassword = () => {
+const Confirmation = () => {
   return (
     <Fragment>
       <h2 style={{ marginTop: "40px" }}>Forgot Password!</h2>
       <div>
         <div className={cx("form")}>
-          <label>Email</label>
-          <FontAwesomeIcon icon={faEnvelope} />
+          <label>OTP</label>
+          <FontAwesomeIcon icon={faKey} />
         </div>
-        <input type="email" placeholder="Enter email" name="email" />
+        <input type="text" placeholder="Enter OTP" name="otp" />
         <hr />
       </div>
       <div className={cx("btn-submits")}>
@@ -23,14 +23,14 @@ const ForgotPassword = () => {
           <Button
             primary={true}
             className={cx("btn-submit")}
-            to="/email-comfirmation"
+            to="/new-password"
           >
-            Send
+            Continue
           </Button>
         </div>
         <div>
-          <Button outline={true} className={cx("btn-submit")} to="/login">
-            Cancel
+          <Button outline={true} className={cx("btn-submit")} to="/email-Confirmation">
+            Previous
           </Button>
         </div>
       </div>
@@ -38,4 +38,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default Confirmation;

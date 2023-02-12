@@ -1,175 +1,85 @@
 @import './Login/LoginStyle.module.scss';
 @import './ForgotPassword/ForgotPassword.module.scss';
-:root {
-  // color
-  --Wheat-color: #f5d8ae;
-  --SonicSilver-color: #7b7777;
-  --Linear-orange-color: linear-gradient(
-    180deg,
-    #f0a237 0%,
-    #f16736 50.31%,
-    #ed3237 100%
-  );
-  //   --Inter-font-family: "Inter", sans-serif;
-}
-.background {
-  background-image: linear-gradient(rgba(251, 188, 5, 0.22),
-      rgba(243, 128, 29, 0.3735),
-      rgba(251, 188, 5, 0.22));
-  height: 100vh;
-  width: 100%;
 
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
 
-  .logo {
-    margin-left: 44px;
-    font-weight: 700;
-    background: -webkit-linear-gradient(#f16736, #f0a237, #ed3237);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.choose-role {
+  height: 40;
+  width: 185px;
+  margin: 50px 59%;
+  position: relative;
+  box-shadow: 0 0 20px 9px #ff61241f;
+  border: 1px solid #f16736;
+  border-radius: 30px;
+  opacity: 1;
+  transition: 0.5s;
 
-  .content {
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-    height: 650px;
+
+  .toggle-btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
     position: relative;
+    font-weight: 700;
 
   }
 
-  .image {
-    margin: 180px 510px 0px 0px;
-    position: absolute;
-    z-index: 2;
-    width: 400px;
-    height: 500px;
-  }
-
-  .sologan {
-    width: 350px;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
+  .btn {
+    height: 100%;
     background-image: linear-gradient(rgba(251, 188, 5),
         rgba(243, 128, 29),
-        rgba(251, 188, 5));
-    z-index: 1;
-
-    .welcome {
-      color: var(--white);
-      width: 270px;
-      font-size: 25px;
-      margin: 40px 0px 0px 35px;
-    }
-
-
-  }
-
-  .forms {
-    margin-left: -10%;
-    width: 500px;
+        #ed3237);
+    position: absolute;
     border-radius: 30px;
-    background-color: white;
-    z-index: 1;
-    padding: 0 40px 0 40px;
-
-    .choose-role {
-      height: 40;
-      width: 185px;
-      margin: 50px 59%;
-      position: relative;
-      box-shadow: 0 0 20px 9px #ff61241f;
-      border: 1px solid #f16736;
-      border-radius: 30px;
-      opacity: 1;
-      transition: 0.5s;
-
-
-      .toggle-btn {
-        padding: 10px 20px;
-        cursor: pointer;
-        background: transparent;
-        border: 0;
-        outline: none;
-        position: relative;
-        font-weight: 700;
-
-      }
-
-      .btn {
-        height: 100%;
-        background-image: linear-gradient(rgba(251, 188, 5),
-            rgba(243, 128, 29),
-            #ed3237);
-        position: absolute;
-        border-radius: 30px;
-        transition: 0.5s;
-      }
-    }
-
-    .form {
-      margin: 20px 0px 10px 0px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    transition: 0.5s;
   }
+}
 
-  .button {
-    display: flex;
-    justify-content: space-between;
-  }
-.btn-submit{
+.form {
+  margin: 20px 0px 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.button {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-submits{
+  margin: 0px 0 30px 0;
+}
+.btn-submit {
   width: 100%;
   margin: 20px 0px 0px 0px;
 }
-  .status-account {
-    display: flex;
-    margin-top: 3%;
-    justify-content: center;
 
-    h4 {
-      color: rgb(111, 111, 218);
-      margin-left: 5px;
-    }
+.status-account {
+  display: flex;
+  margin-top: 3%;
+  justify-content: center;
+
+  h4 {
+    color: rgb(111, 111, 218);
+    margin-left: 5px;
   }
-
-  
 }
 
+
+
+
 @media screen and (max-width: 400px) {
-  .background {
-    .logo{
-      text-align: center;
-      margin: 0;
-    }
-    .container {
 
-      .content {
-        flex-direction: column;
-        .sologan {
-          display: none;
-        }
-        .image{
-          display: none;
-        }
-        .forms {
-          width: 400px;
-          margin-left: 0;
-        }
-        .choose-role{
-          margin: 20px auto;
-        }
-        .status-account {
-          margin: 10px 0px 20px 0px;
-        }
 
-      }
-    }
+  .choose-role {
+    margin: 20px auto;
   }
+
+  .status-account {
+    margin: 10px 0px 20px 0px;
+  }
+
+
 }
