@@ -7,6 +7,7 @@ import NewPassword from '../view/pages/Auth/ForgotPassword/NewPassword';
 import LoginScreen from '../view/pages/Auth/Login/LoginScreen';
 import RegisterScreen from '../view/pages/Auth/Register/RegisterScreen';
 import ProfileScreen from "../view/pages/Brands/Profile/ProfileScreen";
+import AllProfileScreen from '../view/pages/Influencers/profile/AllProfileScreen';
 // error
 import Error from '../view/pages/Error';
 //public routes
@@ -22,7 +23,12 @@ const publicRoutes = [{
 }, {
     path: 'brand/profile',
     component: ProfileScreen
-},{
+},
+{
+    path: 'influencer/profile',
+    component: AllProfileScreen
+},
+{
     path: '/forgot-password',
     component: ForgotPassword,
     layout:RegisterLayout
