@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
-import Button from "../../../components/Button/Button";
+import Button from "../../../../components/Button/Button";
 
 const cx = classNames.bind(styles);
 
-const ProfileSocialMedia = () => {
+const SocialMedia = () => {
   return (
-    <section className={cx("socialMedia")}>
+    <section className={cx("inner","socialMedia")}>
       <div className={cx("container")}>
         <div className={cx("socialMedia-container")}>
           <div className={cx("content")}>
@@ -92,4 +92,4 @@ const ProfileSocialMedia = () => {
     </section>
   );
 };
-export default ProfileSocialMedia;
+export default SocialMedia;

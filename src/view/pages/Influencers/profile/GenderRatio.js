@@ -2,9 +2,9 @@ import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 const cx = classNames.bind(styles);
 
-const ProfileGenderRatio = () => {
+const GenderRatio = () => {
   return (
-    <section className={cx("genderRatio")}>
+    <section className={cx("inner","genderRatio")}>
       <div className={cx("container")}>
         <div className={cx("genderRatio-container")}>
           <h2 className={cx("heading")}>Gender Ratio</h2>
@@ -65,4 +65,4 @@ const ProfileGenderRatio = () => {
     </section>
   );
 };
-export default ProfileGenderRatio;
+export default GenderRatio;

@@ -4,9 +4,9 @@ import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 const cx = classNames.bind(styles);
 
-const ProfileFeedback = () => {
+const Feedback = () => {
   return (
-    <section className={cx("feedBack")}>
+    <section className={cx("inner","feedBack")}>
       <div className={cx("container")}>
       <h2 className={cx("heading")}>Feedback</h2>
         <div className={cx("feedBack-container")}>
@@ -86,4 +86,4 @@ const ProfileFeedback = () => {
     </section>
   );
 };
-export default ProfileFeedback;
+export default Feedback;

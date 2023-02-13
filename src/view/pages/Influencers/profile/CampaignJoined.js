@@ -5,9 +5,9 @@ import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 const cx = classNames.bind(styles);
 
-const ProfileCampaignJoined = () => {
+const CampaignJoined = () => {
   return (
-    <section className={cx("campaignJoined")}>
+    <section className={cx("inner","campaignJoined")}>
       <div className={cx("container")}>
         <div className={cx("campaignJoined-container")}>
           <h2 className={cx("heading")}>Campaign joined</h2>
@@ -82,4 +82,4 @@ const ProfileCampaignJoined = () => {
     </section>
   );
 };
-export default ProfileCampaignJoined;
+export default CampaignJoined;

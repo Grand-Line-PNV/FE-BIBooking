@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 const cx = classNames.bind(styles);
-const ProfileInfor = () => {
+const Infor = () => {
   return (
-    <section className={cx("infor")}>
+    <section className={cx("inner","infor")}>
       <div className={cx("container")}>
         <div className={cx("infor-container")}>
           <div className={cx("content")}>
@@ -56,4 +56,4 @@ const ProfileInfor = () => {
     </section>
   );
 };
-export default ProfileInfor;
+export default Infor;

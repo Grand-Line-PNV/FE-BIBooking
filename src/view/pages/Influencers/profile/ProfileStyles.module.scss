@@ -1,3 +1,36 @@
+.inner {
+    padding-bottom: 100px;
+
+    .heading {
+        text-align: center;
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        line-height: calc(70 / 50);
+        color: #F0A237;
+    }
+
+    .infor-container,
+    .socialMedia-container {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 0 40px;
+    }
+
+    .myServices-container,
+    .feedBack-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+////intro
+
 .intro {
     padding-bottom: 100px;
 
@@ -57,20 +90,9 @@
     }
 }
 
-
 // ------Profile Personal Information --------------
 
 .infor {
-    padding-bottom: 100px;
-
-    &-container {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0 40px;
-    }
-
 
     &-content {
         width: 100%;
@@ -93,7 +115,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-
         gap: 0 50px;
 
         .label-infor {
@@ -103,16 +124,8 @@
     }
 }
 
-//-----------------------Social Media--------------------
+// //-----------------------Social Media--------------------
 .socialMedia {
-    padding-bottom: 100px;
-
-    &-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0 40px;
-    }
 
     &-content {
         width: 100%;
@@ -126,7 +139,6 @@
         gap: 0 100px;
         margin-bottom: 25px;
         border-radius: 50px;
-
     }
 
     .facebook {
@@ -180,9 +192,8 @@
     }
 }
 
-//-----------------------Gender Ratio
+// //-----------------------Gender Ratio
 .genderRatio {
-    padding-bottom: 100px;
 
     .content {
         display: flex;
@@ -195,16 +206,8 @@
     }
 }
 
-//-------------------My Services---------------
+// //-------------------My Services---------------
 .myServices {
-    padding-bottom: 100px;
-
-    &-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
 
     .services {
         display: flex;
@@ -223,29 +226,20 @@
     .service-point {
         width: 75px;
         height: 60px;
-        // height: 60px;
         background-color: #F16736;
         margin: 10px;
         border-radius: 10px;
     }
 }
 
-//-----------------Campaign joined--------------
+// //-----------------Campaign joined--------------
 .campaignJoined {
-    padding-bottom: 100px;
-
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
     .content {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-
     }
 
     .campaigns {
@@ -260,7 +254,7 @@
         transition: transform .2s;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
             transform: scale(1.05);
             border: 1px solid #F16736;
             box-shadow: 0px;
@@ -268,7 +262,6 @@
 
         .campaign {
             padding: 10px;
-
         }
 
         .campaign-body {
@@ -284,21 +277,16 @@
     }
 }
 
-//----------------FeedBack---------------------
-.feedBack {
-    padding-bottom: 100px;
 
-    &-container {
+// //----------------FeedBack---------------------
+.feedBack {
+    .content {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
     }
-    .content{
-        display: flex;
-        justify-content:space-between;
-        align-items: center;
-    }
-    .feedBack{
+
+    .feedBack {
         padding: 5px;
         width: 400px;
         margin: 10px;
@@ -307,18 +295,19 @@
         border-radius: 20px;
         transition: transform .2s;
         cursor: pointer;
-        &:hover{
+
+        &:hover {
             transform: scale(1.05);
             border: 1px solid #F16736;
             box-shadow: 0px;
         }
-
     }
+
     &-infor {
         display: flex;
         justify-content: left;
         align-items: center;
-        gap:0 10px;
+        gap: 0 10px;
 
     }
 
@@ -326,20 +315,12 @@
         width: 60px;
         border-radius: 100%;
     }
-    &-star{
+
+    &-star {
         color: #F0A237;
     }
 }
 
-//-----------------------Use all-------------------------
-.heading {
-    text-align: center;
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    line-height: calc(70 / 50);
-    color: #F0A237;
-}
 
 // -------------Responsive-------------
 @media screen and (max-width: 1024px) {
@@ -393,11 +374,11 @@
 }
 
 @media screen and (max-width: 400px) {
+    .inner {
+        padding-bottom: 30px;
+    }
 
-    ////Intro
-
-
-
+    //Intro
     .intro-heading {
         font-size: 25px;
     }
@@ -407,10 +388,8 @@
     }
 
     .intro-image {
-
         .image-background {
             width: 400px;
-
         }
 
         .image-avatar {
@@ -428,24 +407,20 @@
         color: #F0A237;
     }
 
-    //Infor
-    .infor-desc {
-        max-width: 400px;
+    // Infor
+    .infor {
+        .content {
+            max-width: 360px;
+        }
     }
 
     //Social Media
-    .socialMedia {
-        padding-bottom: 15px;
-    }
-
     .subcribles {
         width: 300px;
         padding: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-
     }
 
     .interaction {
@@ -454,8 +429,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-
     }
 
     .user {
@@ -464,24 +437,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-
     }
 
     ///GenderRatio
     .genderRatio {
-        padding-bottom: 30px;
-
         .content {
             gap: 0 50px;
         }
     }
 
     //MyService
-    .myServices {
-
-        padding-bottom: 30px;
-    }
-
     .services {
         flex-direction: column;
     }
@@ -504,15 +469,14 @@
             width: 360px;
         }
     }
-    .feedBack{
-        padding-bottom: 30px;
-        .content{
+
+    .feedBack {
+        .content {
             flex-direction: column;
         }
-        .feedBack{
-            width: 360px;    
+
+        .feedBack {
+            width: 360px;
         }
     }
-
-
 }

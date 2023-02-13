@@ -1,11 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
-import Button from "../../../components/Button/Button";
+import Button from "../../../../components/Button/Button";
 const cx = classNames.bind(styles);
-const ProfileIntro = () => {
+const Intro = () => {
   return (
     <div>
-      <section className={cx("intro")}>
+      <section className={cx("inner","intro")}>
         <div className={cx("container")}>
           <div className={cx("intro-container")}>
             <div className={cx("content")}>
@@ -38,4 +38,4 @@ const ProfileIntro = () => {
     </div>
   );
 };
-export default ProfileIntro;
+export default Intro;

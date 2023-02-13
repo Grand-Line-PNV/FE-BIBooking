@@ -2,9 +2,9 @@ import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 const cx = classNames.bind(styles);
 
-const ProfileMyServices = () => {
+const MyServices = () => {
   return (
-    <section className={cx("myServices")}>
+    <section className={cx("inner","myServices")}>
       <div className={cx("container")}>
         <div className={cx("myServices-container")}>
           <div className={cx("content")}>
@@ -81,4 +81,4 @@ const ProfileMyServices = () => {
     </section>
   );
 };
-export default ProfileMyServices;
+export default MyServices;
