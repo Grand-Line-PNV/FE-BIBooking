@@ -31,6 +31,7 @@
 }
 
 .text {
+  font-size: 18px;
   line-height: calc(26 / 18);
 }
 
@@ -92,6 +93,10 @@ input::-ms-clear {
 a[href] {
   color: var(--text-color);
   text-decoration: none;
+}
+
+li {
+  list-style: none;
 }
 
 input,
