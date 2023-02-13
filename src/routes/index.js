@@ -1,5 +1,5 @@
 //layouts
-import { HeaderOnly,RegisterLayout} from '../layout';
+import { RegisterLayout} from '../layout';
 import Confirmation from '../view/pages/Auth/ForgotPassword/EmailConfirmation';
 import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
 import NewPassword from '../view/pages/Auth/ForgotPassword/NewPassword';

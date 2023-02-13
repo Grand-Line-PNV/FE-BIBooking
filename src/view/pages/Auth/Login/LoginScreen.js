@@ -98,7 +98,7 @@ const LoginScreen = () => {
       </div>
       <div className={cx("status-account")}>
         <p>Dont have an account?</p>
-        <Link to="/">
+        <Link to="/register">
           <h4 style={{ cursor: "pointer" }}>Sign up here!</h4>
         </Link>
       </div>

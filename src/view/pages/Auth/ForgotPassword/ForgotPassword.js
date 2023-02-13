@@ -23,7 +23,7 @@ const ForgotPassword = () => {
           <Button
             primary={true}
             className={cx("btn-submit")}
-            to="/email-comfirmation"
+            to="/email-confirmation"
           >
             Send
           </Button>
