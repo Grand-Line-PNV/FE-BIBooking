@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ProfileSettingScreen.module.scss";
+import styles from "./SettingScreen.module.scss";
 import classNames from "classnames/bind";
 import Button from "../../../../components/Button/Button";
 import { Avatar } from "../../../../assets/images";
@@ -8,7 +8,7 @@ import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
-const ProfileSettingScreen = () => {
+const SettingScreen = () => {
   return (
     <section className={cx("profile-setting", "animation")}>
       <div className={cx("container")}>
@@ -257,4 +257,4 @@ const ProfileSettingScreen = () => {
   );
 };
 
-export default ProfileSettingScreen;
+export default SettingScreen;
