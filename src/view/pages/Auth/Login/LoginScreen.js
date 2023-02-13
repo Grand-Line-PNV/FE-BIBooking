@@ -10,9 +10,15 @@ import { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLoginApi } from "../../../../api/feature";
 import { authorAction } from "../../../../features/feature/author";
+import {
+  setRole,
+  roleSelector,
+} from "../../../../features/feature/roleUserSlide";
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
+  const role = useSelector(roleSelector);
+
   const [width, setWidth] = useState("80px");
   const [right, setRight] = useState("30");
   const [lock, setLock] = useState("none");
@@ -20,38 +26,52 @@ const LoginScreen = () => {
   const [item, setItem] = useState({
     email: "",
     password: "",
+    // role_id: role,
   });
   const [error, setError] = useState(false);
   const [textError, setextTError] = useState("");
   const navigation = useNavigate();
   const dispatch = useDispatch();
+
   const handleLogin = async (item) => {
     try {
       const res = await userLoginApi(item);
-      dispatch(authorAction.addOne(item));
-      alert("successfully");
-      navigation("/brand/profile");
+      if (res.data.account.role_id == role){
+        dispatch(authorAction.addOne(item));
+        alert("successfully");
+        navigation("/brand/profile");
+      }else{
+        alert("Choose wrong role!")
+      }
+      
     } catch (err) {
       setError(true);
-      setextTError("Account or password wrong!")
+      setextTError("Account or password wrong!");
     }
   };
   const addItem = () => {
     if (item.email == "" && item.password == "") {
       setError(true);
-      setextTError("Please fill all the blank!")
+      setextTError("Please fill all the blank!");
+      // alert(item.role_id)
     } else {
       handleLogin(item);
     }
   };
-  const handleToggleRight = () => {
-    setWidth("105px");
-    setRight("0px");
-  };
-  const handleToggleLeft = () => {
+
+  const clickBrandHandler = () => {
     setWidth("81px");
     setRight("103px");
+    dispatch(setRole(1));
   };
+
+  const clickInfluencerHandler = () => {
+    setWidth("105px");
+    setRight("0px");
+    // save role into redux
+    dispatch(setRole(2));
+  };
+  console.log(role);
   const handleLockClose = () => {
     setLock("none");
     setShowPassword(!showPassword);
@@ -67,14 +87,14 @@ const LoginScreen = () => {
         <button
           type="button"
           className={cx("toggle-btn")}
-          onClick={handleToggleLeft}
+          onClick={clickBrandHandler}
         >
           Brand
         </button>
         <button
           type="button"
           className={cx("toggle-btn")}
-          onClick={handleToggleRight}
+          onClick={clickInfluencerHandler}
         >
           Influencer
         </button>
@@ -116,9 +136,7 @@ const LoginScreen = () => {
         />
         <hr />
         {error && (
-          <div style={{ color: "red", marginTop: 10 }}>
-            {textError}
-          </div>
+          <div style={{ color: "red", marginTop: 10 }}>{textError}</div>
         )}
         <div className={cx("remember-container")}>
           <div>

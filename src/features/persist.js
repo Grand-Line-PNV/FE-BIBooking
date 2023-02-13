@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import storage from 'redux-persist/lib/storage';
 
 const persist = {
   key: 'root',
-  storage: AsyncStorage,
+  storage,
   timeout: null,
   version: 1,
   whitelist: [],
