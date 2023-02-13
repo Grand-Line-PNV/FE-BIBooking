@@ -14,22 +14,22 @@ export default function Header() {
           <img src={LogoHomePage} alt="" />
           <ul className={cx("menu")}>
             <li className={cx("container")}>
-              <a href="#" className={cx("menu-link")}>
+              <a href="#" className={cx("menu-link", "text")}>
                 Home
               </a>
             </li>
             <li className={cx("menu-item")}>
-              <a href="#" className={cx("menu-link")}>
+              <a href="#" className={cx("menu-link", "text")}>
                 Campaign
               </a>
             </li>
             <li className={cx("menu-item")}>
-              <a href="#" className={cx("menu-link")}>
+              <a href="#" className={cx("menu-link", "text")}>
                 Task
               </a>
             </li>
             <li className={cx("menu-item")}>
-              <a href="#" className={cx("menu-link")}>
+              <a href="#" className={cx("menu-link", "text")}>
                 Revenue
               </a>
             </li>
