@@ -39,7 +39,7 @@ const LoginScreen = () => {
       if (res.data.account.role_id == role){
         dispatch(authorAction.addOne(item));
         alert("successfully");
-        navigation("/brand/profile");
+        navigation("/influencer/profile");
       }else{
         alert("Choose wrong role!")
       }
