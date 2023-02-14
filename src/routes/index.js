@@ -1,6 +1,6 @@
 //layouts
 import { HeaderOnly,RegisterLayout} from '../layout';
-import Confirmation from '../view/pages/Auth/ForgotPassword/EmailConfirmation';
+import Confirmation from '../view/pages/Auth/ForgotPassword/Confirmation';
 import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
 import NewPassword from '../view/pages/Auth/ForgotPassword/NewPassword';
 //pages
@@ -38,7 +38,7 @@ const publicRoutes = [{
     component: ForgotPassword,
     layout:RegisterLayout
 },{
-    path: '/email-confirmation',
+    path: '/verification',
     component: Confirmation,
     layout:RegisterLayout
 }

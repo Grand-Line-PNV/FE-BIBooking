@@ -35,8 +35,7 @@
       border-bottom: red;
     }
   }
-  &-path {
-  }
+
   & .profile-title {
     margin: 20px 0;
   }
@@ -79,8 +78,7 @@
           }
         }
       }
-      & .form-control-left {
-      }
+
       & .form-control-right {
         display: flex;
         flex-direction: column-reverse;
@@ -106,6 +104,6 @@
   & .submit {
     margin: 20px 0;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 }

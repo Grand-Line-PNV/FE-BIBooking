@@ -9,39 +9,69 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+// ----------------------------------------------------------------
+import { useDispatch, useSelector } from "react-redux";
+import { addNewUser } from "../../../../api/feature";
+import { registerAction } from "../../../../features/feature/register";
+import useAuth from "../../../../hooks/useAuth";
+// ------------------------------------------------------------------
 const cx = classNames.bind(styles);
 
 const RegisterScreen = () => {
-  const [width, setWidth] = useState("80px");
-  const [right, setRight] = useState("30");
-  const [lock, setLock] = useState("none");
-  const [lock2, setLock2] = useState("none");
-  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const handleToggleRight = () => {
+  const navigation = useNavigate();
+
+  const {
+    width,
+    right,
+    lock,
+    lock2,
+    setWidth,
+    showPassword,
+    setRight,
+    showConfirmPassword,
+    handleLockClose,
+    handleLockOpen,
+    handleLock,
+    handleUnLock
+  } = useAuth();
+  const [data, setData] = useState({
+    username:"",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    role_id: "",
+  });
+  const handleToggleRight = (e) => {
     setWidth("105px");
     setRight("0px");
+    setData({...data, role_id:e.target.value})
   };
-  const handleToggleLeft = () => {
+  const handleToggleLeft = (e) => {
     setWidth("81px");
     setRight("103px");
+    setData({...data, role_id:e.target.value})
   };
-  const handleLockClose = () => {
-    setLock("none");
-    setShowPassword(!showPassword);
+  const dispatch = useDispatch();
+  const onAddNewUser = async (data) => {
+    try {
+      const res = await addNewUser(data);
+      dispatch(registerAction.addOne(data));
+      navigation("/verification");
+
+    } catch (error) {
+      console.log('onAddNewUser   error', error);
+    }
   };
-  const handleLockOpen = () => {
-    setLock("block");
-    setShowPassword(!showPassword);
-  };
-  const handleLock = () => {
-    setLock2("block");
-    setConfirmShowPassword(!showConfirmPassword);
-  };
-  const handleUnLock = () => {
-    setLock2("none");
-    setConfirmShowPassword(!showConfirmPassword);
+  const addUser = () => {
+    if (!data) {
+      console.log('error')
+      alert('No User!', 'You need to enter data');
+    } else {
+      onAddNewUser(data)
+      console.log('sucess')
+
+    }
   };
   return (
     <Fragment>
@@ -51,6 +81,7 @@ const RegisterScreen = () => {
           type="button"
           className={cx("toggle-btn")}
           onClick={handleToggleLeft}
+          value="1"
         >
           Brand
         </button>
@@ -58,6 +89,7 @@ const RegisterScreen = () => {
           type="button"
           className={cx("toggle-btn")}
           onClick={handleToggleRight}
+          value="2"
         >
           Influencer
         </button>
@@ -69,13 +101,13 @@ const RegisterScreen = () => {
           <label>User name</label>
           <FontAwesomeIcon icon={faUser} />
         </div>
-        <input type="text" placeholder="Enter user" name="user" />
+        <input type="text" placeholder="Enter user" name="user" value={data.username} onChange={(e)=>setData({...data,username:e.target.value})}/>
         <hr />
         <div className={cx("form")}>
           <label>Email</label>
           <FontAwesomeIcon icon={faEnvelope} />
         </div>
-        <input type="email" placeholder="Enter email" name="email" />
+        <input type="email" placeholder="Enter email" name="email" value={data.email} onChange={(e)=>setData({...data,email:e.target.value})}/>
         <hr />
         <div className={cx("form")}>
           <label>Password</label>
@@ -94,6 +126,7 @@ const RegisterScreen = () => {
           type={showPassword ? "text" : "password"}
           placeholder="Enter Password"
           name="password"
+          value={data.password} onChange={(e)=>setData({...data,password:e.target.value})}
         />
         <hr />
         <div className={cx("form")}>
@@ -110,14 +143,15 @@ const RegisterScreen = () => {
           />
         </div>
         <input
-          type={showPassword ? "text" : "password"}
+          type={showConfirmPassword ? "text" : "password"}
           placeholder="Enter Password"
           name="password"
+          value={data.confirmPassword} onChange={(e)=>setData({...data,password_confirmation:e.target.value})}
         />
         <hr />
       </div>
       <div>
-        <Button primary={true} className={cx("btn-submit")}>
+        <Button primary={true} className={cx("btn-submit")} onClick={addUser}>
           Register
         </Button>
       </div>
@@ -130,5 +164,6 @@ const RegisterScreen = () => {
     </Fragment>
   );
 };
+
 
 export default RegisterScreen;

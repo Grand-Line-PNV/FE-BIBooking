@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,13 +26,11 @@ const LoginScreen = () => {
   const [item, setItem] = useState({
     email: "",
     password: "",
-    // role_id: role,
   });
   const [error, setError] = useState(false);
   const [textError, setextTError] = useState("");
   const navigation = useNavigate();
   const dispatch = useDispatch();
-
   const handleLogin = async (item) => {
     try {
       const res = await userLoginApi(item);
@@ -68,7 +66,6 @@ const LoginScreen = () => {
   const clickInfluencerHandler = () => {
     setWidth("105px");
     setRight("0px");
-    // save role into redux
     dispatch(setRole(2));
   };
   console.log(role);

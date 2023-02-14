@@ -5,30 +5,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
+import useAuth from "../../../../hooks/useAuth";
 const cx = classNames.bind(styles);
 
-const NewPassword = () => {
-  const [lock, setLock] = useState("none");
-  const [showPassword, setShowPassword] = useState(false);
-  const [lock2, setLock2] = useState("none");
-  const [showConfirmPassword, setConfirmShowPassword] = useState(false);
+const NewPassword = () => {  const {
+    
+    lock,
+    lock2,
+    showPassword,
+    showConfirmPassword,
+    handleLockClose,
+    handleLockOpen,
+    handleLock,
+    handleUnLock
+  } = useAuth()
 
-  const handleLockClose = () => {
-    setLock("none");
-    setShowPassword(!showPassword);
-  };
-  const handleLockOpen = () => {
-    setLock("block");
-    setShowPassword(!showPassword);
-  };
-  const handleLock = () => {
-    setLock2("block");
-    setConfirmShowPassword(!showConfirmPassword);
-  };
-  const handleUnLock = () => {
-    setLock2("none");
-    setConfirmShowPassword(!showConfirmPassword);
-  };
   return (
     <Fragment>
       <h2 style={{ marginTop: "40px" }}>Change password!</h2>
@@ -66,7 +57,7 @@ const NewPassword = () => {
           />
         </div>
         <input
-          type={showPassword ? "text" : "password"}
+          type={showConfirmPassword ? "text" : "password"}
           placeholder="Enter Password"
           name="password"
         />
