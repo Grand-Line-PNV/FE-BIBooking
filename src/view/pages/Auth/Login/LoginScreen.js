@@ -34,7 +34,7 @@ const LoginScreen = () => {
   const handleLogin = async (item) => {
     try {
       const res = await userLoginApi(item);
-      if (res.data.account.role_id == role){
+      if (res.data.account.role_id === role){
         dispatch(authorAction.addOne(item));
         alert("successfully");
         navigation("/influencer/profile");
@@ -48,7 +48,7 @@ const LoginScreen = () => {
     }
   };
   const addItem = () => {
-    if (item.email == "" && item.password == "") {
+    if (item.email === "" && item.password === "") {
       setError(true);
       setextTError("Please fill all the blank!");
       // alert(item.role_id)
