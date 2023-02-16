@@ -22,6 +22,7 @@ const Confirmation = () => {
     otp:""
   });
   const Verification = async (data) => {
+    console.log(emailUser)
     try {
       const res = await verifyUser(data);
       navigation(prePath === 'register' ? '/login' : '/new-password')
