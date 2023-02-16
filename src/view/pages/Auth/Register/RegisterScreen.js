@@ -9,17 +9,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // ----------------------------------------------------------------
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, } from "react-redux";
 import { addNewUser } from "../../../../api/feature";
 import { registerAction } from "../../../../features/feature/register";
 import useAuth from "../../../../hooks/useAuth";
+
 // ------------------------------------------------------------------
 const cx = classNames.bind(styles);
-
 const RegisterScreen = () => {
-  const navigation = useNavigate();
 
   const {
     width,
@@ -35,13 +34,16 @@ const RegisterScreen = () => {
     handleLock,
     handleUnLock
   } = useAuth();
+
   const [data, setData] = useState({
     username:"",
     email: "",
     password: "",
     password_confirmation: "",
-    role_id: "",
+    role_id: '1',
   });
+  const navigation = useNavigate();
+
   const handleToggleRight = (e) => {
     setWidth("105px");
     setRight("0px");
@@ -54,11 +56,13 @@ const RegisterScreen = () => {
   };
   const dispatch = useDispatch();
   const onAddNewUser = async (data) => {
+    sessionStorage.setItem("path", 'register');
     try {
       const res = await addNewUser(data);
       dispatch(registerAction.addOne(data));
-      navigation("/verification");
+      sessionStorage.setItem("email", data.email);
 
+      navigation('/verification')
     } catch (error) {
       console.log('onAddNewUser   error', error);
     }
@@ -73,6 +77,7 @@ const RegisterScreen = () => {
 
     }
   };
+  const path = 'register'
   return (
     <Fragment>
       <div className={cx("choose-role")}>

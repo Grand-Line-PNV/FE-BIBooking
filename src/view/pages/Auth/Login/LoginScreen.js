@@ -17,6 +17,8 @@ import {
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
+  sessionStorage.getItem("path");
+
   const role = useSelector(roleSelector);
 
   const [width, setWidth] = useState("80px");
@@ -34,7 +36,7 @@ const LoginScreen = () => {
   const handleLogin = async (item) => {
     try {
       const res = await userLoginApi(item);
-      if (res.data.account.role_id == role){
+      if (res.data.account.role_id === role){
         dispatch(authorAction.addOne(item));
         alert("successfully");
         navigation("/influencer/profile");
@@ -48,7 +50,7 @@ const LoginScreen = () => {
     }
   };
   const addItem = () => {
-    if (item.email == "" && item.password == "") {
+    if (item.email === "" && item.password === "") {
       setError(true);
       setextTError("Please fill all the blank!");
       // alert(item.role_id)
@@ -56,6 +58,10 @@ const LoginScreen = () => {
       handleLogin(item);
     }
   };
+  const onForgotPasswordPage = () =>{
+    sessionStorage.setItem("path", 'login');
+    navigation("/forgot-password");
+  }
 
   const clickBrandHandler = () => {
     setWidth("81px");
@@ -142,9 +148,9 @@ const LoginScreen = () => {
           </div>
           <div>
             <span>
-              <Link to="/forgot-password">
+              <Button onClick={onForgotPasswordPage}>
                 <strong style={{ cursor: "pointer" }}>Forgot Password!</strong>
-              </Link>
+              </Button>
             </span>
           </div>
         </div>
