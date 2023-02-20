@@ -1,0 +1,66 @@
+
+.form-inf {
+    & .form-above {
+      display: flex;
+      justify-content: space-between;
+
+      .form-label {
+        font-size: 20px;
+        display: inline-block;
+        padding: 5px 0 5px 0;
+      }
+
+
+      & .input-radios {
+        padding-bottom: 16px;
+        display: flex;
+        gap: 80px;
+
+        & .radio-group {
+          display: flex;
+          gap: 5px;
+
+          & .label-radio {
+            font-style: normal;
+            font-weight: 500;
+            color: var(--SonicSilver-color);
+          }
+
+          & .radio {
+            width: 20px;
+            background: transparent;
+            opacity: 1;
+            border: 2px solid #578bb9;
+          }
+        }
+      }
+
+      & .form-control-right {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+    }
+
+  }
+  @media screen and (max-width: 400px) {
+    .form-inf {
+      padding: 5px;
+      & .form-above {
+        flex-direction: column;
+        & .input-radios {
+          padding-bottom: 16px;
+          display: flex;
+          gap: 75px;
+        }
+  
+        & .form-control-right {
+          display: flex;
+          flex-direction: column-reverse;
+        }
+      }
+    }
+    .form-below {
+      padding: 5px !important;
+    }
+    
+  }

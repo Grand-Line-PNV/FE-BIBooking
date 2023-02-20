@@ -12,11 +12,15 @@ function Input({
   def = false,
   rounded = false,
   disabled = false,
+  rows,
+  cols,
   className,
   star,
   placeholder, type, onChangeText, title, value,
   ...passProps
 }) {
+  let Comp = "input";
+
   const props = {
     ...passProps,
   };
@@ -29,11 +33,15 @@ function Input({
       }
     });
   }
+  if (rows || cols) {
+    props.rows = rows;
+    props.cols = cols;
 
+    Comp = 'textarea';
+  }
   const classes = cx({
     [className]: className,
     primary,
-    star,
     def,
     rounded,
     small,
@@ -43,8 +51,8 @@ function Input({
   });
   return (
     <div className={cx("wrapper")}>
-    <label className={cx("title",{star})}>{title}</label>
-    <br/><input className={cx(classes)} {...props} placeholder={placeholder} value={value} onChangeText={onChangeText}/> 
+    <label className={cx("title",{star})}>{title}</label><br/>
+    <Comp className={cx(classes)} {...props} placeholder={placeholder} value={value} onChangeText={onChangeText} type={type}/> 
     </div>
   );
 }
