@@ -76,3 +76,10 @@
 .slick-dots .slick-active button {
     
 }
+
+
+@media screen and (max-width: 1280px) {
+    .slick-slide>div {
+    padding-bottom: 10px;
+}
+}

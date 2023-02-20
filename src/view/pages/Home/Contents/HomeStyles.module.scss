@@ -147,6 +147,13 @@
   }
 }
 
+@media screen and (max-width: 1760px) {
+  .HeroBlock1,
+  .HeroBlock2{
+    display: none;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .hero {
     padding-top: 10px;
