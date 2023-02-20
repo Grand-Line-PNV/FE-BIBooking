@@ -20,7 +20,7 @@ export default function Footer() {
             <a href="index.html" className={cx("footer-logo")}>
               <img src={LogoHomePage} alt="" />
             </a>
-            <p className={cx("footer-desc", "text")}>
+            <p className={cx("footer-desc", "text-medium")}>
               There are many variations of passages of lorem lpsum available,
               but the majority have suffered alteraction
             </p>
@@ -62,7 +62,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className={cx("footer-column")}>
-            <h3 className={cx("footer-heading")}>Information</h3>
+            <h3 className={cx("footer-heading", "heading-small")}>Information</h3>
             <ul className={cx("footer-links")}>
               <li className={cx("footer-item")}>
                 <a href="#" className={cx("footer-link")}>
@@ -87,7 +87,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className={cx("footer-column")}>
-            <h3 className={cx("footer-heading")}>Company</h3>
+            <h3 className={cx("footer-heading", "heading-small")}>Company</h3>
             <ul className={cx("footer-links")}>
               <li className={cx("footer-item")}>
                 <a href="#" className={cx("footer-link")}>

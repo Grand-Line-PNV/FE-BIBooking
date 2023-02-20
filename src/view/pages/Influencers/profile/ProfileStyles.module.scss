@@ -1,483 +1,468 @@
 .inner {
-    padding-bottom: 100px;
-    width: 62%;
-    margin: 0 auto;
-    .heading {
-        text-align: center;
-        font-size: 30px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        line-height: calc(70 / 50);
-        color: #F0A237;
-    }
+  padding-bottom: 100px;
+  width: 62%;
+  margin: 0 auto;
+  .heading {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: calc(70 / 50);
+    color: #f0a237;
+  }
 
-    .infor-container,
-    .socialMedia-container {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 0 40px;
-    }
+  .infor-container,
+  .socialMedia-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0 40px;
+  }
 
-    .myServices-container,
-    .feedBack-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
+  .myServices-container,
+  .feedBack-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 }
 
 ////intro
 
 .intro {
-    padding-bottom: 100px;
+  padding-bottom: 100px;
 
-    &-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0 40px;
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0 40px;
+  }
 
+  &-content {
+    width: 100%;
+    max-width: 555px;
+  }
+
+  &-image {
+    padding-top: 25px;
+    position: relative;
+
+    .image-background {
+      z-index: -1;
+      width: 500px;
     }
 
-    &-content {
-        width: 100%;
-        max-width: 555px;
+    .image-avatar {
+      position: absolute;
+      margin: 60px 0 0 110px;
+      height: 240px;
+      width: 240px;
+      border-radius: 100%;
     }
+  }
 
-    &-image {
-        padding-top: 25px;
-        position: relative;
+  &-button {
+    margin-top: 10px;
+  }
 
-        .image-background {
-            z-index: -1;
-            width: 500px;
+  &-heading {
+    font-size: 50px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: calc(70 / 50);
+    color: red;
+  }
 
-        }
+  &-desc {
+    line-height: calc(30 / 16);
+    margin-bottom: 50px;
+    width: 533px;
 
-        .image-avatar {
-            position: absolute;
-            margin: 60px 0 0 110px;
-            height: 240px;
-            width: 240px;
-            border-radius: 100%;
-        }
+    strong {
+      font-weight: 500;
     }
-
-    &-button {
-        margin-top: 10px;
-    }
-
-
-    &-heading {
-        font-size: 50px;
-        font-weight: 500;
-        margin-bottom: 20px;
-        line-height: calc(70 / 50);
-        color: red;
-    }
-
-    &-desc {
-        line-height: calc(30 / 16);
-        margin-bottom: 50px;
-        width: 533px;
-
-        strong {
-            font-weight: 500;
-        }
-    }
+  }
 }
 
 // ------Profile Personal Information --------------
 
 .infor {
+  &-content {
+    width: 100%;
+    max-width: 555px;
+  }
 
-    &-content {
-        width: 100%;
-        max-width: 555px;
+  &-desc {
+    display: flex;
+    justify-content: center;
+
+    p {
+      width: 500px;
+      margin-bottom: 10px;
     }
+  }
 
-    &-desc {
-        display: flex;
-        justify-content: center;
+  &-detail {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 50px;
 
-        p {
-            width: 500px;
-            margin-bottom: 10px;
-
-        }
+    .label-infor {
+      padding-bottom: 15px;
+      width: 250px;
     }
-
-    &-detail {
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0 50px;
-
-        .label-infor {
-            padding-bottom: 15px;
-            width: 250px;
-        }
-    }
+  }
 }
 
 // //-----------------------Social Media--------------------
 .socialMedia {
+  &-content {
+    width: 100%;
+    max-width: 600px;
+  }
 
-    &-content {
-        width: 100%;
-        max-width: 600px;
+  .default {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0 100px;
+    margin-bottom: 25px;
+    border-radius: 50px;
+  }
+
+  .facebook {
+    background-color: rgba(196, 196, 237, 0.3);
+
+    .socialMedia-icon {
+      border-color: blue;
     }
+  }
 
-    .default {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap: 0 100px;
-        margin-bottom: 25px;
-        border-radius: 50px;
+  .instagram {
+    background-color: rgba(237, 228, 196, 0.3);
+
+    .socialMedia-icon {
+      border-color: #f0a237;
     }
+  }
 
-    .facebook {
-        background-color: rgba(196, 196, 237, 0.3);
+  .youtube {
+    background-color: rgba(237, 196, 196, 0.3);
 
-        .socialMedia-icon {
-            border-color: blue;
-        }
-
+    .socialMedia-icon {
+      border-color: red;
     }
+  }
 
-    .instagram {
-        background-color: rgba(237, 228, 196, 0.3);
+  .tiktok {
+    background-color: rgba(98, 98, 112, 0.3);
 
-        .socialMedia-icon {
-            border-color: #F0A237;
-        }
+    .tiktok-btn {
+      background-color: transparent;
     }
+  }
 
-    .youtube {
-        background-color: rgba(237, 196, 196, 0.3);
+  &-icon {
+    background-color: white;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    border-style: solid;
+    border-width: 1px;
 
-        .socialMedia-icon {
-            border-color: red;
-        }
+    img {
+      width: 60px;
     }
-
-    .tiktok {
-        background-color: rgba(98, 98, 112, 0.3);
-
-        .tiktok-btn {
-            background-color: transparent;
-        }
-
-    }
-
-    &-icon {
-        background-color: white;
-        height: 80px;
-        width: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50px;
-        border-style: solid;
-        border-width: 1px;
-
-        img {
-            width: 60px;
-        }
-    }
+  }
 }
 
 // //-----------------------Gender Ratio
 .genderRatio {
-
-    .content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0 100px;
-        text-align: center;
-        width: 100%;
-        padding-bottom: 30px;
-    }
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 100px;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 30px;
+  }
 }
 
 // //-------------------My Services---------------
 .myServices {
+  .services {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 1000px;
+  }
 
-    .services {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 1000px;
-    }
+  .service {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .service {
-        padding-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .service-point {
-        width: 75px;
-        height: 60px;
-        background-color: #F16736;
-        margin: 10px;
-        border-radius: 10px;
-    }
+  .service-point {
+    width: 75px;
+    height: 60px;
+    background-color: #f16736;
+    margin: 10px;
+    border-radius: 10px;
+  }
 }
 
 // //-----------------Campaign joined--------------
 .campaignJoined {
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 
-    .content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+  .campaigns {
+    padding: 5px;
+    margin: 10px;
+    width: 400px;
+    padding: 10px;
+    border-color: #f0a237;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 20px;
+    transition: transform 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+      border: 1px solid #f16736;
+      box-shadow: 0px;
     }
 
-    .campaigns {
-        padding: 5px;
-        margin: 10px;
-        width: 400px;
-        padding: 10px;
-        border-color: #F0A237;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 20px;
-        transition: transform .2s;
-        cursor: pointer;
-
-        &:hover {
-            transform: scale(1.05);
-            border: 1px solid #F16736;
-            box-shadow: 0px;
-        }
-
-        .campaign {
-            padding: 10px;
-        }
-
-        .campaign-body {
-            margin: 20px 0px 20px 0px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .campaign {
+      padding: 10px;
     }
 
-    img {
-        width: 100%;
+    .campaign-body {
+      margin: 20px 0px 20px 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+  }
+
+  img {
+    width: 100%;
+  }
 }
-
 
 // //----------------FeedBack---------------------
 .feedBack {
-    .content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .feedBack {
+    padding: 5px;
+    width: 400px;
+    margin: 10px;
+    background-color: var(--white);
+    box-shadow: 1px 1px 1px #d2d6dd;
+    border-radius: 20px;
+    transition: transform 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+      border: 1px solid #f16736;
+      box-shadow: 0px;
     }
+  }
 
-    .feedBack {
-        padding: 5px;
-        width: 400px;
-        margin: 10px;
-        background-color: var(--white);
-        box-shadow: 1px 1px 1px #d2d6dd;
-        border-radius: 20px;
-        transition: transform .2s;
-        cursor: pointer;
+  &-infor {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0 10px;
+  }
 
-        &:hover {
-            transform: scale(1.05);
-            border: 1px solid #F16736;
-            box-shadow: 0px;
-        }
-    }
+  &-avatar {
+    width: 60px;
+    border-radius: 100%;
+  }
 
-    &-infor {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        gap: 0 10px;
-
-    }
-
-    &-avatar {
-        width: 60px;
-        border-radius: 100%;
-    }
-
-    &-star {
-        color: #F0A237;
-    }
+  &-star {
+    color: #f0a237;
+  }
 }
-
 
 // -------------Responsive-------------
 @media screen and (max-width: 1024px) {
-    .intro-image {
-        transform: none;
-        margin-bottom: 30px;
-    }
+  .intro-image {
+    transform: none;
+    margin-bottom: 30px;
+  }
 }
 
 @media screen and (max-width: 800px) {
-    .intro-container {
-        flex-direction: column-reverse;
-        align-items: center;
+  .intro-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .intro {
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  //Infor
+  .infor-detail {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .infor-desc {
+    max-width: 800px;
+  }
+
+  .infor-detail {
+    text-align: center;
+    align-items: center;
+    gap: 0 50px;
+  }
+
+  //Social Media
+  .default {
+    padding: 10px;
+    flex-direction: column;
+    border-radius: 10px !important;
+    text-align: center;
+    width: 400px;
+
+    h5,
+    h6 {
+      padding: 10px;
     }
-
-    .intro {
-        padding-bottom: 10px;
-        text-align: center;
-    }
-
-    //Infor
-    .infor-detail {
-        flex-direction: column-reverse;
-        align-items: flex-start;
-    }
-
-    .infor-desc {
-        max-width: 800px;
-    }
-
-    .infor-detail {
-        text-align: center;
-        align-items: center;
-        gap: 0 50px;
-    }
-
-    //Social Media
-    .default {
-        padding: 10px;
-        flex-direction: column;
-        border-radius: 10px !important;
-        text-align: center;
-        width: 400px;
-
-        h5,
-        h6 {
-            padding: 10px;
-        }
-    }
-
+  }
 }
 
 @media screen and (max-width: 400px) {
-    .inner {
-        padding-bottom: 30px;
+  .inner {
+    padding-bottom: 30px;
+  }
+
+  //Intro
+  .intro-heading {
+    font-size: 25px;
+  }
+
+  .intro-desc {
+    max-width: 380px;
+  }
+
+  .intro-image {
+    .image-background {
+      width: 400px;
     }
 
-    //Intro
-    .intro-heading {
-        font-size: 25px;
+    .image-avatar {
+      margin: 30px 0 0 105px;
+      height: 180px;
+      width: 180px;
+    }
+  }
+
+  .heading {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: calc(70 / 50);
+    color: #f0a237;
+  }
+
+  // Infor
+  .infor {
+    .content {
+      max-width: 360px;
+    }
+  }
+
+  //Social Media
+  .subcribles {
+    width: 300px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .interaction {
+    width: 300px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .user {
+    width: 300px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  ///GenderRatio
+  .genderRatio {
+    .content {
+      gap: 0 50px;
+    }
+  }
+
+  //MyService
+  .services {
+    flex-direction: column;
+  }
+
+  .service {
+    width: 400px;
+  }
+
+  .service-point {
+    width: 90px !important;
+  }
+
+  //Campaign joined
+  .campaignJoined {
+    .content {
+      flex-direction: column;
     }
 
-    .intro-desc {
-        max-width: 380px;
+    .campaigns {
+      width: 360px;
     }
+  }
 
-    .intro-image {
-        .image-background {
-            width: 400px;
-        }
-
-        .image-avatar {
-            margin: 30px 0 0 105px;
-            height: 180px;
-            width: 180px;
-        }
-    }
-
-    .heading {
-        font-size: 25px;
-        font-weight: 500;
-        margin-bottom: 20px;
-        line-height: calc(70 / 50);
-        color: #F0A237;
-    }
-
-    // Infor
-    .infor {
-        .content {
-            max-width: 360px;
-        }
-    }
-
-    //Social Media
-    .subcribles {
-        width: 300px;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .interaction {
-        width: 300px;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .user {
-        width: 300px;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    ///GenderRatio
-    .genderRatio {
-        .content {
-            gap: 0 50px;
-        }
-    }
-
-    //MyService
-    .services {
-        flex-direction: column;
-    }
-
-    .service {
-        width: 400px;
-    }
-
-    .service-point {
-        width: 90px !important;
-    }
-
-    //Campaign joined
-    .campaignJoined {
-        .content {
-            flex-direction: column;
-        }
-
-        .campaigns {
-            width: 360px;
-        }
+  .feedBack {
+    .content {
+      flex-direction: column;
     }
 
     .feedBack {
-        .content {
-            flex-direction: column;
-        }
-
-        .feedBack {
-            width: 360px;
-        }
+      width: 360px;
     }
+  }
 }

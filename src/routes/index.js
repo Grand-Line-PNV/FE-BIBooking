@@ -1,3 +1,5 @@
+//HomePage
+import Home from '../view/pages/Home/Home';
 //layouts
 import {RegisterLayout} from '../layout';
 import EditProfileLayout from '../layout/EditProfileLayout';
@@ -25,7 +27,12 @@ const publicRoutes = [{
     component: LoginScreen,
     layout:RegisterLayout
 
-}, {
+},
+{
+    path: '/home',
+    component: Home,
+}
+, {
     path: 'brand/profile',
     component: ProfileScreen
 },
