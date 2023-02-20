@@ -1,5 +1,6 @@
 //layouts
-import { HeaderOnly,RegisterLayout} from '../layout';
+import {RegisterLayout} from '../layout';
+import EditProfileLayout from '../layout/EditProfileLayout';
 import Confirmation from '../view/pages/Auth/ForgotPassword/Confirmation';
 import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
 import NewPassword from '../view/pages/Auth/ForgotPassword/NewPassword';
@@ -8,9 +9,12 @@ import LoginScreen from '../view/pages/Auth/Login/LoginScreen';
 import RegisterScreen from '../view/pages/Auth/Register/RegisterScreen';
 import ProfileScreen from "../view/pages/Brands/Profile/ProfileScreen";
 import AllProfileScreen from '../view/pages/Influencers/profile/AllProfileScreen';
-import SettingScreen from '../view/pages/Influencers/Setting/ProfileSettingScreen';
+import EditProfile from '../view/pages/Influencers/Setting/profile/EditProfile';
+import EditSocialMedia from '../view/pages/Influencers/Setting/profile/EditSocialMedia';
+import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFollowerRate';
 // error
 import Error from '../view/pages/Error';
+import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
 //public routes
 const publicRoutes = [{
     path: '/register',
@@ -30,8 +34,9 @@ const publicRoutes = [{
     component: AllProfileScreen
 },
 {
-    path: 'influencer/Setting',
-    component: SettingScreen
+    path: 'influencer/setting/edit-profile',
+    component: EditProfile,
+    layout:EditProfileLayout
 },
 {
     path: '/forgot-password',
@@ -50,6 +55,21 @@ const publicRoutes = [{
     path: '/error',
     component: Error,
     // layout:RegisterLayout
+},
+{
+    path: '/influencer/setting/edit-profile/social-media',
+    component:EditSocialMedia,
+    layout:EditProfileLayout
+},
+{
+    path:'/influencer/setting//edit-profile/followr-rate',
+    component:EditFollowerRate,
+    layout:EditProfileLayout
+},{
+    path:'/influencer/setting//edit-profile/services',
+    component:EditServices,
+    layout:EditProfileLayout
+   
 }
 ]
 

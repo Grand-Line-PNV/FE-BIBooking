@@ -4,7 +4,6 @@
     --large:435px;
 }
 .wrapper {
-    // padding-top: 10px;
     padding-bottom: 10px;
 
 }
@@ -25,11 +24,9 @@
 }
 
 input {
-    font-size: 18px;
-    border-width: 1px;
-    border-style: solid;
+    font-size: 17px;
+    border: 1px solid #c3c6d2 !important;
     box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
-    border-color: rgba(22, 24, 35, 0.12);
     &:hover {
         border-color: rgba(22, 24, 35, 0.2);
         background-color: rgba(22, 24, 35, 0.03);
@@ -49,22 +46,46 @@ input {
 
 
     //Disabled
-
+input[type="date"]{
+    padding: 3px 16px;
+    color: #000;
+}
     // input sizes
     .small {
-        min-width: 250px;
+        width: 250px;
         padding: 6px 16px;
+
     }
 
     .medium {
-        min-width: 350px;
+        width: 350px;
         padding: 6px 16px;
+
 
     }
 
     .large {
         padding: 6px 16px;
-        min-width: 435px;
+        width: 435px !important;
+
     }
+    textarea{
+        border-radius: 5px;
+        width: 100%;
+        padding: 6px 16px;
+        border: 1px solid #c3c6d2 !important;
+    }
+    @media screen and (max-width: 400px) {
+        .large {
+            width: 380px !important;
+    
+        }
+        textarea{
+            width: 380px !important;
+        }
+        .small {
+            width: 380px !important;
 
     
+        }
+      }
