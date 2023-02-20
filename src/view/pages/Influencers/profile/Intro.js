@@ -9,7 +9,7 @@ const Intro = () => {
         <div className={cx("container")}>
           <div className={cx("intro-container")}>
             <div className={cx("content")}>
-              <h2 className={cx("intro-heading")}>Hello I'am Khanh Linh</h2>
+              <h2 className={cx("intro-heading", "heading")}>Hello I'am Khanh Linh</h2>
               <div className={cx("intro-desc")}>
                 <h4>I am a Web Developer</h4>
                 <p>

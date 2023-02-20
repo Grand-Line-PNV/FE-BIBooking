@@ -1,3 +1,5 @@
+//HomePage
+import Home from '../view/pages/Home/Home';
 //layouts
 import { HeaderOnly,RegisterLayout} from '../layout';
 import Confirmation from '../view/pages/Auth/ForgotPassword/EmailConfirmation';
@@ -21,7 +23,12 @@ const publicRoutes = [{
     component: LoginScreen,
     layout:RegisterLayout
 
-}, {
+},
+{
+    path: '/home',
+    component: Home,
+}
+, {
     path: 'brand/profile',
     component: ProfileScreen
 },

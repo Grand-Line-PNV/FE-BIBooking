@@ -5,6 +5,7 @@
   --primary: #f16736;
   --black: #000;
   --text-color: #333;
+  --blue-color:rgba(62, 63, 216, 1);
   --Linear-orange-color: linear-gradient(180deg,
       #f0a237 0%,
       #f16736 50.83%,
@@ -27,12 +28,13 @@
 .heading-small {
   font-weight: 500;
   font-size: 20px;
-  line-height: calc(20 / 29);
+  line-height: calc(29 / 20);
 }
 
 .text {
   font-size: 18px;
   line-height: calc(26 / 18);
+  color: #61646B;
 }
 
 .text-medium {
