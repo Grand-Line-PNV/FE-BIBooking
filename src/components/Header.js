@@ -90,7 +90,7 @@ export default function Header() {
             </li>
           </ul>
           <div className={cx("header-auth")}>
-            <Button outline={true}>Sign Up</Button>
+            <Button outline={true} to="/register">Sign Up</Button>
           </div>
 
           <label htmlFor="nav-input" className="nav__bars-btn">
