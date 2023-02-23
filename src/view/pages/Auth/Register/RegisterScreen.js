@@ -19,8 +19,8 @@ import {
   setRole,
   roleSelector,
 } from "../../../../features/feature/roleUserSlide";
-import useInputFocus from "../../../../hooks/useInputFocus";
 import useFormData from "../../../../hooks/useFormData";
+import useInputFocusRegister from "../../../../hooks/useInputFocusRegister";
 
 // ------------------------------------------------------------------
 const cx = classNames.bind(styles);
@@ -40,22 +40,31 @@ const RegisterScreen = () => {
     handleUnLock,
   } = useAuth();
   const dispatch = useDispatch();
-  const { inputRef, isFocused } = useInputFocus();
+  const {
+    inputRefUserName,
+    inputRefEmail,
+    inputRefPassword,
+    inputRefPasswordConfirmation,
+    isFocusedUserName,
+    isFocusedEmail,
+    isFocusedPassword,
+    isFocusedPasswordConfirmation,
+  } = useInputFocusRegister();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       username: "",
       email: "",
       password: "",
       password_confirmation: "",
-      role_id: "1"
+      role_id: "1",
     });
 
   const navigation = useNavigate();
   const handleToggleRight = (e) => {
-    setData({ ...data, role_id: e.target.value});
+    setData({ ...data, role_id: e.target.value });
   };
   const handleToggleLeft = (e) => {
-    setData({ ...data, role_id: e.target.value});
+    setData({ ...data, role_id: e.target.value });
   };
   const handleSubmit = async (event) => {
     resetErrors();
@@ -111,7 +120,7 @@ const RegisterScreen = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.username ? "focus" : ""}`
+            `${isFocusedUserName || data.username ? "focus" : ""}`
           )}
         >
           <div className={cx("div")}>
@@ -121,7 +130,7 @@ const RegisterScreen = () => {
               className={cx("input")}
               name="username"
               id="username"
-              ref={inputRef}
+              ref={inputRefUserName}
               value={data.username}
               onChange={handleChange}
             />
@@ -138,7 +147,7 @@ const RegisterScreen = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.email ? "focus" : ""}`
+            `${isFocusedEmail || data.email ? "focus" : ""}`
           )}
         >
           <div className={cx("div")}>
@@ -148,7 +157,7 @@ const RegisterScreen = () => {
               className={cx("input")}
               name="email"
               id="email"
-              ref={inputRef}
+              ref={inputRefEmail}
               value={data.email}
               onChange={handleChange}
             />
@@ -165,7 +174,7 @@ const RegisterScreen = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.password ? "focus" : ""}`
+            `${isFocusedPassword || data.password ? "focus" : ""}`
           )}
         >
           <div className={cx("div")}>
@@ -175,7 +184,7 @@ const RegisterScreen = () => {
               className={cx("input")}
               name="password"
               id="password"
-              ref={inputRef}
+              ref={inputRefPassword}
               value={data.password}
               onChange={handleChange}
             />
@@ -203,7 +212,11 @@ const RegisterScreen = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.password_confirmation ? "focus" : ""}`
+            `${
+              isFocusedPasswordConfirmation || data.password_confirmation
+                ? "focus"
+                : ""
+            }`
           )}
         >
           <div className={cx("div")}>
@@ -213,7 +226,7 @@ const RegisterScreen = () => {
               className={cx("input")}
               name="password_confirmation"
               id="password_confirmation"
-              ref={inputRef}
+              ref={inputRefPasswordConfirmation}
               value={data.password_confirmation}
               onChange={handleChange}
             />

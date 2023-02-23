@@ -6,9 +6,9 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 // ---------------------------------
 import { sendEmailChangePassword } from "../../../../api/feature";
-import useInputFocus from "../../../../hooks/useInputFocus";
 import useFormData from "../../../../hooks/useFormData";
 import { useNavigate } from "react-router-dom";
+import useInputFocus from "../../../../hooks/useInputFocus";
 const cx = classNames.bind(styles);
 
 const ForgotPassword = () => {

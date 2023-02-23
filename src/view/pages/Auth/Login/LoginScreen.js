@@ -14,12 +14,13 @@ import {
   setRole,
   roleSelector,
 } from "../../../../features/feature/roleUserSlide";
-import useInputFocus from "../../../../hooks/useInputFocus";
 import useFormData from "../../../../hooks/useFormData";
+import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
-  const { inputRef, isFocused } = useInputFocus();
+  const { inputRefEmail, inputRefPassword, isFocusedEmail, isFocusedPassword } =
+    useInputFocusLogin();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       email: "",
@@ -105,7 +106,7 @@ const LoginScreen = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.email ? "focus" : ""}`
+            `${isFocusedEmail || data.email ? "focus" : ""}`
           )}
         >
           <div className={cx("div")}>
@@ -115,7 +116,7 @@ const LoginScreen = () => {
               className={cx("input")}
               name="email"
               id="email"
-              ref={inputRef}
+              ref={inputRefEmail}
               value={data.email}
               onChange={handleChange}
             />
@@ -135,7 +136,7 @@ const LoginScreen = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.password ? "focus" : ""}`
+            `${isFocusedPassword || data.password ? "focus" : ""}`
           )}
         >
           <div className={cx("div")}>
@@ -145,7 +146,7 @@ const LoginScreen = () => {
               className={cx("input")}
               name="password"
               id="password"
-              ref={inputRef}
+              ref={inputRefPassword}
               value={data.password}
               onChange={handleChange}
             />

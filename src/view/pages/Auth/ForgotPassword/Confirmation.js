@@ -8,10 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 // ----------------------------------------------------------------
 import { userLoginApi, verifyUser } from "../../../../api/feature";
-import useInputFocus from "../../../../hooks/useInputFocus";
 import { useDispatch } from "react-redux";
 import { confirmPasswordAction } from "../../../../hooks/useConfirmPassword";
 import useFormData from "../../../../hooks/useFormData";
+import useInputFocus from "../../../../hooks/useInputFocus";
 
 const cx = classNames.bind(styles);
 
