@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLockOpen } from "@fortawesome/free-solid-svg-icons";
+import { faLockOpen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 import { Fragment } from "react";
@@ -14,34 +14,29 @@ import {
   setRole,
   roleSelector,
 } from "../../../../features/feature/roleUserSlide";
+import useInputFocus from "../../../../hooks/useInputFocus";
+import useFormData from "../../../../hooks/useFormData";
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
+  const { inputRef, isFocused } = useInputFocus();
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData({
+      email: "",
+      password: "",
+      login: "",
+    });
+
   sessionStorage.getItem("path");
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
   const role = useSelector(roleSelector);
+  console.log(role);
 
-  const [width, setWidth] = useState("80px");
-  const [right, setRight] = useState("30");
   const [lock, setLock] = useState("none");
   const [showPassword, setShowPassword] = useState(false);
 
-  const defaultErrors = Object.freeze({
-    email: "",
-    password: "",
-    login: "",
-  });
-  const [errors, setErrors] = useState(defaultErrors);
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const resetErrors = () => {
-    setErrors(defaultErrors);
-  };
   const handleSubmit = async (event) => {
     resetErrors();
     try {
@@ -57,24 +52,18 @@ const LoginScreen = () => {
       }
     }
   };
-  console.log("errors: ", errors);
   const onForgotPasswordPage = () => {
     sessionStorage.setItem("path", "login");
     navigation("/forgot-password");
   };
 
   const clickBrandHandler = () => {
-    setWidth("81px");
-    setRight("103px");
     dispatch(setRole(1));
   };
 
   const clickInfluencerHandler = () => {
-    setWidth("105px");
-    setRight("0px");
     dispatch(setRole(2));
   };
-  // console.log(role);
   const handleLockClose = () => {
     setLock("none");
     setShowPassword(!showPassword);
@@ -85,98 +74,134 @@ const LoginScreen = () => {
   };
   return (
     <Fragment>
-      <div className={cx("choose-role")}>
-        <div style={{ width: width, right: right }} className={cx("btn")}></div>
-        <button
-          type="button"
-          className={cx("toggle-btn")}
+      <form className={cx("choose-role")}>
+        <input
+          type="radio"
+          id="brand"
+          name="role"
+          defaultValue="brand"
+          className={cx("choose-role-input")}
           onClick={clickBrandHandler}
-        >
+          defaultChecked
+        />
+        <label htmlFor="brand" className={cx("choose-role-label")}>
           Brand
-        </button>
-        <button
-          type="button"
-          className={cx("toggle-btn")}
+        </label>
+        <br />
+        <input
+          type="radio"
+          id="influencer"
+          name="role"
+          defaultValue="influencer"
+          className={cx("choose-role-input")}
           onClick={clickInfluencerHandler}
-        >
+        />
+        <label htmlFor="influencer" className={cx("choose-role-label")}>
           Influencer
-        </button>
-      </div>
-
-      <h2>Welcome back!</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div className={cx("form")}>
-            <label>Email</label>
-            <FontAwesomeIcon icon={faEnvelope} />
-          </div>
-          <input
-            type="email"
-            placeholder="Enter email"
-            name="email"
-            id="email"
-            value={data.email}
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-          />
-          <hr />
-          {errors.email && (
-            <div className="error" style={{ color: "red", marginTop: 10 }}>
-              {errors.email}
-            </div>
+        </label>
+      </form>
+      <form className={cx("form")} onSubmit={handleSubmit}>
+        <h2 className={cx("title")}>Welcome back!</h2>
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.email ? "focus" : ""}`
           )}
-          <div className={cx("form")}>
-            <label>Password</label>
+        >
+          <div className={cx("div")}>
+            <h5>Email</h5>
+            <input
+              type="email"
+              className={cx("input")}
+              name="email"
+              id="email"
+              ref={inputRef}
+              value={data.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon icon={faUser} className={cx("icon")} />
+          </div>
+        </div>
+        {errors.email && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.email}
+          </div>
+        )}
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.password ? "focus" : ""}`
+          )}
+        >
+          <div className={cx("div")}>
+            <h5>Password</h5>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={cx("input")}
+              name="password"
+              id="password"
+              ref={inputRef}
+              value={data.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
             <FontAwesomeIcon
               icon={faLock}
               onClick={handleLockOpen}
               style={{ display: lock === "none" ? "block" : "none" }}
+              className={cx("icon")}
             />
             <FontAwesomeIcon
               icon={faLockOpen}
               style={{ display: lock }}
               onClick={handleLockClose}
+              className={cx("icon")}
             />
           </div>
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Enter Password"
-            name="password"
-            id="password"
-            value={data.password}
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-          />
-          <hr />
-          {errors.password && (
-            <div className="error" style={{ color: "red", marginTop: 10 }}>
-              {errors.password}
-            </div>
-          )}
-          {errors.login && (
-            <div className="error" style={{ color: "red", marginTop: 10 }}>
-              {errors.login}
-            </div>
-          )}
-          <div className={cx("remember-container")}>
-            <div>
-              <input type="checkbox" id="checkbox" name="" value="" />
-              <span style={{ marginLeft: "5px" }}>Remember me</span>
-            </div>
-            <div>
-              <span>
-                <Button onClick={onForgotPasswordPage}>
-                  <strong style={{ cursor: "pointer" }}>
-                    Forgot Password!
-                  </strong>
-                </Button>
-              </span>
-            </div>
+        </div>
+        {errors.password && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.password}
+          </div>
+        )}
+        {errors.login && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.login}
+          </div>
+        )}
+        <div className={cx("remember-container")}>
+          <div>
+            <input type="checkbox" id="checkbox" name="" value="" />
+            <span style={{ marginLeft: "5px" }}>Remember me</span>
+          </div>
+          <div>
+            <span>
+              <strong>
+                <p
+                  onClick={onForgotPasswordPage}
+                  className={cx("forgot-password")}
+                >
+                  Forgot Password?
+                </p>
+              </strong>
+            </span>
           </div>
         </div>
-        <div>
-          <Button primary={true} className={cx("btn-submit")}>
-            Login
-          </Button>
-        </div>
+        <Button primary={true} className={cx("btn")}>
+          Login
+        </Button>
       </form>
       <div className={cx("status-account")}>
         <p>Dont have an account?</p>

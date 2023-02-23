@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,10 +11,16 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 // ----------------------------------------------------------------
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNewUser } from "../../../../api/feature";
 import { registerAction } from "../../../../features/feature/register";
 import useAuth from "../../../../hooks/useAuth";
+import {
+  setRole,
+  roleSelector,
+} from "../../../../features/feature/roleUserSlide";
+import useInputFocus from "../../../../hooks/useInputFocus";
+import useFormData from "../../../../hooks/useFormData";
 
 // ------------------------------------------------------------------
 const cx = classNames.bind(styles);
@@ -33,42 +39,28 @@ const RegisterScreen = () => {
     handleLock,
     handleUnLock,
   } = useAuth();
+  const dispatch = useDispatch();
+  const { inputRef, isFocused } = useInputFocus();
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData({
+      username: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      role_id: "1"
+    });
 
-  const defaultErrors = Object.freeze({
-    username: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-  });
-  const [errors, setErrors] = useState(defaultErrors);
-  const resetErrors = () => {
-    setErrors(defaultErrors);
-  };
-
-  const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-    role_id: "1",
-  });
   const navigation = useNavigate();
-
   const handleToggleRight = (e) => {
-    setWidth("105px");
-    setRight("0px");
-    setData({ ...data, role_id: e.target.value });
+    setData({ ...data, role_id: e.target.value});
   };
   const handleToggleLeft = (e) => {
-    setWidth("81px");
-    setRight("103px");
-    setData({ ...data, role_id: e.target.value });
+    setData({ ...data, role_id: e.target.value});
   };
-  const dispatch = useDispatch();
-
   const handleSubmit = async (event) => {
     resetErrors();
     sessionStorage.setItem("path", "register");
+    console.log(data);
     try {
       event.preventDefault();
       const response = await addNewUser(data);
@@ -86,123 +78,169 @@ const RegisterScreen = () => {
   const path = "register";
   return (
     <Fragment>
-      <div className={cx("choose-role")}>
-        <div style={{ width: width, right: right }} className={cx("btn")}></div>
-        <button
-          type="button"
-          className={cx("toggle-btn")}
-          onClick={handleToggleLeft}
+      <form className={cx("choose-role")}>
+        <input
+          type="radio"
+          id="brand"
+          name="role"
           value="1"
-        >
+          defaultValue="brand"
+          className={cx("choose-role-input")}
+          onClick={handleToggleLeft}
+          defaultChecked
+        />
+        <label htmlFor="brand" className={cx("choose-role-label")}>
           Brand
-        </button>
-        <button
-          type="button"
-          className={cx("toggle-btn")}
-          onClick={handleToggleRight}
+        </label>
+        <br />
+        <input
+          type="radio"
+          id="influencer"
+          name="role"
           value="2"
-        >
+          defaultValue="influencer"
+          className={cx("choose-role-input")}
+          onClick={handleToggleRight}
+        />
+        <label htmlFor="influencer" className={cx("choose-role-label")}>
           Influencer
-        </button>
-      </div>
-
-      <h2>Create account!</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div className={cx("form")}>
-            <label>User name</label>
-            <FontAwesomeIcon icon={faUser} />
-          </div>
-          <input
-            type="text"
-            placeholder="Enter user"
-            name="user"
-            value={data.username}
-            onChange={(e) => setData({ ...data, username: e.target.value })}
-          />
-          <hr />
-          {errors.username && (
-            <div className="error" style={{ color: "red", marginTop: 10 }}>
-              {errors.username}
-            </div>
+        </label>
+      </form>
+      <form className={cx("form")} onSubmit={handleSubmit}>
+        <h2 className={cx("title")}>Create account!</h2>
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.username ? "focus" : ""}`
           )}
-          <div className={cx("form")}>
-            <label>Email</label>
-            <FontAwesomeIcon icon={faEnvelope} />
+        >
+          <div className={cx("div")}>
+            <h5>Username</h5>
+            <input
+              type="text"
+              className={cx("input")}
+              name="username"
+              id="username"
+              ref={inputRef}
+              value={data.username}
+              onChange={handleChange}
+            />
           </div>
-          <input
-            type="email"
-            placeholder="Enter email"
-            name="email"
-            value={data.email}
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-          />
-          <hr />
-          {errors.email && (
-            <div className="error" style={{ color: "red", marginTop: 10 }}>
-              {errors.email}
-            </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon icon={faUser} className={cx("icon")} />
+          </div>
+        </div>
+        {errors.username && (
+          <div className="error" style={{ color: "red", display: "flex" }}>
+            {errors.username}
+          </div>
+        )}
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.email ? "focus" : ""}`
           )}
-          <div className={cx("form")}>
-            <label>Password</label>
+        >
+          <div className={cx("div")}>
+            <h5>Email</h5>
+            <input
+              type="email"
+              className={cx("input")}
+              name="email"
+              id="email"
+              ref={inputRef}
+              value={data.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon icon={faEnvelope} className={cx("icon")} />
+          </div>
+        </div>
+        {errors.email && (
+          <div className="error" style={{ color: "red", display: "flex" }}>
+            {errors.email}
+          </div>
+        )}
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.password ? "focus" : ""}`
+          )}
+        >
+          <div className={cx("div")}>
+            <h5>Password</h5>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={cx("input")}
+              name="password"
+              id="password"
+              ref={inputRef}
+              value={data.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
             <FontAwesomeIcon
               icon={faLock}
               onClick={handleLockOpen}
               style={{ display: lock === "none" ? "block" : "none" }}
+              className={cx("icon")}
             />
             <FontAwesomeIcon
               icon={faLockOpen}
               style={{ display: lock }}
               onClick={handleLockClose}
+              className={cx("icon")}
             />
           </div>
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Enter Password"
-            name="password"
-            value={data.password}
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-          />
-          <hr />
-          {errors.password && (
-            <div className="error" style={{ color: "red", marginTop: 10 }}>
-              {errors.password}
-            </div>
+        </div>
+        {errors.password && (
+          <div className="error" style={{ color: "red", display: "flex" }}>
+            {errors.password}
+          </div>
+        )}
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.password_confirmation ? "focus" : ""}`
           )}
-          <div className={cx("form")}>
-            <label>Confirm Password</label>
+        >
+          <div className={cx("div")}>
+            <h5>Confirm Password</h5>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              className={cx("input")}
+              name="password_confirmation"
+              id="password_confirmation"
+              ref={inputRef}
+              value={data.password_confirmation}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
             <FontAwesomeIcon
               icon={faLock}
               onClick={handleLock}
               style={{ display: lock2 === "none" ? "block" : "none" }}
+              className={cx("icon")}
             />
             <FontAwesomeIcon
               icon={faLockOpen}
               style={{ display: lock2 }}
               onClick={handleUnLock}
+              className={cx("icon")}
             />
           </div>
-          <input
-            type={showConfirmPassword ? "text" : "password"}
-            placeholder="Enter Password"
-            name="password"
-            value={data.confirmPassword}
-            onChange={(e) =>
-              setData({ ...data, password_confirmation: e.target.value })
-            }
-          />
-          <hr />
-          {errors.password_confirmation && (
-            <div className="error" style={{ color: "red", marginTop: 10 }}>
-              {errors.password_confirmation}
-            </div>
-          )}
         </div>
-        <div>
-          <Button primary={true} className={cx("btn-submit")}>
-            Register
-          </Button>
-        </div>
+        {errors.password_confirmation && (
+          <div className="error" style={{ color: "red", display: "flex" }}>
+            {errors.password_confirmation}
+          </div>
+        )}
+        <Button primary={true} className={cx("btn")}>
+          Register
+        </Button>
       </form>
       <div className={cx("status-account")}>
         <p>Already have an account?</p>
