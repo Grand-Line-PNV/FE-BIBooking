@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 
 function useInputFocus() {
   const inputRef = useRef(null);
@@ -10,12 +10,12 @@ function useInputFocus() {
 
     const inputElement = inputRef.current;
 
-    inputElement.addEventListener('focus', handleFocus);
-    inputElement.addEventListener('blur', handleBlur);
+    inputElement.addEventListener("focus", handleFocus);
+    inputElement.addEventListener("blur", handleBlur);
 
     return () => {
-      inputElement.removeEventListener('focus', handleFocus);
-      inputElement.removeEventListener('blur', handleBlur);
+      inputElement.removeEventListener("focus", handleFocus);
+      inputElement.removeEventListener("blur", handleBlur);
     };
   }, []);
 

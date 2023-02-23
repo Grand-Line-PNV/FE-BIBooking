@@ -12,9 +12,9 @@ import {
   authorAction,
   authorSelectors,
 } from "../../../../features/feature/author";
-import useInputFocus from "../../../../hooks/useInputFocus";
 import useFormData from "../../../../hooks/useFormData";
 import { useNavigate } from "react-router-dom";
+import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
 const cx = classNames.bind(styles);
 
 const NewPassword = () => {
@@ -30,7 +30,8 @@ const NewPassword = () => {
   } = useAuth();
   const email = sessionStorage.getItem("email");
   // const email='linh.nguyenthikhanh02@gmail.com'
-  const { inputRef, isFocused } = useInputFocus();
+  const { inputRefEmail, inputRefPassword, isFocusedEmail, isFocusedPassword } =
+    useInputFocusLogin();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       email: email,
@@ -65,7 +66,7 @@ const NewPassword = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.password ? "focus" : ""}`
+            `${isFocusedEmail || data.password ? "focus" : ""}`
           )}
         >
           <div className={cx("div")}>
@@ -75,7 +76,7 @@ const NewPassword = () => {
               className={cx("input")}
               name="password"
               id="password"
-              ref={inputRef}
+              ref={inputRefEmail}
               value={data.password}
               onChange={handleChange}
             />
@@ -107,7 +108,7 @@ const NewPassword = () => {
         <div
           className={cx(
             "input-div",
-            `${isFocused || data.password_confirmation ? "focus" : ""}`
+            `${isFocusedPassword || data.password_confirmation ? "focus" : ""}`
           )}
         >
           <div className={cx("div")}>
@@ -117,7 +118,7 @@ const NewPassword = () => {
               className={cx("input")}
               name="password_confirmation"
               id="password_confirmation"
-              ref={inputRef}
+              ref={inputRefPassword}
               value={data.password_confirmation}
               onChange={handleChange}
             />
