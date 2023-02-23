@@ -6,65 +6,87 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 // ---------------------------------
 import { sendEmailChangePassword } from "../../../../api/feature";
+import useInputFocus from "../../../../hooks/useInputFocus";
+import useFormData from "../../../../hooks/useFormData";
+import { useNavigate } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 const ForgotPassword = () => {
-  const[data,setData] = useState({
-    email:"",
-  });  const handleSendEmail = async (data) => {
-    console.log(data);
+  const { inputRef, isFocused } = useInputFocus();
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData({
+      email: "",
+      sendEmail: "",
+    });
+
+  const navigation = useNavigate();
+  const handleSubmit = async (event) => {
+    resetErrors();
     try {
+      event.preventDefault();
       const res = await sendEmailChangePassword(data);
       sessionStorage.setItem("email", data.email);
+      navigation("/verification");
     } catch (error) {
-      console.log("Send Email error", error);
-    }
-    alert("success");
-  };
-
-  const onSendEmail = () => {
-    if (!data) {
-      console.log("error");
-      alert("No User!", "You need to enter data");
-    } else {
-      handleSendEmail(data);
-      console.log("sucess");
+      if (error.status === 401) {
+        setErrors({ sendEmail: "Wrong!" });
+      } else if (error.status === 422) {
+        setErrors(error.data.errors);
+      }
     }
   };
   return (
     <Fragment>
       <h2 style={{ marginTop: "40px" }}>Forgot Password!</h2>
-      <div>
-        <div className={cx("form")}>
-          <label>Email</label>
-          <FontAwesomeIcon icon={faEnvelope} />
+      <form className={cx("form")} onSubmit={handleSubmit}>
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.email ? "focus" : ""}`
+          )}
+        >
+          <div className={cx("div")}>
+            <h5>Email</h5>
+            <input
+              type="email"
+              className={cx("input")}
+              name="email"
+              id="email"
+              ref={inputRef}
+              value={data.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon icon={faEnvelope} className={cx("icon")} />
+          </div>
         </div>
-        <input
-          type="email"
-          placeholder="Enter email"
-          name="email"
-          value={data.email}
-          onChange={(e) => setData({...data, email: e.target.value})}
-        />
-        <hr />
-      </div>
-      <div className={cx("btn-submits")}>
-        <div>
-          <Button
-            primary={true}
-            className={cx("btn-submit")}
-            to="/verification"
-            onClick={onSendEmail}
+        {errors.email && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
           >
-            Send
-          </Button>
+            {errors.email}
+          </div>
+        )}
+        <div className={cx("btn-submits")}>
+          <div>
+            <Button
+              outline={true}
+              large={true}
+              className={cx("btn-submit")}
+              to="/login"
+            >
+              Cancel
+            </Button>
+          </div>
+          <div>
+            <Button primary={true} large={true} className={cx("btn-submit")}>
+              Send
+            </Button>
+          </div>
         </div>
-        <div>
-          <Button outline={true} className={cx("btn-submit")} to="/login">
-            Cancel
-          </Button>
-        </div>
-      </div>
+      </form>
     </Fragment>
   );
 };

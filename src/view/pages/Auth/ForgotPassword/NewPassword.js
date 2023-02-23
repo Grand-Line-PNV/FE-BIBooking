@@ -7,12 +7,18 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 import useAuth from "../../../../hooks/useAuth";
 import { changePassword } from "../../../../api/feature";
-import {useDispatch, useSelector} from 'react-redux';
-import {authorAction, authorSelectors} from '../../../../features/feature/author';
+import { useDispatch, useSelector } from "react-redux";
+import {
+  authorAction,
+  authorSelectors,
+} from "../../../../features/feature/author";
+import useInputFocus from "../../../../hooks/useInputFocus";
+import useFormData from "../../../../hooks/useFormData";
+import { useNavigate } from "react-router-dom";
 const cx = classNames.bind(styles);
 
-const NewPassword = () => {  const {
-    
+const NewPassword = () => {
+  const {
     lock,
     lock2,
     showPassword,
@@ -20,93 +26,138 @@ const NewPassword = () => {  const {
     handleLockClose,
     handleLockOpen,
     handleLock,
-    handleUnLock
+    handleUnLock,
   } = useAuth();
   const email = sessionStorage.getItem("email");
   // const email='linh.nguyenthikhanh02@gmail.com'
+  const { inputRef, isFocused } = useInputFocus();
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData({
+      email: email,
+      password: "",
+      password_confirmation: "",
+      verify: "",
+    });
+  const navigation = useNavigate();
+
   const dispatch = useDispatch();
-  const[passwords,setPasswords] = useState({
-    email:email,
-    password:'',
-    password_confirmation:''
-  });  const handleChangePassword = async (password) => {
+
+  const handleSubmit = async (event) => {
+    resetErrors();
     try {
-      const res = await changePassword(password);
+      event.preventDefault();
+      const res = await changePassword(data);
       dispatch(authorAction.updateOne(res.data));
+      navigation("/login");
     } catch (error) {
-      console.log("Send Email error", error);
+      if (error.status === 401) {
+        setErrors({ verify: "Wrong!" });
+      } else if (error.status === 422) {
+        setErrors(error.data.errors);
+      }
     }
-    alert("success");
   };
 
-  const onChangePassword = () => {
-    if (!passwords) {
-      console.log("error");
-      alert("No Password!", "You need to enter data");
-    } else {
-      handleChangePassword(passwords);
-      console.log("sucess");
-    }
-  };
   return (
     <Fragment>
       <h2 style={{ marginTop: "40px" }}>Change password!</h2>
-      <div>
-        <div className={cx("form")}>
-          <label>New Password</label>
-          <FontAwesomeIcon
-            icon={faLock}
-            onClick={handleLockOpen}
-            style={{ display: lock === "none" ? "block" : "none" }}
-          />
-          <FontAwesomeIcon
-            icon={faLockOpen}
-            style={{ display: lock }}
-            onClick={handleLockClose}
-          />
+      <form className={cx("form")} onSubmit={handleSubmit}>
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.password ? "focus" : ""}`
+          )}
+        >
+          <div className={cx("div")}>
+            <h5>New Password</h5>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={cx("input")}
+              name="password"
+              id="password"
+              ref={inputRef}
+              value={data.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon
+              icon={faLock}
+              onClick={handleLockOpen}
+              style={{ display: lock === "none" ? "block" : "none" }}
+              className={cx("icon")}
+            />
+            <FontAwesomeIcon
+              icon={faLockOpen}
+              style={{ display: lock }}
+              onClick={handleLockClose}
+              className={cx("icon")}
+            />
+          </div>
         </div>
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Enter Password"
-          name="password"
-          value={passwords.password}
-          onChange={(e)=>setPasswords({...passwords,password: e.target.value})}
-        />
-        <hr />
-        <div className={cx("form")}>
-          <label>Confirm Password</label>
-          <FontAwesomeIcon
-            icon={faLock}
-            onClick={handleLock}
-            style={{ display: lock2 === "none" ? "block" : "none" }}
-          />
-          <FontAwesomeIcon
-            icon={faLockOpen}
-            style={{ display: lock2 }}
-            onClick={handleUnLock}
-          />
+        {errors.password && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.password}
+          </div>
+        )}
+        {/*  */}
+        <div
+          className={cx(
+            "input-div",
+            `${isFocused || data.password_confirmation ? "focus" : ""}`
+          )}
+        >
+          <div className={cx("div")}>
+            <h5>Confirm Password</h5>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              className={cx("input")}
+              name="password_confirmation"
+              id="password_confirmation"
+              ref={inputRef}
+              value={data.password_confirmation}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon
+              icon={faLock}
+              onClick={handleLock}
+              style={{ display: lock2 === "none" ? "block" : "none" }}
+              className={cx("icon")}
+            />
+            <FontAwesomeIcon
+              icon={faLockOpen}
+              style={{ display: lock2 }}
+              onClick={handleUnLock}
+              className={cx("icon")}
+            />
+          </div>
         </div>
-        <input
-          type={showConfirmPassword ? "text" : "password"}
-          placeholder="Enter Password"
-          name="password"
-          value={passwords.password_confirmation}
-          onChange={(e)=>setPasswords({...passwords, password_confirmation: e.target.value})}
-        />
-        <hr />
-      </div>
-      <div className={cx("btn-submits")}>
-        <div style={{ textAlign: "center" }}>
-          <Button primary={true} className={cx("btn-submit")} onClick={onChangePassword} to="/login">
-            Submit
-          </Button>
+        {errors.password_confirmation && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.password_confirmation}
+          </div>
+        )}
+        <div className={cx("btn-submits")}>
+          <div style={{ textAlign: "center" }}>
+            <Button outline={true} className={cx("btn-submit")} to="/login">
+              Cancel
+            </Button>
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <Button primary={true} className={cx("btn-submit")}>
+              Submit
+            </Button>
+          </div>
         </div>
-        <div style={{ textAlign: "center" }}>
-          <Button outline={true} className={cx("btn-submit")} to="/login">
-            Cancel
-          </Button>
-        </div>
-      </div>
+      </form>
     </Fragment>
   );
 };

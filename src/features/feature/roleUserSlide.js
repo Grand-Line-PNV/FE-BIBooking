@@ -5,7 +5,7 @@ const roleUserSlice = createSlice({
   initialState: {
     brand: {},
     influencer: {},
-    role: 1,
+    role: "1",
   },
   reducers: {
     setRole: (state, actions) => {
