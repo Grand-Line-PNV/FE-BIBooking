@@ -44,6 +44,9 @@ const LoginScreen = () => {
       event.preventDefault();
       const response = await userLoginApi(data);
       dispatch(authorAction.addOne(data));
+      localStorage.setItem("token", response.data.data.access_token);
+      localStorage.setItem("role", response.data.data.account.role_id);
+      localStorage.setItem("username", response.data.data.account.username);
       navigation("/influencer/profile");
     } catch (error) {
       if (error.status === 401) {

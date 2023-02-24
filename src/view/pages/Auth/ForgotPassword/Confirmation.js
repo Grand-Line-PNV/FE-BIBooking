@@ -16,23 +16,25 @@ import useInputFocus from "../../../../hooks/useInputFocus";
 const cx = classNames.bind(styles);
 
 const Confirmation = () => {
+  const prePath = sessionStorage.getItem("path");
+  const emailUser = sessionStorage.getItem("email");
   const { inputRef, isFocused } = useInputFocus();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
-      email: "",
+      email: emailUser,
       otp: "",
-      verify: "",
+      verify: 1,
     });
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  const prePath = sessionStorage.getItem("path");
-  const emailUser = sessionStorage.getItem("email");
 
   const handleSubmit = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
+      const response = await verifyUser(data);
       dispatch(confirmPasswordAction.addOne(data));
+      console.log(data);
       navigation(prePath === "register" ? "/login" : "/new-password");
     } catch (error) {
       if (error.status === 401) {
