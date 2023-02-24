@@ -1,12 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styles from "./EditProfile.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
+import AddImage from "./AddImage";
+import Button from "../../../../../components/Button/Button";
 
 const cx = classNames.bind(styles);
 
 const EditProfile = () => {
   return (
+    <Fragment>
     <form className={cx("form-inf")}>
       <div className={cx("form-above")}>
         <div className={cx("form-control-left")}>
@@ -122,6 +125,14 @@ const EditProfile = () => {
         <Input rows="5" title="Experience" />
       </div>
     </form>
+    <AddImage/>
+    <div className={cx("submit")}>
+            <Button primary={true} large={true} className={cx("heading-small")}>
+              Save
+            </Button>
+          </div>
+    </Fragment>
+    
   );
 };
 

@@ -68,11 +68,7 @@ const EditProfileLayout = ({children}) => {
           </div>
 
           {children}
-          <div className={cx("submit")}>
-            <Button primary={true} large={true} className={cx("heading-small")}>
-              Save
-            </Button>
-          </div>
+          
         </div>
       </div>
     </section>

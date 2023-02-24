@@ -42,6 +42,90 @@
     }
 
   }
+
+  .btn-addImage {
+    padding: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(97, 91, 91, 0.5);
+    border-radius: 5px;
+    width: 100%;
+    height: 40;
+    cursor: pointer;
+    font-size: large;
+  }
+  
+  .btn-addImage p{
+    font-size: small;
+  }
+  
+  .input-upload {
+    display: none;
+  }
+  
+
+  .images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .image-upload {
+    margin: 1rem 0.5rem;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    background-color: transparent;
+    overflow: hidden;
+  }
+
+  
+  .image-upload button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: none;
+    color: black;
+    margin: 0 auto;
+  }
+  
+  .image-upload button:hover {
+    background-color: rgb(41, 37, 37);
+  }
+  
+  .image-upload p {
+    padding: 0 0.5rem;
+    margin: 0 auto;
+  }
+  
+  .upload-btn {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .btn-addImage:hover,
+  .upload-btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+      rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  }
+  
+  .error {
+    text-align: center;
+  }
+  
+  .error span {
+    color: red;
+  }
+  .submit {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
   @media screen and (max-width: 400px) {
     .form-inf {
       padding: 5px;
