@@ -1,27 +1,72 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useRef } from "react";
 import classNames from "classnames/bind";
-import { useState } from "react";
-import styles from "./LoginStyle.module.scss";
-import Button from "../../../../components/Button/Button";
+import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLockOpen } from "@fortawesome/free-solid-svg-icons";
+import { faLockOpen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import Button from "../../../../components/Button/Button";
+import { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { userLoginApi } from "../../../../api/feature";
+import { authorAction } from "../../../../features/feature/author";
+import {
+  setRole,
+  roleSelector,
+} from "../../../../features/feature/roleUserSlide";
+import useFormData from "../../../../hooks/useFormData";
+import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
-  const [width, setWidth] = useState("80px");
-  const [right, setRight] = useState("30");
+  const { inputRefEmail, inputRefPassword, isFocusedEmail, isFocusedPassword } =
+    useInputFocusLogin();
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData({
+      email: "",
+      password: "",
+      login: "",
+    });
+
+  sessionStorage.getItem("path");
+  const navigation = useNavigate();
+  const dispatch = useDispatch();
+
+  const role = useSelector(roleSelector);
+  console.log(role);
+
   const [lock, setLock] = useState("none");
   const [showPassword, setShowPassword] = useState(false);
-  const [showBrandLogin, setShowBrandLogin] = useState(false);
-  const handleToggleRight = () => {
-    setWidth("105px");
-    setRight("0px");
-    setShowBrandLogin(!showBrandLogin);
+
+  const handleSubmit = async (event) => {
+    resetErrors();
+    try {
+      event.preventDefault();
+      const response = await userLoginApi(data);
+      dispatch(authorAction.addOne(data));
+      localStorage.setItem("token", response.data.data.access_token);
+      localStorage.setItem("role", response.data.data.account.role_id);
+      localStorage.setItem("username", response.data.data.account.username);
+      navigation("/influencer/profile");
+    } catch (error) {
+      if (error.status === 401) {
+        setErrors({ login: "Email or password wrong!" });
+      } else if (error.status === 422) {
+        setErrors(error.data.errors);
+      }
+    }
   };
-  const handleToggleLeft = () => {
-    setShowBrandLogin(!showBrandLogin);
-    setWidth("81px");
-    setRight("103px");
+  const onForgotPasswordPage = () => {
+    sessionStorage.setItem("path", "login");
+    navigation("/forgot-password");
+  };
+
+  const clickBrandHandler = () => {
+    dispatch(setRole(1));
+  };
+
+  const clickInfluencerHandler = () => {
+    dispatch(setRole(2));
   };
   const handleLockClose = () => {
     setLock("none");
@@ -32,134 +77,144 @@ const LoginScreen = () => {
     setShowPassword(!showPassword);
   };
   return (
-    <div>
-      <div className={cx("wrapper")}>
-        <div className={cx("title")}>
-          <h1>B&I Booking</h1>
-        </div>
-        <div className={cx("background-login")}>
-          <img
-            src="https://iili.io/H1b1u2f.png"
-            className={cx("background-image")}
-            alt=""
-          />
-          <div className={cx("rectangle1")}>
-            <h3 className={cx("sologan")}>
-              Join with us and grow the platform
-            </h3>
+    <Fragment>
+      <form className={cx("choose-role")}>
+        <input
+          type="radio"
+          id="brand"
+          name="role"
+          defaultValue="brand"
+          className={cx("choose-role-input")}
+          onClick={clickBrandHandler}
+          defaultChecked
+        />
+        <label htmlFor="brand" className={cx("choose-role-label")}>
+          Brand
+        </label>
+        <br />
+        <input
+          type="radio"
+          id="influencer"
+          name="role"
+          defaultValue="influencer"
+          className={cx("choose-role-input")}
+          onClick={clickInfluencerHandler}
+        />
+        <label htmlFor="influencer" className={cx("choose-role-label")}>
+          Influencer
+        </label>
+      </form>
+      <form className={cx("form")} onSubmit={handleSubmit}>
+        <h2 className={cx("title")}>Welcome back!</h2>
+        <div
+          className={cx(
+            "input-div",
+            `${isFocusedEmail || data.email ? "focus" : ""}`
+          )}
+        >
+          <div className={cx("div")}>
+            <h5>Email</h5>
+            <input
+              type="email"
+              className={cx("input")}
+              name="email"
+              id="email"
+              ref={inputRefEmail}
+              value={data.email}
+              onChange={handleChange}
+            />
           </div>
-          <div className={cx("rectangle2")}>
-            <div className={cx("rectangle2-form")}>
-              <div className={cx("choose-role")}>
-                <div
-                  style={{ width: width, right: right }}
-                  className={cx("btn")}
-                ></div>
-                <button
-                  type="button"
-                  className={cx("toggle-btn")}
-                  onClick={handleToggleLeft}
-                >
-                  Brand
-                </button>
-                <button
-                  type="button"
-                  className={cx("toggle-btn")}
-                  onClick={handleToggleRight}
-                >
-                  Influencer
-                </button>
-              </div>
-              <h2>Welcome back!</h2>
-              <div className={cx("button")}>
-                <Button
-                  className={cx("button-login")}
-                  outline={true}
-                  leftIcon={
-                    <img src="https://iili.io/H1LYZ5g.png" width="25px" />
-                  }
-                >
-                  {" "}
-                  Sign in Google
-                </Button>
-                <Button
-                  outline={true}
-                  leftIcon={
-                    <img src='https://iili.io/H1LYtea.png"' width="25px" />
-                  }
-                >
-                  {" "}
-                  Sign in Facebook
-                </Button>
-              </div>
-              <div
-                className={cx("brand-login")}
-                style={{
-                  display: showBrandLogin ? "none" : "block",
-                  transition: "0.5s",
-                }}
-              >
-                <h4
-                  style={{
-                    color: "gray",
-                    textAlign: "center",
-                    marginTop: "5px",
-                  }}
-                >
-                  ___ OR ___
-                </h4>
-                <div className={cx("form-login")}>
-                  <div className={cx("form")}>
-                    <label>Email</label>
-                    <FontAwesomeIcon icon={faEnvelope} />
-                  </div>
-                  <input type="email" placeholder="Enter email" />
-                  <hr />
-                  <div className={cx("form")}>
-                    <label>Password</label>
-                    <FontAwesomeIcon
-                      icon={faLock}
-                      onClick={handleLockOpen}
-                      style={{ display: lock === "none" ? "block" : "none" }}
-                    />
-                    <FontAwesomeIcon
-                      icon={faLockOpen}
-                      style={{ display: lock }}
-                      onClick={handleLockClose}
-                    />
-                  </div>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter Password"
-                  />
-                  <hr />
-                  <div className={cx("remember-container")}>
-                    <div className={cx("")}>
-                      <input type="checkbox" id="checkbox" name="" value="" />
-                      <span>Remember me</span>
-                    </div>
-                    <div>
-                      <span>
-                        <strong>Forgot Password!</strong>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ textAlign: "center" }}>
-                  <Button primary={true} style={{ width: "250px" }}>
-                    Login
-                  </Button>
-                </div>
-              </div>
-              <div className={cx("status-account")}>
-                <p>Don't have an account?</p>
-                <h4>Sign up here!</h4>
-              </div>
-            </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon icon={faUser} className={cx("icon")} />
           </div>
         </div>
+        {errors.email && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.email}
+          </div>
+        )}
+        <div
+          className={cx(
+            "input-div",
+            `${isFocusedPassword || data.password ? "focus" : ""}`
+          )}
+        >
+          <div className={cx("div")}>
+            <h5>Password</h5>
+            <input
+              type={showPassword ? "text" : "password"}
+              className={cx("input")}
+              name="password"
+              id="password"
+              ref={inputRefPassword}
+              value={data.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={cx("div-icon")}>
+            <FontAwesomeIcon
+              icon={faLock}
+              onClick={handleLockOpen}
+              style={{ display: lock === "none" ? "block" : "none" }}
+              className={cx("icon")}
+            />
+            <FontAwesomeIcon
+              icon={faLockOpen}
+              style={{ display: lock }}
+              onClick={handleLockClose}
+              className={cx("icon")}
+            />
+          </div>
+        </div>
+        {errors.password && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.password}
+          </div>
+        )}
+        {errors.login && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.login}
+          </div>
+        )}
+        <div className={cx("remember-container")}>
+          <div>
+            <input type="checkbox" id="checkbox" name="" value="" />
+            <span style={{ marginLeft: "5px" }}>Remember me</span>
+          </div>
+          <div>
+            <span>
+              <strong>
+                <p
+                  onClick={onForgotPasswordPage}
+                  className={cx("forgot-password")}
+                >
+                  Forgot Password?
+                </p>
+              </strong>
+            </span>
+          </div>
+        </div>
+        <Button primary={true} className={cx("btn")}>
+          Login
+        </Button>
+      </form>
+      <div className={cx("status-account")}>
+        <p>Dont have an account?</p>
+        <Link to="/register">
+          <h4 style={{ cursor: "pointer" }}>Sign up here!</h4>
+        </Link>
       </div>
-    </div>
+    </Fragment>
   );
 };
+
 export default LoginScreen;
