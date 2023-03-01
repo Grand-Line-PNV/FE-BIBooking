@@ -1,0 +1,84 @@
+.form-inf .form-above {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.form-inf .form-above .form-label {
+  font-size: 20px;
+  display: inline-block;
+  padding: 5px 0 5px 0;
+}
+
+.form-inf .form-above .input-radios {
+  padding-bottom: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 80px;
+}
+
+.form-inf .form-above .input-radios .radio-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 5px;
+}
+
+.form-inf .form-above .input-radios .radio-group .label-radio {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--SonicSilver-color);
+}
+
+.form-inf .form-above .input-radios .radio-group .radio {
+  width: 20px;
+  background: transparent;
+  opacity: 1;
+  border: 2px solid #578bb9;
+}
+
+.form-inf .form-above .form-control-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+
+@media screen and (max-width: 400px) {
+  .form-inf {
+    padding: 5px;
+  }
+  .form-inf .form-above {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .form-inf .form-above .input-radios {
+    padding-bottom: 16px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 75px;
+  }
+  .form-inf .form-above .form-control-right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+  .form-below {
+    padding: 5px !important;
+  }
+}
+/*# sourceMappingURL=EditProfile.module.css.map */

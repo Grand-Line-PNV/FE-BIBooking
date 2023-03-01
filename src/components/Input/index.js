@@ -52,7 +52,7 @@ function Input({
   return (
     <div className={cx("wrapper")}>
     <label className={cx("title",{star})}>{title}</label><br/>
-    <Comp className={cx(classes)} {...props} placeholder={placeholder} value={value} onChangeText={onChangeText} type={type}/> 
+    <Comp className={cx(classes)} {...props} placeholder={placeholder} value={value} onChangeText={onChangeText} type={type} disabled={disabled}/> 
     </div>
   );
 }

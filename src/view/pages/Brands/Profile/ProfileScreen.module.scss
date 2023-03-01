@@ -1,4 +1,5 @@
 .profile {
+  padding-top: 100px;
   &-container {
     width: 62%;
     margin: 0 auto;
@@ -20,6 +21,13 @@
         & .required {
         }
       }
+      & .form-input-img{
+        display: flex;
+        & .img-thumbnail{
+          width: 100px;
+          height: auto;
+        }
+      }
       & .form-input {
         background: #ffffff;
         border: 1px solid #c3c6d2;
@@ -29,12 +37,32 @@
 
         padding: 13px;
       }
-      & .file-upload-default {
-        width: 149px;
-        height: 149px;
-        background: #ffffff;
-        border: 1px dashed #c3c6d2;
-        border-radius: 3px;
+      & .input-radios {
+        padding-bottom: 16px;
+        display: flex;
+        gap: 80px;
+
+        & .radio-group {
+          display: flex;
+          gap: 5px;
+
+          & .label-radio {
+            font-style: normal;
+            font-weight: 500;
+            color: var(--SonicSilver-color);
+          }
+
+          & .radio {
+            width: 20px;
+            background: transparent;
+            opacity: 1;
+            border: 2px solid #578bb9;
+          }
+        }
+      }
+      & .form-date{
+        display: flex;
+        gap: 0 10px;
       }
     }
     & .form-control-left {
@@ -48,28 +76,5 @@
   }
   & .submit-change-password {
     margin: 20px 0;
-  }
-  & .form-change-password {
-    display: flex;
-    & .form-input-change-password {
-      width: 716px;
-      height: 44px;
-      background: #ffffff;
-      border: 1px solid #c3c6d2;
-      border-radius: 3px;
-      padding: 13px;
-      border-right: none;
-    }
-    & .icon-eye {
-      width: 44px;
-      height: 44px;
-      background: #ffffff;
-      border: 1px solid #c3c6d2;
-      border-left: none;
-      border-radius: 3px;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    }
   }
 }

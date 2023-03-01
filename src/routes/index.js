@@ -14,6 +14,12 @@ import AllProfileScreen from '../view/pages/Influencers/profile/AllProfileScreen
 import EditProfile from '../view/pages/Influencers/Setting/profile/EditProfile';
 import EditSocialMedia from '../view/pages/Influencers/Setting/profile/EditSocialMedia';
 import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFollowerRate';
+// Brand's Campaign
+import CreateCampaignLayout from '../layout/CreateCampaign';
+import CreateInformation from '../view/pages/Brands/Campaign/Infomation';
+import CreateDescription from '../view/pages/Brands/Campaign/Description';
+import CreateResponsibility from '../view/pages/Brands/Campaign/Responsibility';
+import CreatePrice from '../view/pages/Brands/Campaign/Price';
 // error
 import Error from '../view/pages/Error';
 import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
@@ -69,13 +75,32 @@ const publicRoutes = [{
     layout:EditProfileLayout
 },
 {
-    path:'/influencer/setting//edit-profile/followr-rate',
+    path:'/influencer/setting/edit-profile/followr-rate',
     component:EditFollowerRate,
     layout:EditProfileLayout
 },{
-    path:'/influencer/setting//edit-profile/services',
+    path:'/influencer/setting/edit-profile/services',
     component:EditServices,
     layout:EditProfileLayout
+},
+{
+    path: '/brand/campaign/information',
+    component:CreateInformation,
+    layout:CreateCampaignLayout
+},
+{
+    path:'/brand/campaign/description',
+    component:CreateDescription,
+    layout:CreateCampaignLayout
+},{
+    path:'/brand/campaign/responsibility',
+    component:CreateResponsibility,
+    layout:CreateCampaignLayout
+   
+},{
+    path:'/brand/campaign/price',
+    component:CreatePrice,
+    layout:CreateCampaignLayout
    
 }
 ]
