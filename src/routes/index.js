@@ -17,6 +17,11 @@ import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFoll
 // error
 import Error from '../view/pages/Error';
 import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
+// Task
+import TaskLayout from '../layout/TaskLayout';
+import Applying from '../view/pages/Influencers/task/Applying';
+import Doing from '../view/pages/Influencers/task/Doing';
+import Waiting from '../view/pages/Influencers/task/Waiting';
 //public routes
 const publicRoutes = [{
     path: '/register',
@@ -76,8 +81,24 @@ const publicRoutes = [{
     path:'/influencer/setting//edit-profile/services',
     component:EditServices,
     layout:EditProfileLayout
-   
+
 }
+,{
+    path:'/influencer/task/applying',
+    component:Applying,
+    layout:TaskLayout
+
+},{
+    path:'/influencer/task/doing',
+    component:Doing,
+    layout:TaskLayout
+
+},{
+    path:'/influencer/task/waiting',
+    component:Waiting,
+    layout:TaskLayout
+
+},
 ]
 
 const privateRoutes = [{
