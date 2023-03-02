@@ -44,10 +44,13 @@ const LoginScreen = () => {
       event.preventDefault();
       const response = await userLoginApi(data);
       dispatch(authorAction.addOne(data));
+      console.log(response);
       localStorage.setItem("token", response.data.data.access_token);
       localStorage.setItem("role", response.data.data.account.role_id);
       localStorage.setItem("username", response.data.data.account.username);
-      navigation("/influencer/profile");
+      localStorage.setItem("account_id", response.data.data.account.id);
+      console.log(response.data.data.account.id);
+      navigation("/brand/profile");
     } catch (error) {
       if (error.status === 401) {
         setErrors({ login: "Email or password wrong!" });
@@ -62,10 +65,22 @@ const LoginScreen = () => {
   };
 
   const clickBrandHandler = () => {
+    setData({
+      email: "",
+      password: "",
+      login: "",
+    });
+    setErrors("");
     dispatch(setRole(1));
   };
 
   const clickInfluencerHandler = () => {
+    setData({
+      email: "",
+      password: "",
+      login: "",
+    });
+    setErrors("");
     dispatch(setRole(2));
   };
   const handleLockClose = () => {
