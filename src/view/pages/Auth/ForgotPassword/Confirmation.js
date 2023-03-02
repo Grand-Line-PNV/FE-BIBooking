@@ -33,12 +33,12 @@ const Confirmation = () => {
     try {
       event.preventDefault();
       const response = await verifyUser(data);
+      console.log(response);
       dispatch(confirmPasswordAction.addOne(data));
       console.log(data);
       navigation(prePath === "register" ? "/login" : "/new-password");
     } catch (error) {
       if (error.status === 401) {
-        setErrors({ verify: "Wrong!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
