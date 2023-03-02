@@ -23,6 +23,11 @@ import CreatePrice from '../view/pages/Brands/Campaign/Price';
 // error
 import Error from '../view/pages/Error';
 import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
+// Task
+import TaskLayout from '../layout/TaskLayout';
+import Applying from '../view/pages/Influencers/task/Applying';
+import Doing from '../view/pages/Influencers/task/Doing';
+import Waiting from '../view/pages/Influencers/task/Waiting';
 //public routes
 const publicRoutes = [{
     path: '/register',
@@ -101,8 +106,23 @@ const publicRoutes = [{
     path:'/brand/campaign/price',
     component:CreatePrice,
     layout:CreateCampaignLayout
-   
 }
+,{
+    path:'/influencer/task/applying',
+    component:Applying,
+    layout:TaskLayout
+
+},{
+    path:'/influencer/task/doing',
+    component:Doing,
+    layout:TaskLayout
+
+},{
+    path:'/influencer/task/waiting',
+    component:Waiting,
+    layout:TaskLayout
+
+},
 ]
 
 const privateRoutes = [{
