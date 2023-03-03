@@ -18,6 +18,7 @@ import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFoll
 import Error from '../view/pages/Error';
 import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
 import BookingScreen from '../view/pages/Booking/BookingScreen';
+import SendRequest from '../view/pages/Booking/SendRquest';
 //public routes
 const publicRoutes = [{
     path: '/register',
@@ -81,6 +82,10 @@ const publicRoutes = [{
 },{
     path:'/booking',
     component:BookingScreen
+},
+{
+    path:'/booking/send-request',
+    component:SendRequest
 }
 ]
 
