@@ -10,7 +10,8 @@
   background: #eef4ff;
   padding-bottom: 200px;
   &-container {
-    width: 62%;
+    // width: 62%;
+    width: 78%;
     margin: 0 auto;
     // height: 78vh;
     display: flex;
@@ -185,7 +186,7 @@
 .partner {
   margin-top: 80px;
   &-container {
-    width: 62%;
+    width: 78%;
     margin: 0 auto;
   }
   &-list-item {
@@ -220,7 +221,7 @@
   padding-top: 50px;
   padding-bottom: 121px;
   &-container {
-    width: 62%;
+    width: 78%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -304,7 +305,7 @@
 
 // BoostBrand
 .boost {
-  width: 62%;
+  width: 78%;
   margin: 0 auto;
   &-header {
     max-width: 555px;
@@ -490,7 +491,7 @@
 
 // testemonial
 .testemonial {
-  width: 62%;
+  width: 78%;
   margin: 0 auto;
   margin-bottom: 100px;
   .boxed {
