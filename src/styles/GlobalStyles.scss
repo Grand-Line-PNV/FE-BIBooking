@@ -5,11 +5,13 @@
   --primary: #f16736;
   --black: #000;
   --text-color: #333;
-  --blue-color:rgba(62, 63, 216, 1);
-  --Linear-orange-color: linear-gradient(180deg,
-      #f0a237 0%,
-      #f16736 50.83%,
-      #ed3237 100%);
+  --blue-color: rgba(62, 63, 216, 1);
+  --Linear-orange-color: linear-gradient(
+    180deg,
+    #f0a237 0%,
+    #f16736 50.83%,
+    #ed3237 100%
+  );
 }
 
 * {
@@ -34,7 +36,7 @@
 .text {
   font-size: 18px;
   line-height: calc(26 / 18);
-  color: #61646B;
+  color: #61646b;
 }
 
 .text-medium {
@@ -84,7 +86,7 @@ input[type="password"],
 input[type="email"],
 [tabindex] {
   width: 100%;
-  height: 30px;
+  // height: 30px;
 }
 
 input::-ms-reveal,

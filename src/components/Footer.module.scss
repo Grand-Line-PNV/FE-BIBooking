@@ -4,14 +4,15 @@
   padding-top: 202px;
   color: white;
   transition: all 0.5s ease;
+  width: 100%;
   & .container {
-    display: flex;
-    justify-content: space-around;
+    // display: flex;
+    // justify-content: space-around;
   }
   &-container {
-    display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr;
-    grid-gap: 0 110px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
   }
   &-logo {
     display: inline-block;
@@ -19,7 +20,7 @@
   }
   &-desc {
     font-size: 18px;
-  line-height: calc(26 / 18);
+    line-height: calc(26 / 18);
     margin-bottom: 22px;
     width: 316px;
     color: white;
@@ -54,6 +55,7 @@
       border-color: transparent;
       box-shadow: none;
       border: 1px solid white;
+      margin-bottom: 20px;
     }
   }
   .copyright {
@@ -65,7 +67,7 @@
 
 @media screen and (max-width: 1024px) {
   .footer-container {
-    grid-gap: 0 20px;
+    width: 90%;
   }
 }
 
@@ -85,4 +87,14 @@
 }
 
 @media screen and (max-width: 768px) {
+  .footer-container{
+    flex-direction: column;
+    
+  }
+}
+
+@media screen and (max-width: 320px) {
+ .footer-desc {
+  width: 200px;
+ }
 }

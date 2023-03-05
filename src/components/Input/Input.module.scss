@@ -73,16 +73,21 @@ input[type="date"]{
         border-radius: 5px;
         width: 100%;
         padding: 6px 16px;
-        border: 1px solid #c3c6d2 !important;
+        // border: 1px solid #c3c6d2 !important;
+        box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+        &:hover {
+            border-color: rgba(22, 24, 35, 0.2);
+            background-color: rgba(22, 24, 35, 0.03);
+        }
     }
     @media screen and (max-width: 400px) {
         .large {
             width: 380px !important;
     
         }
-        textarea{
-            width: 380px !important;
-        }
+        // textarea{
+        //     width: 380px !important;
+        // }
         .small {
             width: 380px !important;
 

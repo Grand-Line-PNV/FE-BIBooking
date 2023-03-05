@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./EditProfileLayout.module.scss";
 import classNames from "classnames/bind";
 import Button from "../../components/Button/Button";
-// import { Avatar } from "../../../../../assets/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCheck, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Header from "../../components/Header";
@@ -13,6 +12,7 @@ const cx = classNames.bind(styles);
 
 const EditProfileLayout = ({children}) => {
   const[open,setOpen] = useState(false)
+ 
 // const handleIconMenu(){
 
 // }
