@@ -7,7 +7,7 @@ import useFormData from "../../../../hooks/useFormData";
 import Input from "../../../../components/Input";
 import {
   createInfoBrand,
-  InfoBrand,
+  infoBrand,
   updateInfoBrand,
 } from "../../../../api/brand";
 import { brandAction } from "../../../../features/feature/brand";
@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
 
 export default function ProfileScreen() {
   const account_id = localStorage.getItem("account_id");
-
+ 
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState(null);
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
@@ -53,7 +53,7 @@ export default function ProfileScreen() {
     });
 
   useEffect(() => {
-    setData((prevData) => ({
+    setData(prevData => ({
       ...prevData,
       address_line2: state.selectedWard?.label || "",
       address_line3: state.selectedDistrict?.label || "",
@@ -91,7 +91,9 @@ export default function ProfileScreen() {
       </p>
       <h2 className={cx("profile-title", "heading")}>Brand’s information</h2>
       <div className={cx("create-campaign")}>
-        <form onSubmit={handleSubmit}>
+        <form
+        onSubmit={handleSubmit}
+        >
           <div className={cx("form")}>
             <div className={cx("form-group")}>
               <Input
@@ -376,7 +378,7 @@ export default function ProfileScreen() {
                 defaultValue={selectedWard}
                 className={cx("form-select")}
                 required
-                styles={{border: "none"}}
+                
               />
               <Input
                 type="text"
