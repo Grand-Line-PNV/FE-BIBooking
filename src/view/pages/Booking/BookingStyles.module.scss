@@ -122,16 +122,7 @@
         width: 100%;
     }
     .form{
-        padding: 50px;
-        width: 900px;
-        height: 500px;
-        background-color: white;
-        position: absolute;
-        top: 20%;
-        border-radius: 10px;
-        box-shadow: 0 0 5px 0 rgb(186, 183, 183);
         .content{
-            // margin: 30px;
         }
         lable{
             display: inline-block;
@@ -152,9 +143,6 @@
         }
     }
     .information{
-        position: absolute;
-        top:110px;
-        right: 100px;
         .content{
             padding: 20px;
             span{
@@ -178,4 +166,17 @@
     padding-top: 150px;
 
 
+}
+.background-white{
+    width: 900px;
+    height: 500px;
+    background-color: white;
+    position: absolute;
+    top: 20%;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 0 rgb(186, 183, 183);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 50px;
 }

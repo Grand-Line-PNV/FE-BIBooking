@@ -16,6 +16,7 @@ const SendRequest = () => {
             alt=""
             className={cx("image")}
           />
+          <div className={cx("background-white")}>
           <div className={cx("form")}>
             <h3 className={cx("title")}>Nguyen Thi Khanh Linh</h3>
             <p>I am here for you! How can I help?</p>
@@ -67,6 +68,7 @@ const SendRequest = () => {
               <span>linh.nguyenthikhanh02@gmail.com</span>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

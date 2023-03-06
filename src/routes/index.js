@@ -19,6 +19,7 @@ import Error from '../view/pages/Error';
 import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
 import BookingScreen from '../view/pages/Booking/BookingScreen';
 import SendRequest from '../view/pages/Booking/SendRquest';
+import PaymentScreen from '../view/pages/Payment/PaymentScreen';
 //public routes
 const publicRoutes = [{
     path: '/register',
@@ -86,6 +87,10 @@ const publicRoutes = [{
 {
     path:'/booking/send-request',
     component:SendRequest
+},
+{
+    path:'/booking/payment',
+    component:PaymentScreen
 }
 ]
 
