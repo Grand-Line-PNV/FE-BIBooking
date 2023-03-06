@@ -101,12 +101,16 @@ const publicRoutes = [{
     path:'/brand/campaign/responsibility',
     component:CreateResponsibility,
     layout:CreateCampaignLayout
-   
+
 },{
     path:'/brand/campaign/price',
     component:CreatePrice,
     layout:CreateCampaignLayout
-}
+},
+// {
+//     path:'/notify',
+//     component:Notify
+// }
 ,{
     path:'/influencer/task/applying',
     component:Applying,
