@@ -8,6 +8,7 @@ import { faBars, faBell, faRing, faUser } from "@fortawesome/free-solid-svg-icon
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { faBellSlash } from "@fortawesome/free-regular-svg-icons";
+import Notify from '../view/notifications/Notify';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +22,12 @@ const STICKY_DEFAULTS = {
 
 export default function Header() {
   const [sticky, setSticky] = useState(STICKY_DEFAULTS);
+
+  const [open, setOpen] = useState(false)
+
+  const [userRole, setUserRole] = useState("");
+  const [username, setUserName] = useState("");
+
   const headerRef = useRef(null);
   const handleScroll = useCallback(() => {
     const header = headerRef?.current?.getBoundingClientRect?.();
@@ -42,8 +49,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const [userRole, setUserRole] = useState("");
-  const [username, setUserName] = useState("");
+
 
   const navigation = useNavigate();
   useEffect(() => {
@@ -59,6 +65,15 @@ export default function Header() {
     setUserName("");
     navigation("/home");
   };
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
 
   return (
     <header
@@ -156,8 +171,8 @@ export default function Header() {
               <Button outline={true} onClick={handleLogout}>
                 Log Out
               </Button>
-              <FontAwesomeIcon icon={faBell} color="#f16736"/>
-              <FontAwesomeIcon icon={faUser} color="#f16736"/>
+              <FontAwesomeIcon id="modal-closed" icon={faBell} color="#f16736" onClick={handleOpen} />
+              <FontAwesomeIcon icon={faUser} color="#f16736" />
             </div>
           )}
 
@@ -242,6 +257,9 @@ export default function Header() {
               </ul>
             )}
           </label>
+          {
+            open && <Notify onClose={handleClose} />
+          }
         </div>
       </div>
     </header>
