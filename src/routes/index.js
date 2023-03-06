@@ -1,7 +1,7 @@
 //HomePage
 import Home from '../view/pages/Home/Home';
 //layouts
-import {RegisterLayout} from '../layout';
+import RegisterLayout from '../layout/registerLayout/index';
 import EditProfileLayout from '../layout/EditProfileLayout';
 import Confirmation from '../view/pages/Auth/ForgotPassword/Confirmation';
 import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
@@ -15,11 +15,8 @@ import EditProfile from '../view/pages/Influencers/Setting/profile/EditProfile';
 import EditSocialMedia from '../view/pages/Influencers/Setting/profile/EditSocialMedia';
 import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFollowerRate';
 // Brand's Campaign
-import CreateCampaignLayout from '../layout/CreateCampaign';
-import CreateInformation from '../view/pages/Brands/Campaign/Infomation';
-import CreateDescription from '../view/pages/Brands/Campaign/Description';
-import CreateResponsibility from '../view/pages/Brands/Campaign/Responsibility';
-import CreatePrice from '../view/pages/Brands/Campaign/Price';
+import CreateCampaignLayout from '../layout/formLayout';
+import CreateCampaign from '../view/pages/Brands/Campaign/CreateScreen';
 // error
 import Error from '../view/pages/Error';
 import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
@@ -45,7 +42,8 @@ const publicRoutes = [{
 }
 , {
     path: 'brand/profile',
-    component: ProfileScreen
+    component: ProfileScreen,
+    layout:CreateCampaignLayout,
 },
 {
     path: 'influencer/profile',
@@ -87,30 +85,11 @@ const publicRoutes = [{
     path:'/influencer/setting/edit-profile/services',
     component:EditServices,
     layout:EditProfileLayout
-},
-{
-    path: '/brand/campaign/information',
-    component:CreateInformation,
-    layout:CreateCampaignLayout
-},
-{
-    path:'/brand/campaign/description',
-    component:CreateDescription,
-    layout:CreateCampaignLayout
 },{
-    path:'/brand/campaign/responsibility',
-    component:CreateResponsibility,
-    layout:CreateCampaignLayout
-
-},{
-    path:'/brand/campaign/price',
-    component:CreatePrice,
-    layout:CreateCampaignLayout
-},
-// {
-//     path:'/notify',
-//     component:Notify
-// }
+    path:'/brand/campaign/create',
+    component:CreateCampaign,
+    layout:CreateCampaignLayout,
+}
 ,{
     path:'/influencer/task/applying',
     component:Applying,
