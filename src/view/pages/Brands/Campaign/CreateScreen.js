@@ -7,9 +7,7 @@ import useFormData from "../../../../hooks/useFormData";
 import Input from "../../../../components/Input";
 import { createCampaignBrand } from "../../../../api/brand";
 import { brandAction } from "../../../../features/feature/brand";
-import Select from "react-select";
 import { convertObjectToFormData } from "../../../../utils/convertDataUtils";
-import InputMask from "react-input-mask";
 
 const cx = classNames.bind(styles);
 
@@ -17,8 +15,8 @@ export default function CreateCampaign() {
   const brand_id = localStorage.getItem("account_id");
 
   const dispatch = useDispatch();
-  const [campaignImages, setCampaignImages] = useState(null);
-  const [productImages, setProductImages] = useState(null);
+  const [campaignImagesPreview, setCampaignImages] = useState(null);
+  const [productImagesPreview, setProductImages] = useState(null);
 
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
@@ -34,22 +32,22 @@ export default function CreateCampaign() {
       interest: "",
       started_date: "",
       ended_date: "",
-      campaignImages: "",
-      productImages: "",
+      "campaignImages[]": [],
+      "productImages[]": [],
     });
 
   const handleImageChangeCampaign = (e) => {
-    const file = e.target.files[0];
-    const previewURL = URL.createObjectURL(file);
-    setCampaignImages(previewURL);
-    setData({ ...data, campaignImages: file });
+    const files = e.target.files;
+    // const previewURL = URL.createObjectURL(file);
+    // setCampaignImages(previewURL);
+    setData({ ...data, "campaignImages[]": files });
   };
 
   const handleImageChangeProduct = (e) => {
-    const file = e.target.files[0];
-    const previewURL = URL.createObjectURL(file);
-    setProductImages(previewURL);
-    setData({ ...data, productImages: file });
+    const files = e.target.files;
+    // const previewURL = URL.createObjectURL(file);
+    // setProductImages(previewURL);
+    setData({ ...data, "productImages[]": files });
   };
 
   const handleSubmit = async (event) => {
@@ -58,7 +56,8 @@ export default function CreateCampaign() {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
       const response = await createCampaignBrand(formData);
-      dispatch(brandAction.addOne(data));
+      // dispatch(brandAction.addOne(data));
+      console.log(response);
     } catch (error) {
       if (error.status === 401) {
       } else if (error.status === 422) {
@@ -75,7 +74,7 @@ export default function CreateCampaign() {
       </p>
       <h2 className={cx("profile-title", "heading")}>Create Campaign</h2>
       <div className={cx("create-campaign")}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multiple">
           <div className={cx("form")}>
             <div className={cx("form-group")}>
               <Input
@@ -290,14 +289,15 @@ export default function CreateCampaign() {
                   name="campaignImages"
                   onChange={handleImageChangeCampaign}
                   require
+                  multiple
                   star
                 />
                 <img
-                  id="preview-img"
+                  id="preview-img-campaign"
                   className={cx("img-thumbnail")}
                   alt=""
                   name="productImages"
-                  src={campaignImages}
+                  src={campaignImagesPreview}
                 />
               </span>
               {errors.campaignImages && (
@@ -318,14 +318,15 @@ export default function CreateCampaign() {
                   name="productImages"
                   onChange={handleImageChangeProduct}
                   require
+                  multiple
                   star
                 />
                 <img
-                  id="preview-img"
+                  id="preview-img-product"
                   className={cx("img-thumbnail")}
                   alt=""
                   name="productImages"
-                  src={productImages}
+                  src={productImagesPreview}
                 />
               </span>
               {errors.productImages && (

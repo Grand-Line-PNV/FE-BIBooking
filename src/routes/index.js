@@ -15,6 +15,7 @@ import EditProfile from '../view/pages/Influencers/Setting/profile/EditProfile';
 import EditSocialMedia from '../view/pages/Influencers/Setting/profile/EditSocialMedia';
 import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFollowerRate';
 // Brand's Campaign
+import Campaign from '../view/pages/Influencers/campaign/Campaign';
 import CreateCampaignLayout from '../layout/formLayout';
 import CreateCampaign from '../view/pages/Brands/Campaign/CreateScreen';
 // error
@@ -104,8 +105,10 @@ const publicRoutes = [{
     path:'/influencer/task/waiting',
     component:Waiting,
     layout:TaskLayout
-
-},
+},{
+    path:'/campaign',
+    component: Campaign
+}
 ]
 
 const privateRoutes = [{
