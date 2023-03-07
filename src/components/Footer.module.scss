@@ -3,6 +3,7 @@
   background-color: rgba(240, 162, 55, 0.8);
   padding-top: 202px;
   color: white;
+  transition: all 0.5s ease;
   & .container {
     display: flex;
     justify-content: space-around;
@@ -17,8 +18,11 @@
     margin-bottom: 20px;
   }
   &-desc {
+    font-size: 18px;
+  line-height: calc(26 / 18);
     margin-bottom: 22px;
     width: 316px;
+    color: white;
   }
   &-heading {
     margin-bottom: 20px;
@@ -59,12 +63,26 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .footer-container {
+    grid-gap: 0 20px;
+  }
+}
+
+
 @media screen and (max-width: 1023.98px) {
   .footer {
     padding-top: 100px;
     padding-bottom: 10px;
   }
+  .footer .container{
+    justify-content: start;
+    padding-left: 40px;
+  }
   .footer-container {
     grid-template-columns: 100%;
   }
+}
+
+@media screen and (max-width: 768px) {
 }

@@ -65,7 +65,7 @@
             transform: translateY(-160px);
     height: 160px;
     width: 2px;
-    background-color: #00ffc0;
+    background-color: #F0A237;
   }
   
   @-webkit-keyframes drop {
@@ -134,7 +134,7 @@
     font-size: 188px;
     font-weight: 700;
     margin: 0px;
-    text-shadow: 4px 4px 0px #00ffc0;
+    text-shadow: 4px 4px 0px #F0A237;
   }
   
   .notfound h2 {
