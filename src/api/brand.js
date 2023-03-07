@@ -17,3 +17,7 @@ export function updateInfoBrand(id, data) {
 export function createCampaignBrand(data) {
   return http.post("brand/create-campaign", data);
 }
+
+export function getCampaign(data) {
+  return http.post("filter-campaign", data);
+}
