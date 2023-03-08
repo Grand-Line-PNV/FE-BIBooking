@@ -13,6 +13,7 @@ import {
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { faBellSlash } from "@fortawesome/free-regular-svg-icons";
+import Notify from '../view/notifications/Notify';
 
 const cx = classNames.bind(styles);
 
@@ -26,6 +27,12 @@ const STICKY_DEFAULTS = {
 
 export default function Header() {
   const [sticky, setSticky] = useState(STICKY_DEFAULTS);
+
+  const [open, setOpen] = useState(false)
+
+  const [userRole, setUserRole] = useState("");
+  const [username, setUserName] = useState("");
+
   const headerRef = useRef(null);
   const handleScroll = useCallback(() => {
     const header = headerRef?.current?.getBoundingClientRect?.();
@@ -47,8 +54,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const [userRole, setUserRole] = useState("");
-  const [username, setUserName] = useState("");
+
 
   const navigation = useNavigate();
   useEffect(() => {
@@ -85,6 +91,15 @@ export default function Header() {
   };
 
   window.addEventListener("scroll", handleScrollNavBar);
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
 
   return (
     <header
@@ -287,7 +302,7 @@ export default function Header() {
               <Button outline={true} onClick={handleLogout} className="btn-web">
                 Log out
               </Button>
-              <a href="#" className="btn user-btn" aria-label="Profile">
+              <a href="#" className="btn user-btn" aria-label="Profile" id="modal-closed" onClick={handleOpen}>
                 <FontAwesomeIcon icon={faBell} color="#f16736" />
               </a>
               <a href="#" className="btn user-btn" aria-label="Profile">
@@ -305,6 +320,13 @@ export default function Header() {
             <span className="two" />
             <span className="three" />
           </button>
+              <FontAwesomeIcon id="modal-closed" icon={faBell} color="#f16736" onClick={handleOpen} />
+              <FontAwesomeIcon icon={faUser} color="#f16736" />
+            </div>
+          )}
+          {
+            open && <Notify onClose={handleClose} />
+          }
         </div>
       </div>
     </header>
