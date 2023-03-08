@@ -1,7 +1,7 @@
 //HomePage
 import Home from '../view/pages/Home/Home';
 //layouts
-import RegisterLayout from '../layout/registerLayout/index';
+import RegisterLayout from '../layout/RegisterLayout/index';
 import EditProfileLayout from '../layout/EditProfileLayout';
 import Confirmation from '../view/pages/Auth/ForgotPassword/Confirmation';
 import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
