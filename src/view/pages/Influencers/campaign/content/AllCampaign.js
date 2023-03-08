@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./CampaignStyles.module.scss";
 import Button from "../../../../../components/Button/Button";
@@ -25,9 +25,7 @@ const AllCampaign = () => {
     <section className={cx("section", "featured-car")} id={cx("featured-car")}>
       <div className={cx("container")}>
         <ul className={cx("featured-car-list")}>
-            <ShowCampaign
-              data={data}
-            />
+          <ShowCampaign data={data} />
         </ul>
 
         <div className={cx("btn-see-more")}>
