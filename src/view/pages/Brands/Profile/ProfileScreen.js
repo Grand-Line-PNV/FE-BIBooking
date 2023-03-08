@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
 
 export default function ProfileScreen() {
   const account_id = localStorage.getItem("account_id");
- 
+
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState(null);
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
@@ -53,7 +53,7 @@ export default function ProfileScreen() {
     });
 
   useEffect(() => {
-    setData(prevData => ({
+    setData((prevData) => ({
       ...prevData,
       address_line2: state.selectedWard?.label || "",
       address_line3: state.selectedDistrict?.label || "",
@@ -73,6 +73,7 @@ export default function ProfileScreen() {
     try {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
+      // ward_code: selectedWard.value
       const response = await createInfoBrand(formData);
       dispatch(brandAction.addOne(data));
     } catch (error) {
@@ -82,7 +83,6 @@ export default function ProfileScreen() {
       }
     }
   };
-
   return (
     <>
       <p className={cx("profile-path", "heading-small")}>
@@ -91,9 +91,7 @@ export default function ProfileScreen() {
       </p>
       <h2 className={cx("profile-title", "heading")}>Brand’s information</h2>
       <div className={cx("create-campaign")}>
-        <form
-        onSubmit={handleSubmit}
-        >
+        <form onSubmit={handleSubmit}>
           <div className={cx("form")}>
             <div className={cx("form-group")}>
               <Input
@@ -378,7 +376,6 @@ export default function ProfileScreen() {
                 defaultValue={selectedWard}
                 className={cx("form-select")}
                 required
-                
               />
               <Input
                 type="text"

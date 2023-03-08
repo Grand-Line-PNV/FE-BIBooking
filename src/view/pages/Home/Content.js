@@ -1,5 +1,4 @@
 import React from "react";
-import Hero from "./Contents/Hero";
 import Partner from "./Contents/Partner";
 import Booking from "./Contents/Booking";
 import Boost from "./Contents/BoostBrand";
@@ -10,7 +9,6 @@ import Subscribe from "./Contents/Subscribe";
 export default function Content() {
   return (
     <>
-      <Hero />
       <Partner />
       <Booking />
       <Boost />

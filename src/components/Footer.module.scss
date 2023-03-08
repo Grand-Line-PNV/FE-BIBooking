@@ -4,15 +4,15 @@
   padding-top: 202px;
   color: white;
   transition: all 0.5s ease;
-  width: 100%;
   & .container {
-    // display: flex;
-    // justify-content: space-around;
+    margin: 0 auto;
+    max-width: 1585px;
+    
   }
   &-container {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-between;
+    
   }
   &-logo {
     display: inline-block;
@@ -68,6 +68,7 @@
 @media screen and (max-width: 1024px) {
   .footer-container {
     width: 90%;
+    margin: 0 auto;
   }
 }
 
@@ -79,7 +80,6 @@
   }
   .footer .container{
     justify-content: start;
-    padding-left: 40px;
   }
   .footer-container {
     grid-template-columns: 100%;
