@@ -70,12 +70,11 @@ html {
 }
 
 body {
-  text-rendering: optimizeSpeed;
   font-family: "Inter", sans-serif;
+  text-rendering: optimizeSpeed;
   font-size: 1.6rem;
   line-height: 1.5;
   color: var(--text-color);
-  // background-color: #EEF4FF;
 }
 
 button,
@@ -90,7 +89,6 @@ input[type="password"],
 input[type="email"],
 [tabindex] {
   width: 100%;
-  // height: 30px;
 }
 
 input::-ms-reveal,
