@@ -1,7 +1,7 @@
 //HomePage
 import Home from '../view/pages/Home/Home';
 //layouts
-import {RegisterLayout} from '../layout';
+import RegisterLayout from '../layout/RegisterLayout/index';
 import EditProfileLayout from '../layout/EditProfileLayout';
 import Confirmation from '../view/pages/Auth/ForgotPassword/Confirmation';
 import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
@@ -14,9 +14,18 @@ import AllProfileScreen from '../view/pages/Influencers/profile/AllProfileScreen
 import EditProfile from '../view/pages/Influencers/Setting/profile/EditProfile';
 import EditSocialMedia from '../view/pages/Influencers/Setting/profile/EditSocialMedia';
 import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFollowerRate';
+// Brand's Campaign
+import Campaign from '../view/pages/Influencers/campaign/Campaign';
+import CreateCampaignLayout from '../layout/formLayout';
+import CreateCampaign from '../view/pages/Brands/Campaign/CreateScreen';
 // error
 import Error from '../view/pages/Error';
 import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
+// Task
+import TaskLayout from '../layout/TaskLayout';
+import Applying from '../view/pages/Influencers/task/Applying';
+import Doing from '../view/pages/Influencers/task/Doing';
+import Waiting from '../view/pages/Influencers/task/Waiting';
 //public routes
 const publicRoutes = [{
     path: '/register',
@@ -34,7 +43,8 @@ const publicRoutes = [{
 }
 , {
     path: 'brand/profile',
-    component: ProfileScreen
+    component: ProfileScreen,
+    layout:CreateCampaignLayout,
 },
 {
     path: 'influencer/profile',
@@ -69,14 +79,35 @@ const publicRoutes = [{
     layout:EditProfileLayout
 },
 {
-    path:'/influencer/setting//edit-profile/followr-rate',
+    path:'/influencer/setting/edit-profile/followr-rate',
     component:EditFollowerRate,
     layout:EditProfileLayout
 },{
-    path:'/influencer/setting//edit-profile/services',
+    path:'/influencer/setting/edit-profile/services',
     component:EditServices,
     layout:EditProfileLayout
-   
+},{
+    path:'/brand/campaign/create',
+    component:CreateCampaign,
+    layout:CreateCampaignLayout,
+}
+,{
+    path:'/influencer/task/applying',
+    component:Applying,
+    layout:TaskLayout
+
+},{
+    path:'/influencer/task/doing',
+    component:Doing,
+    layout:TaskLayout
+
+},{
+    path:'/influencer/task/waiting',
+    component:Waiting,
+    layout:TaskLayout
+},{
+    path:'/campaign',
+    component: Campaign
 }
 ]
 
