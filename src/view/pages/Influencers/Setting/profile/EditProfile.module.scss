@@ -126,6 +126,10 @@
     display: flex;
     justify-content: flex-end;
   }
+  .btn-plus{
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;  }
   @media screen and (max-width: 400px) {
     .form-inf {
       padding: 5px;

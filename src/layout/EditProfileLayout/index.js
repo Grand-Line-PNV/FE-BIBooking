@@ -63,8 +63,8 @@ const EditProfileLayout = ({children}) => {
           >
             <Link className={cx("profile-title")} to='/influencer/setting/edit-profile'><h3>General</h3></Link>
             <Link className={cx("profile-title")} to='/influencer/setting/edit-profile/social-media'><h3>Social media</h3></Link>
-            <Link className={cx("profile-title")} to='/influencer/setting//edit-profile/followr-rate'><h3>Follower rate</h3></Link>
-            <Link className={cx("profile-title")} to='/influencer/setting//edit-profile/services'><h3>Services</h3></Link>
+            <Link className={cx("profile-title")} to='/influencer/setting/edit-profile/followr-rate'><h3>Follower rate</h3></Link>
+            <Link className={cx("profile-title")} to='/influencer/setting/edit-profile/services'><h3>Services</h3></Link>
           </div>
 
           {children}

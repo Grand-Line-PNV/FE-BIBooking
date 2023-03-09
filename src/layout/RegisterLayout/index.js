@@ -2,11 +2,12 @@ import classNames from "classnames/bind";
 import styles from "./RegisterLayout.module.scss";
 import { Saly1 } from "../../assets/images";
 import { LogoHomePage } from "../../assets/images";
+import { Fragment } from "react";
 const cx = classNames.bind(styles);
 
 const RegisterLayout = ({ children }) => {
   return (
-    <>
+    <Fragment>
       <section className={cx("auth")}>
         <img className={cx("logo")} src={LogoHomePage} alt="logo B&IBooking"/>
         <div className={cx("container")}>
@@ -19,7 +20,7 @@ const RegisterLayout = ({ children }) => {
           <div className={cx("auth-content")}>{children}</div>
         </div>
       </section>
-    </>
+    </Fragment>
   );
 };
 

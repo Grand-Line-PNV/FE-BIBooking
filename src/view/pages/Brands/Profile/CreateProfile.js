@@ -57,6 +57,7 @@ export default function ProfileScreen() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    console.log(file)
     const previewURL = URL.createObjectURL(file);
     setImagePreview(previewURL);
     setData({...data, image: file})
