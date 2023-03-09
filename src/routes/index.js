@@ -27,88 +27,93 @@ import Applying from '../view/pages/Influencers/task/Applying';
 import Doing from '../view/pages/Influencers/task/Doing';
 import Waiting from '../view/pages/Influencers/task/Waiting';
 //public routes
-const publicRoutes = [{
-    path: '/register',
-    component: RegisterScreen,
-    layout:RegisterLayout
-}, {
-    path: '/login',
-    component: LoginScreen,
-    layout:RegisterLayout
+const publicRoutes = [
+    {
+        path: '/',
+        component: Home,
+    },
+    {
+        path: '/register',
+        component: RegisterScreen,
+        layout:RegisterLayout
+    }, {
+        path: '/login',
+        component: LoginScreen,
+        layout:RegisterLayout
 
-},
-{
-    path: '/home',
-    component: Home,
-}
-, {
-    path: 'brand/profile',
-    component: ProfileScreen,
-    layout:CreateCampaignLayout,
-},
-{
-    path: 'influencer/profile',
-    component: AllProfileScreen
-},
-{
-    path: 'influencer/setting/edit-profile',
-    component: EditProfile,
-    layout:EditProfileLayout
-},
-{
-    path: '/forgot-password',
-    component: ForgotPassword,
-    layout:RegisterLayout
-},{
-    path: '/verification',
-    component: Confirmation,
-    layout:RegisterLayout
-}
-,{
-    path: '/new-password',
-    component: NewPassword,
-    layout:RegisterLayout
-},{
-    path: '/error',
-    component: Error,
-    // layout:RegisterLayout
-},
-{
-    path: '/influencer/setting/edit-profile/social-media',
-    component:EditSocialMedia,
-    layout:EditProfileLayout
-},
-{
-    path:'/influencer/setting/edit-profile/followr-rate',
-    component:EditFollowerRate,
-    layout:EditProfileLayout
-},{
-    path:'/influencer/setting/edit-profile/services',
-    component:EditServices,
-    layout:EditProfileLayout
-},{
-    path:'/brand/campaign/create',
-    component:CreateCampaign,
-    layout:CreateCampaignLayout,
-}
-,{
-    path:'/influencer/task/applying',
-    component:Applying,
-    layout:TaskLayout
+    },
+    {
+        path: '/home',
+        component: Home,
+    }
+    , {
+        path: 'brand/profile',
+        component: ProfileScreen,
+        layout:CreateCampaignLayout,
+    },
+    {
+        path: 'influencer/profile',
+        component: AllProfileScreen
+    },
+    {
+        path: 'influencer/setting/edit-profile',
+        component: EditProfile,
+        layout:EditProfileLayout
+    },
+    {
+        path: '/forgot-password',
+        component: ForgotPassword,
+        layout:RegisterLayout
+    },{
+        path: '/verification',
+        component: Confirmation,
+        layout:RegisterLayout
+    }
+    ,{
+        path: '/new-password',
+        component: NewPassword,
+        layout:RegisterLayout
+    },{
+        path: '/error',
+        component: Error,
+        // layout:RegisterLayout
+    },
+    {
+        path: '/influencer/setting/edit-profile/social-media',
+        component:EditSocialMedia,
+        layout:EditProfileLayout
+    },
+    {
+        path:'/influencer/setting/edit-profile/followr-rate',
+        component:EditFollowerRate,
+        layout:EditProfileLayout
+    },{
+        path:'/influencer/setting/edit-profile/services',
+        component:EditServices,
+        layout:EditProfileLayout
+    },{
+        path:'/brand/campaign/create',
+        component:CreateCampaign,
+        layout:CreateCampaignLayout,
+    }
+    ,{
+        path:'/influencer/task/applying',
+        component:Applying,
+        layout:TaskLayout
 
-},{
-    path:'/influencer/task/doing',
-    component:Doing,
-    layout:TaskLayout
+    },{
+        path:'/influencer/task/doing',
+        component:Doing,
+        layout:TaskLayout
 
-},{
-    path:'/influencer/task/waiting',
-    component:Waiting,
-    layout:TaskLayout
-},{
-    path:'/campaign',
-    component: Campaign
-}
+    },{
+        path:'/influencer/task/waiting',
+        component:Waiting,
+        layout:TaskLayout
+    },{
+        path:'/campaign',
+        component: Campaign
+    }
 ]
 
 const privateRoutes = [{
