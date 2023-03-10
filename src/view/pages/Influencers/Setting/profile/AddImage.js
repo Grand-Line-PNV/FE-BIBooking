@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages } from "@fortawesome/free-regular-svg-icons";
 import Button from "../../../../../components/Button/Button";
 import { useEffect, useState } from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(style);
 const AddImage = (prop) => {
@@ -19,13 +19,7 @@ const AddImage = (prop) => {
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
-
-    // const imagesArray = selectedFilesArray.map((file) => {
-    //   return URL.createObjectURL(file);
-    // });
-
     setSelectedImages((previousImages) => previousImages.concat(selectedFilesArray));
-
     // FOR BUG IN CHROME
     event.target.value = "";
   };
@@ -45,7 +39,7 @@ const AddImage = (prop) => {
 
         <input
             type="file"
-            name="images"
+            name="influencerImages"
             onChange={onSelectFile}
             multiple
             accept="image/png , image/jpeg, image/webp"
@@ -84,7 +78,7 @@ const AddImage = (prop) => {
               <div key={image} className={cx("image-upload")}>
                 <img src={URL.createObjectURL(image)} height="250" alt="upload" />
                 <Button outline={true} small={true} onClick={() => deleteHandler(image)}>
-                  delete image
+                  <FontAwesomeIcon icon={faTrash}/>
                   <span> {index + 1}</span>
                 </Button>
               </div>
