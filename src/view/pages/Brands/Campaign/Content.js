@@ -1,9 +1,9 @@
 import React from "react";
-import AllCampaignInfluencer from "./content/AllCampaign";
+import AllCampaignBrand from "./content/AllCampaign";
 export default function Content() {
   return (
     <>
-      <AllCampaignInfluencer />
+      <AllCampaignBrand />
     </>
   );
 }
