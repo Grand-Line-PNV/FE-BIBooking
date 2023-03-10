@@ -10,14 +10,12 @@ import {
   faTiktok,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import "./Show.css";
 import PreLoader from "../../preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
-const ShowCampaign = ({ data }) => {
+const ShowCampaignInfluencer = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
-  //
   const [filteredItems, setFilteredItems] = useState(data);
   const [selectedValue, setSelectedValue] = useState("");
 
@@ -90,7 +88,7 @@ const ShowCampaign = ({ data }) => {
                 <div className={cx("card-content")}>
                   <div className={cx("card-title-wrapper")}>
                     <h3 className={cx("h3", "card-title")}>
-                      <a href="#">{item.nameCampaign}</a>
+                      <a href="#">{item.name}</a>
                     </h3>
                   </div>
                   <ul className={cx("card-list")}>
@@ -156,4 +154,4 @@ const ShowCampaign = ({ data }) => {
     </>
   );
 };
-export default ShowCampaign;
+export default ShowCampaignInfluencer;

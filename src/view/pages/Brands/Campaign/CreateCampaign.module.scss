@@ -1,3 +1,22 @@
+.form-update {
+  width: 100%;
+  max-width: 1585px;
+  margin: 0 auto;
+}
+
+.profile-top{
+  padding-top: 150px;
+}
+
+@media screen and (max-width: 1024px) {
+  .form-update {
+    width: 90%;
+  }
+  .profile-top{
+    padding-top: 50px;
+  }
+}
+
 .form {
   width: 100%;
   background: #fff;
@@ -7,15 +26,25 @@
   display: flex;
   gap: 10px;
 }
-.form-input-img {
-  display: flex;
-  gap: 0 20px;
-}
 
 .img-thumbnail {
-  width: 130px;
-  height: auto;
-  background-image: url("https://media.istockphoto.com/id/990697446/vector/gray-abstract-background.jpg?s=612x612&w=0&k=20&c=vO8a_dlQnyjvQxpnyKR9w5S9166pdAUrwnPg_P5zQ3k=");
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  align-items: center;
+}
+
+.img-thumbnail img{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.img-thumbnail .btn-delete{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin: 0 auto;
 }
 
 .profile-title {
@@ -76,7 +105,7 @@
   height: calc(100% - 45px);
 }
 
-.textarea-group .label-textarea {
+.label-textarea {
   color: #333333;
   font-size: 20px;
   line-height: 30px;
@@ -119,14 +148,20 @@
   .form-group [type= "file"]{
     font-size: 14px;
   }
-  .img-thumbnail {
-    display: none;
-  }
+
   .submit-inf .btn{
     margin-bottom: 30px;
   }
   .input-radios {
     width: 100%;
+  }
+  .img-thumbnail {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .img-thumbnail img{
+    width: 400px;
+    height: 200px;
   }
 }
 
@@ -135,7 +170,30 @@
     font-size: 17px;
   }
   .img-thumbnail {
-    display: block;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .img-thumbnail img{
+    width: 200px;
+    height: 200px;
+  }
+  .profile-top{
+    padding-top: 200px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .img-thumbnail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .img-thumbnail img{
+    width: 400px;
+    height: 200px;
+  }
+
+  .profile-top{
+    padding-top: 180px;
   }
 }
 
@@ -144,7 +202,14 @@
     font-size: 13px;
   }
   .img-thumbnail {
-    display: none;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .img-thumbnail img{
+    width: 400px;
+    height: 200px;
+  }
+  .profile-top{
+    padding-top: 180px;
   }
 }
 
@@ -153,7 +218,6 @@
     display: grid;
     grid-gap: 24px;
     grid-template-columns: 1fr 1fr 1fr;
-    // grid-auto-rows: 1fr;
   }
 
   .email-group {

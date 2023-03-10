@@ -68,7 +68,7 @@ export default function Header() {
     localStorage.clear();
     setUserRole("");
     setUserName("");
-    navigation("/home");
+    navigation("/");
   };
   // nav-bar
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -120,7 +120,7 @@ export default function Header() {
           onClick={closeNav}
         />
         <a href="#" className="logo">
-          <img src={LogoHomePage} alt="Ridex logo" />
+          <img src={LogoHomePage} alt="B&IBooking logo" />
         </a>
         {userRole === "1" ? (
           <nav className={`navbar ${isNavOpen ? "active" : ""}`} data-navbar>
@@ -131,6 +131,7 @@ export default function Header() {
                   className="navbar-link"
                   data-nav-link
                   onClick={closeNav}
+                  to="/"
                 >
                   Home
                 </a>
@@ -151,6 +152,7 @@ export default function Header() {
                   className="navbar-link"
                   data-nav-link
                   onClick={closeNav}
+                  to="/brand/campaign"
                 >
                   Campaign
                 </a>
