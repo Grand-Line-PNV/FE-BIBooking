@@ -66,7 +66,6 @@ const EditProfile = () => {
     try {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
-      console.log("see before push", data);
       await createInfluencerProfile(formData);
       alert("Successfully created");
       setData({

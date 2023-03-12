@@ -1,15 +1,48 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import styles from "./EditProfile.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
-
+import { createAudienceData } from "../../../../../api/influencer";
+import useFormData from "../../../../../hooks/useFormData";
+import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
 const cx = classNames.bind(styles);
 
 const EditFollowrRate = () => {
+  const account_id = localStorage.getItem("account_id");
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData({
+      account_id,
+      female: 0,
+      male: 0,
+      others: 0,
+      age1: 0,
+      age2: 0,
+      age3: 0,
+      age4: 0,
+      city1: 0,
+      city2: 0,
+      city3: 0,
+      city4: 0,
+    });
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const formData = convertObjectToFormData(data);
+      const repons = await createAudienceData(formData);
+      console.log(repons)
+      alert("Successfully created");
+    } catch (error) {
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+        setErrors(error.data.errors);
+      }
+    }
+  };
   return (
     <Fragment>
-      <form className={cx("form-inf")}>
+      <form className={cx("form-inf")} onSubmit={handleSubmit}>
         <div className={cx("form-above")}>
           <div className={cx("form-control-left")}>
             <div className={cx("form-group")}>
@@ -21,18 +54,27 @@ const EditFollowrRate = () => {
                 primary={true}
                 title="Male"
                 placeholder="Enter percentage..."
+                name="male"
+                value={data.male}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="Female"
                 placeholder="Enter percentage..."
+                name="female"
+                value={data.female}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="Others"
                 placeholder="Enter percentage..."
+                name="others"
+                value={data.others}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -46,24 +88,36 @@ const EditFollowrRate = () => {
                 primary={true}
                 title="City 1"
                 placeholder="Enter percentage..."
+                name="city1"
+                value={data.city1}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="City 2"
                 placeholder="Enter percentage..."
+                name="city2"
+                value={data.city2}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="City 3"
                 placeholder="Enter percentage..."
+                name="city3"
+                value={data.city3}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="Other"
                 placeholder="Enter percentage..."
+                name="city4"
+                value={data.city4}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -77,34 +131,46 @@ const EditFollowrRate = () => {
                 primary={true}
                 title="Less than 18 years old"
                 placeholder="Enter percentage..."
+                name="age1"
+                value={data.age1}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="18 - 34 years old"
                 placeholder="Enter percentage..."
+                name="age2"
+                value={data.age2}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="35 - 44 years old"
                 placeholder="Enter percentage..."
+                name="age3"
+                value={data.age3}
+                onChange={handleChange}
               />
               <Input
                 small={true}
                 primary={true}
                 title="Other"
                 placeholder="Enter percentage..."
+                name="age4"
+                value={data.age4}
+                onChange={handleChange}
               />
             </div>
           </div>
         </div>
+        <div className={cx("submit")}>
+          <Button primary={true} large={true} className={cx("heading-small")}>
+            Save
+          </Button>
+        </div>
       </form>
-      <div className={cx("submit")}>
-        <Button primary={true} large={true} className={cx("heading-small")}>
-          Save
-        </Button>
-      </div>
     </Fragment>
   );
 };

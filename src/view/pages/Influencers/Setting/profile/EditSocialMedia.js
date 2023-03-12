@@ -50,7 +50,7 @@ function EditSocialMedia() {
         socials: rowsData,
       };
   
-      console.log(socialData);
+    alert('Successfully created')
   
       await social(socialData)
     }

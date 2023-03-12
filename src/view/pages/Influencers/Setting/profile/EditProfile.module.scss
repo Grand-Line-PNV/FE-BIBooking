@@ -179,7 +179,11 @@
   display: flex;
   justify-content: center;
 }
-
+.form-services{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
 @media screen and (max-width: 400px) {
   .form-inf {
     padding: 5px;
