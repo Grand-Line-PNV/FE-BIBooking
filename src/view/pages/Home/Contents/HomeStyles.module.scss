@@ -7,12 +7,14 @@
 
 //Hero
 .hero {
-  background: #eef4ff;
   padding-bottom: 200px;
+  width: 100%;
+  max-width: 1585px;
+  margin: 0 auto;
   &-container {
-    width: 62%;
+    width: 100%;
+    max-width: none;
     margin: 0 auto;
-    // height: 78vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -147,6 +149,13 @@
   }
 }
 
+@media screen and (max-width: 1760px) {
+  .HeroBlock1,
+  .HeroBlock2 {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .hero {
     padding-top: 10px;
@@ -165,7 +174,7 @@
   .hero-heading {
     font-size: 30px;
     line-height: calc(43 / 30);
-    width: 400px;
+    width: 350px;
   }
   .hero-text {
     display: none;
@@ -184,9 +193,10 @@
 // partner
 .partner {
   margin-top: 80px;
+  width: 100%;
   &-container {
-    width: 62%;
-    margin: 0 auto;
+    // width: 78%;
+    // margin: 0 auto;
   }
   &-list-item {
     width: 90%;
@@ -199,8 +209,16 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .partner-container {
+  .partner {
+    padding-top: 150px;
     width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .partner {
+    padding-top: 50px;
   }
 }
 
@@ -220,7 +238,7 @@
   padding-top: 50px;
   padding-bottom: 121px;
   &-container {
-    width: 62%;
+    // width: 78%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -281,7 +299,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .booking-container{
+  .booking-container {
     flex-direction: column;
   }
 }
@@ -304,7 +322,7 @@
 
 // BoostBrand
 .boost {
-  width: 62%;
+  // width: 78%;
   margin: 0 auto;
   &-header {
     max-width: 555px;
@@ -417,7 +435,7 @@
   .boost-heading {
     margin: 0;
   }
-  .boost-text{
+  .boost-text {
     display: none;
   }
 }
@@ -461,7 +479,6 @@
   }
 }
 
-
 @media screen and (max-width: 700px) {
   .heading {
     font-size: 25px;
@@ -470,29 +487,28 @@
     margin: 0 auto;
     flex-direction: row;
   }
-  .solution-text{
+  .solution-text {
     display: none;
   }
   .solution-image {
     display: none;
   }
-  .solution-list{
+  .solution-list {
     flex-direction: column;
     gap: 30px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .solution-heading{
+  .solution-heading {
     width: 100%;
   }
 }
 
 // testemonial
 .testemonial {
-  width: 62%;
+  // width: 78%;
   margin: 0 auto;
-  margin-bottom: 100px;
   .boxed {
     display: flex;
     flex-direction: column;
@@ -543,7 +559,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .testemonial .container .boxed{
+  .testemonial .container .boxed {
     text-align: start;
   }
 }
@@ -597,8 +613,9 @@
   }
 }
 
-@media screen and (max-width: 400px) {
-  .news-text, .subscribe-text{
+@media screen and (max-width: 414px) {
+  .news-text,
+  .subscribe-text {
     display: none;
   }
 }
@@ -636,7 +653,7 @@
 
 // subscribe
 .subscribe {
-  width: 62%;
+  // width: 62%;
   margin: 0 auto;
   margin-bottom: 100px;
   .boxed {
@@ -712,10 +729,10 @@
   .subscribe-text {
     margin: 0;
   }
-  .subscribe-group{
+  .subscribe-group {
     height: 40px;
   }
-  .subscribe-submit{
+  .subscribe-submit {
     padding: 0 10px;
     height: 34px;
   }

@@ -1,112 +1,129 @@
 //HomePage
-import Home from '../view/pages/Home/Home';
+import Home from "../view/pages/Home/Home";
 //layouts
-import {RegisterLayout} from '../layout';
-import EditProfileLayout from '../layout/EditProfileLayout';
-import Confirmation from '../view/pages/Auth/ForgotPassword/Confirmation';
-import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
-import NewPassword from '../view/pages/Auth/ForgotPassword/NewPassword';
+import RegisterLayout from "../layout/RegisterLayout/index";
+import EditProfileLayout from "../layout/EditProfileLayout";
+import Confirmation from "../view/pages/Auth/ForgotPassword/Confirmation";
+import ForgotPassword from "../view/pages/Auth/ForgotPassword/ForgotPassword";
+import NewPassword from "../view/pages/Auth/ForgotPassword/NewPassword";
 //pages
-import LoginScreen from '../view/pages/Auth/Login/LoginScreen';
-import RegisterScreen from '../view/pages/Auth/Register/RegisterScreen';
+import LoginScreen from "../view/pages/Auth/Login/LoginScreen";
+import RegisterScreen from "../view/pages/Auth/Register/RegisterScreen";
 import ProfileScreen from "../view/pages/Brands/Profile/ProfileScreen";
-import AllProfileScreen from '../view/pages/Influencers/profile/AllProfileScreen';
-import EditProfile from '../view/pages/Influencers/Setting/profile/EditProfile';
-import EditSocialMedia from '../view/pages/Influencers/Setting/profile/EditSocialMedia';
-import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFollowerRate';
+import AllProfileScreen from "../view/pages/Influencers/profile/AllProfileScreen";
+import EditProfile from "../view/pages/Influencers/Setting/profile/EditProfile";
+import EditSocialMedia from "../view/pages/Influencers/Setting/profile/EditSocialMedia";
+import EditFollowerRate from "../view/pages/Influencers/Setting/profile/EditFollowerRate";
+// Influencer's Campaign
+import CampaignInfluencer from "../view/pages/Influencers/campaign/Campaign";
 // Brand's Campaign
-import CreateCampaignLayout from '../layout/CreateCampaign';
-import CreateInformation from '../view/pages/Brands/Campaign/Infomation';
-import CreateDescription from '../view/pages/Brands/Campaign/Description';
-import CreateResponsibility from '../view/pages/Brands/Campaign/Responsibility';
-import CreatePrice from '../view/pages/Brands/Campaign/Price';
+import CampaignBrand from "../view/pages/Brands/Campaign/Campaign";
+import CreateCampaignLayout from "../layout/formLayout";
+import CreateCampaign from "../view/pages/Brands/Campaign/CreateScreen";
+import UpdateCampaign from "../view/pages/Brands/Campaign/UpdateScreen";
 // error
-import Error from '../view/pages/Error';
-import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
+import Error from "../view/pages/Error";
+import EditServices from "../view/pages/Influencers/Setting/profile/EditServices";
+// Task
+import TaskLayout from "../layout/TaskLayout";
+import Applying from "../view/pages/Influencers/task/Applying";
+import Doing from "../view/pages/Influencers/task/Doing";
+import Waiting from "../view/pages/Influencers/task/Waiting";
 //public routes
-const publicRoutes = [{
-    path: '/register',
+const publicRoutes = [
+  {
+    path: "/register",
     component: RegisterScreen,
-    layout:RegisterLayout
-}, {
-    path: '/login',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/login",
     component: LoginScreen,
-    layout:RegisterLayout
-
-},
-{
-    path: '/home',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/",
     component: Home,
-}
-, {
-    path: 'brand/profile',
-    component: ProfileScreen
-},
-{
-    path: 'influencer/profile',
-    component: AllProfileScreen
-},
-{
-    path: 'influencer/setting/edit-profile',
+  },
+  {
+    path: "influencer/profile",
+    component: AllProfileScreen,
+  },
+  {
+    path: "influencer/setting/edit-profile",
     component: EditProfile,
-    layout:EditProfileLayout
-},
-{
-    path: '/forgot-password',
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/forgot-password",
     component: ForgotPassword,
-    layout:RegisterLayout
-},{
-    path: '/verification',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/verification",
     component: Confirmation,
-    layout:RegisterLayout
-}
-,{
-    path: '/new-password',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/new-password",
     component: NewPassword,
-    layout:RegisterLayout
-},{
-    path: '/error',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/error",
     component: Error,
     // layout:RegisterLayout
-},
-{
-    path: '/influencer/setting/edit-profile/social-media',
-    component:EditSocialMedia,
-    layout:EditProfileLayout
-},
-{
-    path:'/influencer/setting/edit-profile/followr-rate',
-    component:EditFollowerRate,
-    layout:EditProfileLayout
-},{
-    path:'/influencer/setting/edit-profile/services',
-    component:EditServices,
-    layout:EditProfileLayout
-},
-{
-    path: '/brand/campaign/information',
-    component:CreateInformation,
-    layout:CreateCampaignLayout
-},
-{
-    path:'/brand/campaign/description',
-    component:CreateDescription,
-    layout:CreateCampaignLayout
-},{
-    path:'/brand/campaign/responsibility',
-    component:CreateResponsibility,
-    layout:CreateCampaignLayout
-   
-},{
-    path:'/brand/campaign/price',
-    component:CreatePrice,
-    layout:CreateCampaignLayout
-   
-}
-]
+  },
+  {
+    path: "/influencer/setting/edit-profile/social-media",
+    component: EditSocialMedia,
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/influencer/setting/edit-profile/followr-rate",
+    component: EditFollowerRate,
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/influencer/setting/edit-profile/services",
+    component: EditServices,
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/influencer/task/applying",
+    component: Applying,
+    layout: TaskLayout,
+  },
+  {
+    path: "/influencer/task/doing",
+    component: Doing,
+    layout: TaskLayout,
+  },
+  {
+    path: "/influencer/task/waiting",
+    component: Waiting,
+    layout: TaskLayout,
+  },
+  {
+    path: "/influencer/campaign",
+    component: CampaignInfluencer,
+  },
+  {
+    path: "brand/profile",
+    component: ProfileScreen,
+    layout: CreateCampaignLayout,
+  },
+  {
+    path: "/brand/campaign/create",
+    component: CreateCampaign,
+    layout: CreateCampaignLayout,
+  },
+  {
+    path: "/brand/campaign",
+    component: CampaignBrand,
+  }
+];
 
-const privateRoutes = [{
+const privateRoutes = [{}];
 
-}]
-
-export {publicRoutes, privateRoutes}
+export { publicRoutes, privateRoutes };
