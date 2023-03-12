@@ -63,10 +63,11 @@ const EditProfile = () => {
   }, [selectedImages]);
 
   const handleSubmit = async (event) => {
+    resetErrors();
     try {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
-      await createInfluencerProfile(formData);
+      const respon = await createInfluencerProfile(formData);
       alert("Successfully created");
       setData({
         nickname: "",
@@ -93,7 +94,7 @@ const EditProfile = () => {
 
   return (
     <Fragment>
-      <form className={cx("form-inf")} onSubmit={handleSubmit}>
+      <form className={cx("form-inf")}>
         <div className={cx("form-above")}>
           <div className={cx("form-control-left")}>
             <Input
@@ -107,6 +108,15 @@ const EditProfile = () => {
               onChange={handleChange}
               star
             />
+
+            {errors.nickname && (
+              <div
+                className={cx("text", "text-medium")}
+                style={{ color: "red", display: "flex" }}
+              >
+                {errors.nickname}
+              </div>
+            )}
             <Input
               type="text"
               placeholder="Full name"
@@ -118,6 +128,14 @@ const EditProfile = () => {
               onChange={handleChange}
               star
             />
+            {errors.fullname && (
+              <div
+                className={cx("text", "text-medium")}
+                style={{ color: "red", display: "flex" }}
+              >
+                {errors.fullname}
+              </div>
+            )}
             <Input
               type="email"
               placeholder="email"
@@ -129,6 +147,14 @@ const EditProfile = () => {
               onChange={handleChange}
               star
             />
+            {errors.email && (
+              <div
+                className={cx("text", "text-medium")}
+                style={{ color: "red", display: "flex" }}
+              >
+                {errors.email}
+              </div>
+            )}
             <Input
               type="date"
               placeholder="Enter age"
@@ -140,6 +166,14 @@ const EditProfile = () => {
               onChange={handleChange}
               star
             />
+            {errors.dob && (
+              <div
+                className={cx("text", "text-medium")}
+                style={{ color: "red", display: "flex" }}
+              >
+                {errors.dob}
+              </div>
+            )}
             <Input
               type="text"
               placeholder="Enter your job"
@@ -151,9 +185,25 @@ const EditProfile = () => {
               onChange={handleChange}
               star
             />
+            {errors.job && (
+              <div
+                className={cx("text", "text-medium")}
+                style={{ color: "red", display: "flex" }}
+              >
+                {errors.job}
+              </div>
+            )}
           </div>
 
           <div className={cx("form-control-right")}>
+            {errors.phone_number && (
+              <div
+                className={cx("text", "text-medium")}
+                style={{ color: "red", display: "flex" }}
+              >
+                {errors.phone_number}
+              </div>
+            )}
             <Input
               type="text"
               placeholder="Enter phone number"
@@ -165,6 +215,15 @@ const EditProfile = () => {
               onChange={handleChange}
               star
             />
+
+            {errors.gender && (
+              <div
+                className={cx("text", "text-medium")}
+                style={{ color: "red", display: "flex" }}
+              >
+                {errors.gender}
+              </div>
+            )}
             <div className={cx("form-group")}>
               <label className={cx("form-label", "heading-small")}>
                 Gender <strong className={cx("required")}>*</strong>
@@ -214,6 +273,7 @@ const EditProfile = () => {
                 </div>
               </div>
             </div>
+
             <div className={cx("form-group")}>
               <label className={cx("form-label", "heading-small")}>
                 Provinces <strong className={cx("required")}>*</strong>
@@ -282,6 +342,14 @@ const EditProfile = () => {
             onChange={handleChange}
             placeholder="Enter title"
           />
+          {errors.title_for_job && (
+            <div
+              className={cx("text", "text-medium")}
+              style={{ color: "red", display: "flex" }}
+            >
+              {errors.title_for_job}
+            </div>
+          )}
           <Input
             rows="5"
             title="Content orientation"
@@ -289,6 +357,14 @@ const EditProfile = () => {
             value={data.content_topic}
             onChange={handleChange}
           />
+          {errors.content_topic && (
+            <div
+              className={cx("text", "text-medium")}
+              style={{ color: "red", display: "flex" }}
+            >
+              {errors.content_topic}
+            </div>
+          )}
           <Input
             rows="5"
             title="Experiences"
@@ -296,10 +372,23 @@ const EditProfile = () => {
             value={data.description}
             onChange={handleChange}
           />
+          {errors.description && (
+            <div
+              className={cx("text", "text-medium")}
+              style={{ color: "red", display: "flex" }}
+            >
+              {errors.description}
+            </div>
+          )}
         </div>
         <AddImage onChange={setSelectedImages} />
         <div className={cx("submit")}>
-          <Button primary={true} large={true} className={cx("heading-small")}>
+          <Button
+            primary={true}
+            large={true}
+            className={cx("heading-small")}
+            onClick={handleSubmit}
+          >
             Save
           </Button>
         </div>

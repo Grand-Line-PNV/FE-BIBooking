@@ -5,7 +5,7 @@ import Button from "../../../../../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import TableRows from "./TableRows";
-import {social} from '../../../../../api/influencer'
+import { social } from "../../../../../api/influencer";
 const cx = classNames.bind(styles);
 
 function EditSocialMedia() {
@@ -17,7 +17,7 @@ function EditSocialMedia() {
     if (rowsData.length === 4) alert("Don't have more platform!");
     else {
       const rowsInput = {
-        account_id:account_id,
+        account_id: account_id,
         name: "",
         username: "",
         fullname: "",
@@ -42,25 +42,22 @@ function EditSocialMedia() {
     setRowsData(rowsInput);
   };
 
-  const handleSubmit = async(e) => {
-    try{
-
+  const handleSubmit = async (e) => {
+    try {
       e.preventDefault();
       const socialData = {
         socials: rowsData,
       };
-  
-    alert('Successfully created')
-  
-      await social(socialData)
+      await social(socialData);
+      alert("Successfully created");
+      setRowsData([]);
+    } catch (error) {
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+        console.log(error.data.errors);
+      }
     }
-  catch (error) {
-    if (error.status === 401) {
-    } else if (error.status === 422) {
-      console.log(error.data.errors);
-    }
-  }
-  }
+  };
 
   return (
     <div className={cx("container")}>
@@ -83,7 +80,12 @@ function EditSocialMedia() {
           handleChange={handleChange}
         />{" "}
         <div className={cx("submit")}>
-          <Button primary={true} large={true} className={cx("heading-small")} onClick={handleSubmit}>
+          <Button
+            primary={true}
+            large={true}
+            className={cx("heading-small")}
+            onClick={handleSubmit}
+          >
             Save
           </Button>
         </div>

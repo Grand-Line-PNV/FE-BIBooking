@@ -15,21 +15,11 @@ const useFormData = (initialData = {}) => {
       [event.target.name]: event.target.value,
     }));
   };
-  const handleChangeIndex = (index, event) => {
-    const { name, value } = event.target;
-    const list = [...data];
-    list[index][name] = value;
-    setData(list);
-    // setData((prevData) => ({
-    //   ...prevData,
-    //   [event.target.name]: event.target.value,
-    // }));
-  };
+
   return {
     data,
     setData,
     handleChange,
-    handleChangeIndex,
     errors,
     setErrors,
     resetErrors,
