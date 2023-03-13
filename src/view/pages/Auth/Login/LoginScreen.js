@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,9 +16,12 @@ import {
 } from "../../../../features/feature/roleUserSlide";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
+import Swal from 'sweetalert';
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { inputRefEmail, inputRefPassword, isFocusedEmail, isFocusedPassword } =
     useInputFocusLogin();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
@@ -42,6 +45,7 @@ const LoginScreen = () => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true);
       const response = await userLoginApi(data);
       dispatch(authorAction.addOne(data));
       console.log(response);
@@ -49,16 +53,22 @@ const LoginScreen = () => {
       localStorage.setItem("role", response.data.data.account.role_id);
       localStorage.setItem("username", response.data.data.account.username);
       localStorage.setItem("account_id", response.data.data.account.id);
+      setIsLoading(false);
       console.log(response.data.data.account.id);
       navigation("/");
     } catch (error) {
+      console.log(error);
+      setIsLoading(false);
       if (error.status === 401) {
+        Swal("", "Username or password incorrect !", "error");
         setErrors({ login: "Email or password wrong!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
+  
+  
   const onForgotPasswordPage = () => {
     sessionStorage.setItem("path", "login");
     navigation("/forgot-password");
@@ -93,6 +103,7 @@ const LoginScreen = () => {
   };
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <form className={cx("choose-role")}>
         <input
           type="radio"
@@ -119,6 +130,7 @@ const LoginScreen = () => {
           Influencer
         </label>
       </form>
+
       <form className={cx("form")} onSubmit={handleSubmit}>
         <h2 className={cx("title")}>Welcome back!</h2>
         <div
