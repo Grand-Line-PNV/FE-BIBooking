@@ -16,6 +16,7 @@ import EditSocialMedia from "../view/pages/Influencers/Setting/profile/EditSocia
 import EditFollowerRate from "../view/pages/Influencers/Setting/profile/EditFollowerRate";
 // Influencer's Campaign
 import CampaignInfluencer from "../view/pages/Influencers/campaign/Campaign";
+import DetailCampaignInfluencer from "../view/pages/Influencers/campaign/content/DetailsCampaign";
 // Brand's Campaign
 import CampaignBrand from "../view/pages/Brands/Campaign/Campaign";
 import CreateCampaignLayout from "../layout/formLayout";
@@ -70,7 +71,17 @@ const publicRoutes = [
     layout: RegisterLayout,
   },
   {
-    path: "/error",
+    path: "/:error",
+    component: Error,
+    // layout:RegisterLayout
+  },
+  {
+    path: "/brand/:error",
+    component: Error,
+    // layout:RegisterLayout
+  },
+  {
+    path: "/influencer/:error",
     component: Error,
     // layout:RegisterLayout
   },
@@ -109,6 +120,10 @@ const publicRoutes = [
     component: CampaignInfluencer,
   },
   {
+    path: "/influencer/campaign/:id",
+    component: DetailCampaignInfluencer,
+  },
+  {
     path: "brand/profile",
     component: ProfileScreen,
     layout: CreateCampaignLayout,
@@ -121,6 +136,10 @@ const publicRoutes = [
   {
     path: "/brand/campaign",
     component: CampaignBrand,
+  },
+  {
+    path: "/brand/campaign/:id",
+    component: UpdateCampaign,
   }
 ];
 

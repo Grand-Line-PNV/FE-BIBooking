@@ -9,7 +9,22 @@
     #f16736 50.31%,
     #ed3237 100%
   );
-  //   --Inter-font-family: "Inter", sans-serif;
+}
+
+.logo {
+  background-image: linear-gradient(
+    rgba(251, 188, 5, 0.22),
+    rgba(251, 188, 5, 0.22)
+  );
+  width: 100%;
+  z-index: -1;
+  padding: 13px;
+}
+.container-auth {
+  width: 100%;
+}
+.logoBIBooking {
+  position: absolute;
 }
 .auth {
   width: 100%;
@@ -24,14 +39,6 @@
     rgba(243, 128, 29, 0.3735),
     rgba(251, 188, 5, 0.22)
   );
-
-  .logo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    padding: 13px;
-  }
 
   .container {
     width: 65%;
@@ -107,55 +114,4 @@
       transform: translateX(0);
     }
   }
-  // .logo {
-  //   margin-left: 44px;
-  //   font-weight: 700;
-  //   background: -webkit-linear-gradient(#f16736, #f0a237, #ed3237);
-  //   -webkit-background-clip: text;
-  //   -webkit-text-fill-color: transparent;
-  // }
-
-  // .content {
-  //   display: flex;
-  //   justify-content: space-around;
-  //   align-content: center;
-  //   position: relative;
-  //   height: 657px;
-  // }
-
-  // .image {
-  //   margin: 180px 510px 0px 0px;
-  //   position: absolute;
-  //   z-index: 2;
-  //   width: 400px;
-  //   height: 500px;
-  // }
-
-  // .sologan {
-  //   width: 350px;
-  //   border-top-left-radius: 30px;
-  //   border-bottom-left-radius: 30px;
-  //   background-image: linear-gradient(
-  //     rgba(251, 188, 5),
-  //     rgba(243, 128, 29),
-  //     rgba(251, 188, 5)
-  //   );
-  //   z-index: 1;
-
-  //   .welcome {
-  //     color: var(--white);
-  //     width: 270px;
-  //     font-size: 25px;
-  //     margin: 40px 0px 0px 35px;
-  //   }
-  // }
-
-  // .forms {
-  //   margin-left: -10%;
-  //   width: 500px;
-  //   border-radius: 30px;
-  //   background-color: white;
-  //   z-index: 1;
-  //   padding: 0 40px 0 40px;
-  // }
 }

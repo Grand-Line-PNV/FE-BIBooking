@@ -6,7 +6,6 @@ import Button from "../../../../components/Button/Button";
 import useFormData from "../../../../hooks/useFormData";
 import Input from "../../../../components/Input";
 import {
-  createCampaignBrand,
   getDetailsCampaignBrand,
   updateCampaignBrand,
 } from "../../../../api/brand";
@@ -23,15 +22,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import useDateValidation from "../../../../hooks/useDateValidation";
+import { Link, useParams } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-export default function UpdateCampaign({
-  campaignId,
-  campaignData,
-  onClose,
-  fetchData,
-}) {
+export default function UpdateCampaign() {
+  let { id } = useParams();
+
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +45,7 @@ export default function UpdateCampaign({
       industry: "",
       hashtag: "",
       socialChannel: [],
-      amount: "",
+      amount: 0,
       require: "",
       interest: "",
       started_date: "",
@@ -56,9 +53,20 @@ export default function UpdateCampaign({
       "campaignImages[]": [],
       "productImages[]": [],
     });
+  const [updatedData, setUpdatedData] = useState({});
 
   const { startDate, handleChangeDate, handleStartDateChange } =
     useDateValidation();
+
+  const getData = async () => {
+    const result = await getDetailsCampaignBrand(id);
+    console.log(result);
+    setUpdatedData(result.data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const handleImageChangeCampaign = (e) => {
     const files = e.target.files;
@@ -120,8 +128,6 @@ export default function UpdateCampaign({
     }
   };
 
-  const [updatedData, setUpdatedData] = useState(campaignData);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUpdatedData((prev) => ({
@@ -136,9 +142,8 @@ export default function UpdateCampaign({
       e.preventDefault();
       setIsLoading(true);
       const formData = convertObjectToFormData(updatedData);
-      await updateCampaignBrand(campaignId, formData);
-      onClose();
-      fetchData();
+      await updateCampaignBrand(updatedData.id, formData);
+      navigation("/brand/campaign");
     } catch (error) {
       if (error.status === 401) {
         setIsLoading(false);
@@ -243,8 +248,10 @@ export default function UpdateCampaign({
                           name="socialChannel[]"
                           value="facebook"
                           checked={
-                            data.socialChannel.includes("facebook") ||
-                            updatedData.socialChannel.includes("facebook")
+                            (data.socialChannel || []).includes("facebook") ||
+                            (updatedData.socialChannel || []).includes(
+                              "facebook"
+                            )
                           }
                           onChange={handleChangeChannel}
                           id="facebook"
@@ -267,8 +274,10 @@ export default function UpdateCampaign({
                           name="socialChannel[]"
                           value="youtube"
                           checked={
-                            data.socialChannel.includes("youtube") ||
-                            updatedData.socialChannel.includes("youtube")
+                            (data.socialChannel || []).includes("youtube") ||
+                            (updatedData.socialChannel || []).includes(
+                              "youtube"
+                            )
                           }
                           onChange={handleChangeChannel}
                           id="youtube"
@@ -291,8 +300,10 @@ export default function UpdateCampaign({
                           name="socialChannel[]"
                           value="instagram"
                           checked={
-                            data.socialChannel.includes("instagram") ||
-                            updatedData.socialChannel.includes("instagram")
+                            (data.socialChannel || []).includes("instagram") ||
+                            (updatedData.socialChannel || []).includes(
+                              "instagram"
+                            )
                           }
                           onChange={handleChangeChannel}
                           id="instagram"
@@ -315,8 +326,8 @@ export default function UpdateCampaign({
                           name="socialChannel[]"
                           value="tiktok"
                           checked={
-                            data.socialChannel.includes("tiktok") ||
-                            updatedData.socialChannel.includes("tiktok")
+                            (data.socialChannel || []).includes("tiktok") ||
+                            (updatedData.socialChannel || []).includes("tiktok")
                           }
                           onChange={handleChangeChannel}
                           id="tiktok"
@@ -493,7 +504,7 @@ export default function UpdateCampaign({
                         type="file"
                         id={cx("campaignImages")}
                         title="Campaign Images"
-                        name="campaignImages"
+                        name="campaignImages[]"
                         onChange={handleImageChangeCampaign}
                         require
                         multiple
@@ -535,7 +546,7 @@ export default function UpdateCampaign({
                         type="file"
                         id={cx("productImages")}
                         title="Product Images"
-                        name="productImages"
+                        name="productImages[]"
                         onChange={handleImageChangeProduct}
                         require
                         multiple
@@ -602,15 +613,6 @@ export default function UpdateCampaign({
                     className={cx("heading-small", "btn")}
                   >
                     Save
-                  </Button>
-                  <Button
-                    outline={true}
-                    large={true}
-                    type="button"
-                    onClick={onClose}
-                    className={cx("heading-small", "btn")}
-                  >
-                    Cancel
                   </Button>
                 </div>
               </form>

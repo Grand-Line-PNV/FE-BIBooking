@@ -12,7 +12,7 @@ export default function Default({ children }) {
     <>
       <div className={cx("wrapper")}>
         <Header />
-        <Hero />
+        {/* <Hero /> */}
         <main>
           <div>{children}</div>
         </main>

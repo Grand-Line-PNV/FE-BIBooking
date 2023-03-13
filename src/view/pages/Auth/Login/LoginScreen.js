@@ -50,7 +50,7 @@ const LoginScreen = () => {
       localStorage.setItem("username", response.data.data.account.username);
       localStorage.setItem("account_id", response.data.data.account.id);
       console.log(response.data.data.account.id);
-      navigation("/brand/profile");
+      navigation("/");
     } catch (error) {
       if (error.status === 401) {
         setErrors({ login: "Email or password wrong!" });

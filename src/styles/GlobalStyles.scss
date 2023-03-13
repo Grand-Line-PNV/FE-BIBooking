@@ -12,6 +12,7 @@
     #f16736 50.83%,
     #ed3237 100%
   );
+  --Linear-orange-color-right: linear-gradient(to right, #f0a237 0%,#f16736 20%,#ed3237 20%, #ddd 20%,#ddd 100%);
 
   --light-notify: hsl(0, 0%, 100%);
   --background-notify: linear-gradient(to right bottom, hsl(19, 79%, 64%), hsl(27, 40%, 74%));
@@ -115,7 +116,7 @@ input {
 }
 
 label,
-button {
+button, a {
   cursor: pointer;
 }
 
