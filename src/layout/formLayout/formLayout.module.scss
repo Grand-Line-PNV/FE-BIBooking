@@ -5,6 +5,12 @@
   margin: 0 auto;
 }
 
+@media screen and (min-width: 1025px) {
+  .form {
+    width: 90%;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .form {
     width: 90%;
