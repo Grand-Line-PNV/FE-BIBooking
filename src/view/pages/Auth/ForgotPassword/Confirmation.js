@@ -12,18 +12,21 @@ import { useDispatch } from "react-redux";
 import { confirmPasswordAction } from "../../../../hooks/useConfirmPassword";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocus from "../../../../hooks/useInputFocus";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
 
 const cx = classNames.bind(styles);
 
 const Confirmation = () => {
   const prePath = sessionStorage.getItem("path");
   const emailUser = sessionStorage.getItem("email");
+  const [isLoading, setIsLoading] = useState(false);
   const { inputRef, isFocused } = useInputFocus();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       email: emailUser,
       otp: "",
       verify: 1,
+      error: ""
     });
   const navigation = useNavigate();
   const dispatch = useDispatch();
@@ -32,13 +35,17 @@ const Confirmation = () => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true)
       const response = await verifyUser(data);
       console.log(response);
       dispatch(confirmPasswordAction.addOne(data));
       console.log(data);
       navigation(prePath === "register" ? "/login" : "/new-password");
     } catch (error) {
+      setIsLoading(false)
+      console.log(error);
       if (error.status === 401) {
+        setErrors({error: "Your OTP is wrong or has been expired!"});
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
@@ -47,6 +54,7 @@ const Confirmation = () => {
 
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <h2 style={{ marginTop: "40px" }}>Forgot Password!</h2>
       <form className={cx("form")} onSubmit={handleSubmit}>
         <div
@@ -74,6 +82,14 @@ const Confirmation = () => {
             style={{ color: "red", display: "flex" }}
           >
             {errors.otp}
+          </div>
+        )}
+        {errors.error && (
+          <div
+            className={cx("text", "text-medium")}
+            style={{ color: "red", display: "flex" }}
+          >
+            {errors.error}
           </div>
         )}
         <div className={cx("btn-submits")}>

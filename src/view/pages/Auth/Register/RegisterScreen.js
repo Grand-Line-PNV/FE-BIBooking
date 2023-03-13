@@ -17,6 +17,9 @@ import { registerAction } from "../../../../features/feature/register";
 import useAuth from "../../../../hooks/useAuth";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusRegister from "../../../../hooks/useInputFocusRegister";
+import { useState } from "react";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
+import Swal from 'sweetalert';
 
 // ------------------------------------------------------------------
 const cx = classNames.bind(styles);
@@ -50,6 +53,7 @@ const RegisterScreen = () => {
       password_confirmation: "",
       role_id: "1",
     });
+    const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigate();
   const handleToggleRight = (e) => {
@@ -74,6 +78,7 @@ const RegisterScreen = () => {
   };
   const handleSubmit = async (event) => {
     resetErrors();
+    setIsLoading(true)
     sessionStorage.setItem("path", "register");
     console.log(data);
     try {
@@ -83,15 +88,18 @@ const RegisterScreen = () => {
       sessionStorage.setItem("email", data.email);
       navigation("/verification");
     } catch (error) {
+      setIsLoading(false)
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
+        Swal("","Account already exists !", "error");
       }
     }
   };
 
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <form className={cx("choose-role")}>
         <input
           type="radio"

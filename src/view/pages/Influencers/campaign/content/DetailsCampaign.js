@@ -27,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 const DetailCampaignInfluencer = () => {
+  
   let { id } = useParams();
   const influencer_id = localStorage.getItem("account_id");
   const [campaign, setCampaign] = useState({});
