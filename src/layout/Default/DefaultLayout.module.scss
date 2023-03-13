@@ -35,3 +35,10 @@ footer {
   position: absolute;
   left: 0;
 }
+
+
+@media (min-width: 1025px) {
+  .wrapper {
+    width: 90%;
+  }
+}

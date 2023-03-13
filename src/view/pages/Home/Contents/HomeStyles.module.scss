@@ -9,7 +9,6 @@
 .hero {
   padding-bottom: 200px;
   width: 100%;
-  max-width: 1585px;
   margin: 0 auto;
   &-container {
     width: 100%;
@@ -42,10 +41,6 @@
     width: 50%;
     .hero-background {
       position: absolute;
-    }
-    .HeroBlock2 {
-      right: 0;
-      top: 0;
     }
     .HeroBlock1 {
       transform: translateX(70px) translateY(-194px);

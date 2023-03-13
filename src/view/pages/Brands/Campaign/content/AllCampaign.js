@@ -40,7 +40,7 @@ const AllCampaignBrand = () => {
   };
 
   return (
-    <section className={cx("section", "featured-car")} id={cx("featured-car")}>
+    <section className={cx("section", "featured-car", "animation")} id={cx("featured-car")}>
       <div className={cx("container")}>
         <ShowCampaignBrand
           data={data}

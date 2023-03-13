@@ -41,9 +41,6 @@ const Hero = () => {
               </div>
             </div>
             <div className={cx("hero-image")}>
-              <div className={cx("hero-background", "HeroBlock2")}>
-                <img src={HeroBlock2} alt="" />
-              </div>
               <div className={cx("hero-background", "HeroBlock1")}>
                 <img src={HeroBlock1} alt="" />
               </div>
