@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./EditProfile.module.scss";
+import styles from "./UpdateProfile.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
-import { createAudienceData } from "../../../../../api/influencer";
+import { updateAudienceData } from "../../../../../api/influencer";
 import useFormData from "../../../../../hooks/useFormData";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
 const cx = classNames.bind(styles);
 
-const EditFollowrRate = () => {
+const UpdateAudienceData = () => {
   const account_id = localStorage.getItem("account_id");
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
@@ -31,8 +31,8 @@ const EditFollowrRate = () => {
     try {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
-      const repons = await createAudienceData(formData);
-      alert("Successfully created");
+      const repons = await updateAudienceData(formData);
+      alert("Successfully updated");
     } catch (error) {
       if (error.status === 401) {
       } else if (error.status === 422) {
@@ -59,6 +59,7 @@ const EditFollowrRate = () => {
                   value={data.male}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -70,6 +71,7 @@ const EditFollowrRate = () => {
                   value={data.female}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -81,7 +83,9 @@ const EditFollowrRate = () => {
                   value={data.others}
                   onChange={handleChange}
                 />
+                
               </div>
+              
             </div>
           </div>
           <div className={cx("form-control-left")}>
@@ -99,6 +103,7 @@ const EditFollowrRate = () => {
                   value={data.city1}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -110,6 +115,7 @@ const EditFollowrRate = () => {
                   value={data.city2}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -121,6 +127,7 @@ const EditFollowrRate = () => {
                   value={data.city3}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -132,6 +139,7 @@ const EditFollowrRate = () => {
                   value={data.city4}
                   onChange={handleChange}
                 />
+               
               </div>
             </div>
           </div>
@@ -150,6 +158,7 @@ const EditFollowrRate = () => {
                   value={data.age1}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -161,6 +170,7 @@ const EditFollowrRate = () => {
                   value={data.age2}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -172,6 +182,7 @@ const EditFollowrRate = () => {
                   value={data.age3}
                   onChange={handleChange}
                 />
+                
               </div>
               <div>
                 <Input
@@ -183,14 +194,16 @@ const EditFollowrRate = () => {
                   value={data.age4}
                   onChange={handleChange}
                 />
+                
               </div>
             </div>
           </div>
+         
         </div>
-
+       
         <div className={cx("submit")}>
           <Button primary={true} large={true} className={cx("heading-small")}>
-            Save
+            Update
           </Button>
         </div>
       </form>
@@ -198,4 +211,4 @@ const EditFollowrRate = () => {
   );
 };
 
-export default EditFollowrRate;
+export default UpdateAudienceData;
