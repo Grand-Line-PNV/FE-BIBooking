@@ -30,6 +30,8 @@ import TaskLayout from "../layout/TaskLayout";
 import Applying from "../view/pages/Influencers/task/Applying";
 import Doing from "../view/pages/Influencers/task/Doing";
 import Waiting from "../view/pages/Influencers/task/Waiting";
+import BookingScreen from '../view/pages/Booking/BookingScreen';
+import SendRequest from '../view/pages/Booking/SendRquest';
 //public routes
 const publicRoutes = [
   {
@@ -68,79 +70,85 @@ const publicRoutes = [
   {
     path: "/new-password",
     component: NewPassword,
-    layout: RegisterLayout,
-  },
-  {
-    path: "/:error",
-    component: Error,
-    // layout:RegisterLayout
-  },
-  {
-    path: "/brand/:error",
-    component: Error,
-    // layout:RegisterLayout
-  },
-  {
-    path: "/influencer/:error",
-    component: Error,
-    // layout:RegisterLayout
-  },
-  {
-    path: "/influencer/setting/edit-profile/social-media",
-    component: EditSocialMedia,
-    layout: EditProfileLayout,
-  },
-  {
-    path: "/influencer/setting/edit-profile/followr-rate",
-    component: EditFollowerRate,
-    layout: EditProfileLayout,
-  },
-  {
-    path: "/influencer/setting/edit-profile/services",
-    component: EditServices,
-    layout: EditProfileLayout,
-  },
-  {
-    path: "/influencer/task/applying",
-    component: Applying,
-    layout: TaskLayout,
-  },
-  {
-    path: "/influencer/task/doing",
-    component: Doing,
-    layout: TaskLayout,
-  },
-  {
-    path: "/influencer/task/waiting",
-    component: Waiting,
-    layout: TaskLayout,
-  },
-  {
-    path: "/influencer/campaign",
-    component: CampaignInfluencer,
-  },
-  {
-    path: "/influencer/campaign/:id",
-    component: DetailCampaignInfluencer,
-  },
-  {
-    path: "brand/profile",
-    component: ProfileScreen,
-    layout: CreateCampaignLayout,
-  },
-  {
-    path: "/brand/campaign/create",
-    component: CreateCampaign,
-    layout: CreateCampaignLayout,
-  },
-  {
-    path: "/brand/campaign",
-    component: CampaignBrand,
-  },
-  {
-    path: "/brand/campaign/:id",
-    component: UpdateCampaign,
-  }
+    layout:RegisterLayout
+},{
+  path: "/:error",
+  component: Error,
+  // layout:RegisterLayout
+},
+{
+  path: "/brand/:error",
+  component: Error,
+  // layout:RegisterLayout
+},
+{
+  path: "/influencer/:error",
+  component: Error,
+  // layout:RegisterLayout
+},
+{
+    path: '/influencer/setting/edit-profile/social-media',
+    component:EditSocialMedia,
+    layout:EditProfileLayout
+},{
+  path: "/influencer/setting/edit-profile/followr-rate",
+  component: EditFollowerRate,
+  layout: EditProfileLayout,
+},
+{
+  path: "/influencer/setting/edit-profile/services",
+  component: EditServices,
+  layout: EditProfileLayout,
+},
+{
+  path: "/influencer/task/applying",
+  component: Applying,
+  layout: TaskLayout,
+},
+{
+  path: "/influencer/task/doing",
+  component: Doing,
+  layout: TaskLayout,
+},
+{
+  path: "/influencer/task/waiting",
+  component: Waiting,
+  layout: TaskLayout,
+},
+{
+  path: "/influencer/campaign",
+  component: CampaignInfluencer,
+},
+{
+  path: "/influencer/campaign/:id",
+  component: DetailCampaignInfluencer,
+},
+{
+  path: "brand/profile",
+  component: ProfileScreen,
+  layout: CreateCampaignLayout,
+},
+{
+  path: "/brand/campaign/create",
+  component: CreateCampaign,
+  layout: CreateCampaignLayout,
+},
+{
+  path: "/brand/campaign",
+  component: CampaignBrand,
+},
+{
+  path: "/brand/campaign/:id",
+  component: UpdateCampaign,
+}
+,{
+  path:'/booking',
+  component:BookingScreen
+},
+{
+  path:'/booking/send-request',
+  component:SendRequest
+}
 ];
 
 const privateRoutes = [{}];
