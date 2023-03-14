@@ -33,3 +33,7 @@ export function updateCampaignBrand(id, data) {
 export function deleteCampaignBrand(id) {
   return http.delete("brand/delete-campaign/" + id);
 }
+
+export function getAllInfluencer(data) {
+  return http.post("/filter-influencer", data);
+}

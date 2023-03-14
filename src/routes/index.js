@@ -32,6 +32,7 @@ import Doing from "../view/pages/Influencers/task/Doing";
 import Waiting from "../view/pages/Influencers/task/Waiting";
 import BookingScreen from '../view/pages/Booking/BookingScreen';
 import SendRequest from '../view/pages/Booking/SendRquest';
+import AllInfluencer from "../view/pages/Booking/AllInfluencer";
 //public routes
 const publicRoutes = [
   {
@@ -143,7 +144,7 @@ const publicRoutes = [
 }
 ,{
   path:'/booking',
-  component:BookingScreen
+  component:AllInfluencer
 },
 {
   path:'/booking/send-request',
