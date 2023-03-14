@@ -67,7 +67,7 @@ const EditProfile = () => {
     try {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
-      const respon = await createInfluencerProfile(formData);
+      await createInfluencerProfile(formData);
       alert("Successfully created");
       setData({
         nickname: "",

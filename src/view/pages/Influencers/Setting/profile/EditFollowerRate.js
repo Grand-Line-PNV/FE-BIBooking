@@ -31,7 +31,8 @@ const EditFollowrRate = () => {
     try {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
-      const repons = await createAudienceData(formData);
+      await createAudienceData(formData);
+
       alert("Successfully created");
     } catch (error) {
       if (error.status === 401) {
@@ -40,6 +41,9 @@ const EditFollowrRate = () => {
       }
     }
   };
+
+  console.log(errors);
+
   return (
     <Fragment>
       <form className={cx("form-inf")} onSubmit={handleSubmit}>

@@ -14,7 +14,6 @@ import AllProfileScreen from "../view/pages/Influencers/profile/AllProfileScreen
 import EditProfile from "../view/pages/Influencers/Setting/profile/EditProfile";
 import EditSocialMedia from "../view/pages/Influencers/Setting/profile/EditSocialMedia";
 import EditFollowerRate from "../view/pages/Influencers/Setting/profile/EditFollowerRate";
-import UpdateInfo from "../view/pages/Influencers/Setting/updateProfile/UpdateInfo";
 // Influencer's Campaign
 import CampaignInfluencer from "../view/pages/Influencers/campaign/Campaign";
 // Brand's Campaign
@@ -32,7 +31,7 @@ import Doing from "../view/pages/Influencers/task/Doing";
 import Waiting from "../view/pages/Influencers/task/Waiting";
 import UpdateProfileLayout from "../layout/UpdateProfileLayout";
 import UpdateSocialMedia from "../view/pages/Influencers/Setting/updateProfile/UpdateSocialMedia";
-import UpdateAudienceData from "../view/pages/Influencers/Setting/updateProfile/updateAudienceData";
+import {UpdateAudience,UpdateInfo} from "../view/pages/Influencers/Setting/updateProfile";
 import UpdateServices from "../view/pages/Influencers/Setting/updateProfile/UpdateServices";
 //public routes
 const publicRoutes = [
@@ -141,7 +140,7 @@ const publicRoutes = [
   ,
   {
     path:"/influencer/setting/update-profile/audience-data",
-    component: UpdateAudienceData,
+    component: UpdateAudience,
     layout:UpdateProfileLayout
   }
   ,

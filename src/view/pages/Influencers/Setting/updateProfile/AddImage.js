@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(style);
-const AddImage = (prop) => {
-  const [selectedImages, setSelectedImages] = useState([]);
+const AddImage = ({...prop}) => {
+  const [selectedImages, setSelectedImages] = useState();
 
   function deleteHandler(image) {
     setSelectedImages(selectedImages.filter((e) => e !== image));

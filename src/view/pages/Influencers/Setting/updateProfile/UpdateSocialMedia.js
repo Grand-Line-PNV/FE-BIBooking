@@ -5,7 +5,10 @@ import Button from "../../../../../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import TableRows from "./TableRows";
-import { updateSocialMedia } from "../../../../../api/influencer";
+import {
+  updateSocialMedia,
+  infoInfluencer,
+} from "../../../../../api/influencer";
 const cx = classNames.bind(styles);
 
 function UpdateSocialMedia() {
@@ -17,7 +20,7 @@ function UpdateSocialMedia() {
     if (rowsData.length === 4) alert("Don't have more platform!");
     else {
       const rowsInput = {
-        account_id: account_id,
+        id: "",
         name: "",
         username: "",
         fullname: "",
@@ -48,9 +51,10 @@ function UpdateSocialMedia() {
       const socialData = {
         socials: rowsData,
       };
-      await updateSocialMedia(socialData);
+
+      // console.log('socialData', socialData);
+      await updateSocialMedia(account_id, socialData);
       alert("Successfully updated");
-      setRowsData([]);
     } catch (error) {
       if (error.status === 401) {
       } else if (error.status === 422) {
@@ -59,6 +63,14 @@ function UpdateSocialMedia() {
     }
   };
 
+  const getData = async() => {
+    const result = await infoInfluencer(account_id);
+    console.log(result.data.data.social_info)
+    setRowsData(result.data.data.social_info);
+  };
+  useEffect(() => {
+    getData()
+  },[])
   return (
     <div className={cx("container")}>
       <div style={{ width: "100%" }}>

@@ -7,7 +7,10 @@ export const convertObjectToFormData = (object) => {
         }
         else {
             formData.append(key, object[key]);
+
+            console.log('formData after appending', formData);
         }
+
         return formData;
     }, new FormData());
 }

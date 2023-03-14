@@ -4,8 +4,8 @@ import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
 import useFormData from "../../../../../hooks/useFormData";
-import { updateInfo } from "../../../../../api/influencer";
-import { influencerAction } from "../../../../../features/feature/influencer";
+import { updateInfo, infoInfluencer } from "../../../../../api/influencer";
+// import { influencerAction } from "../../../../../features/feature/influencer";
 import useLocationForm from "../../../../../hooks/useLocationForm";
 import Select from "react-select";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
@@ -15,8 +15,14 @@ import AddImage from "./AddImage";
 const cx = classNames.bind(styles);
 
 const UpdateInfo = () => {
-  const account_id = localStorage.getItem("account_id");
-  const dispatch = useDispatch();
+  const accountId = localStorage.getItem("account_id");
+  // const dispatch = useDispatch();
+  //
+  // const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
+  //   useLocationForm(true, {
+  //     userId: accountId,
+  //     wardCode: "get ward_code from response {credential.ward_code}",
+  //   });
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
     useLocationForm(false);
   const {
@@ -31,27 +37,20 @@ const UpdateInfo = () => {
   const [selectedImages, setSelectedImages] = useState([]);
 
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
-    useFormData({
-      account_id,
-      nickname: "",
-      fullname: "",
-      dob: "",
-      phone_number: "",
-      gender: "",
-      job: "",
-      title_for_job: "",
-      description: "",
-      content_topic: "",
-      influencerImages: [],
-      address_line1: "",
-      address_line2: "",
-      address_line3: "",
-      address_line4: "",
-    });
+    useFormData();
+
+  useEffect(() => {
+    getData()
+  }, []);
+
+  selectedImages.forEach(data => {
+    console.log(data.url);
+  })
 
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
+      address_line1: state.selectedWard?.label || "",
       address_line2: state.selectedWard?.label || "",
       address_line3: state.selectedDistrict?.label || "",
       address_line4: state.selectedProvince?.label || "",
@@ -92,8 +91,18 @@ const UpdateInfo = () => {
     }
   };
 
+  const getData = async () => {
+    const result = await infoInfluencer(accountId);
+    setData(result.data.data.credential);
+    setSelectedImages(result.data.data.files)
+  };
+
   return (
     <Fragment>
+          {/* {
+          selectedImages.map(data => 
+            <img src={data.url} alt=""/>)
+        } */}
       <form className={cx("form-inf")}>
         <div className={cx("form-above")}>
           <div className={cx("form-control-left")}>
@@ -280,12 +289,12 @@ const UpdateInfo = () => {
               </label>
               <Select
                 name="province_code"
-                key={`province_code_ ${selectedProvince?.value}`}
+                key={`province_code_${selectedProvince?.value}`}
                 isDisabled={provinceOptions.length === 0}
                 options={provinceOptions}
                 onChange={(option) => onProvinceSelect(option)}
                 placeholder="Tỉnh/Thành"
-                defaultValue={selectedProvince}
+                defaultValue={data.address_line}
                 required
               />
               <Select
@@ -381,7 +390,13 @@ const UpdateInfo = () => {
             </div>
           )}
         </div>
-        <AddImage onChange={setSelectedImages} />
+
+    
+
+        <AddImage
+          onChange={setSelectedImages}
+          images={selectedImages}
+        />
         <div className={cx("submit")}>
           <Button
             primary={true}
