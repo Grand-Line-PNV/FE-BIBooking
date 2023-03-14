@@ -151,6 +151,7 @@ ion-icon {
   --background: var(--white);
   --shadow-2: var(--shadow-1);
   box-shadow: var(--shadow-1);
+  display: flex;
 }
 
 .nav-toggle-btn{

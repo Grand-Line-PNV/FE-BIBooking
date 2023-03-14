@@ -266,6 +266,7 @@ export default function Header() {
                   color="#f16736"
                   onClick={handleOpen}
                 />
+                0
               </a>
               {navLinkBrandInf.map((item, i) => (
                 <li
@@ -302,6 +303,7 @@ export default function Header() {
                   color="#f16736"
                   onClick={handleOpen}
                 />
+                0
               </a>
               {navLinkInfluencerInf.map((item, i) => (
                 <li

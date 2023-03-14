@@ -14,9 +14,8 @@
   );
   --Linear-orange-color-right: linear-gradient(to right, #f0a237 0%,#f16736 20%,#ed3237 20%, #ddd 20%,#ddd 100%);
 
-  --light-notify: hsl(0, 0%, 100%);
-  --background-notify: linear-gradient(to right bottom, hsl(19, 79%, 64%), hsl(27, 40%, 74%));
-  --background-notify: linear-gradient(to bottom, hsl(236, 50%, 98%), hsl(236, 50%, 94%));
+  --Light-notify: hsl(0, 0%, 100%);
+  --Background-notify: linear-gradient(to right bottom, hsl(19, 79%, 64%), hsl(27, 40%, 74%));
 }
 
 * {

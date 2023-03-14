@@ -41,11 +41,11 @@ export default function UpdateCampaign() {
     useFormData({
       name: "",
       description: "",
-      price: 0,
+      price: "",
       industry: "",
       hashtag: "",
       socialChannel: [],
-      amount: 0,
+      amount: "",
       require: "",
       interest: "",
       started_date: "",
@@ -382,7 +382,7 @@ export default function UpdateCampaign() {
                 <div className={cx("form-group")}>
                   <Input
                     type="text"
-                    id={cx("name")}
+                    id={cx("industry")}
                     title="Industry"
                     name="industry"
                     value={data.industry}
@@ -402,7 +402,7 @@ export default function UpdateCampaign() {
                 <div className={cx("form-group")}>
                   <Input
                     type="text"
-                    id={cx("name")}
+                    id={cx("interest")}
                     title="Interest"
                     name="interest"
                     value={data.interest}

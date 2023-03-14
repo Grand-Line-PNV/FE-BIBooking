@@ -4,6 +4,18 @@
     height: 100%;
     align-items:center;
     justify-content:center;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .preloader-login{
@@ -29,7 +41,7 @@
     display: flex;
     align-items: center;
 }
-.preloader, .preloader-login .small-circle {
+.preloader .small-circle, .preloader-login .small-circle {
 	stroke-dasharray: 210;
 	stroke-dashoffset: 210;
 	transform-origin: 50%;
@@ -39,7 +51,7 @@
 	0% { stroke-dashoffset: 0; transform: rotate(0deg); }
 	100% { stroke-dashoffset: 210; transform: rotate(360deg); }
 }
-.preloader, .preloader-login .big-circle {
+.preloader .big-circle, .preloader-login .big-circle {
 	stroke-dasharray: 240;
 	stroke-dashoffset: 240;
 	transform-origin: 50%;
