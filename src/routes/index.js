@@ -30,6 +30,7 @@ import TaskLayout from "../layout/TaskLayout";
 import Applying from "../view/pages/Influencers/task/Applying";
 import Doing from "../view/pages/Influencers/task/Doing";
 import Waiting from "../view/pages/Influencers/task/Waiting";
+import Notify from "../view/notifications/Notify";
 //public routes
 const publicRoutes = [
   {
@@ -140,6 +141,9 @@ const publicRoutes = [
   {
     path: "/brand/campaign/:id",
     component: UpdateCampaign,
+  },{
+    path: "/brand/notify",
+    component: Notify,
   }
 ];
 

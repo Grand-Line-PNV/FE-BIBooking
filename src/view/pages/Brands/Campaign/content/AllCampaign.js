@@ -17,7 +17,7 @@ const AllCampaignBrand = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
-    const result = await getCampaignBrand({ brand_id, ...data });
+    const result = await getCampaignBrand(brand_id);
     console.log(result);
     setData(result.data.data);
   };

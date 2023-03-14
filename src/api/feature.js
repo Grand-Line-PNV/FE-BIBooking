@@ -21,3 +21,10 @@ export function sendEmailChangePassword(data){
 export function changePassword(data){
   return http.post('auth/change-password', data);
 }
+
+
+
+
+export function getNotifications(id) {
+  return http.get("/notifications/" + id);
+}
