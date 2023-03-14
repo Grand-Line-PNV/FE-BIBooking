@@ -14,8 +14,8 @@ export function updateInfoBrand(id, data) {
 }
 
 // Campaign
-export function getCampaignBrand(data) {
-  return http.post("brand/get-all-campaigns", data);
+export function getCampaignBrand(id) {
+  return http.get("brand/get-all-campaigns/" + id);
 }
 
 export function getDetailsCampaignBrand(id) {

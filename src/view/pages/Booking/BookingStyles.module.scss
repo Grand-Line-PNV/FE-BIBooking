@@ -130,9 +130,7 @@
         top: 20%;
         border-radius: 10px;
         box-shadow: 0 0 5px 0 rgb(186, 183, 183);
-        .content{
-            // margin: 30px;
-        }
+
         lable{
             display: inline-block;
             font-size: 20px;
@@ -157,8 +155,12 @@
         right: 100px;
         .content{
             padding: 20px;
+            .info{
+                display: flex;
+            }
             span{
                 padding: 10px;
+                // display: block;
             }
             .icon{
                 color: #F15E40;
