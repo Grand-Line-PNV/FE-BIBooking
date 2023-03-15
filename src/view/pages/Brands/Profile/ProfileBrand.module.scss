@@ -1,10 +1,5 @@
 .profile {
-  padding-top: 100px;
   &-container {
-    width: 62%;
-    margin: 0 auto;
-  }
-  &-path {
   }
   &-title {
     margin: 20px 0;
@@ -34,7 +29,6 @@
         border-radius: 3px;
         width: 540px;
         height: 44px;
-
         padding: 13px;
       }
       & .input-radios {

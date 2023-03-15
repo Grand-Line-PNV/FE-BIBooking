@@ -8,6 +8,16 @@
   padding-top: 150px;
 }
 
+.form-input-img-profile{
+  display: flex;
+  gap: 10px;
+  & .img-thumbnail-profile{
+    align-items: center;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .form-update {
     width: 90%;
@@ -55,9 +65,9 @@
 }
 
 .form-group {
-  margin-top: 25px;
   display: flex;
   flex-direction: column;
+  margin-top: 25px;
 }
 
 .form-select{
