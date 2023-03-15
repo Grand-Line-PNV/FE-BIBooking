@@ -218,7 +218,7 @@ export default function UpdateCampaign() {
                     id={cx("hashtag")}
                     title="Hashtag"
                     name="hashtag"
-                    value={data.hashtagg}
+                    value={data.hashtag}
                     onChange={handleChange}
                     require
                     star

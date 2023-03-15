@@ -9,7 +9,6 @@ import NewPassword from "../view/pages/Auth/ForgotPassword/NewPassword";
 //pages
 import LoginScreen from "../view/pages/Auth/Login/LoginScreen";
 import RegisterScreen from "../view/pages/Auth/Register/RegisterScreen";
-import ProfileScreen from "../view/pages/Brands/Profile/ProfileScreen";
 import AllProfileScreen from "../view/pages/Influencers/profile/AllProfileScreen";
 import EditProfile from "../view/pages/Influencers/Setting/profile/EditProfile";
 import EditSocialMedia from "../view/pages/Influencers/Setting/profile/EditSocialMedia";
@@ -22,6 +21,12 @@ import CampaignBrand from "../view/pages/Brands/Campaign/Campaign";
 import CreateCampaignLayout from "../layout/formLayout";
 import CreateCampaign from "../view/pages/Brands/Campaign/CreateScreen";
 import UpdateCampaign from "../view/pages/Brands/Campaign/UpdateScreen";
+// Brand's profile and setting and layout
+import InforBandLayout from "../layout/InforBandLayout";
+import ProfileSetingBrand from "../view/pages/Brands/Profile/seting/Profile";
+import ProfileBrand from "../view/pages/Brands/Profile/ProfileBrand";
+import CreateBrands from "../view/pages/Brands/Profile/CreateBrands";
+import UpdateBrands from "../view/pages/Brands/Profile/UpdateBrands";
 // error
 import Error from "../view/pages/Error";
 import EditServices from "../view/pages/Influencers/Setting/profile/EditServices";
@@ -125,9 +130,21 @@ const publicRoutes = [
     component: DetailCampaignInfluencer,
   },
   {
+    path: "brand/seting/profile",
+    component: ProfileSetingBrand,
+    layout: InforBandLayout,
+  },{
     path: "brand/profile",
-    component: ProfileScreen,
-    layout: CreateCampaignLayout,
+    component: ProfileBrand,
+    layout: InforBandLayout,
+  },{
+    path: "brand/profile/create",
+    component: CreateBrands,
+    layout: InforBandLayout,
+  },{
+    path: "brand/profile/:id",
+    component: UpdateBrands,
+    layout: InforBandLayout,
   },
   {
     path: "/brand/campaign/create",

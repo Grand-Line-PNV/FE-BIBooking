@@ -38,7 +38,7 @@ const navLinkBrand = [
 
 const navLinkBrandInf = [
     {
-        to: "/brand/profile",
+        to: "/brand/seting/profile",
         name: "PROFILE",
     },
 ];
