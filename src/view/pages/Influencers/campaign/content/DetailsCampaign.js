@@ -1,19 +1,18 @@
+import { Link, useParams, useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
 import Button from "../../../../../components/Button/Button";
 import styles from "./DetailCampaignStyles.module.scss";
-import { Link, useParams } from "react-router-dom";
 import { getDetailsCampaignBrand } from "../../../../../api/brand";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowAltCircleLeft,
   faArrowLeft,
   faBan,
   faHashtag,
   faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  faFacebook,
+  faFacebookSquare,
   faInstagram,
   faTiktok,
   faYoutube,
@@ -22,14 +21,15 @@ import {
   createBookingCampaignInfluencer,
   getDetailBookingCampaignInfluencer,
 } from "../../../../../api/influencer";
-import { useNavigate } from "react-router-dom";
+import PreLoader from "../../../../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
 
 const DetailCampaignInfluencer = () => {
-  
   let { id } = useParams();
   const influencer_id = localStorage.getItem("account_id");
+  const navigation = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [campaign, setCampaign] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -45,11 +45,14 @@ const DetailCampaignInfluencer = () => {
 
   const handleBooking = async () => {
     try {
-      const response = createBookingCampaignInfluencer({
+      setIsLoading(true);
+      const response = await createBookingCampaignInfluencer({
         campaign_id: campaign.id,
         influencer_id: influencer_id,
       });
+      navigation("/influencer/task/applying");
     } catch (error) {
+      setIsLoading(false);
       console.error("Error booking campaign: ", error);
     }
   };
@@ -62,6 +65,7 @@ const DetailCampaignInfluencer = () => {
   }, []);
   return (
     <div className={cx("card")}>
+      {isLoading ? <PreLoader /> : <></>}
       <div className={cx("card__title")}>
         <div className={cx("icon")}>
           <Button primary={true} large={true} to="/influencer/campaign">
@@ -71,9 +75,6 @@ const DetailCampaignInfluencer = () => {
       </div>
       <div className={cx("card__body")}>
         <div className={cx("half")}>
-          <div className={cx("featured_text")}>
-            <p className={cx("heading-small")}>{campaign.name}</p>
-          </div>
           <div className={cx("image", "slider")}>
             {campaign.files &&
               campaign.files.map((file, index) => (
@@ -147,7 +148,7 @@ const DetailCampaignInfluencer = () => {
                 if (channel === "facebook") {
                   icon = (
                     <FontAwesomeIcon
-                      icon={faFacebook}
+                      icon={faFacebookSquare}
                       color="#3b5999"
                       style={{ fontSize: "32" }}
                     />
@@ -190,6 +191,9 @@ const DetailCampaignInfluencer = () => {
           </div>
           <p className={cx("heading-small")}>
             Start from: {campaign.started_date}
+          </p>
+          <p className={cx("heading-small")}>
+            Campaign Name: {campaign.name}
           </p>
         </div>
       </div>

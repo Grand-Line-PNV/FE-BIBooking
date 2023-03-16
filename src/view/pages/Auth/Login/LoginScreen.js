@@ -17,7 +17,8 @@ import {
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
 import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
-import Swal from 'sweetalert';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
@@ -56,18 +57,22 @@ const LoginScreen = () => {
       setIsLoading(false);
       console.log(response.data.data.account.id);
       navigation("/");
+      Swal.fire("Login Successfully!", "You clicked the button!", "success");
     } catch (error) {
       console.log(error);
       setIsLoading(false);
       if (error.status === 401) {
-        Swal("", "Username or password incorrect !", "error");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Username or password incorrect !',
+        })
         setErrors({ login: "Email or password wrong!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
-  
   
   const onForgotPasswordPage = () => {
     sessionStorage.setItem("path", "login");
@@ -130,7 +135,6 @@ const LoginScreen = () => {
           Influencer
         </label>
       </form>
-
       <form className={cx("form")} onSubmit={handleSubmit}>
         <h2 className={cx("title")}>Welcome back!</h2>
         <div
@@ -213,7 +217,7 @@ const LoginScreen = () => {
           </div>
         )}
         <div className={cx("remember-container")}>
-          <div>
+          <div className={cx("remember-me")}>
             <input type="checkbox" id="checkbox" name="" value="" />
             <span style={{ marginLeft: "5px" }}>Remember me</span>
           </div>

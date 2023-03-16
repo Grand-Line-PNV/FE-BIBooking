@@ -12,8 +12,6 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import PreLoader from "../../preLoader/PreLoader";
-import UpdateCampaign from "../../../view/pages/Brands/Campaign/UpdateScreen";
-
 const cx = classNames.bind(styles);
 
 const ShowCampaignBrand = ({

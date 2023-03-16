@@ -92,7 +92,6 @@ const RegisterScreen = () => {
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
-        Swal("","Account already exists !", "error");
       }
     }
   };

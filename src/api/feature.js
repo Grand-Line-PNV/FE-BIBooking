@@ -22,7 +22,9 @@ export function changePassword(data){
   return http.post('auth/change-password', data);
 }
 
-
+export function logOut(data){
+  return http.post('auth/logout', data);
+}
 
 
 export function getNotifications(id) {

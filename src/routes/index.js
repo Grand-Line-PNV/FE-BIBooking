@@ -1,5 +1,6 @@
 //HomePage
 import Home from "../view/pages/Home/Home";
+import AboutUs from "../view/pages/Home/AboutUs";
 //layouts
 import RegisterLayout from "../layout/RegisterLayout/index";
 import EditProfileLayout from "../layout/EditProfileLayout";
@@ -27,13 +28,18 @@ import ProfileSetingBrand from "../view/pages/Brands/Profile/seting/Profile";
 import ProfileBrand from "../view/pages/Brands/Profile/ProfileBrand";
 import CreateBrands from "../view/pages/Brands/Profile/CreateBrands";
 import UpdateBrands from "../view/pages/Brands/Profile/UpdateBrands";
+// Brand's Booking History
+import BookingHistoryLayout from "../layout/BookingHistoryLayout";
+import BookingHistory from "../view/pages/Brands/bookingHistory/BookingHistory";
+import ApplyingBrand from "../view/pages/Brands/bookingHistory/Applying";
+import DoingBrand from "../view/pages/Brands/bookingHistory/Doing";
 // error
 import Error from "../view/pages/Error";
 import EditServices from "../view/pages/Influencers/Setting/profile/EditServices";
-// Task
+// Task Influencers
 import TaskLayout from "../layout/TaskLayout";
-import Applying from "../view/pages/Influencers/task/Applying";
-import Doing from "../view/pages/Influencers/task/Doing";
+import ApplyingInfluencer from "../view/pages/Influencers/task/Applying";
+import DoingInfluencer from "../view/pages/Influencers/task/Doing";
 import Waiting from "../view/pages/Influencers/task/Waiting";
 import Notify from "../view/notifications/Notify";
 //public routes
@@ -51,6 +57,10 @@ const publicRoutes = [
   {
     path: "/",
     component: Home,
+  },
+  {
+    path: "/About us",
+    component: AboutUs,
   },
   {
     path: "influencer/profile",
@@ -108,12 +118,12 @@ const publicRoutes = [
   },
   {
     path: "/influencer/task/applying",
-    component: Applying,
+    component: ApplyingInfluencer,
     layout: TaskLayout,
   },
   {
     path: "/influencer/task/doing",
-    component: Doing,
+    component: DoingInfluencer,
     layout: TaskLayout,
   },
   {
@@ -133,15 +143,18 @@ const publicRoutes = [
     path: "brand/seting/profile",
     component: ProfileSetingBrand,
     layout: InforBandLayout,
-  },{
+  },
+  {
     path: "brand/profile",
     component: ProfileBrand,
     layout: InforBandLayout,
-  },{
+  },
+  {
     path: "brand/profile/create",
     component: CreateBrands,
     layout: InforBandLayout,
-  },{
+  },
+  {
     path: "brand/profile/:id",
     component: UpdateBrands,
     layout: InforBandLayout,
@@ -158,10 +171,21 @@ const publicRoutes = [
   {
     path: "/brand/campaign/:id",
     component: UpdateCampaign,
-  },{
+  },
+  {
     path: "/brand/notify",
     component: Notify,
-  }
+  },
+  {
+    path: "/brand/booking-history/applying",
+    component: ApplyingBrand,
+    layout: BookingHistoryLayout,
+  },
+  {
+    path: "/brand/booking-history/doing",
+    component: DoingBrand,
+    layout: BookingHistoryLayout,
+  },
 ];
 
 const privateRoutes = [{}];
