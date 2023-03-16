@@ -33,3 +33,13 @@ export function updateCampaignBrand(id, data) {
 export function deleteCampaignBrand(id) {
   return http.delete("brand/delete-campaign/" + id);
 }
+
+// task
+export function getTaskBrand(id) {
+  return http.get("brand/booking-history/" + id);
+}
+
+export function getDetailTaskBrand(id) {
+  return http.get("brand/booking-history-detail/" + id);
+}
+

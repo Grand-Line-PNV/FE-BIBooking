@@ -1,4 +1,6 @@
 .task-setting {
+  max-width: 1585px;
+  margin: 0 auto;
   & .task-info {
     display: flex;
     align-items: center;
@@ -12,13 +14,6 @@
     right: 20px;
     top: 30px;
     font-size: 30px;
-  }
-  .container {
-    width: 100%;
-  }
-  &-container {
-    max-width: 1585px;
-    margin: 0 auto;
   }
 
   & .task-title {
@@ -73,9 +68,7 @@ option {
 
 @media screen and (max-width: 1024px) {
   .task-setting {
-    &-container {
-      width: 90%;
-    }
+    width: 90%;
 
     .search-input {
       border: 1px solid black;
@@ -93,10 +86,7 @@ option {
 
 @media screen and (max-width: 768px) {
   .task-setting {
-    &-container {
-      width: 90%;
-    }
-
+    width: 90%;
     .search-input {
       display: flex;
       justify-content: center;
@@ -114,8 +104,6 @@ option {
 
 @media screen and (min-width: 1025px) {
   .task-setting {
-    &-container {
-      width: 90%;
-    }
+    width: 90%;
   }
 }

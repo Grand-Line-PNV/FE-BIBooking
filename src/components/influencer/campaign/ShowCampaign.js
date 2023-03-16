@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "./ShowCampaignStyles.module.scss";
 import Button from "../../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faBullhorn, faCalendar, faFilter } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
   faInstagram,
@@ -12,19 +12,20 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import PreLoader from "../../preLoader/PreLoader";
-import Modal from "react-modal";
-import DetailCampaignInfluencer from "../../../view/pages/Influencers/campaign/content/DetailsCampaign";
-
 
 const cx = classNames.bind(styles);
 
-
-const ShowCampaignInfluencer = ({ data, setFilters, filterData, filters, fetchData }) => {
+const ShowCampaignInfluencer = ({
+  data,
+  setFilters,
+  filterData,
+  filters,
+  fetchData,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   const [filteredItems, setFilteredItems] = useState(data);
   const [noResults, setNoResults] = useState(false);
-
 
   const handleFilter = () => {
     const filteredData = data.filter((item) => {
@@ -101,99 +102,138 @@ const ShowCampaignInfluencer = ({ data, setFilters, filterData, filters, fetchDa
             </div>
             <div className={cx("filter__item")}>
               <Button primary={true} large={true} onClick={handleFilter}>
-              Filter <FontAwesomeIcon icon={faFilter}/>
+                Filter <FontAwesomeIcon icon={faFilter} />
               </Button>
             </div>
           </div>
           <ul className={cx("featured-car-list")}>
-          {noResults && <p style={{paddingTop: "20px", color: "red"}} className={cx("text")}>No results were found</p>}
+            {noResults && (
+              <p
+                style={{ paddingTop: "20px", color: "red" }}
+                className={cx("text")}
+              >
+                No results were found
+              </p>
+            )}
             {filteredItems.length > 0 &&
               filteredItems.map((item) => (
                 <>
-                <li key={item.id}>
-                <Link to={`/influencer/campaign/${item.id}`}>
-                  <div className={cx("featured-car-card")}>
-                    <figure className={cx("card-banner", "slider")}>
-                      {item.files.map((file, index) => (
-                        <div
-                          className={
-                            index === activeIndex ? cx("slide", "active") : "slide"
-                          }
-                          key={file.id}
-                        >
-                          <img
-                            src={file.url}
-                            loading="lazy"
-                            width={440}
-                            height={300}
-                          />
-                        </div>
-                      ))}
-                    </figure>
-                    <div className={cx("card-content")}>
-                      <div className={cx("card-title-wrapper")}>
-                        <h3 className={cx("h3", "card-title")}>
-                          <a href="#">{item.name}</a>
-                        </h3>
-                      </div>
-                      <ul className={cx("card-list")}>
-                        <li className={cx("card-list-item")}>
-                          <span>bởi</span>
-                          <span className={cx("card-item-text")}>Shopee</span>
-                        </li>
-                        <li className={cx("card-list-item")}>
-                          <FontAwesomeIcon icon={faCalendar} />
-                          <span className={cx("card-item-text")}>
-                            {item.started_date}
-                          </span>
-                        </li>
-                      </ul>
-                      <div className={cx("card-campaign-wrapper")}>
-                        <div className={cx("card-social")}>
-                          <ul className={cx("list-icons")}>
-                            <li>
-                              <a href="#">
-                                <FontAwesomeIcon
-                                  className={cx("fa")}
-                                  icon={faFacebookSquare}
-                                />
-                              </a>{" "}
+                  <li key={item.id}>
+                    <Link to={`/influencer/campaign/${item.id}`}>
+                      <div className={cx("featured-car-card")}>
+                        <figure className={cx("card-banner", "slider")}>
+                          {item.files.map((file, index) => (
+                            <div
+                              className={
+                                index === activeIndex
+                                  ? cx("slide", "active")
+                                  : "slide"
+                              }
+                              key={file.id}
+                            >
+                              <img
+                                src={file.url}
+                                loading="lazy"
+                                width={440}
+                                height={300}
+                              />
+                            </div>
+                          ))}
+                        </figure>
+                        <div className={cx("card-content")}>
+                          <div className={cx("card-title-wrapper")}>
+                            <h3 className={cx("h3", "card-title")}>
+                              <a href="#">{item.name}</a>
+                            </h3>
+                          </div>
+                          <ul className={cx("card-list")}>
+                          <li className={cx("card-list-item")}>
+                              <FontAwesomeIcon icon={faBullhorn} />
+                              <span className={cx("card-item-text")}>
+                                {item.campaign_status &&
+                                  item.campaign_status
+                                    .split(",")
+                                    .map((channel) => {
+                                      let status;
+                                      if (channel === "apply") {
+                                        status = <p>Recruiting</p>;
+                                      } else if (channel === "closed") {
+                                        status = <p>Recruitment Expiration</p>;
+                                      }
+                                      return <div key={channel}>{status}</div>;
+                                    })}
+                              </span>
                             </li>
-                            <li>
-                              <a href="#">
-                                <FontAwesomeIcon
-                                  className={cx("fa")}
-                                  icon={faYoutube}
-                                />
-                              </a>{" "}
-                            </li>
-                            <li>
-                              <a href="#">
-                                <FontAwesomeIcon
-                                  className={cx("fa")}
-                                  icon={faInstagram}
-                                />
-                              </a>{" "}
-                            </li>
-                            <li>
-                              <a href="#">
-                                <FontAwesomeIcon
-                                  className={cx("fa")}
-                                  icon={faTiktok}
-                                />
-                              </a>{" "}
+                            <li className={cx("card-list-item")}>
+                              <FontAwesomeIcon icon={faCalendar} />
+                              <span className={cx("card-item-text")}>
+                                {item.started_date}
+                              </span>
                             </li>
                           </ul>
-                          <p className={cx("card-campaign")}>
-                            {item.campaign_status}
-                          </p>
+                          <div className={cx("card-campaign-wrapper")}>
+                            <div className={cx("card-social")}>
+                              <ul className={cx("list-icons")}>
+                                {item.socialChannel &&
+                                  item.socialChannel
+                                    .split(",")
+                                    .map((channel) => {
+                                      let icon;
+                                      if (channel === "facebook") {
+                                        icon = (
+                                          <li>
+                                            <a href="#">
+                                              <FontAwesomeIcon
+                                                icon={faFacebookSquare}
+                                                color="#3b5999"
+                                              />
+                                            </a>{" "}
+                                          </li>
+                                        );
+                                      } else if (channel === "instagram") {
+                                        icon = (
+                                          <li>
+                                            <a href="#">
+                                              <FontAwesomeIcon
+                                                icon={faYoutube}
+                                                color="#ff0000"
+                                              />
+                                            </a>{" "}
+                                          </li>
+                                        );
+                                      } else if (channel === "tiktok") {
+                                        icon = (
+                                          <li>
+                                            <a href="#">
+                                              <FontAwesomeIcon
+                                                icon={faInstagram}
+                                                color="#e4405f"
+                                              />
+                                            </a>{" "}
+                                          </li>
+                                        );
+                                      } else if (channel === "youtube") {
+                                        icon = (
+                                          <li>
+                                            <a href="#">
+                                              <FontAwesomeIcon
+                                                icon={faTiktok}
+                                                color="#000000"
+                                              />
+                                            </a>{" "}
+                                          </li>
+                                        );
+                                      }
+                                      return <div key={channel}>{icon}</div>;
+                                    })}
+                              </ul>
+                            </div>
+                            <Button primary={true}>Apply</Button>
+                          </div>
                         </div>
-                        <Button primary={true}>Apply</Button>
                       </div>
-                    </div>
-                  </div>
-                </Link>
-                </li>
+                    </Link>
+                  </li>
                 </>
               ))}
           </ul>
@@ -203,5 +243,3 @@ const ShowCampaignInfluencer = ({ data, setFilters, filterData, filters, fetchDa
   );
 };
 export default ShowCampaignInfluencer;
-
-

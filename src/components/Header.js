@@ -16,6 +16,8 @@ import {
   navLinkBrandInf,
   navLinkInfluencerInf,
 } from "./navLink";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 
 const cx = classNames.bind(styles);
 
@@ -70,6 +72,7 @@ export default function Header() {
     setUserRole("");
     setUserName("");
     navigation("/");
+    Swal.fire("Log out Successfully!", "You clicked the button!", "success");
   };
   // nav-bar
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -266,7 +269,6 @@ export default function Header() {
                   color="#f16736"
                   onClick={handleOpen}
                 />
-                0
               </a>
               {navLinkBrandInf.map((item, i) => (
                 <li
@@ -303,7 +305,6 @@ export default function Header() {
                   color="#f16736"
                   onClick={handleOpen}
                 />
-                0
               </a>
               {navLinkInfluencerInf.map((item, i) => (
                 <li

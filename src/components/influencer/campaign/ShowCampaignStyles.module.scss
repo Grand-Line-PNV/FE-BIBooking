@@ -204,6 +204,7 @@
 }
 
 .featured-car-card .card-item-text {
+  font-size: 20px;
   color: var(--independence);
 }
 
@@ -222,28 +223,9 @@
 }
 
 .list-icons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.list-icons li:nth-child(1) a .fa,
-.list-icons li:nth-child(1) a span {
-  color: #3b5999;
-}
-
-.list-icons li:nth-child(2) a .fa,
-.list-icons li:nth-child(2) a span {
-  color: #ff0000;
-}
-
-.list-icons li:nth-child(3) a .fa,
-.list-icons li:nth-child(3) a span {
-  color: #d6249f;
-}
-
-.list-icons li:nth-child(4) a .fa,
-.list-icons li:nth-child(4) a span {
-  color: black;
+  display: flex;
+  gap: 5px;
+  // grid-template-columns: 1fr 1fr;
 }
 
 .featured-car-card .card-campaign {

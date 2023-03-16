@@ -1,22 +1,19 @@
-import React from "react";
-import styles from "./TaskLayout.module.scss";
+import React, { useState, useEffect } from "react";
+import styles from "./BookingHistory.module.scss";
 import classNames from "classnames/bind";
-import useFormData from "../../../../hooks/useFormData";
-import { useEffect } from "react";
-import { useState } from "react";
 import PreLoader from "../../../../components/preLoader/PreLoader";
-import { getTaskInfluencer } from "../../../../api/influencer";
+import useFormData from "../../../../hooks/useFormData";
+import { getTaskBrand } from "../../../../api/brand";
 
 const cx = classNames.bind(styles);
-
-const ApplyingInfluencer = () => {
-  const influencer_id = localStorage.getItem("account_id");
+const ApplyingBrand = () => {
+  const brand_id = localStorage.getItem("account_id");
   const { data, setData } = useFormData({});
   const [isLoading, setIsLoading] = useState(false);
 
   const getData = async () => {
     setIsLoading(true);
-    const result = await getTaskInfluencer(influencer_id);
+    const result = await getTaskBrand(brand_id);
     setData(result.data.data);
     console.log(result.data.data);
     setIsLoading(false);
@@ -33,9 +30,10 @@ const ApplyingInfluencer = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Name</th>
-              <th>Brand</th>
-              <th>Deadline</th>
+              <th>Name Influencer</th>
+              <th>Campaign name</th>
+              <th>Campaign end date</th>
+              <th>Number of people applying</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -47,9 +45,10 @@ const ApplyingInfluencer = () => {
                   status = (
                     <>
                       <td>{item.id}</td>
+                      <td>{item.influencer.username}</td>
                       <td>{item.campaign.name}</td>
-                      <td>{item.campaign.brand.username}</td>
-                      <td>{item.updated_at}</td>
+                      <td>{item.campaign.ended_date}</td>
+                      <td>{item.campaign.applied_number}</td>
                       <td style={{ color: "#ffffff", background: "#f8d803" }}>
                         {item.status}
                       </td>
@@ -59,9 +58,10 @@ const ApplyingInfluencer = () => {
                   status = (
                     <>
                       <td>{item.id}</td>
+                      <td>{item.influencer.username}</td>
                       <td>{item.campaign.name}</td>
-                      <td>{item.campaign.brand.username}</td>
-                      <td>{item.updated_at}</td>
+                      <td>{item.campaign.ended_date}</td>
+                      <td>{item.campaign.applied_number}</td>
                       <td style={{ color: "#ead282", background: "#816215" }}>
                         {item.status}
                       </td>
@@ -77,4 +77,4 @@ const ApplyingInfluencer = () => {
   );
 };
 
-export default ApplyingInfluencer;
+export default ApplyingBrand;
