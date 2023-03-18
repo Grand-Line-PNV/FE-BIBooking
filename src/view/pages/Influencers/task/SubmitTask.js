@@ -27,7 +27,7 @@ const SubmitTask = () => {
       event.preventDefault();
       const response = await submitTask(data);
       console.log(response);
-      navigation("/influencer/task/done");
+      navigation("/influencer/task");
     } catch (error) {
       if (error.status === 401) {
       } else if (error.status === 422) {
