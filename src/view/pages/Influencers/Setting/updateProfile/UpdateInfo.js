@@ -11,20 +11,41 @@ import Select from "react-select";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
 import { useDispatch } from "react-redux";
 import AddImage from "./AddImage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faFileImage } from "@fortawesome/free-regular-svg-icons";
+import { computeHeadingLevel } from "@testing-library/react";
 
 const cx = classNames.bind(styles);
 
 const UpdateInfo = () => {
   const accountId = localStorage.getItem("account_id");
-  // const dispatch = useDispatch();
-  //
-  // const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
-  //   useLocationForm(true, {
-  //     userId: accountId,
-  //     wardCode: "get ward_code from response {credential.ward_code}",
-  //   });
+  const [file, setFile] = useState();
+  const [imgPreview, setImgPreview] = useState();
+
+  const [avt, setAvt] = useState();
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // selectedImages.forEach((data) => {
+  //   console.log(data.url);
+  // });
+
+  // console.log(
+  //   "image",
+  //   Object.values(avt).map((i) => i.url)
+  // );
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
-    useLocationForm(false);
+    useLocationForm(true, {
+      userId: accountId,
+      wardCode: data.ward_code,
+    });
   const {
     provinceOptions,
     districtOptions,
@@ -33,20 +54,6 @@ const UpdateInfo = () => {
     selectedDistrict,
     selectedWard,
   } = state;
-
-  const [selectedImages, setSelectedImages] = useState([]);
-
-  const { data, setData, handleChange, errors, setErrors, resetErrors } =
-    useFormData();
-
-  useEffect(() => {
-    getData()
-  }, []);
-
-  selectedImages.forEach(data => {
-    console.log(data.url);
-  })
-
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
@@ -61,6 +68,9 @@ const UpdateInfo = () => {
     setData({ ...data, "influencerImages[]": selectedImages });
   }, [selectedImages]);
 
+  useEffect(() => {
+    setData({ ...data, avatarImages: avt });
+  }, [avt]);
   const handleSubmit = async (event) => {
     resetErrors();
     try {
@@ -93,17 +103,65 @@ const UpdateInfo = () => {
 
   const getData = async () => {
     const result = await infoInfluencer(accountId);
-    setData(result.data.data.credential);
-    setSelectedImages(result.data.data.files)
-  };
+    setFile(
+      result.data.data.files.filter((file) => {
+        if (file.path == "avatars") {
+          return file.url;
+        }
+      })
+    );
 
+    setData(result.data.data.credential);
+    setSelectedImages(result.data.data.files);
+  };
+  const handleChangeAvt = (e) => {
+    setImgPreview(URL.createObjectURL(e.target.files[0]));
+    setAvt(e.target.files);
+  };
   return (
     <Fragment>
-          {/* {
-          selectedImages.map(data => 
-            <img src={data.url} alt=""/>)
-        } */}
       <form className={cx("form-inf")}>
+        <main className={cx("upload")}>
+          <div
+            className={cx("form-upload")}
+            onClick={() => document.querySelector(".input-field").click()}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              className={cx("input-field")}
+              hidden
+              onChange={handleChangeAvt}
+            />
+
+            {file ? (
+              <img
+                src={imgPreview || Object.values(file).map(i=>i.url) || file}
+                width={120}
+                height={120}
+                alt="avatar"
+                className={cx("avatar")}
+              />
+              ) : (
+              <>
+                <FontAwesomeIcon icon={faCloudArrowUp} size="xl" />
+                <p>Browse Files to upload</p>
+              </>
+            )}
+          </div>
+
+          <section className={cx("uploaded-row")}>
+            <FontAwesomeIcon icon={faFileImage} />
+            <span className={cx("upload-content")}>
+              <FontAwesomeIcon
+                icon={faTrash}
+                onClick={() => {
+                  setFile(null);
+                }}
+              />
+            </span>
+          </section>
+        </main>
         <div className={cx("form-above")}>
           <div className={cx("form-control-left")}>
             <Input
@@ -391,12 +449,10 @@ const UpdateInfo = () => {
           )}
         </div>
 
-    
-
-        <AddImage
+        {/* <AddImage
           onChange={setSelectedImages}
           images={selectedImages}
-        />
+        /> */}
         <div className={cx("submit")}>
           <Button
             primary={true}
