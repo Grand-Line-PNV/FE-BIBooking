@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
-import styles from "../../Influencers/task/TaskLayout.module.scss";
+import styles from "./ProfileBrand.module.scss";
 import classNames from "classnames/bind";
 import Button from "../../../../components/Button/Button";
 import useFormData from "../../../../hooks/useFormData";

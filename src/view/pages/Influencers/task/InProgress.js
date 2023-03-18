@@ -59,10 +59,7 @@ const InProgressInfluencer = () => {
                   </div>
                 </Link>
               );
-            } else {
-              status = <div className={cx("status")}>No task in_progress
-              ......</div>;
-            }
+            } 
             return <div key={index}>{status}</div>;
           })}
       </div>

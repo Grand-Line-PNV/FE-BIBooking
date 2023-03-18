@@ -61,7 +61,7 @@ const RejectInfluencer = () => {
                   </div>
                 </Link>
               );
-            } else if (item.status === "cancer") {
+            } else if (item.status === "cancel") {
               status = (
                 <Link to={`/influencer/booking-history-detail/${item.id}`}>
                   <div key={index} className={cx("task")} draggable="true">
@@ -84,14 +84,12 @@ const RejectInfluencer = () => {
                     <p>{item.campaign.name}</p>
                     <div className={cx("task__stats")}>
                       <span>{item.updated_at}</span>
-                      <span className={cx("task__status-cancer")} />
+                      <span className={cx("task__status-cancel")} />
                     </div>
                   </div>
                 </Link>
               );
-            } else {
-              status = <div className={cx("status")}>No task cancel/reject.....</div>;
-            }
+            } 
             return <div key={index}>{status}</div>;
           })}
       </div>

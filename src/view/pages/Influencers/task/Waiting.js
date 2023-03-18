@@ -59,8 +59,6 @@ const WaitingInfluencer = () => {
                   </div>
                 </Link>
               );
-            } else {
-              status = <div className={cx("status")}>No task waiting......</div>;
             }
             return <div key={index}>{status}</div>;
           })}

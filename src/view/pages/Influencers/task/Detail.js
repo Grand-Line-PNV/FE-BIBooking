@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faBan,
+  faCancel,
   faCheck,
   faHashtag,
   faTasks,
@@ -19,6 +20,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import { getDetailTaskInfluencer } from "../../../../api/influencer";
+import { updateStatusBooking } from "../../../../api/booking";
 
 const cx = classNames.bind(styles);
 
@@ -51,6 +53,21 @@ const DetailsInfluencer = () => {
     const bookingId = data.id;
     console.log(bookingId);
     navigation(`/influencer/task/submit-task?bookingId=${bookingId}`);
+  };
+
+  const handleCancerBooking = async (id) => {
+    try {
+      setIsLoading(true);
+      const reject = await updateStatusBooking(id, {
+        status: "cancel",
+      });
+      console.log(reject);
+      navigation("/influencer/task");
+    } catch (error) {
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+      }
+    }
   };
 
   useEffect(() => {
@@ -234,6 +251,15 @@ const DetailsInfluencer = () => {
                         >
                           <FontAwesomeIcon icon={faCheck} /> Submit Task
                         </Button>
+                        <Button
+                          className={`reject-button ${
+                            visible ? "visible" : ""
+                          }`}
+                          outline={true}
+                          onClick={() => handleCancerBooking(data.id)}
+                        >
+                          <FontAwesomeIcon icon={faCancel} /> Cancer
+                        </Button>
                       </>
                     )}
                   </>
@@ -266,10 +292,10 @@ const DetailsInfluencer = () => {
                     Done
                   </p>
                 );
-              } else if (status_booking === "cancer") {
+              } else if (status_booking === "cancel") {
                 status = (
                   <p
-                    className={cx("cancer")}
+                    className={cx("cancel")}
                     style={{
                       color: "#D6607A",
                       background: "#BC2244",
