@@ -22,6 +22,10 @@ export function getTaskInfluencer(id) {
 export function getDetailTaskInfluencer(id) {
   return http.get("influencer/booking-history-detail/" + id);
 }
+
+export function submitTask(data) {
+  return http.post("tasks/create", data);
+}
 //profile
 export function createInfluencerProfile(data) {
   console.log('data when calling api',data)

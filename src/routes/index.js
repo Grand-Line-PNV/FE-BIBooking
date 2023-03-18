@@ -7,7 +7,7 @@ import EditProfileLayout from "../layout/EditProfileLayout";
 import Confirmation from "../view/pages/Auth/ForgotPassword/Confirmation";
 import ForgotPassword from "../view/pages/Auth/ForgotPassword/ForgotPassword";
 import NewPassword from "../view/pages/Auth/ForgotPassword/NewPassword";
-import UpdateProfileLayout from '../layout/UpdateProfileLayout'
+import UpdateProfileLayout from "../layout/UpdateProfileLayout";
 //pages
 import LoginScreen from "../view/pages/Auth/Login/LoginScreen";
 import RegisterScreen from "../view/pages/Auth/Register/RegisterScreen";
@@ -33,7 +33,7 @@ import UpdateBrands from "../view/pages/Brands/Profile/UpdateBrands";
 import BookingHistoryLayout from "../layout/BookingHistoryLayout";
 import BookingHistory from "../view/pages/Brands/bookingHistory/BookingHistory";
 import DetailsBrand from "../view/pages/Brands/bookingHistory/Detail";
-import PaymentForm from "../view/pages/Brands/paymentVnpay/paymentVnpay";
+import PaymentFormScreen from "../view/pages/Payment/PaymentScreen";
 // error
 import Error from "../view/pages/Error";
 import EditServices from "../view/pages/Influencers/Setting/profile/EditServices";
@@ -43,9 +43,14 @@ import DetailsInfluencer from "../view/pages/Influencers/task/Detail";
 import SubmitTask from "../view/pages/Influencers/task/SubmitTask";
 import Notify from "../view/notifications/Notify";
 //payment page
-import PaymentScreen from '../view/pages/Payment/PaymentScreen';
+import PaymentScreen from "../view/pages/Payment/PaymentScreen";
 //influencer update profile
-import { UpdateInfo,UpdateServices,UpdateSocialMedia,UpdateAudience } from "../view/pages/Influencers/Setting/updateProfile";
+import {
+  UpdateInfo,
+  UpdateServices,
+  UpdateSocialMedia,
+  UpdateAudience,
+} from "../view/pages/Influencers/Setting/updateProfile";
 //public routes
 const publicRoutes = [
   {
@@ -186,36 +191,29 @@ const publicRoutes = [
     component: DetailsBrand,
   },
   {
-    path: "/brand/payment",
-    component: PaymentForm,
+    path: "/brand/booking/payment",
+    component: PaymentFormScreen,
   },
   {
-    path:'/booking/payment',
-    component:PaymentScreen
-}
-,{
-  path:"/influencer/setting/update-profile",
-  component: UpdateInfo,
-  layout: UpdateProfileLayout
-}
-,
-{
-  path:"/influencer/setting/update-profile/social-media",
-  component: UpdateSocialMedia,
-  layout:UpdateProfileLayout
-}
-,
-{
-  path:"/influencer/setting/update-profile/audience-data",
-  component: UpdateAudience,
-  layout:UpdateProfileLayout
-}
-,
-{
-  path:"/influencer/setting/update-profile/services",
-  component: UpdateServices,
-  layout:UpdateProfileLayout
-},
+    path: "/influencer/setting/update-profile",
+    component: UpdateInfo,
+    layout: UpdateProfileLayout,
+  },
+  {
+    path: "/influencer/setting/update-profile/social-media",
+    component: UpdateSocialMedia,
+    layout: UpdateProfileLayout,
+  },
+  {
+    path: "/influencer/setting/update-profile/audience-data",
+    component: UpdateAudience,
+    layout: UpdateProfileLayout,
+  },
+  {
+    path: "/influencer/setting/update-profile/services",
+    component: UpdateServices,
+    layout: UpdateProfileLayout,
+  },
 ];
 
 const privateRoutes = [{}];

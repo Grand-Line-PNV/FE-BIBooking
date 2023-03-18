@@ -48,7 +48,7 @@ const DetailsBrand = () => {
   const handlePayment = () => {
     const bookingId = data.id;
     console.log(bookingId);
-    navigation(`/brand/payment?bookingId=${bookingId}`);
+    navigation(`/brand/booking/payment?bookingId=${bookingId}`);
   };
 
   useEffect(() => {
