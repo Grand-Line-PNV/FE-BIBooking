@@ -42,6 +42,8 @@ import ApplyingInfluencer from "../view/pages/Influencers/task/Applying";
 import DoingInfluencer from "../view/pages/Influencers/task/Doing";
 import Waiting from "../view/pages/Influencers/task/Waiting";
 import Notify from "../view/notifications/Notify";
+//payment page
+import PaymentScreen from '../view/pages/Payment/PaymentScreen';
 //public routes
 const publicRoutes = [
   {
@@ -186,6 +188,10 @@ const publicRoutes = [
     component: DoingBrand,
     layout: BookingHistoryLayout,
   },
+  {
+    path:'/booking/payment',
+    component:PaymentScreen
+}
 ];
 
 const privateRoutes = [{}];
