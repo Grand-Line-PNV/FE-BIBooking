@@ -31,7 +31,7 @@ const navLinkBrand = [
     name: "CAMPAIGN",
   },
   {
-    to: "/brand/booking-history/applying",
+    to: "/brand/booking-history",
     name: "BOOKING HISTORY",
   },
   {
@@ -57,7 +57,7 @@ const navLinkInfluencer = [
     name: "CAMPAIGN",
   },
   {
-    to: "/influencer/task/waiting",
+    to: "/influencer/task",
     name: "TASK",
   },
   {

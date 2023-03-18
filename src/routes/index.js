@@ -7,7 +7,7 @@ import EditProfileLayout from "../layout/EditProfileLayout";
 import Confirmation from "../view/pages/Auth/ForgotPassword/Confirmation";
 import ForgotPassword from "../view/pages/Auth/ForgotPassword/ForgotPassword";
 import NewPassword from "../view/pages/Auth/ForgotPassword/NewPassword";
-import UpdateProfileLayout from '../layout/UpdateProfileLayout'
+import UpdateProfileLayout from "../layout/UpdateProfileLayout";
 //pages
 import LoginScreen from "../view/pages/Auth/Login/LoginScreen";
 import RegisterScreen from "../view/pages/Auth/Register/RegisterScreen";
@@ -32,21 +32,25 @@ import UpdateBrands from "../view/pages/Brands/Profile/UpdateBrands";
 // Brand's Booking History
 import BookingHistoryLayout from "../layout/BookingHistoryLayout";
 import BookingHistory from "../view/pages/Brands/bookingHistory/BookingHistory";
-import ApplyingBrand from "../view/pages/Brands/bookingHistory/Applying";
-import DoingBrand from "../view/pages/Brands/bookingHistory/Doing";
+import DetailsBrand from "../view/pages/Brands/bookingHistory/Detail";
+import PaymentFormScreen from "../view/pages/Payment/PaymentScreen";
 // error
 import Error from "../view/pages/Error";
 import EditServices from "../view/pages/Influencers/Setting/profile/EditServices";
 // Task Influencers
 import TaskLayout from "../layout/TaskLayout";
-import ApplyingInfluencer from "../view/pages/Influencers/task/Applying";
-import DoingInfluencer from "../view/pages/Influencers/task/Doing";
-import Waiting from "../view/pages/Influencers/task/Waiting";
+import DetailsInfluencer from "../view/pages/Influencers/task/Detail";
+import SubmitTask from "../view/pages/Influencers/task/SubmitTask";
 import Notify from "../view/notifications/Notify";
 //payment page
-import PaymentScreen from '../view/pages/Payment/PaymentScreen';
+import PaymentScreen from "../view/pages/Payment/PaymentScreen";
 //influencer update profile
-import { UpdateInfo,UpdateServices,UpdateSocialMedia,UpdateAudience } from "../view/pages/Influencers/Setting/updateProfile";
+import {
+  UpdateInfo,
+  UpdateServices,
+  UpdateSocialMedia,
+  UpdateAudience,
+} from "../view/pages/Influencers/Setting/updateProfile";
 //public routes
 const publicRoutes = [
   {
@@ -122,19 +126,16 @@ const publicRoutes = [
     layout: EditProfileLayout,
   },
   {
-    path: "/influencer/task/applying",
-    component: ApplyingInfluencer,
-    layout: TaskLayout,
+    path: "/influencer/task",
+    component: TaskLayout,
   },
   {
-    path: "/influencer/task/doing",
-    component: DoingInfluencer,
-    layout: TaskLayout,
+    path: "/influencer/task/submit-task",
+    component: SubmitTask,
   },
   {
-    path: "/influencer/task/waiting",
-    component: Waiting,
-    layout: TaskLayout,
+    path: "/influencer/booking-history-detail/:id",
+    component: DetailsInfluencer,
   },
   {
     path: "/influencer/campaign",
@@ -182,42 +183,37 @@ const publicRoutes = [
     component: Notify,
   },
   {
-    path: "/brand/booking-history/applying",
-    component: ApplyingBrand,
-    layout: BookingHistoryLayout,
+    path: "/brand/booking-history",
+    component: BookingHistoryLayout,
   },
   {
-    path: "/brand/booking-history/doing",
-    component: DoingBrand,
-    layout: BookingHistoryLayout,
+    path: "/brand/booking-history-detail/:id",
+    component: DetailsBrand,
   },
   {
-    path:'/booking/payment',
-    component:PaymentScreen
-}
-,{
-  path:"/influencer/setting/update-profile",
-  component: UpdateInfo,
-  layout: UpdateProfileLayout
-}
-,
-{
-  path:"/influencer/setting/update-profile/social-media",
-  component: UpdateSocialMedia,
-  layout:UpdateProfileLayout
-}
-,
-{
-  path:"/influencer/setting/update-profile/audience-data",
-  component: UpdateAudience,
-  layout:UpdateProfileLayout
-}
-,
-{
-  path:"/influencer/setting/update-profile/services",
-  component: UpdateServices,
-  layout:UpdateProfileLayout
-},
+    path: "/brand/booking/payment",
+    component: PaymentFormScreen,
+  },
+  {
+    path: "/influencer/setting/update-profile",
+    component: UpdateInfo,
+    layout: UpdateProfileLayout,
+  },
+  {
+    path: "/influencer/setting/update-profile/social-media",
+    component: UpdateSocialMedia,
+    layout: UpdateProfileLayout,
+  },
+  {
+    path: "/influencer/setting/update-profile/audience-data",
+    component: UpdateAudience,
+    layout: UpdateProfileLayout,
+  },
+  {
+    path: "/influencer/setting/update-profile/services",
+    component: UpdateServices,
+    layout: UpdateProfileLayout,
+  },
 ];
 
 const privateRoutes = [{}];

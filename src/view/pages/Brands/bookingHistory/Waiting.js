@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import styles from "./TaskLayout.module.scss";
+import styles from "./BookingHistory.module.scss";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import useFormData from "../../../../hooks/useFormData";
-import { getTaskInfluencer } from "../../../../api/influencer";
+import { getTaskBrand } from "../../../../api/brand";
 
 const cx = classNames.bind(styles);
-const WaitingInfluencer = () => {
-  const influencer_id = localStorage.getItem("account_id");
+const WaitingBrand = () => {
+  const brand_id = localStorage.getItem("account_id");
   const { data, setData } = useFormData({});
 
   const getData = async () => {
-    const result = await getTaskInfluencer(influencer_id);
+    const result = await getTaskBrand(brand_id);
     setData(result.data.data);
     console.log(result.data.data);
   };
@@ -33,7 +33,7 @@ const WaitingInfluencer = () => {
             let status;
             if (item.status === "waiting") {
               status = (
-                <Link to={`/influencer/booking-history-detail/${item.id}`}>
+                <Link to={`/brand/booking-history-detail/${item.id}`}>
                   <div key={index} className={cx("task")} draggable="true">
                     <div className={cx("task__tags")}>
                       <img
@@ -48,18 +48,18 @@ const WaitingInfluencer = () => {
                           "text"
                         )}
                       >
-                        {item.campaign.brand.username}
+                        {item.influencer.username}
                       </span>
                     </div>
                     <p>{item.campaign.name}</p>
                     <div className={cx("task__stats")}>
-                      <span>{item.updated_at}</span>
+                      <span>{item.campaign.ended_date}</span>
                       <span className={cx("task__status-waiting")} />
                     </div>
                   </div>
                 </Link>
               );
-            }
+            } 
             return <div key={index}>{status}</div>;
           })}
       </div>
@@ -67,4 +67,4 @@ const WaitingInfluencer = () => {
   );
 };
 
-export default WaitingInfluencer;
+export default WaitingBrand;
