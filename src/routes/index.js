@@ -76,7 +76,7 @@ const publicRoutes = [
     component: AllProfileScreen,
   },
   {
-    path: "influencer/setting/edit-profile",
+    path: "influencer/setting/create-profile",
     component: EditProfile,
     layout: EditProfileLayout,
   },
@@ -111,17 +111,17 @@ const publicRoutes = [
     // layout:RegisterLayout
   },
   {
-    path: "/influencer/setting/edit-profile/social-media",
+    path: "/influencer/setting/create-profile/social-media",
     component: EditSocialMedia,
     layout: EditProfileLayout,
   },
   {
-    path: "/influencer/setting/edit-profile/audience-data",
+    path: "/influencer/setting/create-profile/audience-data",
     component: EditFollowerRate,
     layout: EditProfileLayout,
   },
   {
-    path: "/influencer/setting/edit-profile/services",
+    path: "/influencer/setting/create-profile/services",
     component: EditServices,
     layout: EditProfileLayout,
   },

@@ -5,21 +5,21 @@ import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
 import useFormData from "../../../../../hooks/useFormData";
 import { createInfluencerProfile } from "../../../../../api/influencer";
-import { influencerAction } from "../../../../../features/feature/influencer";
 import useLocationForm from "../../../../../hooks/useLocationForm";
 import Select from "react-select";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
-import { useDispatch } from "react-redux";
 import AddImage from "./AddImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faFileImage } from "@fortawesome/free-regular-svg-icons";
+import { useNavigate } from "react-router-dom";
+import PreLoader from "../../../../../components/preLoader/PreLoader";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 const cx = classNames.bind(styles);
 
 const EditProfile = () => {
   const account_id = localStorage.getItem("account_id");
-  const dispatch = useDispatch();
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
     useLocationForm(false);
   const {
@@ -30,10 +30,11 @@ const EditProfile = () => {
     selectedDistrict,
     selectedWard,
   } = state;
-
+  const navigation = useNavigate();
   const [selectedImages, setSelectedImages] = useState([]);
   const [file, setFile] = useState();
   const [avt, setAvt] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       account_id,
@@ -68,20 +69,22 @@ const EditProfile = () => {
   }, [selectedImages]);
 
   useEffect(() => {
-    setData({ ...data, 'avatarImages': avt });
+    setData({ ...data, avatarImages: avt });
   }, [avt]);
 
   const handleSubmit = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true);
       const formData = convertObjectToFormData({
         ...data,
         ...{ ward_code: selectedWard.value },
       });
 
       await createInfluencerProfile(formData);
-      alert("Successfully created");
+      Swal.fire("Successfully!", "You clicked the button!", "success");
+      navigation("/influencer/setting/create-profile/social-media");
       setData({
         nickname: "",
         fullname: "",
@@ -98,6 +101,7 @@ const EditProfile = () => {
         address_line4: "",
       });
     } catch (error) {
+      setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
@@ -111,6 +115,7 @@ const EditProfile = () => {
 
   return (
     <Fragment>
+      {isLoading ? <PreLoader /> : <></>}
       <form className={cx("form-inf")}>
         <main className={cx("upload")}>
           <div
@@ -456,5 +461,3 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
-
-
