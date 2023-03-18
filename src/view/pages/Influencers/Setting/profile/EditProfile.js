@@ -11,7 +11,10 @@ import Select from "react-select";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
 import { useDispatch } from "react-redux";
 import AddImage from "./AddImage";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faFileImage } from "@fortawesome/free-regular-svg-icons";
 const cx = classNames.bind(styles);
 
 const EditProfile = () => {
@@ -29,7 +32,8 @@ const EditProfile = () => {
   } = state;
 
   const [selectedImages, setSelectedImages] = useState([]);
-
+  const [file, setFile] = useState();
+  const [avt, setAvt] = useState();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       account_id,
@@ -43,6 +47,7 @@ const EditProfile = () => {
       description: "",
       content_topic: "",
       influencerImages: [],
+      avatar: [],
       address_line1: "",
       address_line2: "",
       address_line3: "",
@@ -62,11 +67,19 @@ const EditProfile = () => {
     setData({ ...data, "influencerImages[]": selectedImages });
   }, [selectedImages]);
 
+  useEffect(() => {
+    setData({ ...data, 'avatar': avt });
+  }, [avt]);
+
   const handleSubmit = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
-      const formData = convertObjectToFormData(data);
+      const formData = convertObjectToFormData({
+        ...data,
+        ...{ ward_code: selectedWard.value },
+      });
+
       await createInfluencerProfile(formData);
       alert("Successfully created");
       setData({
@@ -91,10 +104,55 @@ const EditProfile = () => {
       }
     }
   };
+  const handleChangeAvt = (e) => {
+    setFile(URL.createObjectURL(e.target.files[0]));
+    setAvt(e.target.files);
+  };
 
   return (
     <Fragment>
       <form className={cx("form-inf")}>
+        <main className={cx("upload")}>
+          <div
+            className={cx("form-upload")}
+            onClick={() => document.querySelector(".input-field").click()}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              className={cx("input-field")}
+              hidden
+              onChange={handleChangeAvt}
+            />
+
+            {file ? (
+              <img
+                src={file}
+                width={120}
+                height={120}
+                alt="avatar"
+                className={cx("avatar")}
+              />
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faCloudArrowUp} size="xl" />
+                <p>Browse Files to upload</p>
+              </>
+            )}
+          </div>
+
+          <section className={cx("uploaded-row")}>
+            <FontAwesomeIcon icon={faFileImage} />
+            <span className={cx("upload-content")}>
+              <FontAwesomeIcon
+                icon={faTrash}
+                onClick={() => {
+                  setFile(null);
+                }}
+              />
+            </span>
+          </section>
+        </main>
         <div className={cx("form-above")}>
           <div className={cx("form-control-left")}>
             <Input
@@ -398,3 +456,5 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
+
+

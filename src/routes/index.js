@@ -33,6 +33,7 @@ import UpdateProfileLayout from "../layout/UpdateProfileLayout";
 import UpdateSocialMedia from "../view/pages/Influencers/Setting/updateProfile/UpdateSocialMedia";
 import {UpdateAudience,UpdateInfo} from "../view/pages/Influencers/Setting/updateProfile";
 import UpdateServices from "../view/pages/Influencers/Setting/updateProfile/UpdateServices";
+import Uploader from "../components/uploader";
 //public routes
 const publicRoutes = [
   {
@@ -148,7 +149,10 @@ const publicRoutes = [
     path:"/influencer/setting/update-profile/services",
     component: UpdateServices,
     layout:UpdateProfileLayout
-  }
+  },
+  {
+    path:"/uploader",
+    component: Uploader  }
 ];
 
 const privateRoutes = [{}];

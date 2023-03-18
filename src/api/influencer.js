@@ -5,6 +5,7 @@ export function getCampaignInfluencer(data) {
   }
 
 export function createInfluencerProfile(data) {
+  console.log('data when calling api',data)
   return http.post("influencer/create-info", data);
 }
 export function social(data){
