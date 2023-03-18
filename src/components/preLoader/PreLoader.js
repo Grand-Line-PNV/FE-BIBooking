@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import "./style.css";
 export default function PreLoader() {
+	const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location]);
   return (
     <div className="preloader">
 		<div className="icon-loading">

@@ -20,10 +20,17 @@ import PreLoader from "../../../../components/preLoader/PreLoader";
 import useDateValidation from "../../../../hooks/useDateValidation";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { useLocation } from "react-router-dom";
+
 
 const cx = classNames.bind(styles);
 
 export default function CreateCampaign() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
   const brand_id = localStorage.getItem("account_id");
 
   const dispatch = useDispatch();

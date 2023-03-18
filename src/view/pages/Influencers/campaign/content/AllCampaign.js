@@ -6,10 +6,12 @@ import ShowCampaignInfluencer from "../../../../../components/influencer/campaig
 import useFormData from "../../../../../hooks/useFormData";
 import { getCampaignInfluencer } from "../../../../../api/influencer";
 import "./AllCampaign.css";
+import { useLocation } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 const AllCampaignInfluencer = () => {
+  const location = useLocation();
   const { data, setData } = useFormData([]);
   const [filters, setFilters] = useState({});
 
@@ -22,6 +24,10 @@ const AllCampaignInfluencer = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
 
   const filterData = () => {
     let filteredData = [...data];
@@ -32,7 +38,9 @@ const AllCampaignInfluencer = () => {
     }
 
     if (filters.industry) {
-      filteredData = filteredData.filter((item) => item.industry === filters.industry);
+      filteredData = filteredData.filter(
+        (item) => item.industry === filters.industry
+      );
     }
 
     if (filters.price) {
@@ -45,7 +53,13 @@ const AllCampaignInfluencer = () => {
   return (
     <section className={cx("section", "featured-car")} id={cx("featured-car")}>
       <div className={cx("container")}>
-          <ShowCampaignInfluencer data={data} fetchData={fetchData} setFilters={setFilters} filterData={filterData} filters={filters}/>
+        <ShowCampaignInfluencer
+          data={data}
+          fetchData={fetchData}
+          setFilters={setFilters}
+          filterData={filterData}
+          filters={filters}
+        />
 
         <div className={cx("btn-see-more")}>
           <Button outline={true}>Xem Thêm</Button>

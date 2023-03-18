@@ -1,55 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./BookingHistoryLayout.module.scss";
 import classNames from "classnames/bind";
-import Button from "../../components/Button/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
-import Input from "../../components/Input/index";
+import { useLocation } from "react-router-dom";
+import WaitingBrand from "../../view/pages/Brands/bookingHistory/Waiting";
+import InProgressBrand from "../../view/pages/Brands/bookingHistory/InProgress";
+import DoneBrand from "../../view/pages/Brands/bookingHistory/Done";
+import RejectBrand from "../../view/pages/Brands/bookingHistory/Reject";
+import PreLoader from "../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
-
-const BookingHistoryLayout = ({ children }) => {
+const BookingHistoryLayout = () => {
   const [open, setOpen] = useState(false);
-  // const handleIconMenu(){
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
-  // }
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
   return (
-    <div>
-      <Header />
-      <section className={cx("task-setting", "animation")}>
-        <div className={cx("container")}>
-          <div className={cx("task-setting-container")}>
-            <div className={cx("task-info")}></div>
-            {open ? (
-              <div className={cx("icon-menu")}>
-                <FontAwesomeIcon icon={faBars} size="xl" />
-              </div>
-            ) : (
-              ""
-            )}
-            {open ? (
-              ""
-            ) : (
-              <div className={cx("icon-menu")}>
-                <FontAwesomeIcon icon={faXmark} size="xl" />
-              </div>
-            )}
-            <div className={cx("nav-editProfile")}>
-              <Link className={cx("task-title")} to="/brand/booking-history/applying">
-                <h3>Applying</h3>
-              </Link>
-              <Link className={cx("task-title")} to="/brand/booking-history/doing">
-                <h3>Doing</h3>
-              </Link>
-            </div>
-            {children}
+    <div className={cx("task-brand")}>
+      <main className={cx("tasks")}>
+        <div className={cx("tasks-info")}>
+          <h1>Brand's Task management</h1>
+          <div className={cx("tasks-participants")}>
+            <button className={cx("tasks-participants__add")}>
+              Add Participant
+            </button>
           </div>
         </div>
-      </section>
-      <Footer />
+        <div className={cx("tasks-tasks")}>
+          <WaitingBrand />
+          <InProgressBrand />
+          <DoneBrand />
+          <RejectBrand />
+        </div>
+      </main>
+      {isLoading ? <PreLoader /> : <></>}
     </div>
   );
 };

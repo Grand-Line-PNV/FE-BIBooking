@@ -1,17 +1,23 @@
+import React, { useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./HomeStyles.module.scss";
 import Button from "../../../../components/Button/Button";
-import { HeroImg, HeroBlock1, HeroBlock2 } from "../../../../assets/images";
+import { HeroImg, HeroBlock1 } from "../../../../assets/images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
-  faLongArrowAltRight,
   faHandPointRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { dataDigitalBestSeller } from "./data";
+import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 const Hero = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location]);
   return (
     <div>
       <section className={cx("hero")}>

@@ -1,157 +1,204 @@
-/* Table Styles */
-.table-wrapper {
-  box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.1);
-  margin-bottom: 60px;
+:root {
+  --bg: #ffffff;
+  --header: #fbf4f6;
+  --text: #2e2e2f;
+  --white: #ffffff;
+  --light-grey: #c4cad3;
+  --tag-1: #ceecfd;
+  --tag-1-text: #2e87ba;
+  --tag-2: #d6ede2;
+  --tag-2-text: #13854e;
+  --tag-3: #ceecfd;
+  --tag-3-text: #2d86ba;
+  --tag-4: #f2dcf5;
+  --tag-4-text: #a734ba;
+  --purple: #7784ee;
 }
 
-.btn-create {
-  margin-bottom: 20px;
+.tasks-column-heading {
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
-.fl-table {
-  font-weight: normal;
-  border: none;
-  width: 100%;
-  max-width: 100%;
-}
-
-.fl-table td,
-.fl-table th {
-  text-align: center;
-  padding: 20px;
+.tasks-column-heading__options {
+  background: transparent;
+  color: var(--light-grey);
   font-size: 18px;
-}
-
-.fl-table tr:hover {
-  background-color: #f1efef;
+  border: 0;
   cursor: pointer;
 }
 
-.fl-table td {
-  border-right: 1px solid #f8f8f8;
-  white-space: normal;
-
-  & button {
-    background-color: orangered;
-    color: #f7f7f9;
-    height: 40px;
-    font-size: 18px;
-    border-radius: 15px;
-    padding: 0 15px;
-  }
+.task {
+  cursor: move;
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 8px 0px;
+  margin-bottom: 1rem;
+  border: 3px dashed transparent;
 }
 
-.fl-table thead th {
-  color: black;
-  background: #95a5a6;
+.task:hover {
+  -webkit-box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+  border-color: rgba(162, 179, 207, 0.2) !important;
 }
 
-.fl-table tr:nth-child(even) {
-  background: #f1efef;
+.task p {
+  /* font-size: 15px; */
+  margin: 1.2rem 0;
 }
 
-/* Responsive */
+.task__tag {
+  border-radius: 100px;
+  padding: 2px 13px;
+}
 
-@media screen and (max-width: 444px) {
-  .fl-table {
-    display: block;
-    width: 100%;
-  }
-  .table-wrapper:before {
-    display: block;
-    text-align: right;
-    font-size: 11px;
-    padding: 0 0 10px;
-  }
-  .fl-table thead,
-  .fl-table tbody,
-  .fl-table thead th {
-    display: block;
-  }
-  .fl-table thead th:last-child {
-    border-bottom: none;
-  }
-  .fl-table thead {
-    float: left;
-  }
-  .fl-table tbody {
-    width: auto;
-    position: relative;
-    overflow-x: auto;
-  }
-  .fl-table td,
-  .fl-table th {
-    padding: 20px 0.625em 0.625em 0.625em;
-    height: 60px;
-    vertical-align: middle;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 120px;
-    font-size: 13px;
-    text-overflow: ellipsis;
-  }
-  .fl-table thead th {
-    text-align: left;
-    border-bottom: 1px solid #f7f7f9;
-  }
-  .fl-table tbody tr {
-    display: table-cell;
-  }
-  .fl-table tbody tr:nth-child(odd) {
-    background: none;
-  }
-  .fl-table tr:nth-child(even) {
-    background: transparent;
-  }
-  .fl-table tbody td {
-    display: block;
-    text-align: center;
-  }
+.task__tag--copyright {
+  color: var(--tag-4-text);
+  background-color: var(--tag-4);
+}
 
-  .fl-table tbody {
-    display: grid;
-    justify-content: flex-start;
-    grid-auto-columns: 100px;
-    grid-auto-flow: column;
-    grid-gap: 1.5rem;
-    overflow: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-snap-stop: always;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    -webkit-overflow-scrolling: touch;
-    scroll-padding: 1rem;
-    grid-template-columns: unset;
-  }
-  .fl-table tbody::-webkit-scrollbar {
+.task__tag--design {
+  color: var(--tag-3-text);
+  background-color: var(--tag-3);
+}
+
+.task__tag--illustration {
+  color: var(--tag-2-text);
+  background-color: var(--tag-2);
+}
+
+.task__tags {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  gap: 5px;
+}
+
+.task__stats {
+  position: relative;
+  width: 100%;
+  /* color: var(--light-grey); */
+  font-size: 12px;
+}
+
+.task .avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.task__status-waiting,
+.task__status-progress,
+.task__status-done,
+.task__status-cancer,
+.task__status-reject {
+  width: 25px;
+  height: 25px;
+  border-radius: 100rem;
+  background: var(--purple);
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  bottom: 0;
+}
+
+.task__status-waiting {
+  bottom: 0;
+  background: #f8d803;
+}
+
+.task__status-progress {
+  bottom: 0;
+  background: #52397a;
+}
+
+.task__status-done {
+  bottom: 0;
+  background: #d1eeda;
+}
+
+.task__status-cancer {
+  bottom: 0;
+  background: #BC2244;
+}
+
+.task__status-reject {
+  bottom: 0;
+  background: #816215;
+}
+
+.status{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.task-hover {
+  border: 3px dashed var(--light-grey) !important;
+}
+
+.task-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 100rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.task-icon svg {
+  font-size: 12px;
+  color: var(--white);
+}
+
+.task-icon--attachment {
+  background-color: #fba63c;
+}
+
+.task-icon--comment {
+  background-color: #5dc983;
+}
+
+.task-icon--edit {
+  background-color: #7784ee;
+}
+
+@media only screen and (max-width: 1000px) {
+  .tasks-column:nth-child(2),
+  .tasks-column:nth-child(3) {
     display: none;
-    width: 0;
-  }
-  .fl-table tbody > * {
-    scroll-snap-align: start;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .fl-table td,
-  .fl-table th {
-    font-size: 16px;
-    padding: 10px;
-  }
-  .fl-table td button {
-    height: 30px;
-    font-size: 14px;
-    border-radius: 10px;
-    padding: 5px 10px;
-  }
-  .fl-table {
-    font-weight: normal;
-    border: none;
-    white-space: nowrap;
-    width: 100%;
+@media only screen and (max-width: 600px) {
+  .tasks-column:nth-child(4) {
+    display: none;
   }
 }
