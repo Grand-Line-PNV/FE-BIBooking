@@ -7,6 +7,19 @@
         margin-bottom: 200px;
 
     }
+.form{
+    width: 350px;
+}
+    .form-payment {
+        lable {
+            display: inline-block;
+            font-size: 20px;
+            padding: 5px 0 5px 0;
+        }
+        input{
+            border: 1px solid #beb9b9;;
+        }
+    }
 
     .title {
         color: #F15E40;
@@ -16,42 +29,6 @@
         width: 100%;
     }
 
-    .form {
-        padding: 50px;
-        width: 900px;
-        height: 500px;
-        background-color: white;
-        position: absolute;
-        top: 20%;
-        border-radius: 10px;
-        box-shadow: 0 0 5px 0 rgb(186, 183, 183);
-
-        .content {
-            // margin: 30px;
-        }
-
-        lable {
-            display: inline-block;
-            font-size: 20px;
-            padding: 5px 0 5px 0;
-        }
-
-        select {
-            width: 350px;
-        }
-
-        .input {
-            border: 1px solid grey;
-        }
-
-        .btn {
-            padding: 35px 0 10px;
-        }
-
-        .btn button {
-            width: 350px;
-        }
-    }
 
     .information {
         position: absolute;
@@ -134,17 +111,17 @@
     border-color: #F15E40;
     color: var(--white)
 }
+
 .selected {
     background-color: #F15E40;
     color: var(--white)
+}
 
-  }
-  .deselect{
+.deselect {
     background-color: transparent;
     color: var(--text-color)
+}
 
-
-  }
 ::-webkit-scrollbar {
     width: 0px;
 }
@@ -171,7 +148,8 @@
     border-radius: 5px;
     margin-right: 20px;
 }
-.method{
+
+.method {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -180,6 +158,7 @@
 
 
 }
+
 .methods img {
     border-radius: 10px;
     width: 80px;
@@ -190,17 +169,19 @@
 
 }
 
-.method .chose{
+.method .chose {
     display: block;
-   height:10px;
-   width: 10px;
-   background-color: white;
-   border-radius: 100%;
-   transition: 0.5s;
+    height: 10px;
+    width: 10px;
+    background-color: white;
+    border-radius: 100%;
+    transition: 0.5s;
 }
-.method:hover .chose{
-    background-color:#F15E40;
+
+.method:hover .chose {
+    background-color: #F15E40;
 }
-.chosen{
-    background-color:#F15E40 !important;
+
+.chosen {
+    background-color: #F15E40 !important;
 }
