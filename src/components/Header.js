@@ -1,61 +1,113 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./Header.module.scss";
 import { LogoHomePage } from "../assets/images/index";
 import classNames from "classnames/bind";
 import Button from "../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faHouse, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { HeroImg } from "../assets/images/index";
+import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
+import Notify from "../view/notifications/Notify";
+import { Link, useLocation } from "react-router-dom";
+import {
+  navLinkVisiter,
+  navLinkBrand,
+  navLinkInfluencer,
+  navLinkBrandInf,
+  navLinkInfluencerInf,
+} from "./navLink";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 
 const cx = classNames.bind(styles);
 
+const STICKY_DEFAULTS = {
+  isSticky: false,
+  offset: 0,
+  background: "none",
+  paddingTop: 30,
+  paddingBottom: 30,
+};
+
 export default function Header() {
-  const [sticky, setSticky] = useState({
-    isSticky: false,
-    offset: 0,
-    background: "none",
-    paddingTop: 50,
-    paddingBottom: 50,
-  });
+  const location = useLocation();
+  const [sticky, setSticky] = useState(STICKY_DEFAULTS);
+
+  const [open, setOpen] = useState(false);
+
+  const [userRole, setUserRole] = useState("");
+  const [username, setUserName] = useState("");
+
   const headerRef = useRef(null);
-  // handle scroll event
-  const handleScroll = (elTopOffset, elHeight) => {
-    if (window.pageYOffset > 20) {
+  const handleScroll = useCallback(() => {
+    const header = headerRef?.current?.getBoundingClientRect?.();
+    if (header && window.pageYOffset > 20) {
       setSticky({
+        ...STICKY_DEFAULTS,
         isSticky: true,
-        offset: 0,
         background: "white",
         paddingTop: 30,
         paddingBottom: 30,
       });
     } else {
-      setSticky({
-        isSticky: false,
-        offset: 0,
-        background: "none",
-        paddingTop: 50,
-        paddingBottom: 50,
-      });
+      setSticky(STICKY_DEFAULTS);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  const navigation = useNavigate();
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    const user = localStorage.getItem("username");
+    setUserRole(role);
+    setUserName(user);
+  });
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUserRole("");
+    setUserName("");
+    navigation("/");
+    Swal.fire("Log out Successfully!", "You clicked the button!", "success");
+  };
+  // nav-bar
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
+  const handleScrollNavBar = () => {
+    const header = document.querySelector("[data-header]") ?? {};
+    if (window.scrollY >= 10 && header !== null) {
+      header.classList.add("active");
+    } else if (header !== null) {
+      header.classList.remove("active");
     }
   };
 
-  // add/remove scroll event listener
-  useEffect(() => {
-    var header = headerRef.current.getBoundingClientRect();
-    const handleScrollEvent = () => {
-      handleScroll(header.top, header.height);
-    };
+  window.addEventListener("scroll", handleScrollNavBar);
 
-    window.addEventListener("scroll", handleScrollEvent);
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    return () => {
-      window.removeEventListener("scroll", handleScrollEvent);
-    };
-  }, []);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <header
-      className={cx("header")}
+      className="header"
+      data-header
       ref={headerRef}
       style={{
         marginTop: sticky.offset,
@@ -64,71 +116,230 @@ export default function Header() {
         paddingBottom: sticky.paddingBottom,
       }}
     >
-      <div className={cx("container")}>
-        <div className={cx("header-container")}>
-          <img src={LogoHomePage} alt="" />
-          <ul className={cx("menu")}>
-            <li className={cx("container")}>
-              <a href="#" className={cx("menu-link", "text")}>
-                Home
+      <div className="container">
+        <div
+          className={`overlay ${isNavOpen ? "active" : ""}`}
+          data-overlay
+          onClick={closeNav}
+        />
+        <a href="#" className="logo">
+          <Link to={"/"}>
+            <img src={LogoHomePage} alt="B&IBooking logo" />
+          </Link>
+        </a>
+        {userRole === "1" ? (
+          <nav className={`navbar ${isNavOpen ? "active" : ""}`} data-navbar>
+            <ul className="navbar-list">
+              {navLinkBrand.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
+                >
+                  <Link className="nav-link" to={item.to}>
+                    <a
+                      href="#home"
+                      className="navbar-link"
+                      data-nav-link
+                      onClick={closeNav}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#blog"
+                  className="navbar-link"
+                  data-nav-link
+                  onClick={closeNav}
+                >
+                  <Button
+                    outline={true}
+                    onClick={handleLogout}
+                    className="btn-mobile"
+                  >
+                    Log out
+                  </Button>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        ) : userRole === "2" ? (
+          <nav className={`navbar ${isNavOpen ? "active" : ""}`} data-navbar>
+            <ul className="navbar-list">
+              {navLinkInfluencer.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
+                >
+                  <Link className="nav-link" to={item.to}>
+                    <a
+                      href="#home"
+                      className="navbar-link"
+                      data-nav-link
+                      onClick={closeNav}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#blog"
+                  className="navbar-link"
+                  data-nav-link
+                  onClick={closeNav}
+                >
+                  <Button
+                    outline={true}
+                    onClick={handleLogout}
+                    className="btn-mobile"
+                  >
+                    Log out
+                  </Button>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        ) : (
+          <nav className={`navbar ${isNavOpen ? "active" : ""}`} data-navbar>
+            <ul className="navbar-list">
+              {navLinkVisiter.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
+                >
+                  <Link className="nav-link" to={item.to}>
+                    <a
+                      href="#home"
+                      className="navbar-link"
+                      data-nav-link
+                      onClick={closeNav}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#blog"
+                  className="navbar-link"
+                  data-nav-link
+                  onClick={closeNav}
+                >
+                  <Button outline={true} to="/register" className="btn-mobile">
+                    Register
+                  </Button>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
+        <div className="header-actions">
+          {userRole === "1" ? (
+            <>
+              <Button outline={true} onClick={handleLogout} className="btn-web">
+                Log out
+              </Button>
+              <a
+                href="#"
+                className="btn user-btn"
+                aria-label="Profile"
+                id="modal-closed"
+                onClick={handleOpen}
+              >
+                <FontAwesomeIcon
+                  id="modal-closed"
+                  icon={faBell}
+                  color="#f16736"
+                  onClick={handleOpen}
+                />
               </a>
-            </li>
-            <li className={cx("menu-item")}>
-              <a href="#" className={cx("menu-link", "text")}>
-                Campaign
+              {navLinkBrandInf.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
+                >
+                  <Link className="nav-link" to={item.to}>
+                    <a href="#" className="btn user-btn" aria-label="Profile">
+                      <FontAwesomeIcon icon={faUser} color="#f16736" />
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </>
+          ) : userRole === "2" ? (
+            <>
+              <Button outline={true} onClick={handleLogout} className="btn-web">
+                Log out
+              </Button>
+              <a
+                href="#"
+                className="btn user-btn"
+                aria-label="Profile"
+                id="modal-closed"
+                onClick={handleOpen}
+              >
+                <FontAwesomeIcon
+                  id="modal-closed"
+                  icon={faBell}
+                  color="#f16736"
+                  onClick={handleOpen}
+                />
               </a>
-            </li>
-            <li className={cx("menu-item")}>
-              <a href="#" className={cx("menu-link", "text")}>
-                Task
-              </a>
-            </li>
-            <li className={cx("menu-item")}>
-              <a href="#" className={cx("menu-link", "text")}>
-                Revenue
-              </a>
-            </li>
-          </ul>
-          <div className={cx("header-auth")}>
-            <Button outline={true} to="/register">Sign Up</Button>
-          </div>
-
-          <label htmlFor="nav-input" className="nav__bars-btn">
-          {/* <i className="fa-solid fa-bars" /> */}
-          <FontAwesomeIcon icon={faBars}/>
-        </label>
-        <input type="checkbox" hidden name id="nav-input" />
-        <label htmlFor="nav-input" className="nav__overlay" />
-        <label htmlFor="nav-input" className="nav-mobile">
-          <label htmlFor="nav-input" className="nav__mobile-close">
-            <div className="nav-title-area">
-              <img className="nav-logo" src={LogoHomePage} alt="" />
-            </div>
-            {/* <i className="fa-solid fa-xmark" /> */}
-          </label>
-          <ul className="nav__mobile_list">
-            <li className="nav__mobile_link">
-              {/* <i className="fa-solid fa-house" /> */}
-              <a href="#main"> Home</a>
-            </li>
-            <li className="nav__mobile_link">
-              {/* <i className="fa-solid fa-address-card" /> */}
-              <a href="#testimonial"> Campaign</a>
-            </li>
-            <li className="nav__mobile_link">
-              {/* <i className="fa-solid fa-briefcase" /> */}
-              <a href="#tutorial"> Task</a>
-            </li>
-            <li className="nav__mobile_link">
-              {/* <i className="fa-brands fa-creative-commons-nd" /> */}
-             <a href="#explore"> Revenue</a>
-            </li>
-            <li className="nav__mobile_link">
-              <a href="#hero"><Button primary={true} large={true}>Sign Up</Button></a>
-            </li>
-          </ul>
-        </label>
+              {navLinkInfluencerInf.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
+                >
+                  <Link className="nav-link" to={item.to}>
+                    <a href="#" className="btn user-btn" aria-label="Profile">
+                      <FontAwesomeIcon icon={faUser} color="#f16736" />
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </>
+          ) : (
+            <Button outline={true} to="/register" className="btn-">
+              Register
+            </Button>
+          )}
+          <button
+            className={`nav-toggle-btn ${isNavOpen ? "active" : ""}`}
+            data-nav-toggle-btn
+            aria-label="Toggle Menu"
+            onClick={toggleNav}
+          >
+            <span className="one" />
+            <span className="two" />
+            <span className="three" />
+          </button>
         </div>
+        {open && <Notify onClose={handleClose} />}
       </div>
     </header>
   );

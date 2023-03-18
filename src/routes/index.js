@@ -1,101 +1,199 @@
 //HomePage
-import Home from '../view/pages/Home/Home';
+import Home from "../view/pages/Home/Home";
+import AboutUs from "../view/pages/Home/AboutUs";
 //layouts
-import {RegisterLayout} from '../layout';
-import EditProfileLayout from '../layout/EditProfileLayout';
-import Confirmation from '../view/pages/Auth/ForgotPassword/Confirmation';
-import ForgotPassword from '../view/pages/Auth/ForgotPassword/ForgotPassword';
-import NewPassword from '../view/pages/Auth/ForgotPassword/NewPassword';
+import RegisterLayout from "../layout/RegisterLayout/index";
+import EditProfileLayout from "../layout/EditProfileLayout";
+import Confirmation from "../view/pages/Auth/ForgotPassword/Confirmation";
+import ForgotPassword from "../view/pages/Auth/ForgotPassword/ForgotPassword";
+import NewPassword from "../view/pages/Auth/ForgotPassword/NewPassword";
 //pages
-import LoginScreen from '../view/pages/Auth/Login/LoginScreen';
-import RegisterScreen from '../view/pages/Auth/Register/RegisterScreen';
-import ProfileScreen from "../view/pages/Brands/Profile/ProfileScreen";
-import AllProfileScreen from '../view/pages/Influencers/profile/AllProfileScreen';
-import EditProfile from '../view/pages/Influencers/Setting/profile/EditProfile';
-import EditSocialMedia from '../view/pages/Influencers/Setting/profile/EditSocialMedia';
-import EditFollowerRate from '../view/pages/Influencers/Setting/profile/EditFollowerRate';
+import LoginScreen from "../view/pages/Auth/Login/LoginScreen";
+import RegisterScreen from "../view/pages/Auth/Register/RegisterScreen";
+import AllProfileScreen from "../view/pages/Influencers/profile/AllProfileScreen";
+import EditProfile from "../view/pages/Influencers/Setting/profile/EditProfile";
+import EditSocialMedia from "../view/pages/Influencers/Setting/profile/EditSocialMedia";
+import EditFollowerRate from "../view/pages/Influencers/Setting/profile/EditFollowerRate";
+// Influencer's Campaign
+import CampaignInfluencer from "../view/pages/Influencers/campaign/Campaign";
+import DetailCampaignInfluencer from "../view/pages/Influencers/campaign/content/DetailsCampaign";
+// Brand's Campaign
+import CampaignBrand from "../view/pages/Brands/Campaign/Campaign";
+import CreateCampaignLayout from "../layout/formLayout";
+import CreateCampaign from "../view/pages/Brands/Campaign/CreateScreen";
+import UpdateCampaign from "../view/pages/Brands/Campaign/UpdateScreen";
+// Brand's profile and setting and layout
+import InforBandLayout from "../layout/InforBandLayout";
+import ProfileSetingBrand from "../view/pages/Brands/Profile/seting/Profile";
+import ProfileBrand from "../view/pages/Brands/Profile/ProfileBrand";
+import CreateBrands from "../view/pages/Brands/Profile/CreateBrands";
+import UpdateBrands from "../view/pages/Brands/Profile/UpdateBrands";
+// Brand's Booking History
+import BookingHistoryLayout from "../layout/BookingHistoryLayout";
+import BookingHistory from "../view/pages/Brands/bookingHistory/BookingHistory";
+import ApplyingBrand from "../view/pages/Brands/bookingHistory/Applying";
+import DoingBrand from "../view/pages/Brands/bookingHistory/Doing";
 // error
-import Error from '../view/pages/Error';
-import EditServices from '../view/pages/Influencers/Setting/profile/EditServices';
-import BookingScreen from '../view/pages/Booking/BookingScreen';
-import SendRequest from '../view/pages/Booking/SendRquest';
+import Error from "../view/pages/Error";
+import EditServices from "../view/pages/Influencers/Setting/profile/EditServices";
+// Task Influencers
+import TaskLayout from "../layout/TaskLayout";
+import ApplyingInfluencer from "../view/pages/Influencers/task/Applying";
+import DoingInfluencer from "../view/pages/Influencers/task/Doing";
+import Waiting from "../view/pages/Influencers/task/Waiting";
+import Notify from "../view/notifications/Notify";
+//payment page
 import PaymentScreen from '../view/pages/Payment/PaymentScreen';
 //public routes
-const publicRoutes = [{
-    path: '/register',
+const publicRoutes = [
+  {
+    path: "/register",
     component: RegisterScreen,
-    layout:RegisterLayout
-}, {
-    path: '/login',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/login",
     component: LoginScreen,
-    layout:RegisterLayout
-
-},
-{
-    path: '/home',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/",
     component: Home,
-}
-, {
-    path: 'brand/profile',
-    component: ProfileScreen
-},
-{
-    path: 'influencer/profile',
-    component: AllProfileScreen
-},
-{
-    path: 'influencer/setting/edit-profile',
+  },
+  {
+    path: "/About us",
+    component: AboutUs,
+  },
+  {
+    path: "influencer/profile",
+    component: AllProfileScreen,
+  },
+  {
+    path: "influencer/setting/edit-profile",
     component: EditProfile,
-    layout:EditProfileLayout
-},
-{
-    path: '/forgot-password',
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/forgot-password",
     component: ForgotPassword,
-    layout:RegisterLayout
-},{
-    path: '/verification',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/verification",
     component: Confirmation,
-    layout:RegisterLayout
-}
-,{
-    path: '/new-password',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/new-password",
     component: NewPassword,
-    layout:RegisterLayout
-},{
-    path: '/error',
+    layout: RegisterLayout,
+  },
+  {
+    path: "/:error",
     component: Error,
     // layout:RegisterLayout
-},
-{
-    path: '/influencer/setting/edit-profile/social-media',
-    component:EditSocialMedia,
-    layout:EditProfileLayout
-},
-{
-    path:'/influencer/setting//edit-profile/followr-rate',
-    component:EditFollowerRate,
-    layout:EditProfileLayout
-},{
-    path:'/influencer/setting//edit-profile/services',
-    component:EditServices,
-    layout:EditProfileLayout
-   
-},{
-    path:'/booking',
-    component:BookingScreen
-},
-{
-    path:'/booking/send-request',
-    component:SendRequest
-},
-{
+  },
+  {
+    path: "/brand/:error",
+    component: Error,
+    // layout:RegisterLayout
+  },
+  {
+    path: "/influencer/:error",
+    component: Error,
+    // layout:RegisterLayout
+  },
+  {
+    path: "/influencer/setting/edit-profile/social-media",
+    component: EditSocialMedia,
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/influencer/setting/edit-profile/followr-rate",
+    component: EditFollowerRate,
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/influencer/setting/edit-profile/services",
+    component: EditServices,
+    layout: EditProfileLayout,
+  },
+  {
+    path: "/influencer/task/applying",
+    component: ApplyingInfluencer,
+    layout: TaskLayout,
+  },
+  {
+    path: "/influencer/task/doing",
+    component: DoingInfluencer,
+    layout: TaskLayout,
+  },
+  {
+    path: "/influencer/task/waiting",
+    component: Waiting,
+    layout: TaskLayout,
+  },
+  {
+    path: "/influencer/campaign",
+    component: CampaignInfluencer,
+  },
+  {
+    path: "/influencer/campaign/:id",
+    component: DetailCampaignInfluencer,
+  },
+  {
+    path: "brand/seting/profile",
+    component: ProfileSetingBrand,
+    layout: InforBandLayout,
+  },
+  {
+    path: "brand/profile",
+    component: ProfileBrand,
+    layout: InforBandLayout,
+  },
+  {
+    path: "brand/profile/create",
+    component: CreateBrands,
+    layout: InforBandLayout,
+  },
+  {
+    path: "brand/profile/:id",
+    component: UpdateBrands,
+    layout: InforBandLayout,
+  },
+  {
+    path: "/brand/campaign/create",
+    component: CreateCampaign,
+    layout: CreateCampaignLayout,
+  },
+  {
+    path: "/brand/campaign",
+    component: CampaignBrand,
+  },
+  {
+    path: "/brand/campaign/:id",
+    component: UpdateCampaign,
+  },
+  {
+    path: "/brand/notify",
+    component: Notify,
+  },
+  {
+    path: "/brand/booking-history/applying",
+    component: ApplyingBrand,
+    layout: BookingHistoryLayout,
+  },
+  {
+    path: "/brand/booking-history/doing",
+    component: DoingBrand,
+    layout: BookingHistoryLayout,
+  },
+  {
     path:'/booking/payment',
     component:PaymentScreen
 }
-]
+];
 
-const privateRoutes = [{
+const privateRoutes = [{}];
 
-}]
-
-export {publicRoutes, privateRoutes}
+export { publicRoutes, privateRoutes };

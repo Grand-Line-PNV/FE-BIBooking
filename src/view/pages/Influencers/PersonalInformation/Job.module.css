@@ -1,0 +1,63 @@
+.job .job-title {
+  margin-top: 20px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f0a237), color-stop(50.83%, #f16736), to(#ed3237));
+  background: linear-gradient(180deg, #f0a237 0%, #f16736 50.83%, #ed3237 100%);
+  background-clip: text;
+  color: transparent;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 44px;
+  letter-spacing: 0.1em;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.job .list-job {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 30px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px 0;
+}
+
+.job .list-job a {
+  text-decoration: none;
+}
+
+.job .list-job li {
+  list-style: none;
+}
+
+.job .list-job .list-job-item {
+  width: 120px;
+  height: 50px;
+  border-radius: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.job .list-job .list-job-item .list-job-link {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  color: #534E4E;
+}
+
+.job .submit {
+  text-align: center;
+  margin-top: 50px;
+}
+/*# sourceMappingURL=Job.module.css.map */

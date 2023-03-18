@@ -1,4 +1,4 @@
-import { Fragment, useRef, useEffect } from "react";
+import { Fragment } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,28 +11,23 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 // ----------------------------------------------------------------
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addNewUser } from "../../../../api/feature";
 import { registerAction } from "../../../../features/feature/register";
 import useAuth from "../../../../hooks/useAuth";
-import {
-  setRole,
-  roleSelector,
-} from "../../../../features/feature/roleUserSlide";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusRegister from "../../../../hooks/useInputFocusRegister";
+import { useState } from "react";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
+import Swal from 'sweetalert';
 
 // ------------------------------------------------------------------
 const cx = classNames.bind(styles);
 const RegisterScreen = () => {
   const {
-    width,
-    right,
     lock,
     lock2,
-    setWidth,
     showPassword,
-    setRight,
     showConfirmPassword,
     handleLockClose,
     handleLockOpen,
@@ -58,16 +53,32 @@ const RegisterScreen = () => {
       password_confirmation: "",
       role_id: "1",
     });
+    const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigate();
   const handleToggleRight = (e) => {
-    setData({ ...data, role_id: e.target.value });
+    setData({
+      username: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      role_id: e.target.value
+    });
+    setErrors("");
   };
   const handleToggleLeft = (e) => {
-    setData({ ...data, role_id: e.target.value });
+    setData({
+      username: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      role_id: e.target.value
+    });
+    setErrors("");
   };
   const handleSubmit = async (event) => {
     resetErrors();
+    setIsLoading(true)
     sessionStorage.setItem("path", "register");
     console.log(data);
     try {
@@ -77,6 +88,7 @@ const RegisterScreen = () => {
       sessionStorage.setItem("email", data.email);
       navigation("/verification");
     } catch (error) {
+      setIsLoading(false)
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
@@ -84,9 +96,9 @@ const RegisterScreen = () => {
     }
   };
 
-  const path = "register";
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <form className={cx("choose-role")}>
         <input
           type="radio"

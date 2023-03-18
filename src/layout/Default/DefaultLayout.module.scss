@@ -2,6 +2,7 @@
   width: 100%;
   height: 100vh;
   margin: 0 auto;
+  max-width: 1585px;
 }
 
 @keyframes smoothScroll {
@@ -17,4 +18,27 @@
 main{
   transition: all 0.5s ease;
   animation: smoothScroll 1s forwards;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+
+header {
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+footer {
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+
+@media (min-width: 1025px) {
+  .wrapper {
+    width: 90%;
+  }
 }

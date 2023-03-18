@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,9 +16,13 @@ import {
 } from "../../../../features/feature/roleUserSlide";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { inputRefEmail, inputRefPassword, isFocusedEmail, isFocusedPassword } =
     useInputFocusLogin();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
@@ -42,27 +46,56 @@ const LoginScreen = () => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true);
       const response = await userLoginApi(data);
       dispatch(authorAction.addOne(data));
-      navigation("/influencer/profile");
+      console.log(response);
+      localStorage.setItem("token", response.data.data.access_token);
+      localStorage.setItem("role", response.data.data.account.role_id);
+      localStorage.setItem("username", response.data.data.account.username);
+      localStorage.setItem("account_id", response.data.data.account.id);
+      setIsLoading(false);
+      console.log(response.data.data.account.id);
+      navigation("/");
+      Swal.fire("Login Successfully!", "You clicked the button!", "success");
     } catch (error) {
+      console.log(error);
+      setIsLoading(false);
       if (error.status === 401) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Username or password incorrect !',
+        })
         setErrors({ login: "Email or password wrong!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
+  
   const onForgotPasswordPage = () => {
     sessionStorage.setItem("path", "login");
     navigation("/forgot-password");
   };
 
   const clickBrandHandler = () => {
+    setData({
+      email: "",
+      password: "",
+      login: "",
+    });
+    setErrors("");
     dispatch(setRole(1));
   };
 
   const clickInfluencerHandler = () => {
+    setData({
+      email: "",
+      password: "",
+      login: "",
+    });
+    setErrors("");
     dispatch(setRole(2));
   };
   const handleLockClose = () => {
@@ -75,6 +108,7 @@ const LoginScreen = () => {
   };
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <form className={cx("choose-role")}>
         <input
           type="radio"
@@ -183,7 +217,7 @@ const LoginScreen = () => {
           </div>
         )}
         <div className={cx("remember-container")}>
-          <div>
+          <div className={cx("remember-me")}>
             <input type="checkbox" id="checkbox" name="" value="" />
             <span style={{ marginLeft: "5px" }}>Remember me</span>
           </div>

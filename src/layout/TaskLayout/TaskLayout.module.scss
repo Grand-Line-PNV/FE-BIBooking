@@ -1,0 +1,143 @@
+.task-setting {
+  padding-top: 100px;
+   max-width: 1585px;
+    margin: 0 auto;
+  & .task-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    height: 119px;
+
+  }
+  .search-input {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border: 1px solid orangered;
+   border-radius: 10px;
+  }
+
+  .status-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & p{
+      font-size: 30px;
+    }
+
+    & select{
+      border: 1px solid black;
+      font-size: 16px;
+      padding: 8px;
+      border-radius: 10px;
+      margin-left: 25px;
+      height: 50px;
+    }
+  }
+  input[type="text"] {
+    font-size: 30px;
+    background-color: transparent;
+    margin-right: 15px;
+  }
+
+  .icon {
+    color: #61646B;
+    right: 20px;
+    top: 30px;
+    font-size: 30px;
+  }
+
+  & .task-title {
+    margin: 20px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  & .task-title::after {
+    content: " ";
+    background: var(--primary);
+    height: 2px;
+    width: 0;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+  }
+
+  & .task-title:hover::after {
+    width: 100%;
+  }
+
+
+  & .submit {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+select {
+  width: 100%;
+  padding: 6px 16px;
+  border-radius: 5px;
+  border: 1px solid #afafaf;
+  font-size: 16px;
+}
+
+option {
+  padding: 6px 16px;
+}
+
+.nav-editProfile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 50px;
+}
+.icon-menu {
+  display: none
+}
+
+@media screen and (max-width: 1024px) {
+  .task-setting {
+    width: 90%;
+    .search-input {
+      border: 1px solid black;
+      border-radius: 10px;
+    }
+
+     .status-filter {
+      visibility: hidden;
+     }
+  }
+  .nav-editProfile {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .task-setting {
+    width: 90%;
+    .search-input {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      border-radius: 10px;
+      padding: 0 10px;
+     }
+
+    & .task-title {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .task-setting {
+    width: 90%;
+  }
+}
