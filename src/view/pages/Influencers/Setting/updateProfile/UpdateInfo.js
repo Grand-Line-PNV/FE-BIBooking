@@ -12,7 +12,7 @@ import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
 import { useDispatch } from "react-redux";
 import AddImage from "./AddImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCloudArrowUp, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faFileImage } from "@fortawesome/free-regular-svg-icons";
 import { computeHeadingLevel } from "@testing-library/react";
 
@@ -33,14 +33,20 @@ const UpdateInfo = () => {
     getData();
   }, []);
 
-  // selectedImages.forEach((data) => {
-  //   console.log(data.url);
-  // });
 
-  // console.log(
-  //   "image",
-  //   Object.values(avt).map((i) => i.url)
-  // );
+  function deleteHandler(image) {
+    setSelectedImages(selectedImages.filter((e) => e !== image));
+    URL.revokeObjectURL(image);
+  }
+
+  const onSelectFile = (event) => {
+    const selectedFiles = event.target.files;
+    const selectedFilesArray = Array.from(selectedFiles);
+    setSelectedImages((previousImages) => previousImages.concat(selectedFilesArray));
+    // FOR BUG IN CHROME
+    event.target.value = "";
+  };
+
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
     useLocationForm(true, {
       userId: accountId,
@@ -112,7 +118,11 @@ const UpdateInfo = () => {
     );
 
     setData(result.data.data.credential);
-    setSelectedImages(result.data.data.files);
+    setSelectedImages(result.data.data.files.filter((file) => {
+      if (file.path == "influencers") {
+        return file.url;
+      }
+    }));
   };
   const handleChangeAvt = (e) => {
     setImgPreview(URL.createObjectURL(e.target.files[0]));
@@ -449,10 +459,63 @@ const UpdateInfo = () => {
           )}
         </div>
 
-        {/* <AddImage
-          onChange={setSelectedImages}
-          images={selectedImages}
-        /> */}
+        <section>
+      <label className={cx('btn-addImage')}>
+      <div>
+      <FontAwesomeIcon icon={faPlus}/>
+      <span style={{marginLeft:'5px'}}>Add Images</span>
+      </div>
+      <p>up to 4 images</p>
+
+        <input
+            type="file"
+            name="influencerImages"
+            onChange={onSelectFile}
+            multiple
+            accept="image/png , image/jpeg, image/webp"
+            className={cx("input-upload")}
+          />
+        
+        </label>
+        <input type="file" multiple className={cx("input-upload")} />
+      <br />
+
+      
+      {selectedImages.length > 0 &&
+        (selectedImages.length > 4 ? (
+          <p className={cx("error")}>
+            You can't upload more than 4 images! <br />
+            <span>
+              please delete <b> {selectedImages.length -4} </b> of them{" "}
+            </span>
+          </p>
+        ) : (
+          <Button
+            className={cx("upload-btn")}
+            onClick={() => {
+              console.log(selectedImages);
+            }}
+          >
+            UPLOAD {selectedImages.length} IMAGE
+            {selectedImages.length === 1 ? "" : "S"}
+          </Button>
+        ))}
+
+      <div className={cx("images")}>
+        {selectedImages &&
+          selectedImages.map((image, index) => {
+            return (
+              <div key={index} className={cx("image-upload")}>
+                <img src={image.url || URL.createObjectURL(image)} height="250" alt="upload" />
+                <Button outline={true} small={true} onClick={() => deleteHandler(image)}>
+                  <FontAwesomeIcon icon={faTrash}/>
+                  <span> {index + 1}</span>
+                </Button>
+              </div>
+            );
+          })}
+      </div>
+    </section>
         <div className={cx("submit")}>
           <Button
             primary={true}
