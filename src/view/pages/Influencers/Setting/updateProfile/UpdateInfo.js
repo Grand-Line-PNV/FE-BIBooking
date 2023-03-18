@@ -1,25 +1,28 @@
 import React, { Fragment, useEffect, useState } from "react";
-import styles from "./EditProfile.module.scss";
+import styles from "./UpdateProfile.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
 import useFormData from "../../../../../hooks/useFormData";
-import { createInfluencerProfile } from "../../../../../api/influencer";
-import { influencerAction } from "../../../../../features/feature/influencer";
+import { updateInfo, infoInfluencer } from "../../../../../api/influencer";
+// import { influencerAction } from "../../../../../features/feature/influencer";
 import useLocationForm from "../../../../../hooks/useLocationForm";
 import Select from "react-select";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
 import { useDispatch } from "react-redux";
 import AddImage from "./AddImage";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faFileImage } from "@fortawesome/free-regular-svg-icons";
+
 const cx = classNames.bind(styles);
 
-const EditProfile = () => {
-  const account_id = localStorage.getItem("account_id");
-  const dispatch = useDispatch();
+const UpdateInfo = () => {
+  const accountId = localStorage.getItem("account_id");
+  // const dispatch = useDispatch();
+  //
+  // const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
+  //   useLocationForm(true, {
+  //     userId: accountId,
+  //     wardCode: "get ward_code from response {credential.ward_code}",
+  //   });
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
     useLocationForm(false);
   const {
@@ -32,31 +35,22 @@ const EditProfile = () => {
   } = state;
 
   const [selectedImages, setSelectedImages] = useState([]);
-  const [file, setFile] = useState();
-  const [avt, setAvt] = useState();
+
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
-    useFormData({
-      account_id,
-      nickname: "",
-      fullname: "",
-      dob: "",
-      phone_number: "",
-      gender: "",
-      job: "",
-      title_for_job: "",
-      description: "",
-      content_topic: "",
-      influencerImages: [],
-      avatar: [],
-      address_line1: "",
-      address_line2: "",
-      address_line3: "",
-      address_line4: "",
-    });
+    useFormData();
+
+  useEffect(() => {
+    getData()
+  }, []);
+
+  selectedImages.forEach(data => {
+    console.log(data.url);
+  })
 
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
+      address_line1: state.selectedWard?.label || "",
       address_line2: state.selectedWard?.label || "",
       address_line3: state.selectedDistrict?.label || "",
       address_line4: state.selectedProvince?.label || "",
@@ -67,21 +61,13 @@ const EditProfile = () => {
     setData({ ...data, "influencerImages[]": selectedImages });
   }, [selectedImages]);
 
-  useEffect(() => {
-    setData({ ...data, 'avatarImages': avt });
-  }, [avt]);
-
   const handleSubmit = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
-      const formData = convertObjectToFormData({
-        ...data,
-        ...{ ward_code: selectedWard.value },
-      });
-
-      await createInfluencerProfile(formData);
-      alert("Successfully created");
+      const formData = convertObjectToFormData(data);
+      const respon = await updateInfo(formData);
+      alert("Successfully updated");
       setData({
         nickname: "",
         fullname: "",
@@ -104,55 +90,20 @@ const EditProfile = () => {
       }
     }
   };
-  const handleChangeAvt = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
-    setAvt(e.target.files);
+
+  const getData = async () => {
+    const result = await infoInfluencer(accountId);
+    setData(result.data.data.credential);
+    setSelectedImages(result.data.data.files)
   };
 
   return (
     <Fragment>
+          {/* {
+          selectedImages.map(data => 
+            <img src={data.url} alt=""/>)
+        } */}
       <form className={cx("form-inf")}>
-        <main className={cx("upload")}>
-          <div
-            className={cx("form-upload")}
-            onClick={() => document.querySelector(".input-field").click()}
-          >
-            <input
-              type="file"
-              accept="image/*"
-              className={cx("input-field")}
-              hidden
-              onChange={handleChangeAvt}
-            />
-
-            {file ? (
-              <img
-                src={file}
-                width={120}
-                height={120}
-                alt="avatar"
-                className={cx("avatar")}
-              />
-            ) : (
-              <>
-                <FontAwesomeIcon icon={faCloudArrowUp} size="xl" />
-                <p>Browse Files to upload</p>
-              </>
-            )}
-          </div>
-
-          <section className={cx("uploaded-row")}>
-            <FontAwesomeIcon icon={faFileImage} />
-            <span className={cx("upload-content")}>
-              <FontAwesomeIcon
-                icon={faTrash}
-                onClick={() => {
-                  setFile(null);
-                }}
-              />
-            </span>
-          </section>
-        </main>
         <div className={cx("form-above")}>
           <div className={cx("form-control-left")}>
             <Input
@@ -338,12 +289,12 @@ const EditProfile = () => {
               </label>
               <Select
                 name="province_code"
-                key={`province_code_ ${selectedProvince?.value}`}
+                key={`province_code_${selectedProvince?.value}`}
                 isDisabled={provinceOptions.length === 0}
                 options={provinceOptions}
                 onChange={(option) => onProvinceSelect(option)}
                 placeholder="Tỉnh/Thành"
-                defaultValue={selectedProvince}
+                defaultValue={data.address_line}
                 required
               />
               <Select
@@ -439,7 +390,13 @@ const EditProfile = () => {
             </div>
           )}
         </div>
-        <AddImage onChange={setSelectedImages} />
+
+    
+
+        <AddImage
+          onChange={setSelectedImages}
+          images={selectedImages}
+        />
         <div className={cx("submit")}>
           <Button
             primary={true}
@@ -447,7 +404,7 @@ const EditProfile = () => {
             className={cx("heading-small")}
             onClick={handleSubmit}
           >
-            Save
+            Update
           </Button>
         </div>
       </form>
@@ -455,6 +412,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
-
-
+export default UpdateInfo;

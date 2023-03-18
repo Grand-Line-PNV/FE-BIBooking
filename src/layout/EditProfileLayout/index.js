@@ -22,35 +22,7 @@ const EditProfileLayout = ({children}) => {
     <section className={cx("profile-setting", "animation")}>
       <div className={cx("container")}>
         <div className={cx("profile-setting-container")}>
-          <div className={cx("profile-info")}>
-            <div className={cx("profile-avatar")}>
-              <img
-                src="https://iili.io/HEHPLox.md.jpg"
-                alt=""
-                width={90}
-                height={90}
-                style={{ borderRadius: "50px" }}
-              />
-            </div>
-            <div className={cx("profile-content")}>
-              <h3 className={cx("profile-name")}>
-                LazyyNguyen{" "}
-                <FontAwesomeIcon
-                  className={cx("profile-icon")}
-                  icon={faCheck}
-                />
-              </h3>
-              <span className={cx("profile-address", "text", "text-medium")}>
-                0 channel{" "}
-                <a href="#linh">
-                  <FontAwesomeIcon
-                    className={cx("profile-icon")}
-                    icon={faPlus}
-                  />
-                </a>
-              </span>
-            </div>
-          </div>
+
           {open ?
             <div className={cx('icon-menu')}><FontAwesomeIcon icon={faBars} size='xl'/></div>
             :''}
@@ -63,16 +35,12 @@ const EditProfileLayout = ({children}) => {
           >
             <Link className={cx("profile-title")} to='/influencer/setting/edit-profile'><h3>General</h3></Link>
             <Link className={cx("profile-title")} to='/influencer/setting/edit-profile/social-media'><h3>Social media</h3></Link>
-            <Link className={cx("profile-title")} to='/influencer/setting//edit-profile/followr-rate'><h3>Follower rate</h3></Link>
-            <Link className={cx("profile-title")} to='/influencer/setting//edit-profile/services'><h3>Services</h3></Link>
+            <Link className={cx("profile-title")} to='/influencer/setting/edit-profile/followr-rate'><h3>Follower rate</h3></Link>
+            <Link className={cx("profile-title")} to='/influencer/setting/edit-profile/services'><h3>Services</h3></Link>
           </div>
 
           {children}
-          <div className={cx("submit")}>
-            <Button primary={true} large={true} className={cx("heading-small")}>
-              Save
-            </Button>
-          </div>
+          
         </div>
       </div>
     </section>

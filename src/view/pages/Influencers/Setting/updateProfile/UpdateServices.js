@@ -1,16 +1,16 @@
 import React, { Fragment, useState } from "react";
-import styles from "./EditProfile.module.scss";
+import styles from "./UpdateProfile.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
-import { createService } from "../../../../../api/influencer";
+import { updateServices } from "../../../../../api/influencer";
 import ServiceRows from "./ServiceRows";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const cx = classNames.bind(styles);
 
-const EditServices = () => {
+const UpdateServices = () => {
   const account_id = localStorage.getItem("account_id");
 
   const [rowsData, setRowsData] = useState([]);
@@ -43,7 +43,7 @@ const EditServices = () => {
       const serviceData = {
         services: rowsData,
       };
-      await createService(serviceData);
+      await updateServices(serviceData);
       alert('Service created successfully')
     } catch (error) {
       if (error.status === 401) {
@@ -62,9 +62,9 @@ const EditServices = () => {
           <div>
             <h3 style={{ width: "350px" }}>Service description</h3>
           </div>
-          <button onClick={addServiceRows} className={cx("btn-plus")}>
+          <div onClick={addServiceRows} className={cx("btn-plus")}>
             <FontAwesomeIcon icon={faPlus} />
-          </button>
+          </div>
         </div>
         <ServiceRows
           rowsData={rowsData}
@@ -73,7 +73,7 @@ const EditServices = () => {
         />
         <div className={cx("submit")}>
           <Button primary={true} large={true} className={cx("heading-small")}>
-            Save
+            Update
           </Button>
         </div>
       </form>
@@ -81,4 +81,4 @@ const EditServices = () => {
   );
 };
 
-export default EditServices;
+export default UpdateServices;

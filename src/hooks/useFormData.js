@@ -25,4 +25,5 @@ const useFormData = (initialData = {}) => {
     resetErrors,
   };
 };
+
 export default useFormData;
