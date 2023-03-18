@@ -68,7 +68,7 @@ const EditProfile = () => {
   }, [selectedImages]);
 
   useEffect(() => {
-    setData({ ...data, 'avatar': avt });
+    setData({ ...data, 'avatarImages': avt });
   }, [avt]);
 
   const handleSubmit = async (event) => {
