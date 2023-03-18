@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import "./AboutUs.css";
-import { HeroImg, HeroBlock1 } from "../../../assets/images";
+import { HeroImg } from "../../../assets/images";
+import { useLocation } from 'react-router-dom';
 
 // const cx = classNames.bind(styles);
 const AboutUs = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location]);
+
 
   useEffect(() => {
     const cardImages = document.querySelectorAll(".card-image");

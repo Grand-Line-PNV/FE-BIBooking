@@ -25,11 +25,17 @@ import useDateValidation from "../../../../hooks/useDateValidation";
 import { Link, useParams } from "react-router-dom";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import { useLocation } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 export default function UpdateCampaign() {
   let { id } = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
 
   const dispatch = useDispatch();
   const navigation = useNavigate();

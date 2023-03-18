@@ -23,3 +23,6 @@ export function getDetailTaskInfluencer(id) {
   return http.get("influencer/booking-history-detail/" + id);
 }
 
+export function submitTask(data) {
+  return http.post("tasks/create", data);
+}

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-const DoingInfluencer = () => {
+const DoneTask = () => {
   const influencer_id = localStorage.getItem("account_id");
   const { data, setData } = useFormData({});
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,7 @@ const DoingInfluencer = () => {
           <tbody>
             {data.length &&
               data
-                .filter((item) => item.status === "in_progress")
+                .filter((item) => item.status === "done")
                 .map((item, index) => (
                   <tr key={index}>
                     <td>{item.id}</td>
@@ -52,7 +52,7 @@ const DoingInfluencer = () => {
                       </Link>
                     <td>{item.campaign.brand.username}</td>
                     <td>{item.updated_at}</td>
-                    <td style={{ color: "#ad9ccc", background: "#52397a " }}>{item.status}</td>
+                    <td style={{ color: "#385932", background: "#d1eeda " }}>{item.status}</td>
                   </tr>
                 ))}
           </tbody>
@@ -62,4 +62,4 @@ const DoingInfluencer = () => {
   );
 };
 
-export default DoingInfluencer;
+export default DoneTask;

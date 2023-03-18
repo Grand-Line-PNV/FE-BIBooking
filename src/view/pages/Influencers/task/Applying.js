@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./TaskLayout.module.scss";
 import classNames from "classnames/bind";
 import useFormData from "../../../../hooks/useFormData";
@@ -47,7 +48,13 @@ const ApplyingInfluencer = () => {
                   status = (
                     <>
                       <td>{item.id}</td>
-                      <td>{item.campaign.name}</td>
+                      <Link
+                        to={`/influencer/booking-history-detail/${item.id}`}
+                      >
+                        <td>
+                          <b>{item.campaign.name}</b>
+                        </td>
+                      </Link>
                       <td>{item.campaign.brand.username}</td>
                       <td>{item.updated_at}</td>
                       <td style={{ color: "#ffffff", background: "#f8d803" }}>
@@ -59,7 +66,13 @@ const ApplyingInfluencer = () => {
                   status = (
                     <>
                       <td>{item.id}</td>
-                      <td>{item.campaign.name}</td>
+                      <Link
+                        to={`/influencer/booking-history-detail/${item.id}`}
+                      >
+                        <td>
+                          <b>{item.campaign.name}</b>
+                        </td>
+                      </Link>
                       <td>{item.campaign.brand.username}</td>
                       <td>{item.updated_at}</td>
                       <td style={{ color: "#ead282", background: "#816215" }}>

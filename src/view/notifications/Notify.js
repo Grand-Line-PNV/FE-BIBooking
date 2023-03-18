@@ -5,6 +5,20 @@ import styles from "./NotifyLayout.module.scss";
 import classNames from "classnames/bind";
 import NotificationItem from "../../components/Notification";
 
+window.Pusher = require("pusher-js");
+window.Echo = new Echo({
+  broadcaster: "pusher",
+  key: process.env.REACT_APP_PUSHER_APP_KEY,
+  cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
+  encrypted: true,
+});
+window.Echo.channel("booking-notifications").listen(
+  "booking-notifications-event",
+  (data) => {
+    console.log(data.message);
+    // Xử lý thông báo ở đây
+  }
+);
 const cx = classNames.bind(styles);
 
 const Notify = ({ onClose }) => {

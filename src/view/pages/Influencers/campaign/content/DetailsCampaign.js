@@ -17,10 +17,7 @@ import {
   faTiktok,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import {
-  createBookingCampaignInfluencer,
-  getDetailBookingCampaignInfluencer,
-} from "../../../../../api/influencer";
+import { createBookingCampaignInfluencer } from "../../../../../api/influencer";
 import PreLoader from "../../../../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
@@ -90,6 +87,7 @@ const DetailCampaignInfluencer = () => {
           </div>
         </div>
         <div className={cx("half")}>
+          <p className={cx("heading-small")}>Campaign Name: {campaign.name}</p>
           <div>
             <p className={cx("heading-small")}>Require</p>
             {campaign && campaign.require && (
@@ -191,9 +189,6 @@ const DetailCampaignInfluencer = () => {
           </div>
           <p className={cx("heading-small")}>
             Start from: {campaign.started_date}
-          </p>
-          <p className={cx("heading-small")}>
-            Campaign Name: {campaign.name}
           </p>
         </div>
       </div>
