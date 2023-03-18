@@ -106,7 +106,7 @@
 .task__status-waiting,
 .task__status-progress,
 .task__status-done,
-.task__status-cancer,
+.task__status-cancel,
 .task__status-reject {
   width: 25px;
   height: 25px;
@@ -133,7 +133,7 @@
   background: #d1eeda;
 }
 
-.task__status-cancer {
+.task__status-cancel {
   bottom: 0;
   background: #BC2244;
 }

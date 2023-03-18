@@ -57,7 +57,7 @@ const DetailsBrand = () => {
 
   const handleRejectBooking = async (id) => {
     try {
-      console.log(id);
+      setIsLoading(true)
       const reject = await updateStatusBooking(id, {
         status: "reject",
       });
@@ -308,10 +308,10 @@ const DetailsBrand = () => {
                     done
                   </p>
                 );
-              } else if (status_booking === "cancer") {
+              } else if (status_booking === "cancel") {
                 status = (
                   <p
-                    className={cx("cancer")}
+                    className={cx("cancel")}
                     style={{
                       color: "#D6607A",
                       background: "#BC2244",

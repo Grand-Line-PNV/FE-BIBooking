@@ -59,9 +59,7 @@ const WaitingBrand = () => {
                   </div>
                 </Link>
               );
-            } else {
-              status = <div className={cx("status")}>No task done ......</div>;
-            }
+            } 
             return <div key={index}>{status}</div>;
           })}
       </div>
