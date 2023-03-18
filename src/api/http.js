@@ -29,7 +29,7 @@ const handleError = error => {
     if (status === 401) {
       // return handleRefreshToken();
     }
-  }
+}
 
   return Promise.reject(error.response || error.request || error.message);
 };

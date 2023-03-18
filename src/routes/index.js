@@ -7,6 +7,7 @@ import EditProfileLayout from "../layout/EditProfileLayout";
 import Confirmation from "../view/pages/Auth/ForgotPassword/Confirmation";
 import ForgotPassword from "../view/pages/Auth/ForgotPassword/ForgotPassword";
 import NewPassword from "../view/pages/Auth/ForgotPassword/NewPassword";
+import UpdateProfileLayout from '../layout/UpdateProfileLayout'
 //pages
 import LoginScreen from "../view/pages/Auth/Login/LoginScreen";
 import RegisterScreen from "../view/pages/Auth/Register/RegisterScreen";
@@ -44,6 +45,8 @@ import Waiting from "../view/pages/Influencers/task/Waiting";
 import Notify from "../view/notifications/Notify";
 //payment page
 import PaymentScreen from '../view/pages/Payment/PaymentScreen';
+//influencer update profile
+import { UpdateInfo,UpdateServices,UpdateSocialMedia,UpdateAudience } from "../view/pages/Influencers/Setting/updateProfile";
 //public routes
 const publicRoutes = [
   {
@@ -109,7 +112,7 @@ const publicRoutes = [
     layout: EditProfileLayout,
   },
   {
-    path: "/influencer/setting/edit-profile/followr-rate",
+    path: "/influencer/setting/edit-profile/audience-data",
     component: EditFollowerRate,
     layout: EditProfileLayout,
   },
@@ -192,6 +195,29 @@ const publicRoutes = [
     path:'/booking/payment',
     component:PaymentScreen
 }
+,{
+  path:"/influencer/setting/update-profile",
+  component: UpdateInfo,
+  layout: UpdateProfileLayout
+}
+,
+{
+  path:"/influencer/setting/update-profile/social-media",
+  component: UpdateSocialMedia,
+  layout:UpdateProfileLayout
+}
+,
+{
+  path:"/influencer/setting/update-profile/audience-data",
+  component: UpdateAudience,
+  layout:UpdateProfileLayout
+}
+,
+{
+  path:"/influencer/setting/update-profile/services",
+  component: UpdateServices,
+  layout:UpdateProfileLayout
+},
 ];
 
 const privateRoutes = [{}];

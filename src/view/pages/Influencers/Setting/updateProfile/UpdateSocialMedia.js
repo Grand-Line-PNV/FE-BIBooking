@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import styles from "./EditProfile.module.scss";
+import styles from "./UpdateProfile.module.scss";
 import classNames from "classnames/bind";
 import Button from "../../../../../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import TableRows from "./TableRows";
-import { social } from "../../../../../api/influencer";
+import {
+  updateSocialMedia,
+  infoInfluencer,
+} from "../../../../../api/influencer";
 const cx = classNames.bind(styles);
 
-function EditSocialMedia() {
+function UpdateSocialMedia() {
   const account_id = localStorage.getItem("account_id");
 
   const [rowsData, setRowsData] = useState([]);
@@ -17,7 +20,7 @@ function EditSocialMedia() {
     if (rowsData.length === 4) alert("Don't have more platform!");
     else {
       const rowsInput = {
-        account_id: account_id,
+        id: "",
         name: "",
         username: "",
         fullname: "",
@@ -48,9 +51,10 @@ function EditSocialMedia() {
       const socialData = {
         socials: rowsData,
       };
-      await social(socialData);
-      alert("Successfully created");
-      setRowsData([]);
+
+      // console.log('socialData', socialData);
+      await updateSocialMedia(account_id, socialData);
+      alert("Successfully updated");
     } catch (error) {
       if (error.status === 401) {
       } else if (error.status === 422) {
@@ -59,6 +63,14 @@ function EditSocialMedia() {
     }
   };
 
+  const getData = async() => {
+    const result = await infoInfluencer(account_id);
+    console.log(result.data.data.social_info)
+    setRowsData(result.data.data.social_info);
+  };
+  useEffect(() => {
+    getData()
+  },[])
   return (
     <div className={cx("container")}>
       <div style={{ width: "100%" }}>
@@ -86,7 +98,7 @@ function EditSocialMedia() {
             className={cx("heading-small")}
             onClick={handleSubmit}
           >
-            Save
+            Update
           </Button>
         </div>
       </div>
@@ -94,4 +106,4 @@ function EditSocialMedia() {
   );
 }
 
-export default EditSocialMedia;
+export default UpdateSocialMedia;
