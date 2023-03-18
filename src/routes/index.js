@@ -112,7 +112,7 @@ const publicRoutes = [
     layout: EditProfileLayout,
   },
   {
-    path: "/influencer/setting/edit-profile/followr-rate",
+    path: "/influencer/setting/edit-profile/audience-data",
     component: EditFollowerRate,
     layout: EditProfileLayout,
   },
