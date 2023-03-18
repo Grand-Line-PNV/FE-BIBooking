@@ -41,9 +41,6 @@ import TaskLayout from "../layout/TaskLayout";
 import ApplyingInfluencer from "../view/pages/Influencers/task/Applying";
 import DoingInfluencer from "../view/pages/Influencers/task/Doing";
 import Waiting from "../view/pages/Influencers/task/Waiting";
-import Notify from "../view/notifications/Notify";
-//payment page
-import PaymentScreen from '../view/pages/Payment/PaymentScreen';
 //public routes
 const publicRoutes = [
   {
@@ -169,29 +166,7 @@ const publicRoutes = [
   {
     path: "/brand/campaign",
     component: CampaignBrand,
-  },
-  {
-    path: "/brand/campaign/:id",
-    component: UpdateCampaign,
-  },
-  {
-    path: "/brand/notify",
-    component: Notify,
-  },
-  {
-    path: "/brand/booking-history/applying",
-    component: ApplyingBrand,
-    layout: BookingHistoryLayout,
-  },
-  {
-    path: "/brand/booking-history/doing",
-    component: DoingBrand,
-    layout: BookingHistoryLayout,
-  },
-  {
-    path:'/booking/payment',
-    component:PaymentScreen
-}
+  }
 ];
 
 const privateRoutes = [{}];

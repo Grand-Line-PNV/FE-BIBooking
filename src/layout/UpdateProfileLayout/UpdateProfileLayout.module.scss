@@ -1,6 +1,25 @@
 .profile-setting {
   padding-top:150px;
+  & .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 436px;
+    height: 119px;
+    background: #ffffff;
+    border: 1px solid #afafaf;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-left: 30px;
 
+    & .profile-icon {
+      width: 8px;
+      height: 8px;
+      background-color: #67aaed;
+      color: white;
+      border-radius: 999px;
+      padding: 5px;
+    }
+  }
 
   &-container {
     width: 1135px;

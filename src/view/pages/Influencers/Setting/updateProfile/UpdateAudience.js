@@ -1,39 +1,41 @@
-import React, { Fragment, useEffect } from "react";
-import styles from "./EditProfile.module.scss";
+import React, { Fragment, useEffect, useState } from "react";
+import styles from "./UpdateProfile.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
-import { createAudienceData } from "../../../../../api/influencer";
+import {
+  infoInfluencer,
+  updateAudienceData,
+} from "../../../../../api/influencer";
 import useFormData from "../../../../../hooks/useFormData";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
 const cx = classNames.bind(styles);
 
-const EditFollowrRate = () => {
+const UpdateAudience = () => {
   const account_id = localStorage.getItem("account_id");
-  const { data, setData, handleChange, errors, setErrors, resetErrors } =
-    useFormData({
-      account_id,
-      female: 0,
-      male: 0,
-      others: 0,
-      age1: 0,
-      age2: 0,
-      age3: 0,
-      age4: 0,
-      city1: 0,
-      city2: 0,
-      city3: 0,
-      city4: 0,
-    });
+  const initialData = {
+    female: 0,
+    male: 0,
+    others: 0,
+    age1: 0,
+    age2: 0,
+    age3: 0,
+    age4: 0,
+    city1: 0,
+    city2: 0,
+    city3: 0,
+    city4: 0,
+  };
+
+  const { data, setData, handleChange, errors, setErrors, resetErrors } = useFormData(initialData);
 
   const handleSubmit = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
-      await createAudienceData(formData);
-
-      alert("Successfully created");
+      await updateAudienceData(formData);
+      alert("Successfully updated");
     } catch (error) {
       if (error.status === 401) {
       } else if (error.status === 422) {
@@ -42,8 +44,14 @@ const EditFollowrRate = () => {
     }
   };
 
-  console.log(errors);
+  const getData = async () => {
+    const result = await infoInfluencer(account_id);
+    setData(result.data.data.audience_data);
+  };
 
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <Fragment>
       <form className={cx("form-inf")} onSubmit={handleSubmit}>
@@ -194,7 +202,7 @@ const EditFollowrRate = () => {
 
         <div className={cx("submit")}>
           <Button primary={true} large={true} className={cx("heading-small")}>
-            Save
+            Update
           </Button>
         </div>
       </form>
@@ -202,4 +210,4 @@ const EditFollowrRate = () => {
   );
 };
 
-export default EditFollowrRate;
+export default UpdateAudience;
