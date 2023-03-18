@@ -9,21 +9,26 @@ import { updateInfo, infoInfluencer } from "../../../../../api/influencer";
 import useLocationForm from "../../../../../hooks/useLocationForm";
 import Select from "react-select";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
-import { useDispatch } from "react-redux";
-import AddImage from "./AddImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudArrowUp, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudArrowUp,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { faFileImage } from "@fortawesome/free-regular-svg-icons";
-import { computeHeadingLevel } from "@testing-library/react";
+import PreLoader from "../../../../../components/preLoader/PreLoader";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 const UpdateInfo = () => {
   const accountId = localStorage.getItem("account_id");
+  const navigation = useNavigate();
   const [file, setFile] = useState();
   const [imgPreview, setImgPreview] = useState();
-
-  const [avt, setAvt] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedImages, setSelectedImages] = useState([]);
 
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
@@ -33,16 +38,16 @@ const UpdateInfo = () => {
     getData();
   }, []);
 
-
   function deleteHandler(image) {
     setSelectedImages(selectedImages.filter((e) => e !== image));
     URL.revokeObjectURL(image);
   }
-
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
-    setSelectedImages((previousImages) => previousImages.concat(selectedFilesArray));
+    setSelectedImages((previousImages) =>
+      previousImages.concat(selectedFilesArray)
+    );
     // FOR BUG IN CHROME
     event.target.value = "";
   };
@@ -71,41 +76,12 @@ const UpdateInfo = () => {
   }, [state, setData]);
 
   useEffect(() => {
-    setData({ ...data, "influencerImages[]": selectedImages });
-  }, [selectedImages]);
-
-  useEffect(() => {
-    setData({ ...data, avatarImages: avt });
-  }, [avt]);
-  const handleSubmit = async (event) => {
-    resetErrors();
-    try {
-      event.preventDefault();
-      const formData = convertObjectToFormData(data);
-      const respon = await updateInfo(formData);
-      alert("Successfully updated");
-      setData({
-        nickname: "",
-        fullname: "",
-        dob: "",
-        phone_number: "",
-        gender: "",
-        job: "",
-        title_for_job: "",
-        description: "",
-        content_topic: "",
-        address_line1: "",
-        address_line2: "",
-        address_line3: "",
-        address_line4: "",
-      });
-    } catch (error) {
-      if (error.status === 401) {
-      } else if (error.status === 422) {
-        setErrors(error.data.errors);
-      }
-    }
-  };
+    setData((prevData) => ({
+      ...prevData,
+      "influencerImages[]": selectedImages,
+      avatarImages: file,
+    }));
+  }, [selectedImages, file]);
 
   const getData = async () => {
     const result = await infoInfluencer(accountId);
@@ -118,18 +94,41 @@ const UpdateInfo = () => {
     );
 
     setData(result.data.data.credential);
-    setSelectedImages(result.data.data.files.filter((file) => {
-      if (file.path == "influencers") {
-        return file.url;
-      }
-    }));
+    setSelectedImages(
+      result.data.data.files.filter((file) => {
+        if (file.path == "influencers") {
+          return file.url;
+        }
+      })
+    );
   };
+
   const handleChangeAvt = (e) => {
     setImgPreview(URL.createObjectURL(e.target.files[0]));
-    setAvt(e.target.files);
+    setFile(e.target.files);
+  };
+
+  const handleSubmit = async (event) => {
+    resetErrors();
+    try {
+      event.preventDefault();
+      setIsLoading(true);
+      const formData = convertObjectToFormData(data);
+      await updateInfo(accountId, formData);
+      Swal.fire("Successfully!", "You clicked the button!", "success");
+      navigation("/influencer/setting/update-profile/social-media");
+    } catch (error) {
+      setIsLoading(false);
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+        setErrors(error.data.errors);
+      }
+    }
   };
   return (
     <Fragment>
+      {isLoading ? <PreLoader /> : <></>}
+
       <form className={cx("form-inf")}>
         <main className={cx("upload")}>
           <div
@@ -146,13 +145,15 @@ const UpdateInfo = () => {
 
             {file ? (
               <img
-                src={imgPreview || Object.values(file).map(i=>i.url) || file}
+                src={
+                  imgPreview || Object.values(file).map((i) => i.url) || file
+                }
                 width={120}
                 height={120}
                 alt="avatar"
                 className={cx("avatar")}
               />
-              ) : (
+            ) : (
               <>
                 <FontAwesomeIcon icon={faCloudArrowUp} size="xl" />
                 <p>Browse Files to upload</p>
@@ -362,7 +363,7 @@ const UpdateInfo = () => {
                 options={provinceOptions}
                 onChange={(option) => onProvinceSelect(option)}
                 placeholder="Tỉnh/Thành"
-                defaultValue={data.address_line}
+                defaultValue={selectedProvince}
                 required
               />
               <Select
@@ -460,62 +461,68 @@ const UpdateInfo = () => {
         </div>
 
         <section>
-      <label className={cx('btn-addImage')}>
-      <div>
-      <FontAwesomeIcon icon={faPlus}/>
-      <span style={{marginLeft:'5px'}}>Add Images</span>
-      </div>
-      <p>up to 4 images</p>
+          <label className={cx("btn-addImage")}>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+              <span style={{ marginLeft: "5px" }}>Add Images</span>
+            </div>
+            <p>up to 4 images</p>
 
-        <input
-            type="file"
-            name="influencerImages"
-            onChange={onSelectFile}
-            multiple
-            accept="image/png , image/jpeg, image/webp"
-            className={cx("input-upload")}
-          />
-        
-        </label>
-        <input type="file" multiple className={cx("input-upload")} />
-      <br />
+            <input
+              type="file"
+              name="influencerImages"
+              onChange={onSelectFile}
+              multiple
+              accept="image/png , image/jpeg, image/webp"
+              className={cx("input-upload")}
+            />
+          </label>
+          <input type="file" multiple className={cx("input-upload")} />
+          <br />
 
-      
-      {selectedImages.length > 0 &&
-        (selectedImages.length > 4 ? (
-          <p className={cx("error")}>
-            You can't upload more than 4 images! <br />
-            <span>
-              please delete <b> {selectedImages.length -4} </b> of them{" "}
-            </span>
-          </p>
-        ) : (
-          <Button
-            className={cx("upload-btn")}
-            onClick={() => {
-              console.log(selectedImages);
-            }}
-          >
-            UPLOAD {selectedImages.length} IMAGE
-            {selectedImages.length === 1 ? "" : "S"}
-          </Button>
-        ))}
+          {selectedImages.length > 0 &&
+            (selectedImages.length > 4 ? (
+              <p className={cx("error")}>
+                You can't upload more than 4 images! <br />
+                <span>
+                  please delete <b> {selectedImages.length - 4} </b> of them{" "}
+                </span>
+              </p>
+            ) : (
+              <Button
+                className={cx("upload-btn")}
+                onClick={() => {
+                  console.log(selectedImages);
+                }}
+              >
+                UPLOAD {selectedImages.length} IMAGE
+                {selectedImages.length === 1 ? "" : "S"}
+              </Button>
+            ))}
 
-      <div className={cx("images")}>
-        {selectedImages &&
-          selectedImages.map((image, index) => {
-            return (
-              <div key={index} className={cx("image-upload")}>
-                <img src={image.url || URL.createObjectURL(image)} height="250" alt="upload" />
-                <Button outline={true} small={true} onClick={() => deleteHandler(image)}>
-                  <FontAwesomeIcon icon={faTrash}/>
-                  <span> {index + 1}</span>
-                </Button>
-              </div>
-            );
-          })}
-      </div>
-    </section>
+          <div className={cx("images")}>
+            {selectedImages &&
+              selectedImages.map((image, index) => {
+                return (
+                  <div key={index} className={cx("image-upload")}>
+                    <img
+                      src={image.url || URL.createObjectURL(image)}
+                      height="250"
+                      alt="upload"
+                    />
+                    <Button
+                      outline={true}
+                      small={true}
+                      onClick={() => deleteHandler(image)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                      <span> {index + 1}</span>
+                    </Button>
+                  </div>
+                );
+              })}
+          </div>
+        </section>
         <div className={cx("submit")}>
           <Button
             primary={true}

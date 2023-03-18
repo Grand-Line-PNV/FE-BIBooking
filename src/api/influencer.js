@@ -25,7 +25,6 @@ export function getDetailTaskInfluencer(id) {
 }
 //profile
 export function createInfluencerProfile(data) {
-  console.log('data when calling api',data)
   return http.post("influencer/create-info", data);
 }
 export function social(data){
