@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,6 @@ import Button from "../../../../components/Button/Button";
 import { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLoginApi } from "../../../../api/feature";
-import { authorAction } from "../../../../features/feature/author";
 import {
   setRole,
   roleSelector,
@@ -37,7 +36,6 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const role = useSelector(roleSelector);
-  console.log(role);
 
   const [lock, setLock] = useState("none");
   const [showPassword, setShowPassword] = useState(false);
@@ -48,18 +46,14 @@ const LoginScreen = () => {
       event.preventDefault();
       setIsLoading(true);
       const response = await userLoginApi(data);
-      dispatch(authorAction.addOne(data));
-      console.log(response);
       localStorage.setItem("token", response.data.data.access_token);
       localStorage.setItem("role", response.data.data.account.role_id);
       localStorage.setItem("username", response.data.data.account.username);
       localStorage.setItem("account_id", response.data.data.account.id);
       setIsLoading(false);
-      console.log(response.data.data.account.id);
       navigation("/");
       Swal.fire("Login Successfully!", "You clicked the button!", "success");
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
       if (error.status === 401) {
         Swal.fire({

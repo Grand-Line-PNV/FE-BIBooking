@@ -116,9 +116,9 @@ const ShowCampaignInfluencer = ({
               </p>
             )}
             {filteredItems.length > 0 &&
-              filteredItems.map((item) => (
+              filteredItems.map((item, index) => (
                 <>
-                  <li key={item.id}>
+                  <li key={index}>
                     <Link to={`/influencer/campaign/${item.id}`}>
                       <div className={cx("featured-car-card")}>
                         <figure className={cx("card-banner", "slider")}>

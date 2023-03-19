@@ -7,6 +7,7 @@ import InProgressBrand from "../../view/pages/Brands/bookingHistory/InProgress";
 import DoneBrand from "../../view/pages/Brands/bookingHistory/Done";
 import RejectBrand from "../../view/pages/Brands/bookingHistory/Reject";
 import PreLoader from "../../components/preLoader/PreLoader";
+import PaidBrand from "../../view/pages/Brands/bookingHistory/Paid";
 
 const cx = classNames.bind(styles);
 const BookingHistoryLayout = () => {
@@ -36,6 +37,7 @@ const BookingHistoryLayout = () => {
         </div>
         <div className={cx("tasks-tasks")}>
           <WaitingBrand />
+          <PaidBrand />
           <InProgressBrand />
           <DoneBrand />
           <RejectBrand />

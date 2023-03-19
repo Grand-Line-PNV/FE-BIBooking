@@ -1,19 +1,11 @@
-import { useDispatch } from "react-redux";
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import styles from "./ProfileBrand.module.scss";
 import classNames from "classnames/bind";
 import Button from "../../../../components/Button/Button";
 import useFormData from "../../../../hooks/useFormData";
-import Input from "../../../../components/Input";
 import {
-  createInfoBrand,
   infoBrand,
-  updateInfoBrand,
 } from "../../../../api/brand";
-import { brandAction } from "../../../../features/feature/brand";
-import useLocationForm from "../../../../hooks/useLocationForm";
-import Select from "react-select";
-import { convertObjectToFormData } from "../../../../utils/convertDataUtils";
 import "./Profile.css";
 
 const cx = classNames.bind(styles);

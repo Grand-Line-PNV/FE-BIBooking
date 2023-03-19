@@ -1,4 +1,4 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
 import Button from "../../../../components/Button/Button";
@@ -6,11 +6,9 @@ import styles from "./DetailStyles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
-  faBan,
   faCancel,
   faCheck,
   faHashtag,
-  faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
@@ -41,7 +39,6 @@ const DetailsInfluencer = () => {
 
   const getData = async () => {
     const result = await getDetailTaskInfluencer(id);
-    console.log(result);
     setData(result.data.data);
   };
 
@@ -55,13 +52,27 @@ const DetailsInfluencer = () => {
     navigation(`/influencer/task/submit-task?bookingId=${bookingId}`);
   };
 
-  const handleCancerBooking = async (id) => {
+  const handleCancelBooking = async (id) => {
     try {
       setIsLoading(true);
       const reject = await updateStatusBooking(id, {
         status: "cancel",
       });
       console.log(reject);
+      navigation("/influencer/task");
+    } catch (error) {
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+      }
+    }
+  };
+
+  const handleStartToWorkBooking = async (id) => {
+    try {
+      setIsLoading(true);
+      const paid = await updateStatusBooking(id, {
+        status: "in_progress",
+      });
       navigation("/influencer/task");
     } catch (error) {
       if (error.status === 401) {
@@ -256,7 +267,7 @@ const DetailsInfluencer = () => {
                             visible ? "visible" : ""
                           }`}
                           outline={true}
-                          onClick={() => handleCancerBooking(data.id)}
+                          onClick={() => handleCancelBooking(data.id)}
                         >
                           <FontAwesomeIcon icon={faCancel} /> Cancer
                         </Button>
@@ -266,17 +277,32 @@ const DetailsInfluencer = () => {
                 );
               } else if (status_booking === "paid") {
                 status = (
-                  <p
-                    className={cx("paid")}
-                    style={{
-                      color: "#d8d8da",
-                      background: "#47303c",
-                      padding: "10px 20px",
-                      borderRadius: "99px",
-                    }}
-                  >
-                    paid
-                  </p>
+                  <>
+                    <p
+                      className={cx("paid")}
+                      style={{
+                        color: "#d8d8da",
+                        background: "#47303c",
+                        padding: "10px 20px",
+                        borderRadius: "99px",
+                      }}
+                    >
+                      paid
+                    </p>
+                    {visible && (
+                      <>
+                        <Button
+                          className={`submitTask-button ${
+                            visible ? "visible" : ""
+                          }`}
+                          primary={true}
+                          onClick={() => handleStartToWorkBooking(data.id)}
+                        >
+                          <FontAwesomeIcon icon={faCheck} /> Start to work
+                        </Button>
+                      </>
+                    )}
+                  </>
                 );
               } else if (status_booking === "done") {
                 status = (

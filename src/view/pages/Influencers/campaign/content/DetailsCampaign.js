@@ -32,7 +32,6 @@ const DetailCampaignInfluencer = () => {
 
   const getData = async () => {
     const result = await getDetailsCampaignBrand(id);
-    console.log(result);
     setCampaign(result.data.data);
   };
 

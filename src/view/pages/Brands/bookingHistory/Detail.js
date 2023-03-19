@@ -1,4 +1,4 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
 import Button from "../../../../components/Button/Button";
@@ -6,11 +6,9 @@ import styles from "./DetailStyles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
-  faBan,
   faCancel,
   faCheck,
   faHashtag,
-  faTasks,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
@@ -41,13 +39,11 @@ const DetailsBrand = () => {
 
   const getData = async () => {
     const result = await getDetailTaskBrand(id);
-    console.log(result);
     setData(result.data.data);
   };
 
   const handlePayment = () => {
     const bookingId = data.id;
-    console.log(bookingId);
     navigation(`/brand/booking/payment?bookingId=${bookingId}`);
   };
 
@@ -57,11 +53,10 @@ const DetailsBrand = () => {
 
   const handleRejectBooking = async (id) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const reject = await updateStatusBooking(id, {
         status: "reject",
       });
-      console.log(reject);
       navigation("/brand/booking-history");
     } catch (error) {
       if (error.status === 401) {
@@ -69,21 +64,6 @@ const DetailsBrand = () => {
       }
     }
   };
-
-  //   const handleBooking = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       const response = await createBookingCampaignInfluencer({
-  //         campaign_id: campaign.id,
-  //         influencer_id: influencer_id,
-  //       });
-  //       navigation("/influencer/task/applying");
-  //     } catch (error) {
-  //       setIsLoading(false);
-  //       console.error("Error booking campaign: ", error);
-  //     }
-  //   };
-
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((activeIndex) => (activeIndex + 1) % 3);
@@ -95,11 +75,7 @@ const DetailsBrand = () => {
       {isLoading ? <PreLoader /> : <></>}
       <div className={cx("card__title")}>
         <div className={cx("icon")}>
-          <Button
-            primary={true}
-            large={true}
-            to="/brand/booking-history"
-          >
+          <Button primary={true} large={true} to="/brand/booking-history">
             <FontAwesomeIcon icon={faArrowLeft} />
           </Button>
         </div>
@@ -348,8 +324,7 @@ const DetailsBrand = () => {
             })}
         </div>
       </div>
-      <div className={cx("card__footer")}>
-      </div>
+      <div className={cx("card__footer")}></div>
     </div>
   );
 };

@@ -9,7 +9,6 @@ const cx = classNames.bind(styles);
 const ProfileSetingBrand = () => {
   const brand_id = localStorage.getItem("account_id");
   const { data, setData } = useFormData([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
     const result = await infoBrand(brand_id);

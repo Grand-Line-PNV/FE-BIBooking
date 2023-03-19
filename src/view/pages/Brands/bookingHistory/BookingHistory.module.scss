@@ -105,6 +105,7 @@
 }
 
 .task__status-waiting,
+.task__status-paid,
 .task__status-progress,
 .task__status-done,
 .task__status-cancer,
@@ -122,6 +123,11 @@
 .task__status-waiting {
   bottom: 0;
   background: #f8d803;
+}
+
+.task__status-paid {
+  bottom: 0;
+  background: #47303c;
 }
 
 .task__status-progress {

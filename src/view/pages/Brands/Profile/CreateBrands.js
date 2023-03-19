@@ -298,7 +298,7 @@ export default function CreateBrands() {
                   type="radio"
                   className={cx("radio")}
                   name="gender"
-                  value="male"
+                  defaultValue="male"
                   checked={data.gender === "male"}
                   onChange={handleChange}
                   id="male"
@@ -312,7 +312,7 @@ export default function CreateBrands() {
                   type="radio"
                   className={cx("radio")}
                   name="gender"
-                  value="female"
+                  defaultValue="female"
                   checked={data.gender === "female"}
                   onChange={handleChange}
                   id="female"
@@ -326,7 +326,7 @@ export default function CreateBrands() {
                   type="radio"
                   className={cx("radio")}
                   name="gender"
-                  value="other"
+                  defaultValue="other"
                   checked={data.gender === "other"}
                   onChange={handleChange}
                   id="other"

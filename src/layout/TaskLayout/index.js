@@ -7,6 +7,7 @@ import InProgressInfluencer from "../../view/pages/Influencers/task/InProgress";
 import DoneInfluencer from "../../view/pages/Influencers/task/Done";
 import RejectInfluencer from "../../view/pages/Influencers/task/Reject";
 import PreLoader from "../../components/preLoader/PreLoader";
+import PaidInfluencer from "../../view/pages/Influencers/task/Paid";
 const cx = classNames.bind(styles);
 
 const TasksLayout = () => {
@@ -36,16 +37,13 @@ const TasksLayout = () => {
         </div>
         <div className={cx("tasks-tasks")}>
           <WaitingInfluencer />
+          <PaidInfluencer />
           <InProgressInfluencer />
           <DoneInfluencer />
           <RejectInfluencer />
         </div>
       </main>
-      {isLoading ? (
-        <PreLoader />
-      ) : (
-        <></>
-      )}
+      {isLoading ? <PreLoader /> : <></>}
     </div>
   );
 };

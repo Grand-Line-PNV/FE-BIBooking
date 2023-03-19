@@ -7,11 +7,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 import useAuth from "../../../../hooks/useAuth";
 import { changePassword } from "../../../../api/feature";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  authorAction,
-  authorSelectors,
-} from "../../../../features/feature/author";
+import { useDispatch } from "react-redux";
 import useFormData from "../../../../hooks/useFormData";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert';
@@ -52,7 +48,6 @@ const NewPassword = () => {
       event.preventDefault();
       setIsLoading(true)
       const res = await changePassword(data);
-      dispatch(authorAction.updateOne(res.data));
       navigation("/login");
     } catch (error) {
       setIsLoading(false)

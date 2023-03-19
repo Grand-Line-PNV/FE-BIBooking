@@ -17,7 +17,6 @@ const AllCampaignInfluencer = () => {
 
   const fetchData = async () => {
     const result = await getCampaignInfluencer(data);
-    console.log(result);
     setData(result.data.data);
   };
 

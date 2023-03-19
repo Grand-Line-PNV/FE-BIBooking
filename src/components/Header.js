@@ -88,9 +88,13 @@ export default function Header() {
   const handleScrollNavBar = () => {
     const header = document.querySelector("[data-header]") ?? {};
     if (window.scrollY >= 10 && header !== null) {
-      header.classList.add("active");
+      if (header.classList) {
+        header.classList.add("active");
+      }
     } else if (header !== null) {
-      header.classList.remove("active");
+      if (header.classList) {
+        header.classList.remove("active");
+      }
     }
   };
 
