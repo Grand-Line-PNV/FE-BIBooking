@@ -19,6 +19,8 @@ import {
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import { getDetailTaskBrand } from "../../../../api/brand";
 import { updateStatusBooking } from "../../../../api/booking";
+import Feedback from "../../Influencers/profile/Feedback";
+import FeedbackScreen from "../../Feedback/FeedbackScreen";
 
 const cx = classNames.bind(styles);
 
@@ -272,17 +274,20 @@ const DetailsBrand = () => {
                 );
               } else if (status_booking === "done") {
                 status = (
-                  <p
-                    className={cx("done")}
-                    style={{
-                      color: "#385932",
-                      background: "#d1eeda",
-                      padding: "10px 20px",
-                      borderRadius: "99px",
-                    }}
-                  >
-                    done
-                  </p>
+                  <>
+                    <p
+                      className={cx("done")}
+                      style={{
+                        color: "#385932",
+                        background: "#d1eeda",
+                        padding: "10px 20px",
+                        borderRadius: "99px",
+                      }}
+                    >
+                      done
+                    </p>
+                    <FeedbackScreen />
+                  </>
                 );
               } else if (status_booking === "cancel") {
                 status = (

@@ -55,6 +55,7 @@ import {
 import BookingScreen from "../view/pages/Booking/BookingScreen";
 import SendRequest from "../view/pages/Booking/SendRquest";
 import AllInfluencer from "../view/pages/Booking/AllInfluencer";
+import FeedbackScreen from "../view/pages/Feedback/FeedbackScreen";
 //public routes
 const publicRoutes = [
   {
@@ -230,6 +231,7 @@ const publicRoutes = [
     path: "/booking/send-request/:id",
     component: SendRequest,
   },
+  { path: "/feedback", component: FeedbackScreen },
 ];
 
 const privateRoutes = [{}];
