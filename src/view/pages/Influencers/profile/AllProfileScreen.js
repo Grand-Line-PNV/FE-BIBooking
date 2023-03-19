@@ -12,26 +12,29 @@ import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 import { useEffect } from "react";
 import { computeHeadingLevel } from "@testing-library/react";
-
+import { useParams } from "react-router";
 const cx = classNames.bind(styles);
 
 const AllProfileScreen = () => {
-  const accountId = localStorage.getItem("account_id");
+  let {id} = useParams();
+  // const accountId = 2;
   const [info, setInfo] = useState();
   const [social, setSocial] = useState();
   const [audienceData, setAudienceData] = useState();
   const [service, setService] = useState();
   const [file, setFile] = useState();
   const [email, setEmail] = useState();
+  const [username, setUsername] = useState();
 
   const getData = async () => {
-    const result = await infoInfluencer(accountId);
+    const result = await infoInfluencer(id);
     setInfo(result.data.data.credential);
     setSocial(result.data.data.social_info);
     setAudienceData(result.data.data.audience_data);
     setService(result.data.data.services);
-    await setFile(result.data.data.files);
+    setFile(result.data.data.files);
     setEmail(result.data.data.email);
+    setUsername(result.data.data.username)
   };
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const AllProfileScreen = () => {
     <div>
       {info ? (
         <>
-          <Intro info={info} file={file} />
+          <Intro info={info} file={file} username={username}/>
           <Infor info={info} email={email}/>
           <SocialMedia social={social} />
           <GenderRatio audienceData={audienceData} />
