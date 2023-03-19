@@ -194,8 +194,8 @@ const AllInfluencer = () => {
             </div>
           </div>
         </section>
-        <div className={cx("btn-see-more")}>
-          <Button outline={true}>Xem Thêm</Button>
+        <div style={{display:'flex',justifyContent: 'center',alignItems: 'center',padding:'20px'}}>
+          <Button outline={true}>Load more</Button>
         </div>
       </div>
     </section>
