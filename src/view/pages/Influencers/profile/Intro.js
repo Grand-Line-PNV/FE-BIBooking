@@ -4,10 +4,10 @@ import Button from "../../../../components/Button/Button";
 import { useEffect } from "react";
 const cx = classNames.bind(styles);
 const Intro = (prop) => {
-  const roleId = localStorage.getItem("role_id");
+  const roleId = localStorage.getItem("role");
   // const username = localStorage.getItem("username");
-
-  // console.log('data',prop.info.job);
+  const id = prop.info.account_id;
+  console.log("role", roleId);
 
   return (
     <div>
@@ -15,12 +15,18 @@ const Intro = (prop) => {
         <div className={cx("container")}>
           <div className={cx("intro-container")}>
             <div className={cx("content")}>
-              <h2 className={cx("intro-heading")}>Hello I'am {prop.username}</h2>
+              <h2 className={cx("intro-heading")}>
+                Hello I'am {prop.username}
+              </h2>
               <div className={cx("intro-desc")}>
                 <h4>I am a {prop.info.job}</h4>
                 <p>{prop.info.description}</p>
                 {roleId == 1 ? (
-                  <Button primary={true} className={cx("intro-button")}>
+                  <Button
+                    primary={true}
+                    className={cx("intro-button")}
+                    to={`/booking/send-request/${id}`}
+                  >
                     Contact now
                   </Button>
                 ) : (
@@ -54,29 +60,32 @@ const Intro = (prop) => {
                 alt=""
               />
             </div>
-            
           </div>
-
         </div>
-
       </section>
-      <div style={{ alignItems: "center", justifyContent: "center" ,display: "flex" }}>
-          {Object.values(prop.file).map((i) => {
-            if (i.path === "influencers") {
-              return (
-                <>
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
+      >
+        {Object.values(prop.file).map((i) => {
+          if (i.path === "influencers") {
+            return (
+              <>
                 <img
-                  style={{width: "200px"}}
+                  style={{ width: "200px" }}
                   className={cx("image-files")}
                   src={i.url}
                   alt="HE9kxVe.png"
                   border="0"
                 />
               </>
-              );
-            }
-          })}
-        </div>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 };

@@ -10,21 +10,22 @@ import Input from "../../../components/Input";
 import styles from "./BookingStyles.module.scss";
 import { useEffect } from "react";
 import { getCampaignBrand } from "../../../api/brand";
-import {createBookingCampaignInfluencer} from "../../../api/influencer";
+import { createBookingCampaignInfluencer } from "../../../api/influencer";
 import useFormData from "../../../hooks/useFormData";
 import { useState } from "react";
 import { convertObjectToFormData } from "../../../utils/convertDataUtils";
+import { useParams } from "react-router";
+
 const cx = classNames.bind(styles);
 
 const SendRequest = () => {
+  let { id } = useParams();
+  console.log('influencer',id)
   const brandId = localStorage.getItem("account_id");
-  // const userName = localStorage.getItem("username");
-
-  // const email = sessionStorage.getItem("email");
   const [dataCampaign, setDataCampaign] = useState([]);
-  const { data, setData, handleChange ,setErrors,errors} = useFormData({
+  const { data, setData, handleChange, setErrors, errors } = useFormData({
     campaign_id: "",
-    influencer_id: "2",
+    influencer_id: id,
   });
   const getData = async () => {
     const result = await getCampaignBrand(brandId);
@@ -33,7 +34,7 @@ const SendRequest = () => {
   useEffect(() => {
     getData();
   }, []);
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     try {
       const formData = convertObjectToFormData(data);
       await createBookingCampaignInfluencer(formData);
@@ -55,69 +56,70 @@ const SendRequest = () => {
             className={cx("image")}
           />
           <div className={cx("background-white")}>
-          <div className={cx("form")}>
-            <h3 className={cx("title")}>Nguyen Thi Khanh Linh</h3>
-            <p>I am here for you! How can I help?</p>
-            <div className={cx("content")}>
-              <lable>Your Campaign</lable>
-              <br />
+            <div className={cx("form")}>
+              <h3 className={cx("title")}>Nguyen Thi Khanh Linh</h3>
+              <p>I am here for you! How can I help?</p>
+              <div className={cx("content")}>
+                <lable>Your Campaign</lable>
+                <br />
 
-              <select
-                className={cx("select")}
-                name="campaign_id"
-                onChange={handleChange}
-              >
-                <option disabled selected>
-                  Choose your campaign
-                </option>
-                {dataCampaign &&
-                  dataCampaign.map((val, index) => {
-                    return (
-                      <option key={index} value={val.id}>
-                        {val.name}
-                      </option>
-                    );
-                  })}
-              </select>
-              {errors.campaign_id && (
-              <div
-                className={cx("text", "text-medium")}
-                style={{ color: "red", display: "flex" }}
-              >
-                {errors.campaign_id}
-              </div>
-            )}
-              <br />
-              <div className={cx("btn")}>
-                <Button primary={true} onClick={handleSubmit}>
-                  Submit
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className={cx("information")}>
-            <img src="https://iili.io/HWFJidb.png" />
-            <div className={cx("content")}>
-              <div className={cx("info")}>
-                <span className={cx("icon")}>
-                  <FontAwesomeIcon icon={faLocationDot} />
-                </span>
-                <span>101B Le Huu Trac, Phuoc My, Son Tra, Da Nang</span>
-              </div>
-              <div className={cx("info")}>
-                <span className={cx("icon")}>
-                  <FontAwesomeIcon icon={faPhone} />
-                </span>
-                <span>0854 301 907</span>
-              </div>
-              <div className={cx("info")}>
-                <span className={cx("icon")}>
-                  <FontAwesomeIcon icon={faEnvelope} />
-                </span>
-                <span>linh.nguyenthikhanh02@gmail.com</span>
+                <select
+                  className={cx("select")}
+                  name="campaign_id"
+                  onChange={handleChange}
+                >
+                  <option disabled selected>
+                    Choose your campaign
+                  </option>
+                  {dataCampaign &&
+                    dataCampaign.map((val, index) => {
+                      return (
+                        <option key={index} value={val.id}>
+                          {val.name}
+                        </option>
+                      );
+                    })}
+                </select>
+                {errors.campaign_id && (
+                  <div
+                    className={cx("text", "text-medium")}
+                    style={{ color: "red", display: "flex" }}
+                  >
+                    {errors.campaign_id}
+                  </div>
+                )}
+                <br />
+                <div className={cx("btn")}>
+                  <Button primary={true} onClick={handleSubmit}
+                  to='/brand/booking/payment'>
+                    Submit
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
+            <div className={cx("information")}>
+              <img src="https://iili.io/HWFJidb.png" />
+              <div className={cx("content")}>
+                <div className={cx("info")}>
+                  <span className={cx("icon")}>
+                    <FontAwesomeIcon icon={faLocationDot} />
+                  </span>
+                  <span>101B Le Huu Trac, Phuoc My, Son Tra, Da Nang</span>
+                </div>
+                <div className={cx("info")}>
+                  <span className={cx("icon")}>
+                    <FontAwesomeIcon icon={faPhone} />
+                  </span>
+                  <span>0854 301 907</span>
+                </div>
+                <div className={cx("info")}>
+                  <span className={cx("icon")}>
+                    <FontAwesomeIcon icon={faEnvelope} />
+                  </span>
+                  <span>linh.nguyenthikhanh02@gmail.com</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
