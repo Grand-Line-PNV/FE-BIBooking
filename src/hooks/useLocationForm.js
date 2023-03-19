@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import http from "../api/http";
 
-// const http.API_ROOT = "http://127.0.0.1:8000/api"
-
 const END_POINTS = {
   PROVINCES: "provinces",
   DISTRICTS: "districts",
@@ -16,7 +14,6 @@ const FETCH_TYPES = {
   WARDS: "FETCH_WARDS",
   LOCATION: "FETCH_LOCATION",
 };
-
 
 async function fetchLocationOptions(fetchType, locationId) {
   let endPoint;
@@ -41,17 +38,15 @@ async function fetchLocationOptions(fetchType, locationId) {
       return [];
     }
   }
-  const locations = (await http.get(`${http.API_ROOT}/${endPoint}`)).data[
-    "data"
-  ];
+
+  const locations = (await http.get(endPoint)).data["data"];
+
   return locations.map(({ code, name }) => ({ value: code, label: name }));
 }
 
 async function fetchInitialData(userId, wardCode) {
   const result = (
-    await http.get(
-      `${http.API_ROOT}/${END_POINTS.LOCATION}/${userId}/${wardCode}`
-    )
+    await http.get(`${END_POINTS.LOCATION}/${userId}/${wardCode}`)
   ).data;
   const [provinces, districts, wards] = await Promise.all([
     fetchLocationOptions(FETCH_TYPES.PROVINCES),

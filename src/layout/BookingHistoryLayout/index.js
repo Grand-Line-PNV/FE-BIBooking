@@ -17,7 +17,7 @@ const BookingHistoryLayout = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 3000);
     return () => clearTimeout(timeout);
   }, []);
 
