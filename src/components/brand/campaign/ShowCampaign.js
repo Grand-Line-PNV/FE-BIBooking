@@ -36,9 +36,7 @@ const ShowCampaignBrand = ({
     return () => clearInterval(interval);
   }, []);
 
-  // if (data.length === 0) {
-  //   <PreLoader />;
-  // }
+
   return (
     <div>
       {isLoading ? <PreLoader /> : <></>}
@@ -48,8 +46,8 @@ const ShowCampaignBrand = ({
         </Button>
       </div>
       <ul className={cx("featured-car-list")}>
-        {filteredItems.map((item) => (
-          <li key={item.id}>
+        {filteredItems.map((item, index) => (
+          <li key={index}>
             <div className={cx("featured-car-card")}>
               <figure className={cx("card-banner", "slider")}>
                 {item.files.map((file, index) => (

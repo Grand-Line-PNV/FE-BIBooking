@@ -6,26 +6,26 @@ export function addNewUser(data) {
 }
 
 export function getUserLoginApi(data) {
-  return http.get("auth/login", data);
+  return http.post("auth/login", data);
 }
 
 export function userLoginApi(data) {
   return http.post("auth/login", data);
 }
+
 export function verifyUser(data) {
   return http.post("auth/verify-otp", data);
 }
-export function sendEmailChangePassword(data){
-  return http.post("auth/send-email-to-change-password",data);
+export function sendEmailChangePassword(data) {
+  return http.post("auth/send-email-to-change-password", data);
 }
-export function changePassword(data){
-  return http.post('auth/change-password', data);
-}
-
-export function logOut(data){
-  return http.post('auth/logout', data);
+export function changePassword(data) {
+  return http.post("auth/change-password", data);
 }
 
+export function logOut(data) {
+  return http.post("auth/logout", data);
+}
 
 export function getNotifications(id) {
   return http.get("/notifications/" + id);

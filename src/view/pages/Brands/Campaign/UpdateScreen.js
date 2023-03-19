@@ -9,7 +9,6 @@ import {
   getDetailsCampaignBrand,
   updateCampaignBrand,
 } from "../../../../api/brand";
-import { brandAction } from "../../../../features/feature/brand";
 import { convertObjectToFormData } from "../../../../utils/convertDataUtils";
 import "./Create.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import useDateValidation from "../../../../hooks/useDateValidation";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import { useLocation } from "react-router-dom";
@@ -67,7 +66,6 @@ export default function UpdateCampaign() {
 
   const getData = async () => {
     const result = await getDetailsCampaignBrand(id);
-    console.log(result);
     setData(result.data.data);
   };
 

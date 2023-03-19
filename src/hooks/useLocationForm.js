@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import http from "../api/http";
 
@@ -17,6 +16,7 @@ const FETCH_TYPES = {
   WARDS: "FETCH_WARDS",
   LOCATION: "FETCH_LOCATION",
 };
+
 
 async function fetchLocationOptions(fetchType, locationId) {
   let endPoint;

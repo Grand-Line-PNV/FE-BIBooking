@@ -13,7 +13,6 @@ const InProgressInfluencer = () => {
   const getData = async () => {
     const result = await getTaskInfluencer(influencer_id);
     setData(result.data.data);
-    console.log(result.data.data);
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "./BookingHistory.module.scss";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
@@ -13,7 +13,6 @@ const WaitingBrand = () => {
   const getData = async () => {
     const result = await getTaskBrand(brand_id);
     setData(result.data.data);
-    console.log(result.data.data);
   };
 
   useEffect(() => {
@@ -59,7 +58,7 @@ const WaitingBrand = () => {
                   </div>
                 </Link>
               );
-            } 
+            }
             return <div key={index}>{status}</div>;
           })}
       </div>

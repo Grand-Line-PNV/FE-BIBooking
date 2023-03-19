@@ -18,7 +18,6 @@ const AllCampaignBrand = () => {
 
   const fetchData = async () => {
     const result = await getCampaignBrand(brand_id);
-    console.log(result);
     setData(result.data.data);
   };
 
@@ -26,11 +25,6 @@ const AllCampaignBrand = () => {
     fetchData();
   }, []);
 
-  const handleUpdate = async (id, data) => {
-    setIsLoading(true)
-    const res = await updateCampaignBrand(id, data);
-    setIsLoading(false);
-  }
 
   const handleDelete = async (campaignId) => {
     setIsLoading(true);

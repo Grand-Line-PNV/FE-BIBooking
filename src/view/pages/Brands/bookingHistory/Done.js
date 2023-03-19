@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "./BookingHistory.module.scss";
 import classNames from "classnames/bind";
 import useFormData from "../../../../hooks/useFormData";
@@ -13,7 +13,6 @@ const DoneBrand = () => {
   const getData = async () => {
     const result = await getTaskBrand(brand_id);
     setData(result.data.data);
-    console.log(result.data.data);
   };
 
   useEffect(() => {

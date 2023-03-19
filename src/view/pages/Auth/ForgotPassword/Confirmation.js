@@ -7,9 +7,8 @@ import Button from "../../../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 
 // ----------------------------------------------------------------
-import { userLoginApi, verifyUser } from "../../../../api/feature";
+import {  verifyUser } from "../../../../api/feature";
 import { useDispatch } from "react-redux";
-import { confirmPasswordAction } from "../../../../hooks/useConfirmPassword";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocus from "../../../../hooks/useInputFocus";
 import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
@@ -37,13 +36,9 @@ const Confirmation = () => {
       event.preventDefault();
       setIsLoading(true)
       const response = await verifyUser(data);
-      console.log(response);
-      dispatch(confirmPasswordAction.addOne(data));
-      console.log(data);
       navigation(prePath === "register" ? "/login" : "/new-password");
     } catch (error) {
       setIsLoading(false)
-      console.log(error);
       if (error.status === 401) {
         setErrors({error: "Your OTP is wrong or has been expired!"});
       } else if (error.status === 422) {

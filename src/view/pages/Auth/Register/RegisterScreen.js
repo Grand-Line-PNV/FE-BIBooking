@@ -13,7 +13,6 @@ import { Link, useNavigate } from "react-router-dom";
 // ----------------------------------------------------------------
 import { useDispatch } from "react-redux";
 import { addNewUser } from "../../../../api/feature";
-import { registerAction } from "../../../../features/feature/register";
 import useAuth from "../../../../hooks/useAuth";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusRegister from "../../../../hooks/useInputFocusRegister";
@@ -80,11 +79,9 @@ const RegisterScreen = () => {
     resetErrors();
     setIsLoading(true)
     sessionStorage.setItem("path", "register");
-    console.log(data);
     try {
       event.preventDefault();
       const response = await addNewUser(data);
-      dispatch(registerAction.addOne(data));
       sessionStorage.setItem("email", data.email);
       navigation("/verification");
     } catch (error) {
