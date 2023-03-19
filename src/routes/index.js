@@ -51,6 +51,10 @@ import {
   UpdateSocialMedia,
   UpdateAudience,
 } from "../view/pages/Influencers/Setting/updateProfile";
+//booking screen
+import BookingScreen from "../view/pages/Booking/BookingScreen";
+import SendRequest from "../view/pages/Booking/SendRquest";
+import AllInfluencer from "../view/pages/Booking/AllInfluencer";
 //public routes
 const publicRoutes = [
   {
@@ -72,11 +76,11 @@ const publicRoutes = [
     component: AboutUs,
   },
   {
-    path: "influencer/profile",
+    path: "/influencer/profile/:id",
     component: AllProfileScreen,
   },
   {
-    path: "influencer/setting/create-profile",
+    path: "/influencer/setting/create-profile",
     component: EditProfile,
     layout: EditProfileLayout,
   },
@@ -213,6 +217,18 @@ const publicRoutes = [
     path: "/influencer/setting/update-profile/services",
     component: UpdateServices,
     layout: UpdateProfileLayout,
+  },
+  {
+    path: "/brand/campaign/:id",
+    component: UpdateCampaign,
+  },
+  {
+    path: "/brand/booking",
+    component: AllInfluencer,
+  },
+  {
+    path: "/booking/send-request",
+    component: SendRequest,
   },
 ];
 

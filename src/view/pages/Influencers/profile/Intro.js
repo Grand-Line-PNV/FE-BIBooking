@@ -5,7 +5,7 @@ import { useEffect } from "react";
 const cx = classNames.bind(styles);
 const Intro = (prop) => {
   const roleId = localStorage.getItem("role_id");
-  const username = localStorage.getItem("username");
+  // const username = localStorage.getItem("username");
 
   // console.log('data',prop.info.job);
 
@@ -15,7 +15,7 @@ const Intro = (prop) => {
         <div className={cx("container")}>
           <div className={cx("intro-container")}>
             <div className={cx("content")}>
-              <h2 className={cx("intro-heading")}>Hello I'am {username}</h2>
+              <h2 className={cx("intro-heading")}>Hello I'am {prop.username}</h2>
               <div className={cx("intro-desc")}>
                 <h4>I am a {prop.info.job}</h4>
                 <p>{prop.info.description}</p>
