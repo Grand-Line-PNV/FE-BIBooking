@@ -227,7 +227,7 @@ const publicRoutes = [
     component: AllInfluencer,
   },
   {
-    path: "/booking/send-request",
+    path: "/booking/send-request/:id",
     component: SendRequest,
   },
 ];

@@ -171,7 +171,7 @@ const AllInfluencer = () => {
                       <Button
                         className={cx("card-middle")}
                         primary={true}
-                        to={`/influencer/profile/${2}`}
+                        to={`/influencer/profile/${item.credential.account_id}`}
                       >
                         View
                       </Button>

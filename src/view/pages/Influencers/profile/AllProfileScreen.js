@@ -17,7 +17,6 @@ const cx = classNames.bind(styles);
 
 const AllProfileScreen = () => {
   let {id} = useParams();
-  // const accountId = 2;
   const [info, setInfo] = useState();
   const [social, setSocial] = useState();
   const [audienceData, setAudienceData] = useState();
@@ -34,9 +33,9 @@ const AllProfileScreen = () => {
     setService(result.data.data.services);
     setFile(result.data.data.files);
     setEmail(result.data.data.email);
-    setUsername(result.data.data.username)
+    setUsername(result.data.data.username);
   };
-
+console.log('info',info)
   useEffect(() => {
     getData();
   }, []);
@@ -45,8 +44,8 @@ const AllProfileScreen = () => {
     <div>
       {info ? (
         <>
-          <Intro info={info} file={file} username={username}/>
-          <Infor info={info} email={email}/>
+          <Intro info={info} file={file} username={username} />
+          <Infor info={info} email={email} />
           <SocialMedia social={social} />
           <GenderRatio audienceData={audienceData} />
           <MyServices service={service} />
