@@ -3,12 +3,32 @@ import Button from "../../../components/Button/Button";
 import styles from "./FeedbackStyles.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../components/Input";
+import useFormData from "../../../hooks/useFormData";
+import { convertObjectToFormData } from "../../../utils/convertDataUtils";
+import { createFeedback } from "../../../api/feature";
 
 const cx = classNames.bind(styles);
 
-const FeedbackScreen = () => {
-  const [show, setShow] = useState(false);
+const FeedbackScreen = (prop) => {
+  const accountId = localStorage.getItem("account_id");
 
+  const [show, setShow] = useState(false);
+  const { data, handleChange, setErrors } = useFormData({
+    booking_id: prop.bookingId,
+    account_id: accountId,
+    content: "",
+  });
+  const handleSubmit = async () => {
+    try {
+      await createFeedback(data);
+      alert("Successfully");
+    } catch (error) {
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+        setErrors(error.data.errors);
+      }
+    }
+  };
   return (
     <>
       {" "}
@@ -24,11 +44,19 @@ const FeedbackScreen = () => {
               <h2>Write feedback</h2>
               {/* <br /> */}
               <form>
-                <p>Campaign: name campaign</p>
-                <p>Brand: name campaign</p>
+                {/* <p>Campaign: name campaign</p>
+                <p>Brand: name campaign</p> */}
                 <br />
 
-                <Input title="Content" cols={20} medium={true} rows={10} />
+                <Input
+                  title="Content"
+                  cols={20}
+                  medium={true}
+                  rows={10}
+                  name='content'
+                  value={data.content}
+                  onChange={handleChange}
+                />
                 <div
                   style={{
                     display: "flex",
@@ -39,7 +67,9 @@ const FeedbackScreen = () => {
                   <Button outline={true} onClick={() => setShow(false)}>
                     Close
                   </Button>
-                  <Button primary={true}>Submit</Button>
+                  <Button primary={true} onClick={handleSubmit}>
+                    Submit
+                  </Button>
                 </div>
               </form>
             </div>

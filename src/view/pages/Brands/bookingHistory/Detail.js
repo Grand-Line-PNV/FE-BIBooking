@@ -286,7 +286,7 @@ const DetailsBrand = () => {
                     >
                       done
                     </p>
-                    <FeedbackScreen />
+                    <FeedbackScreen bookingId={data.id}/>
                   </>
                 );
               } else if (status_booking === "cancel") {
