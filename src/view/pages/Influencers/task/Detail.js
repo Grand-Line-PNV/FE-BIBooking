@@ -19,6 +19,7 @@ import {
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import { getDetailTaskInfluencer } from "../../../../api/influencer";
 import { updateStatusBooking } from "../../../../api/booking";
+import FeedbackScreen from "../../Feedback/FeedbackScreen";
 
 const cx = classNames.bind(styles);
 
@@ -306,17 +307,20 @@ const DetailsInfluencer = () => {
                 );
               } else if (status_booking === "done") {
                 status = (
-                  <p
-                    className={cx("done")}
-                    style={{
-                      color: "#385932",
-                      background: "#d1eeda",
-                      padding: "10px 20px",
-                      borderRadius: "99px",
-                    }}
-                  >
-                    Done
-                  </p>
+                  <>
+                    <p
+                      className={cx("done")}
+                      style={{
+                        color: "#385932",
+                        background: "#d1eeda",
+                        padding: "10px 20px",
+                        borderRadius: "99px",
+                      }}
+                    >
+                      Done
+                    </p>
+                    <FeedbackScreen bookingId={data.id} />
+                  </>
                 );
               } else if (status_booking === "cancel") {
                 status = (

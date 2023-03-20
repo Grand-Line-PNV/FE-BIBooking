@@ -4,41 +4,57 @@ import styles from "./FeedbackStyles.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../components/Input";
 import useFormData from "../../../hooks/useFormData";
-import { convertObjectToFormData } from "../../../utils/convertDataUtils";
 import { createFeedback } from "../../../api/feature";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+import { useNavigate } from "react-router-dom";
+import PreLoader from "../../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
 
 const FeedbackScreen = (prop) => {
   const accountId = localStorage.getItem("account_id");
+  const navigation = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
-  const { data, handleChange, setErrors } = useFormData({
+  const { data, setData, handleChange, setErrors, errors } = useFormData({
     booking_id: prop.bookingId,
     account_id: accountId,
     content: "",
   });
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
     try {
+      event.preventDefault();
+      setIsLoading(true);
       await createFeedback(data);
-      alert("Successfully");
+      Swal.fire("Feedback Successfully!", "You clicked the button!", "success");
+      setShow(false);
     } catch (error) {
+      setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
+  const handleShowModal = () => {
+    setShow(true);
+    setIsLoading(false);
+    setErrors("")
+    setData({ booking_id: prop.bookingId, account_id: accountId, content: "" });
+  };
   return (
     <>
       {" "}
       {show ? null : (
-        <Button primary={true} onClick={() => setShow(true)}>
+        <Button primary={true} onClick={handleShowModal}>
           Feedback
         </Button>
       )}
       {show ? (
         <div className={cx("modal-content")}>
+          {isLoading ? <PreLoader /> : <></>}
           <div className={cx("form-feedback")}>
             <div className={cx(show ? "active" : "disable")}>
               <h2>Write feedback</h2>
@@ -53,10 +69,18 @@ const FeedbackScreen = (prop) => {
                   cols={20}
                   medium={true}
                   rows={10}
-                  name='content'
+                  name="content"
                   value={data.content}
                   onChange={handleChange}
                 />
+                {errors.content && (
+                  <div
+                    className={cx("text", "text-medium")}
+                    style={{ color: "red", display: "flex" }}
+                  >
+                    {errors.content}
+                  </div>
+                )}
                 <div
                   style={{
                     display: "flex",
