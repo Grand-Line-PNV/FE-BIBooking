@@ -1,12 +1,11 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "./ProfileBrand.module.scss";
 import classNames from "classnames/bind";
 import Button from "../../../../components/Button/Button";
 import useFormData from "../../../../hooks/useFormData";
-import {
-  infoBrand,
-} from "../../../../api/brand";
+import { infoBrand } from "../../../../api/brand";
 import "./Profile.css";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -48,7 +47,11 @@ export default function ProfileBrand() {
             {data && (
               <tr>
                 <td>{data.account_id}</td>
-                <td>{data.brand_name}</td>
+                <td>
+                  <Link to={`/brand/profile/${data.id}`}>
+                    <b>{data.brand_name}</b>
+                  </Link>
+                </td>
                 <td>{data.phone_number}</td>
                 <td>{data.industry}</td>
                 <td>{data.address_line1}</td>

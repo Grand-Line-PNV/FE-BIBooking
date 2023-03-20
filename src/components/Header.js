@@ -330,9 +330,14 @@ export default function Header() {
               ))}
             </>
           ) : (
-            <Button outline={true} to="/register" className="btn-">
-              Register
-            </Button>
+            <>
+              <Button primary={true} to="/login" className="btn-">
+                Login
+              </Button>
+              <Button outline={true} to="/register" className="btn-">
+                Register
+              </Button>
+            </>
           )}
           <button
             className={`nav-toggle-btn ${isNavOpen ? "active" : ""}`}

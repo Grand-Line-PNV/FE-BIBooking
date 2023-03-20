@@ -16,8 +16,8 @@ import {
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
 import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
@@ -28,6 +28,7 @@ const LoginScreen = () => {
     useFormData({
       email: "",
       password: "",
+      role_id: "1",
       login: "",
     });
 
@@ -36,6 +37,7 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const role = useSelector(roleSelector);
+  console.log(role);
 
   const [lock, setLock] = useState("none");
   const [showPassword, setShowPassword] = useState(false);
@@ -46,6 +48,7 @@ const LoginScreen = () => {
       event.preventDefault();
       setIsLoading(true);
       const response = await userLoginApi(data);
+      setData(response);
       localStorage.setItem("token", response.data.data.access_token);
       localStorage.setItem("role", response.data.data.account.role_id);
       localStorage.setItem("username", response.data.data.account.username);
@@ -57,17 +60,17 @@ const LoginScreen = () => {
       setIsLoading(false);
       if (error.status === 401) {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Username or password incorrect !',
-        })
+          icon: "error",
+          title: "Oops...",
+          text: "Username or password incorrect !",
+        });
         setErrors({ login: "Email or password wrong!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
-  
+
   const onForgotPasswordPage = () => {
     sessionStorage.setItem("path", "login");
     navigation("/forgot-password");
@@ -77,6 +80,7 @@ const LoginScreen = () => {
     setData({
       email: "",
       password: "",
+      role_id: "1",
       login: "",
     });
     setErrors("");
@@ -87,6 +91,7 @@ const LoginScreen = () => {
     setData({
       email: "",
       password: "",
+      role_id: "2",
       login: "",
     });
     setErrors("");
@@ -129,6 +134,14 @@ const LoginScreen = () => {
           Influencer
         </label>
       </form>
+      {errors.role && (
+        <div
+          className={cx("text", "text-medium")}
+          style={{ color: "red", display: "flex" }}
+        >
+          {errors.role}
+        </div>
+      )}
       <form className={cx("form")} onSubmit={handleSubmit}>
         <h2 className={cx("title")}>Welcome back!</h2>
         <div

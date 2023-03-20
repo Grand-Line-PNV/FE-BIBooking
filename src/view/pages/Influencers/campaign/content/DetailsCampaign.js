@@ -46,7 +46,7 @@ const DetailCampaignInfluencer = () => {
         campaign_id: campaign.id,
         influencer_id: influencer_id,
       });
-      navigation("/influencer/task/applying");
+      navigation("/influencer/task");
     } catch (error) {
       setIsLoading(false);
       console.error("Error booking campaign: ", error);
