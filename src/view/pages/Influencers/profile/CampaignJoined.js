@@ -3,20 +3,32 @@ import { faFire } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
+import { useEffect } from "react";
 const cx = classNames.bind(styles);
 
-const CampaignJoined = () => {
+const CampaignJoined = (campaign) => {
+  // console.log(
+  //   "campaign",
+  //   campaign.map((i) => i)
+  // );
+//   useEffect(()=>{
+// console.log('campaign',campaign)
+//   },[])
   return (
-    <section className={cx("inner","campaignJoined")}>
+    <section className={cx("inner", "campaignJoined")}>
       <div className={cx("container")}>
         <div className={cx("campaignJoined-container")}>
           <h2 className={cx("heading")}>Campaign joined</h2>
-          <p style={{textAlign: "center"}}>
+          <p style={{ textAlign: "center" }}>
             There are many variations of passages of lorem lpsum available, but
             the majority have suffered alteraction
           </p>
           <div className={cx("content")}>
+              {/* {
+              campaign && campaign.map(i)
+            } */}
             <div className={cx("campaigns")}>
+              {/* {bookings.status === "done" ? "" : ""} */}
               <div className={cx("campaign")}>
                 <img src="https://iili.io/HEoDkvI.png" alt="campaign" />
                 <div>

@@ -319,7 +319,7 @@ const DetailsInfluencer = () => {
                     >
                       Done
                     </p>
-                    <FeedbackScreen bookingId={data.id} />
+                    <FeedbackScreen bookingId={data.id} toAccountId={data.campaign.brand_id} />
                   </>
                 );
               } else if (status_booking === "cancel") {

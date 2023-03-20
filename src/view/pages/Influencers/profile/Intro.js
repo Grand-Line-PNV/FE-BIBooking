@@ -7,7 +7,6 @@ const Intro = (prop) => {
   const roleId = localStorage.getItem("role");
   // const username = localStorage.getItem("username");
   const id = prop.info.account_id;
-  console.log("role", roleId);
 
   return (
     <div>
