@@ -3,10 +3,11 @@ import styles from "./UpdateProfile.module.scss";
 import classNames from "classnames/bind";
 import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
-import { updateServices } from "../../../../../api/influencer";
+import { infoInfluencer, updateServices } from "../../../../../api/influencer";
 import ServiceRows from "./ServiceRows";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -52,6 +53,13 @@ const UpdateServices = () => {
       }
     }
   };
+  const getData = async() => {
+    const result = await infoInfluencer(account_id);
+    setRowsData(result.data.data.services);
+  };
+  useEffect(() => {
+    getData()
+  },[])
   return (
     <Fragment>
       <form className={cx("form-inf")} onSubmit={handleSubmit}>

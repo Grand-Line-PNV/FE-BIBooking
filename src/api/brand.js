@@ -43,3 +43,6 @@ export function getDetailTaskBrand(id) {
   return http.get("brand/booking-history-detail/" + id);
 }
 
+export function getAllInfluencer(data) {
+  return http.post("/filter-influencer", data);
+}

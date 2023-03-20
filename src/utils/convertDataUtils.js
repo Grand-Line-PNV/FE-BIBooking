@@ -10,3 +10,12 @@ export const convertObjectToFormData = (object) => {
     return formData;
   }, new FormData());
 };
+
+export const removeEmptyPropertiesFromObject = (object) => {
+  return Object.entries(object).reduce((obj, [key, value]) => {
+    if (value) {
+      obj[key] = value;
+    }
+    return obj;
+  }, {})
+}
