@@ -24,9 +24,12 @@ const AllProfileScreen = () => {
   const [file, setFile] = useState();
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
+  const [booking, setBooking] = useState();
+  const [feedback,setFeedback] = useState();
 
   const getData = async () => {
     const result = await infoInfluencer(id);
+    console.log(result.data)
     setInfo(result.data.data.credential);
     setSocial(result.data.data.social_info);
     setAudienceData(result.data.data.audience_data);
@@ -34,8 +37,10 @@ const AllProfileScreen = () => {
     setFile(result.data.data.files);
     setEmail(result.data.data.email);
     setUsername(result.data.data.username);
+    setFeedback(result.data.data.feedbacks)
+    setBooking(result.data.data.bookings)
+
   };
-console.log('info',info)
   useEffect(() => {
     getData();
   }, []);
@@ -49,8 +54,8 @@ console.log('info',info)
           <SocialMedia social={social} />
           <GenderRatio audienceData={audienceData} />
           <MyServices service={service} />
-          <CampaignJoined />
-          <Feedback />
+          <CampaignJoined booking={booking}/>
+          <Feedback feedback={feedback} booking={booking}/>
         </>
       ) : (
         <div

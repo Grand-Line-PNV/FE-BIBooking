@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
 import styles from "./FeedbackStyles.module.scss";
 import classNames from "classnames/bind";
@@ -15,15 +15,24 @@ const cx = classNames.bind(styles);
 const FeedbackScreen = (prop) => {
   const accountId = localStorage.getItem("account_id");
   const navigation = useNavigate();
-
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
   const { data, setData, handleChange, setErrors, errors } = useFormData({
-    booking_id: prop.bookingId,
-    account_id: accountId,
+    booking_id: "",
+    to_account_id: "",
+    from_account_id: accountId,
     content: "",
   });
+  // useEffect(() => {
+  //   setData((prevData) => ({
+  //     ...prevData,
+  //     booking_id: prop.bookingId,
+  //     to_account_id: prop.toAccountId,
+  //   }));
+  // }, []);
+  // console.log("before", data);
   const handleSubmit = async (event) => {
+    console.log(data);
     try {
       event.preventDefault();
       setIsLoading(true);
@@ -41,8 +50,13 @@ const FeedbackScreen = (prop) => {
   const handleShowModal = () => {
     setShow(true);
     setIsLoading(false);
-    setErrors("")
-    setData({ booking_id: prop.bookingId, account_id: accountId, content: "" });
+    setErrors("");
+    setData({
+      booking_id: prop.bookingId,
+      from_account_id: Number(accountId),
+      content: "",
+      to_account_id: prop.toAccountId,
+    });
   };
   return (
     <>
