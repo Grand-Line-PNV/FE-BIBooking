@@ -9,22 +9,54 @@ import { updateInfo, infoInfluencer } from "../../../../../api/influencer";
 import useLocationForm from "../../../../../hooks/useLocationForm";
 import Select from "react-select";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
-import { useDispatch } from "react-redux";
-import AddImage from "./AddImage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCloudArrowUp,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { faFileImage } from "@fortawesome/free-regular-svg-icons";
+import PreLoader from "../../../../../components/preLoader/PreLoader";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 const UpdateInfo = () => {
   const accountId = localStorage.getItem("account_id");
-  // const dispatch = useDispatch();
-  //
-  // const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
-  //   useLocationForm(true, {
-  //     userId: accountId,
-  //     wardCode: "get ward_code from response {credential.ward_code}",
-  //   });
+  const navigation = useNavigate();
+  const [file, setFile] = useState();
+  const [imgPreview, setImgPreview] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  function deleteHandler(image) {
+    setSelectedImages(selectedImages.filter((e) => e !== image));
+    URL.revokeObjectURL(image);
+  }
+  const onSelectFile = (event) => {
+    const selectedFiles = event.target.files;
+    const selectedFilesArray = Array.from(selectedFiles);
+    setSelectedImages((previousImages) =>
+      previousImages.concat(selectedFilesArray)
+    );
+    // FOR BUG IN CHROME
+    event.target.value = "";
+  };
+
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
-    useLocationForm(false);
+    useLocationForm(true, {
+      userId: accountId,
+      wardCode: data.ward_code,
+    });
   const {
     provinceOptions,
     districtOptions,
@@ -33,20 +65,6 @@ const UpdateInfo = () => {
     selectedDistrict,
     selectedWard,
   } = state;
-
-  const [selectedImages, setSelectedImages] = useState([]);
-
-  const { data, setData, handleChange, errors, setErrors, resetErrors } =
-    useFormData();
-
-  useEffect(() => {
-    getData()
-  }, []);
-
-  selectedImages.forEach(data => {
-    console.log(data.url);
-  })
-
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
@@ -58,52 +76,103 @@ const UpdateInfo = () => {
   }, [state, setData]);
 
   useEffect(() => {
-    setData({ ...data, "influencerImages[]": selectedImages });
-  }, [selectedImages]);
+    setData((prevData) => ({
+      ...prevData,
+      "influencerImages[]": selectedImages,
+      avatarImages: file,
+    }));
+  }, [selectedImages, file]);
+
+  const getData = async () => {
+    const result = await infoInfluencer(accountId);
+    setFile(
+      result.data.data.files.filter((file) => {
+        if (file.path == "avatars") {
+          return file.url;
+        }
+      })
+    );
+
+    setData(result.data.data.credential);
+    setSelectedImages(
+      result.data.data.files.filter((file) => {
+        if (file.path == "influencers") {
+          return file.url;
+        }
+      })
+    );
+  };
+
+  const handleChangeAvt = (e) => {
+    setImgPreview(URL.createObjectURL(e.target.files[0]));
+    setFile(e.target.files);
+  };
 
   const handleSubmit = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true);
       const formData = convertObjectToFormData(data);
-      const respon = await updateInfo(formData);
-      alert("Successfully updated");
-      setData({
-        nickname: "",
-        fullname: "",
-        dob: "",
-        phone_number: "",
-        gender: "",
-        job: "",
-        title_for_job: "",
-        description: "",
-        content_topic: "",
-        address_line1: "",
-        address_line2: "",
-        address_line3: "",
-        address_line4: "",
-      });
+      await updateInfo(accountId, formData);
+      Swal.fire("Successfully!", "You clicked the button!", "success");
+      navigation("/influencer/setting/update-profile/social-media");
     } catch (error) {
+      setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
-
-  const getData = async () => {
-    const result = await infoInfluencer(accountId);
-    setData(result.data.data.credential);
-    setSelectedImages(result.data.data.files)
-  };
-
   return (
     <Fragment>
-          {/* {
-          selectedImages.map(data => 
-            <img src={data.url} alt=""/>)
-        } */}
+      {isLoading ? <PreLoader /> : <></>}
+
       <form className={cx("form-inf")}>
+        <main className={cx("upload")}>
+          <div
+            className={cx("form-upload")}
+            onClick={() => document.querySelector(".input-field").click()}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              className={cx("input-field")}
+              hidden
+              onChange={handleChangeAvt}
+            />
+
+            {file ? (
+              <img
+                src={
+                  imgPreview || Object.values(file).map((i) => i.url) || file
+                }
+                width={120}
+                height={120}
+                alt="avatar"
+                className={cx("avatar")}
+              />
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faCloudArrowUp} size="xl" />
+                <p>Browse Files to upload</p>
+              </>
+            )}
+          </div>
+
+          <section className={cx("uploaded-row")}>
+            <FontAwesomeIcon icon={faFileImage} />
+            <span className={cx("upload-content")}>
+              <FontAwesomeIcon
+                icon={faTrash}
+                onClick={() => {
+                  setFile(null);
+                }}
+              />
+            </span>
+          </section>
+        </main>
         <div className={cx("form-above")}>
           <div className={cx("form-control-left")}>
             <Input
@@ -294,7 +363,7 @@ const UpdateInfo = () => {
                 options={provinceOptions}
                 onChange={(option) => onProvinceSelect(option)}
                 placeholder="Tỉnh/Thành"
-                defaultValue={data.address_line}
+                defaultValue={selectedProvince}
                 required
               />
               <Select
@@ -391,12 +460,69 @@ const UpdateInfo = () => {
           )}
         </div>
 
-    
+        <section>
+          <label className={cx("btn-addImage")}>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+              <span style={{ marginLeft: "5px" }}>Add Images</span>
+            </div>
+            <p>up to 4 images</p>
 
-        <AddImage
-          onChange={setSelectedImages}
-          images={selectedImages}
-        />
+            <input
+              type="file"
+              name="influencerImages"
+              onChange={onSelectFile}
+              multiple
+              accept="image/png , image/jpeg, image/webp"
+              className={cx("input-upload")}
+            />
+          </label>
+          <input type="file" multiple className={cx("input-upload")} />
+          <br />
+
+          {selectedImages.length > 0 &&
+            (selectedImages.length > 4 ? (
+              <p className={cx("error")}>
+                You can't upload more than 4 images! <br />
+                <span>
+                  please delete <b> {selectedImages.length - 4} </b> of them{" "}
+                </span>
+              </p>
+            ) : (
+              <Button
+                className={cx("upload-btn")}
+                onClick={() => {
+                  console.log(selectedImages);
+                }}
+              >
+                UPLOAD {selectedImages.length} IMAGE
+                {selectedImages.length === 1 ? "" : "S"}
+              </Button>
+            ))}
+
+          <div className={cx("images")}>
+            {selectedImages &&
+              selectedImages.map((image, index) => {
+                return (
+                  <div key={index} className={cx("image-upload")}>
+                    <img
+                      src={image.url || URL.createObjectURL(image)}
+                      height="250"
+                      alt="upload"
+                    />
+                    <Button
+                      outline={true}
+                      small={true}
+                      onClick={() => deleteHandler(image)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                      <span> {index + 1}</span>
+                    </Button>
+                  </div>
+                );
+              })}
+          </div>
+        </section>
         <div className={cx("submit")}>
           <Button
             primary={true}

@@ -30,6 +30,7 @@ const STICKY_DEFAULTS = {
 };
 
 export default function Header() {
+  const accountId = localStorage.getItem("account_id");
   const location = useLocation();
   const [sticky, setSticky] = useState(STICKY_DEFAULTS);
 
@@ -63,6 +64,7 @@ export default function Header() {
   useEffect(() => {
     const role = localStorage.getItem("role");
     const user = localStorage.getItem("username");
+
     setUserRole(role);
     setUserName(user);
   });
@@ -319,7 +321,7 @@ export default function Header() {
                       : "nav-item "
                   }
                 >
-                  <Link className="nav-link" to={item.to}>
+                  <Link className="nav-link" to={`${item.to}/${accountId}`}>
                     <a href="#" className="btn user-btn" aria-label="Profile">
                       <FontAwesomeIcon icon={faUser} color="#f16736" />
                     </a>

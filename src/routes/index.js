@@ -51,6 +51,11 @@ import {
   UpdateSocialMedia,
   UpdateAudience,
 } from "../view/pages/Influencers/Setting/updateProfile";
+//booking screen
+import BookingScreen from "../view/pages/Booking/BookingScreen";
+import SendRequest from "../view/pages/Booking/SendRquest";
+import AllInfluencer from "../view/pages/Booking/AllInfluencer";
+import FeedbackScreen from "../view/pages/Feedback/FeedbackScreen";
 //public routes
 const publicRoutes = [
   {
@@ -72,11 +77,11 @@ const publicRoutes = [
     component: AboutUs,
   },
   {
-    path: "influencer/profile",
+    path: "/influencer/profile/:id",
     component: AllProfileScreen,
   },
   {
-    path: "influencer/setting/edit-profile",
+    path: "/influencer/setting/create-profile",
     component: EditProfile,
     layout: EditProfileLayout,
   },
@@ -111,17 +116,17 @@ const publicRoutes = [
     // layout:RegisterLayout
   },
   {
-    path: "/influencer/setting/edit-profile/social-media",
+    path: "/influencer/setting/create-profile/social-media",
     component: EditSocialMedia,
     layout: EditProfileLayout,
   },
   {
-    path: "/influencer/setting/edit-profile/audience-data",
+    path: "/influencer/setting/create-profile/audience-data",
     component: EditFollowerRate,
     layout: EditProfileLayout,
   },
   {
-    path: "/influencer/setting/edit-profile/services",
+    path: "/influencer/setting/create-profile/services",
     component: EditServices,
     layout: EditProfileLayout,
   },
@@ -214,6 +219,19 @@ const publicRoutes = [
     component: UpdateServices,
     layout: UpdateProfileLayout,
   },
+  {
+    path: "/brand/campaign/:id",
+    component: UpdateCampaign,
+  },
+  {
+    path: "/brand/booking",
+    component: AllInfluencer,
+  },
+  {
+    path: "/booking/send-request/:id",
+    component: SendRequest,
+  },
+  { path: "/feedback", component: FeedbackScreen },
 ];
 
 const privateRoutes = [{}];

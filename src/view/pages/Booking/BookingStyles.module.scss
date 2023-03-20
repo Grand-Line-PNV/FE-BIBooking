@@ -37,8 +37,22 @@
         align-items: center;
         height: 33.74px;
         padding: 5px;
-        width: 350px;
+        width: 250px;
 
+    }
+    .searching-cast {
+        border: 1px solid black;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 33.74px;
+        padding: 5px;
+        width: 150px;
+
+    }
+    .cast-input{
+        width: 100px;
     }
 
     .gender,
@@ -75,8 +89,8 @@
 
         &-image {
             opacity: 1;
-            width: 320px;
-            height: 250px;
+            width: 280px;
+            height: 230px;
             object-fit: cover;
             object-position: 30% 10%;
             transition: .5s ease;
@@ -122,7 +136,9 @@
         width: 100%;
     }
     .form{
+
         .content{
+            // margin: 30px;
         }
         lable{
             display: inline-block;
@@ -145,8 +161,12 @@
     .information{
         .content{
             padding: 20px;
+            .info{
+                display: flex;
+            }
             span{
                 padding: 10px;
+                // display: block;
             }
             .icon{
                 color: #F15E40;
