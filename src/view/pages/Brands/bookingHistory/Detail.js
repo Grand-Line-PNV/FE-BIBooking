@@ -286,7 +286,7 @@ const DetailsBrand = () => {
                     >
                       done
                     </p>
-                    <FeedbackScreen bookingId={data.id}/>
+                    <FeedbackScreen bookingId={data.id} />
                   </>
                 );
               } else if (status_booking === "cancel") {
@@ -329,7 +329,23 @@ const DetailsBrand = () => {
             })}
         </div>
       </div>
-      <div className={cx("card__footer")}></div>
+      <div className={cx("card__footer")}>
+        {/* {data.status &&
+          data.status.split(",").map((status_booking) => {
+            let status;
+            if (status_booking === "done") {
+              status = <FeedbackScreen bookingId={data.id} />;
+            }
+            return (
+              <div
+                key={status}
+                className={cx("heading-small", "status_booking")}
+              >
+                {status}
+              </div>
+            );
+          })} */}
+      </div>
     </div>
   );
 };
