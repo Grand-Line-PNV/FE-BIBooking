@@ -7,10 +7,8 @@ import {
   faArrowRight,
   faArrowUpLong,
   faMagnifyingGlass,
-  faSearchDollar,
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../components/Button/Button";
-import Input from "../../../components/Input";
 import PreLoader from "../../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
@@ -33,12 +31,6 @@ const BookingScreen = ({
       if (filters.name && !item.name.includes(filters.name)) {
         shouldKeep = false;
       }
-      // if (filters.industry && !item.industry.includes(filters.industry)) {
-      //   shouldKeep = false;
-      // }
-      // if (filters.price && item.price > filters.price) {
-      //   shouldKeep = false;
-      // }
       return shouldKeep;
     });
 

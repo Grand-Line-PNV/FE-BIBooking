@@ -94,7 +94,7 @@
 
 // giu lai
 .section {
-  padding-block: var(--section-padding);
+  padding-top: 100px;
 }
 
 .container {
@@ -121,7 +121,7 @@
 
 @media (max-width: 1024px) {
   .featured-car{
-    padding-top: 150px;
+    padding-top: 100px;
   }
   .container {
     width: 90%;
@@ -132,14 +132,5 @@
 @media (max-width: 400px) {
   .container {
     width: 90%;
-  }
-}
-
-@media (max-width: 768px) {
-  .featured-car{
-    padding-top: 0;
-  }
-  .featured-car{
-    padding-top: 0px;
   }
 }

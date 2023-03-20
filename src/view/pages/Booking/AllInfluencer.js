@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import Button from "../../../components/Button/Button";
-import BookingScreen from "./BookingScreen";
 import styles from "./BookingStyles.module.scss";
 import useFormData from "../../../hooks/useFormData";
 import { getAllInfluencer } from "../../../api/brand";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowDownLong,
-  faArrowRight,
-  faArrowUpLong,
+  faAddressBook,
+  faBirthdayCake,
+  faIndustry,
   faMagnifyingGlass,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import { async } from "q";
 import { removeEmptyPropertiesFromObject } from "../../../utils/convertDataUtils";
-import Input from "../../../components/Input";
+import PreLoader from "../../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
 
 const AllInfluencer = () => {
   const { data, setData } = useFormData();
+  const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState({
     keyword: "",
     gender: "",
@@ -43,159 +42,197 @@ const AllInfluencer = () => {
   }, []);
 
   const searchHandler = async () => {
+    setIsLoading(true);
     const validFilters = removeEmptyPropertiesFromObject(filters);
     await fetchData(validFilters);
+    setIsLoading(false);
   };
-  return (
-    <section className={cx("section", "featured-car")} id={cx("featured-car")}>
-      <div className={cx("container")}>
-        <section className={cx("BookingScreen")}>
-          <div className={cx("wrapper")}>
-            <div className={cx("container")}>
-              <div className={cx("searching-heading")}>
-                <div className={cx("searching-key")}>
-                  <input
-                    value={filters.keyword}
-                    onChange={(e) => {
-                      setFilters({ ...filters, keyword: e.target.value });
-                    }}
-                    placeholder="Searching-key"
-                    className={cx("searching-input")}
-                  />
-                  <span>
-                    {filters.keyword ? (
-                      <FontAwesomeIcon
-                        icon={faX}
-                        onClick={() => setFilters({ ...filters, keyword: "" })}
-                      />
-                    ) : (
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    )}
-                  </span>
-                </div>
-                <div className={cx("gender")}>
-                  <select
-                    for="gender"
-                    value={filters.gender}
-                    onChange={(e) => {
-                      setFilters({ ...filters, gender: e.target.value });
-                    }}
-                  >
-                    <option value="" selected>
-                      All Gender
-                    </option>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                    <option value="others">Others</option>
-                  </select>
-                </div>
-                <div className={cx("career")}>
-                  <select
-                    for="career"
-                    value={filters.job}
-                    onChange={(e) => {
-                      setFilters({ ...filters, job: e.target.value });
-                    }}
-                  >
-                    <option value="" selected>
-                      All Career
-                    </option>
-                    <option value="design">Education</option>
-                    <option value="engineer">Software Engineer</option>
-                    <option value="beauty">Beauty</option>
-                  </select>
-                </div>
-                <div className={cx("searching-cast")}>
-                  <input
-                    value={filters.minCast}
-                    onChange={(e) => {
-                      setFilters({ ...filters, minCast: e.target.value });
-                    }}
-                    placeholder="Min cast"
-                    className={cx("cast-input")}
-                  />
-                  <span>
-                    {filters.minCast ? (
-                      <FontAwesomeIcon
-                        icon={faX}
-                        onClick={() => setFilters({ ...filters, minCast: "" })}
-                      />
-                    ) : (
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    )}
-                  </span>
-                </div>
-                <div className={cx("searching-cast")}>
-                  <input
-                    value={filters.maxCast}
-                    onChange={(e) => {
-                      setFilters({ ...filters, maxCast: e.target.value });
-                    }}
-                    placeholder="Max cast"
-                    className={cx("cast-input")}
-                  />
-                  <span>
-                    {filters.maxCast ? (
-                      <FontAwesomeIcon
-                        icon={faX}
-                        onClick={() => setFilters({ ...filters, maxCast: "" })}
-                      />
-                    ) : (
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    )}
-                  </span>
-                </div>
-                <div className={cx("btn-search")}>
-                  <Button primary={true} onClick={searchHandler}>
-                    Search
-                  </Button>
-                </div>
-              </div>
-              {/* <h2 className={cx("")}>Education</h2> */}
-              <div className={cx("content")}>
-                {data.length ? (
-                  data.map((item, index) => (
-                    <div key={index} className={cx("card")}>
-                      {item.files.map((i) => {
-                        if (i.path === "avatars") {
-                          return (
-                            <img
-                              className={cx("card-image")}
-                              src={i.url}
-                              alt={i.name}
-                            />
-                          );
-                        }
-                      })}
 
-                      <Button
-                        className={cx("card-middle")}
-                        primary={true}
-                        to={`/influencer/profile/${item.credential.account_id}`}
-                      >
-                        View
-                      </Button>
-                      <h3>{item.credential.fullname}</h3>
-                      <h4>{item.username}</h4>
-                      <p className={cx("title")}>{item.credential.job}</p>
-                      <p>Address: {item.credential.address_line1}</p>
-                      <p>Birthday {item.credential.dob}</p>
-                    </div>
-                  ))
-                ) : (
-                  <p
-                    style={{ paddingTop: "20px", color: "red" }}
-                    className={cx("text")}
-                  >
-                    No results were found
-                  </p>
-                )}
-              </div>
-            </div>
+  return (
+    <section
+      className={cx("section", "featured-car", "animation")}
+      id={cx("featured-car")}
+    >
+      <div className={cx("container")}>
+        <div className={cx("filter")}>
+          <div className={cx("filter__item")}>
+            <input
+              className={cx("filter__input")}
+              value={filters.keyword}
+              onChange={(e) => {
+                setFilters({ ...filters, keyword: e.target.value });
+              }}
+              placeholder="Searching-key"
+            />
+            <span className={cx("searching-icon")}>
+              {filters.keyword ? (
+                <FontAwesomeIcon
+                  icon={faX}
+                  onClick={() => setFilters({ ...filters, keyword: "" })}
+                />
+              ) : (
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              )}
+            </span>
           </div>
-        </section>
-        <div style={{display:'flex',justifyContent: 'center',alignItems: 'center',padding:'20px'}}>
-          <Button outline={true}>Load more</Button>
+          <div className={cx("gender")}>
+            <select
+              className={cx("filter__input")}
+              for="gender"
+              value={filters.gender}
+              onChange={(e) => {
+                setFilters({ ...filters, gender: e.target.value });
+              }}
+            >
+              <option value="" selected>
+                All Gender
+              </option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+          <div className={cx("career")}>
+            <select
+              className={cx("filter__input")}
+              for="career"
+              value={filters.job}
+              onChange={(e) => {
+                setFilters({ ...filters, job: e.target.value });
+              }}
+            >
+              <option value="" selected>
+                All industry
+              </option>
+              <option value="design">Education</option>
+              <option value="engineer">Kiếm Tiền Quanh Năm</option>
+              <option value="beauty">Beauty</option>
+            </select>
+          </div>
+          <div className={cx("searching-cast")}>
+            <input
+              className={cx("filter__input")}
+              value={filters.minCast}
+              onChange={(e) => {
+                setFilters({ ...filters, minCast: e.target.value });
+              }}
+              placeholder="Min cast"
+            />
+            <span className={cx("searching-icon")}>
+              {filters.minCast ? (
+                <FontAwesomeIcon
+                  icon={faX}
+                  onClick={() => setFilters({ ...filters, minCast: "" })}
+                />
+              ) : (
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              )}
+            </span>
+          </div>
+          <div className={cx("searching-cast")}>
+            <input
+              className={cx("filter__input")}
+              value={filters.maxCast}
+              onChange={(e) => {
+                setFilters({ ...filters, maxCast: e.target.value });
+              }}
+              placeholder="Max cast"
+            />
+            <span className={cx("searching-icon")}>
+              {filters.maxCast ? (
+                <FontAwesomeIcon
+                  icon={faX}
+                  onClick={() => setFilters({ ...filters, maxCast: "" })}
+                />
+              ) : (
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              )}
+            </span>
+          </div>
+          <div className={cx("btn-search")}>
+            <Button primary={true} onClick={searchHandler} large={true}>
+              Search
+            </Button>
+          </div>
+        </div>
+        {isLoading ? (
+          <PreLoader />
+        ) : (
+          <>
+            <ul className={cx("featured-car-list")}>
+              {data.length ? (
+                data.map((item, index) => (
+                  <>
+                    <li key={index}>
+                      {/* <Link to={`/influencer/campaign/${item.id}`}> */}
+                      <div className={cx("featured-car-card")}>
+                        <figure className={cx("card-banner", "slider")}>
+                          {item.files.map((i) => {
+                            if (i.path === "avatars") {
+                              return (
+                                <img
+                                  className={cx("card-image")}
+                                  src={i.url}
+                                  alt={i.name}
+                                />
+                              );
+                            }
+                          })}
+                        </figure>
+                        <div className={cx("card-content")}>
+                          <div className={cx("card-title-wrapper")}>
+                            <h3 className={cx("h3", "card-title")}>
+                              <a href="#">{item.credential.fullname}</a>
+                            </h3>
+                          </div>
+                          <ul className={cx("card-list")}>
+                            <li className={cx("card-list-item")}>
+                              <FontAwesomeIcon icon={faIndustry} />
+                              <span className={cx("card-item-text")}>
+                                {item.credential.job}
+                              </span>
+                            </li>
+                            <li className={cx("card-list-item")}>
+                              <FontAwesomeIcon icon={faBirthdayCake} />
+                              <span className={cx("card-item-text")}>
+                                {item.credential.dob}
+                              </span>
+                            </li>
+                            <li className={cx("card-list-item")}>
+                              <FontAwesomeIcon icon={faAddressBook} />
+                              <span className={cx("card-item-text")}>
+                                {item.credential.address_line1}
+                              </span>
+                            </li>
+                          </ul>
+                          <div className={cx("card-campaign-wrapper")}>
+                            <Button
+                              to={`/influencer/profile/${item.credential.account_id}`}
+                              primary={true}
+                            >
+                              View
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                      {/* </Link> */}
+                    </li>
+                  </>
+                ))
+              ) : (
+                <p
+                  style={{ paddingTop: "20px", color: "red" }}
+                  className={cx("text")}
+                >
+                  No results were found
+                </p>
+              )}
+            </ul>
+          </>
+        )}
+
+        <div className={cx("btn-see-more")}>
+          <Button outline={true}>Xem Thêm</Button>
         </div>
       </div>
     </section>
