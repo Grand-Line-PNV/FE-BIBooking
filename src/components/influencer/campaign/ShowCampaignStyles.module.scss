@@ -15,7 +15,6 @@
        * typography
        */
 
-
   /**
        * transition
        */
@@ -31,7 +30,6 @@
   /**
        * radius
        */
-
 
   --radius-18: 18px;
 
@@ -65,22 +63,38 @@
   \*-----------------------------------*/
 
 .filter {
-  padding-top: 50px;
   display: flex;
   gap: 30px;
   align-items: center;
 }
 
-.filter__item {
+.filter__item,
+.gender,
+.career,
+.searching-cast {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
-.filter__input {
+.filter__input{
   width: 100%;
   background: var(--white);
   border: 1px solid #c3c6d2;
   border-radius: 3px;
   height: 44px;
   padding: 0 15px;
+  position: relative;
+}
+
+.searching-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  position: absolute;
+  padding-right: 10px;
 }
 
 .featured-car-list {
@@ -120,14 +134,13 @@
   padding: 10px;
   box-shadow: var(--shadow-1);
   margin-top: 80px;
-  transition: transform .2s;
+  transition: transform 0.2s;
   cursor: pointer;
 }
 
-  
 .featured-car-card:hover {
-    transform: scale(1.02);
-  }
+  transform: scale(1.02);
+}
 
 .featured-car-card .card-banner {
   background: hsla(0, 0%, 0%, 0.2);
@@ -281,9 +294,6 @@
 }
 
 @media (min-width: 350px) {
-  /**
-       * FEATURED CAR
-       */
 
   .featured-car-card .card-list {
     // grid-template-columns: 1fr 1fr;

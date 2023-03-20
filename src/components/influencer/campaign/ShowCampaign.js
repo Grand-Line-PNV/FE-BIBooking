@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import styles from "./ShowCampaignStyles.module.scss";
 import Button from "../../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn, faCalendar, faFilter } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBullhorn,
+  faCalendar,
+  faFilter,
+  faX,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
   faInstagram,
@@ -12,45 +18,42 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import PreLoader from "../../preLoader/PreLoader";
+import { removeEmptyPropertiesFromObject } from "../../../utils/convertDataUtils";
+import useFormData from "../../../hooks/useFormData";
+import { getCampaignInfluencer } from "../../../api/influencer";
 
 const cx = classNames.bind(styles);
 
-const ShowCampaignInfluencer = ({
-  data,
-  setFilters,
-  filterData,
-  filters,
-  fetchData,
-}) => {
-  const [isLoading, setIsLoading] = useState(true);
+const ShowCampaignInfluencer = () => {
+  const { data, setData } = useFormData();
+  const [filters, setFilters] = useState({
+    keyword: "",
+    industry: "",
+    minCast: 0,
+    maxCast: 0,
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [filteredItems, setFilteredItems] = useState(data);
-  const [noResults, setNoResults] = useState(false);
 
-  const handleFilter = () => {
-    const filteredData = data.filter((item) => {
-      let shouldKeep = true;
-      if (filters.name && !item.name.includes(filters.name)) {
-        shouldKeep = false;
-      }
-      if (filters.industry && !item.industry.includes(filters.industry)) {
-        shouldKeep = false;
-      }
-      if (filters.price && item.price > filters.price) {
-        shouldKeep = false;
-      }
-      return shouldKeep;
-    });
-
-    setFilteredItems(filteredData);
-    setActiveIndex(0);
-    setNoResults(filteredData.length === 0);
+  const fetchData = async (filters) => {
+    try {
+      const result = await getCampaignInfluencer(filters);
+      setData(result.data.data);
+    } catch (e) {
+      setData([]);
+    }
   };
 
   useEffect(() => {
-    setFilteredItems(data);
+    fetchData();
+  }, []);
+
+  const searchHandler = async () => {
+    setIsLoading(true);
+    const validFilters = removeEmptyPropertiesFromObject(filters);
+    await fetchData(validFilters);
     setIsLoading(false);
-  }, [data]);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,64 +62,99 @@ const ShowCampaignInfluencer = ({
     return () => clearInterval(interval);
   }, []);
 
-  // if (data.length === 0) {
-  //   <PreLoader />;
-  // }
-
   return (
     <>
+      <div className={cx("filter")}>
+        <div className={cx("filter__item")}>
+          <input
+            className={cx("filter__input")}
+            value={filters.keyword}
+            onChange={(e) => {
+              setFilters({ ...filters, keyword: e.target.value });
+            }}
+            placeholder="Searching-key"
+          />
+          <span className={cx("searching-icon")}>
+            {filters.keyword ? (
+              <FontAwesomeIcon
+                icon={faX}
+                onClick={() => setFilters({ ...filters, keyword: "" })}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            )}
+          </span>
+        </div>
+        <div className={cx("career")}>
+          <select
+            className={cx("filter__input")}
+            for="career"
+            value={filters.industry}
+            onChange={(e) => {
+              setFilters({ ...filters, industry: e.target.value });
+            }}
+          >
+            <option value="" selected>
+              All industry
+            </option>
+            <option value="design">Education</option>
+            <option value="engineer">Kiếm Tiền Quanh Năm</option>
+            <option value="beauty">Beauty</option>
+          </select>
+        </div>
+        <div className={cx("searching-cast")}>
+          <input
+            className={cx("filter__input")}
+            value={filters.minCast}
+            onChange={(e) => {
+              setFilters({ ...filters, minCast: e.target.value });
+            }}
+            placeholder="Min cast"
+          />
+          <span className={cx("searching-icon")}>
+            {filters.minCast ? (
+              <FontAwesomeIcon
+                icon={faX}
+                onClick={() => setFilters({ ...filters, minCast: "" })}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            )}
+          </span>
+        </div>
+        <div className={cx("searching-cast")}>
+          <input
+            className={cx("filter__input")}
+            value={filters.maxCast}
+            onChange={(e) => {
+              setFilters({ ...filters, maxCast: e.target.value });
+            }}
+            placeholder="Max cast"
+          />
+          <span className={cx("searching-icon")}>
+            {filters.maxCast ? (
+              <FontAwesomeIcon
+                icon={faX}
+                onClick={() => setFilters({ ...filters, maxCast: "" })}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            )}
+          </span>
+        </div>
+        <div className={cx("btn-search")}>
+          <Button primary={true} onClick={searchHandler} large={true}>
+            Search
+          </Button>
+        </div>
+      </div>
       {isLoading ? (
         <PreLoader />
       ) : (
         <>
-          <div className={cx("filter")}>
-            <div className={cx("filter__item")}>
-              <input
-                type="text"
-                placeholder="Nam campaign"
-                className={cx("filter__input")}
-                onChange={(e) =>
-                  setFilters({ ...filters, name: e.target.value })
-                }
-              />
-            </div>
-            <div className={cx("filter__item")}>
-              <input
-                type="text"
-                placeholder="Industry"
-                className={cx("filter__input")}
-                onChange={(e) =>
-                  setFilters({ ...filters, industry: e.target.value })
-                }
-              />
-            </div>
-            <div className={cx("filter__item")}>
-              <input
-                type="number"
-                placeholder="Price"
-                className={cx("filter__input")}
-                onChange={(e) =>
-                  setFilters({ ...filters, price: e.target.value })
-                }
-              />
-            </div>
-            <div className={cx("filter__item")}>
-              <Button primary={true} large={true} onClick={handleFilter}>
-                Filter <FontAwesomeIcon icon={faFilter} />
-              </Button>
-            </div>
-          </div>
           <ul className={cx("featured-car-list")}>
-            {noResults && (
-              <p
-                style={{ paddingTop: "20px", color: "red" }}
-                className={cx("text")}
-              >
-                No results were found
-              </p>
-            )}
-            {filteredItems.length > 0 &&
-              filteredItems.map((item, index) => (
+            {data.length ? (
+              data.map((item, index) => (
                 <>
                   <li key={index}>
                     <Link to={`/influencer/campaign/${item.id}`}>
@@ -147,7 +185,7 @@ const ShowCampaignInfluencer = ({
                             </h3>
                           </div>
                           <ul className={cx("card-list")}>
-                          <li className={cx("card-list-item")}>
+                            <li className={cx("card-list-item")}>
                               <FontAwesomeIcon icon={faBullhorn} />
                               <span className={cx("card-item-text")}>
                                 {item.campaign_status &&
@@ -235,7 +273,15 @@ const ShowCampaignInfluencer = ({
                     </Link>
                   </li>
                 </>
-              ))}
+              ))
+            ) : (
+              <p
+                style={{ paddingTop: "20px", color: "red" }}
+                className={cx("text")}
+              >
+                No results were found
+              </p>
+            )}
           </ul>
         </>
       )}

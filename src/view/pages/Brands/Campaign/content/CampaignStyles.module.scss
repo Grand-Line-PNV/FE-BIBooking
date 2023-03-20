@@ -92,11 +92,6 @@
   background: hsla(219, 14%, 60%, 0.5);
 }
 
-// giu lai
-.section {
-  padding-top: 100px;
-}
-
 .container {
   position: relative;
 }
@@ -125,7 +120,7 @@
 
 @media (max-width: 1024px) {
   .featured-car{
-    padding-top: 200px;
+    padding-top: 100px;
   }
   .container {
     width: 90%;
@@ -136,11 +131,5 @@
 @media (max-width: 400px) {
   .container {
     width: 90%;
-  }
-}
-
-@media (max-width: 768px) {
-  .featured-car{
-    padding-top: 0;
   }
 }
