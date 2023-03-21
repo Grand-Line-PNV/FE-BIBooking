@@ -30,6 +30,6 @@ export function logOut(data) {
 export function getNotifications(id) {
   return http.get("/notifications/" + id);
 }
-export function createFeedback(data){
-  return http.post("/feedback/create",data)
+export function createFeedback(id, data) {
+  return http.post("/feedback/create/" + id, data);
 }

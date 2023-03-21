@@ -96,7 +96,7 @@ ion-icon {
   place-items: center;
   border-radius: var(--radius-14);
   /* font-size: var(--fs-6); */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .btn-mobile{

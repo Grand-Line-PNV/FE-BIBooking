@@ -267,14 +267,14 @@ export default function Header() {
                 className="btn user-btn"
                 aria-label="Profile"
                 id="modal-closed"
-                onClick={handleOpen}
               >
                 <FontAwesomeIcon
                   id="modal-closed"
                   icon={faBell}
                   color="#f16736"
-                  onClick={handleOpen}
+                  style={{position: "absolute"}}
                 />
+                <Notify onClose={handleClose} />
               </a>
               {navLinkBrandInf.map((item, i) => (
                 <li
@@ -303,14 +303,14 @@ export default function Header() {
                 className="btn user-btn"
                 aria-label="Profile"
                 id="modal-closed"
-                onClick={handleOpen}
               >
                 <FontAwesomeIcon
                   id="modal-closed"
                   icon={faBell}
                   color="#f16736"
-                  onClick={handleOpen}
+                  style={{position: "relative"}}
                 />
+                 <Notify onClose={handleClose} />
               </a>
               {navLinkInfluencerInf.map((item, i) => (
                 <li
@@ -350,7 +350,6 @@ export default function Header() {
             <span className="three" />
           </button>
         </div>
-        {open && <Notify onClose={handleClose} />}
       </div>
     </header>
   );
