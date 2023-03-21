@@ -201,7 +201,8 @@ export default function CreateBrands() {
           </div>
           <div className={cx("form-group")}>
             <Input
-              type="number"
+              type="tel"
+              pattern="[0-9]{10}"
               id={cx("phone_number")}
               title="Phone Number"
               name="phone_number"
@@ -384,7 +385,7 @@ export default function CreateBrands() {
             />
             <input
               type="text"
-              placeholder="Enter industry"
+              placeholder="Address"
               name="address_line1"
               disabled={!(selectedProvince && selectedDistrict && selectedWard)}
               value={data.address_line1}

@@ -15,7 +15,10 @@ const PaymentFormScreen = () => {
   const navigation = useNavigate();
   const [searchParams] = useSearchParams();
   const id = searchParams.get("bookingId");
-  const booking_id = parseInt(id);
+  // const booking_id = parseInt(id);
+  // const booking_id = id ? parseInt(id) : null;
+  const booking_id = isNaN(id) ? null : parseInt(id);
+  console.log(booking_id);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().substr(0, 10)
   );
@@ -31,14 +34,15 @@ const PaymentFormScreen = () => {
   const [bookingIfo, setBookingIf] = useState({});
 
   const getData = async () => {
-    const result = await getDetailTaskInfluencer(id);
+    const result = await getDetailTaskInfluencer(data.booking_id);
     console.log(result);
     setBookingIf(result.data.data);
   };
-
   useEffect(() => {
-    getData();
-  }, []);
+    if (booking_id) {
+      getData();
+    }
+  }, [booking_id]);
 
   const handleSubmit = async (event) => {
     resetErrors();

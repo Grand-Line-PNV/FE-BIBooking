@@ -4,16 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 import { useEffect } from "react";
+import { useState } from "react";
+import { getTaskInfluencer } from "../../../../api/influencer";
 const cx = classNames.bind(styles);
 
 const CampaignJoined = (campaign) => {
-  // console.log(
-  //   "campaign",
-  //   campaign.map((i) => i)
-  // );
-//   useEffect(()=>{
-// console.log('campaign',campaign)
-//   },[])
+  const influencer_id = localStorage.getItem("account_id");
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({});
+
+  const getData = async () => {
+    const result = await getTaskInfluencer(influencer_id);
+    setData(result.data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+console.log(data);
   return (
     <section className={cx("inner", "campaignJoined")}>
       <div className={cx("container")}>
@@ -24,70 +32,36 @@ const CampaignJoined = (campaign) => {
             the majority have suffered alteraction
           </p>
           <div className={cx("content")}>
-              {/* {
-              campaign && campaign.map(i)
-            } */}
-            <div className={cx("campaigns")}>
-              {/* {bookings.status === "done" ? "" : ""} */}
-              <div className={cx("campaign")}>
-                <img src="https://iili.io/HEoDkvI.png" alt="campaign" />
-                <div>
-                  <div className={cx("campaign-body")}>
-                    <div className={cx("campaign-brand")}>
-                      <FontAwesomeIcon icon={faFire} />
-                      <span style={{ marginLeft: "5px" }}>Jack Wilson</span>
-                    </div>
-                    <div className={cx("campaign-date")}>
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                      <span style={{ marginLeft: "5px" }}>6th June 2023</span>
-                    </div>
-                  </div>
-                </div>
-                <h3 className={cx("campaign-title")}>
-                  Create videos and written content for products
-                </h3>
-              </div>
-            </div>
-            <div className={cx("campaigns")}>
-              <div className={cx("campaign")}>
-                <img src="https://iili.io/HEIrVa9.png" alt="campaign" />
-                <div>
-                  <div className={cx("campaign-body")}>
-                    <div className={cx("campaign-brand")}>
-                      <FontAwesomeIcon icon={faFire} />
-                      <span style={{ marginLeft: "5px" }}>Jack Wilson</span>
-                    </div>
-                    <div className={cx("campaign-date")}>
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                      <span style={{ marginLeft: "5px" }}>6th June 2023</span>
+            {data.length &&
+              data.map((item, index) => {
+                if (item.status !== "done") {
+                  return null;
+                }
+                return (
+                  <div className={cx("campaigns")} key={index}>
+                    <div className={cx("campaign")}>
+                      <img src="https://iili.io/HEoDkvI.png" alt="campaign" />
+                      <div className={cx("campaign-body")}>
+                        <div className={cx("campaign-brand")}>
+                          <FontAwesomeIcon icon={faFire} />
+                          <span style={{ marginLeft: "5px" }}>
+                            {item.campaign.brand.username}
+                          </span>
+                        </div>
+                        <div className={cx("campaign-date")}>
+                          <FontAwesomeIcon icon={faCalendarDays} />
+                          <span style={{ marginLeft: "5px" }}>
+                            {item.updated_at}
+                          </span>
+                        </div>
+                      </div>
+                      <h3 className={cx("campaign-title")}>
+                        {item.campaign.name}
+                      </h3>
                     </div>
                   </div>
-                </div>
-                <h3 className={cx("campaign-title")}>
-                  Create videos and written content for products
-                </h3>
-              </div>
-            </div>
-            <div className={cx("campaigns")}>
-              <div className={cx("campaign")}>
-                <img src="https://iili.io/HEIrWve.png" alt="campaign" />
-                <div>
-                  <div className={cx("campaign-body")}>
-                    <div className={cx("campaign-brand")}>
-                      <FontAwesomeIcon icon={faFire} />
-                      <span style={{ marginLeft: "5px" }}>Jack Wilson</span>
-                    </div>
-                    <div className={cx("campaign-date")}>
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                      <span style={{ marginLeft: "5px" }}>6th June 2023</span>
-                    </div>
-                  </div>
-                </div>
-                <h3 className={cx("campaign-title")}>
-                  Create videos and written content for products
-                </h3>
-              </div>
-            </div>
+                );
+              })}
           </div>
         </div>
       </div>

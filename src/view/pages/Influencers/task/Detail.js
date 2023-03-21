@@ -88,6 +88,7 @@ const DetailsInfluencer = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
   return (
     <div className={cx("card")}>
       {isLoading ? <PreLoader /> : <></>}
@@ -319,7 +320,10 @@ const DetailsInfluencer = () => {
                     >
                       Done
                     </p>
-                    <FeedbackScreen bookingId={data.id} toAccountId={data.campaign.brand_id} />
+                    <FeedbackScreen
+                      bookingId={data.id}
+                      toAccountId={data.campaign.brand_id}
+                    />
                   </>
                 );
               } else if (status_booking === "cancel") {

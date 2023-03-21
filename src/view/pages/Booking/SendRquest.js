@@ -7,47 +7,76 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/Input";
-import styles from "./BookingStyles.module.scss";
+import styles from "./SendRquestStyles.module.scss";
 import { useEffect } from "react";
 import { getCampaignBrand } from "../../../api/brand";
-import { createBookingCampaignInfluencer } from "../../../api/influencer";
+import {
+  createBookingCampaignInfluencer,
+  infoInfluencer,
+} from "../../../api/influencer";
 import useFormData from "../../../hooks/useFormData";
 import { useState } from "react";
-import { convertObjectToFormData } from "../../../utils/convertDataUtils";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+import PreLoader from "../../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
 
 const SendRequest = () => {
   let { id } = useParams();
-  console.log('influencer',id)
+  const navigation = useNavigate();
   const brandId = localStorage.getItem("account_id");
+  const [isLoading, setIsLoading] = useState(false);
   const [dataCampaign, setDataCampaign] = useState([]);
+  const [dataInfluencer, setDataInfluencer] = useState([]);
   const { data, setData, handleChange, setErrors, errors } = useFormData({
-    campaign_id: "",
+    campaign_id: dataCampaign.id,
     influencer_id: id,
   });
+  const [bookingId, setBookingId] = useState("");
+
   const getData = async () => {
-    const result = await getCampaignBrand(brandId);
-    setDataCampaign(result.data.data);
+    const [resultBrand, resultInfluencer] = await Promise.all([
+      getCampaignBrand(brandId),
+      infoInfluencer(id),
+    ]);
+    setDataCampaign(resultBrand.data.data);
+    setDataInfluencer(resultInfluencer.data.data);
   };
+
   useEffect(() => {
     getData();
   }, []);
+
+  const handleChangeOption = (event) => {
+    const campaignId = event.target.value;
+    setData({ ...data, campaign_id: parseInt(campaignId) });
+    setBookingId(campaignId);
+  };
+
   const handleSubmit = async () => {
     try {
-      const formData = convertObjectToFormData(data);
-      await createBookingCampaignInfluencer(formData);
-      alert("Successfully sent");
+      setIsLoading(true);
+      await createBookingCampaignInfluencer(data);
+      setIsLoading(false);
+      navigation(`/brand/booking/payment?bookingId=${bookingId}`);
     } catch (error) {
+      setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
+
+  // const handlePayment = () => {
+  //   const bookingId = data.id;
+  //   navigation(`/brand/booking/payment?bookingId=${bookingId}`);
+  // };
   return (
     <main className={cx("wrapper")}>
+      {isLoading ? <PreLoader /> : <></>}
       <div className={cx("sendRequest")}>
         <div className={cx("container")}>
           <img
@@ -57,7 +86,7 @@ const SendRequest = () => {
           />
           <div className={cx("background-white")}>
             <div className={cx("form")}>
-              <h3 className={cx("title")}>Nguyen Thi Khanh Linh</h3>
+              <h3 className={cx("title")}>{dataInfluencer.username}</h3>
               <p>I am here for you! How can I help?</p>
               <div className={cx("content")}>
                 <lable>Your Campaign</lable>
@@ -66,7 +95,7 @@ const SendRequest = () => {
                 <select
                   className={cx("select")}
                   name="campaign_id"
-                  onChange={handleChange}
+                  onChange={handleChangeOption}
                 >
                   <option disabled selected>
                     Choose your campaign
@@ -90,8 +119,11 @@ const SendRequest = () => {
                 )}
                 <br />
                 <div className={cx("btn")}>
-                  <Button primary={true} onClick={handleSubmit}
-                  to='/brand/booking/payment'>
+                  <Button
+                    primary={true}
+                    onClick={handleSubmit}
+                    to="/brand/booking/payment"
+                  >
                     Submit
                   </Button>
                 </div>
@@ -104,19 +136,34 @@ const SendRequest = () => {
                   <span className={cx("icon")}>
                     <FontAwesomeIcon icon={faLocationDot} />
                   </span>
-                  <span>101B Le Huu Trac, Phuoc My, Son Tra, Da Nang</span>
+                  <span>
+                    {dataInfluencer.credential &&
+                      dataInfluencer.credential.address_line1}
+                    ,{" "}
+                    {dataInfluencer.credential &&
+                      dataInfluencer.credential.address_line2}
+                    ,{" "}
+                    {dataInfluencer.credential &&
+                      dataInfluencer.credential.address_line3}
+                    ,{" "}
+                    {dataInfluencer.credential &&
+                      dataInfluencer.credential.address_line4}
+                  </span>
                 </div>
                 <div className={cx("info")}>
                   <span className={cx("icon")}>
                     <FontAwesomeIcon icon={faPhone} />
                   </span>
-                  <span>0854 301 907</span>
+                  <span>
+                    {dataInfluencer.credential &&
+                      dataInfluencer.credential.phone_number}
+                  </span>
                 </div>
                 <div className={cx("info")}>
                   <span className={cx("icon")}>
                     <FontAwesomeIcon icon={faEnvelope} />
                   </span>
-                  <span>linh.nguyenthikhanh02@gmail.com</span>
+                  <span>{dataInfluencer.email}</span>
                 </div>
               </div>
             </div>
