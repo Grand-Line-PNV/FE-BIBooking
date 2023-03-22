@@ -1,13 +1,11 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-
-const API_URL = "http://127.0.0.1:8000/api"
+import { useEffect, useState } from "react";
+import http from "../api/http";
 
 const END_POINTS = {
-    PROVINCES: 'provinces',
-    DISTRICTS: 'districts',
-    WARDS: 'wards',
-    LOCATION: 'locations',
+  PROVINCES: "provinces",
+  DISTRICTS: "districts",
+  WARDS: "wards",
+  LOCATION: "locations",
 };
 
 const FETCH_TYPES = {
@@ -40,25 +38,33 @@ async function fetchLocationOptions(fetchType, locationId) {
       return [];
     }
   }
-  const locations = (await axios.get(`${API_URL}/${endPoint}`)).data["data"];
+
+  const locations = (await http.get(endPoint)).data["data"];
+
   return locations.map(({ code, name }) => ({ value: code, label: name }));
 }
 
 async function fetchInitialData(userId, wardCode) {
-  const result = (await axios.get(`${API_URL}/${END_POINTS.LOCATION}/${userId}/${wardCode}`)).data;
+  const result = (
+    await http.get(`${END_POINTS.LOCATION}/${userId}/${wardCode}`)
+  ).data;
   const [provinces, districts, wards] = await Promise.all([
     fetchLocationOptions(FETCH_TYPES.PROVINCES),
     fetchLocationOptions(FETCH_TYPES.DISTRICTS, result.data.provinceCode),
-    fetchLocationOptions(FETCH_TYPES.WARDS, result.data.districtCode)
+    fetchLocationOptions(FETCH_TYPES.WARDS, result.data.districtCode),
   ]);
 
   return {
     provinceOptions: provinces,
     districtOptions: districts,
     wardOptions: wards,
-    selectedProvince: provinces.find((c) => c.value === result.data.provinceCode),
-    selectedDistrict: districts.find((d) => d.value === result.data.districtCode),
-    selectedWard: wards.find((w) => w.value === result.data.wardCode)
+    selectedProvince: provinces.find(
+      (c) => c.value === result.data.provinceCode
+    ),
+    selectedDistrict: districts.find(
+      (d) => d.value === result.data.districtCode
+    ),
+    selectedWard: wards.find((w) => w.value === result.data.wardCode),
   };
 }
 
@@ -71,7 +77,7 @@ export default function useLocationForm(shouldFetchInitialLocation, data) {
     wardOptions: [],
     selectedProvince: null,
     selectedDistrict: null,
-    selectedWard: null
+    selectedWard: null,
   });
 
   const { selectedProvince, selectedDistrict } = state;
@@ -118,7 +124,7 @@ export default function useLocationForm(shouldFetchInitialLocation, data) {
         wardOptions: [],
         selectedProvince: option,
         selectedDistrict: null,
-        selectedWard: null
+        selectedWard: null,
       });
     }
   }
@@ -129,7 +135,7 @@ export default function useLocationForm(shouldFetchInitialLocation, data) {
         ...state,
         wardOptions: [],
         selectedDistrict: option,
-        selectedWard: null
+        selectedWard: null,
       });
     }
   }

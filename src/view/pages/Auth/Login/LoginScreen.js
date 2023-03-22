@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "../Auth.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,22 +9,26 @@ import Button from "../../../../components/Button/Button";
 import { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLoginApi } from "../../../../api/feature";
-import { authorAction } from "../../../../features/feature/author";
 import {
   setRole,
   roleSelector,
 } from "../../../../features/feature/roleUserSlide";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { inputRefEmail, inputRefPassword, isFocusedEmail, isFocusedPassword } =
     useInputFocusLogin();
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       email: "",
       password: "",
+      role_id: "1",
       login: "",
     });
 
@@ -42,23 +46,31 @@ const LoginScreen = () => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true);
       const response = await userLoginApi(data);
-      dispatch(authorAction.addOne(data));
-      console.log(response);
+      setData(response);
       localStorage.setItem("token", response.data.data.access_token);
       localStorage.setItem("role", response.data.data.account.role_id);
       localStorage.setItem("username", response.data.data.account.username);
       localStorage.setItem("account_id", response.data.data.account.id);
-      console.log(response.data.data.account.id);
-      navigation("/brand/profile");
+      setIsLoading(false);
+      navigation("/");
+      Swal.fire("Login Successfully!", "You clicked the button!", "success");
     } catch (error) {
+      setIsLoading(false);
       if (error.status === 401) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Username or password incorrect !",
+        });
         setErrors({ login: "Email or password wrong!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
     }
   };
+
   const onForgotPasswordPage = () => {
     sessionStorage.setItem("path", "login");
     navigation("/forgot-password");
@@ -68,6 +80,7 @@ const LoginScreen = () => {
     setData({
       email: "",
       password: "",
+      role_id: "1",
       login: "",
     });
     setErrors("");
@@ -78,6 +91,7 @@ const LoginScreen = () => {
     setData({
       email: "",
       password: "",
+      role_id: "2",
       login: "",
     });
     setErrors("");
@@ -93,6 +107,7 @@ const LoginScreen = () => {
   };
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <form className={cx("choose-role")}>
         <input
           type="radio"
@@ -119,6 +134,14 @@ const LoginScreen = () => {
           Influencer
         </label>
       </form>
+      {errors.role && (
+        <div
+          className={cx("text", "text-medium")}
+          style={{ color: "red", display: "flex" }}
+        >
+          {errors.role}
+        </div>
+      )}
       <form className={cx("form")} onSubmit={handleSubmit}>
         <h2 className={cx("title")}>Welcome back!</h2>
         <div
@@ -201,7 +224,7 @@ const LoginScreen = () => {
           </div>
         )}
         <div className={cx("remember-container")}>
-          <div>
+          <div className={cx("remember-me")}>
             <input type="checkbox" id="checkbox" name="" value="" />
             <span style={{ marginLeft: "5px" }}>Remember me</span>
           </div>

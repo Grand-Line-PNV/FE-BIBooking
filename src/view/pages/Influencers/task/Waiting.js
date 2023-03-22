@@ -1,63 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./TaskLayout.module.scss";
+import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
+import useFormData from "../../../../hooks/useFormData";
+import { getTaskInfluencer } from "../../../../api/influencer";
 
 const cx = classNames.bind(styles);
+const WaitingInfluencer = () => {
+  const influencer_id = localStorage.getItem("account_id");
+  const { data, setData } = useFormData({});
 
-const Apply = () => {
+  const getData = async () => {
+    const result = await getTaskInfluencer(influencer_id);
+    setData(result.data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className={cx("nav-editProfile")}>
-
-<div className={cx("table-wrapper")}>
-      <table className={cx("fl-table")}>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Brand</th>
-            <th>Desscription</th>
-            <th>Deadline</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Live stream “vaseline dry serum” on Facebook Live stream “vaseline dry serum” on Facebook</td>
-            <td>Outerity</td>
-            <td><button>Detail</button></td>
-            <td>21/11/2000</td>
-            <td>Waiting for approval</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Live stream “vaseline dry serum” on Facebook</td>
-            <td>Outerity</td>
-            <td><button>Detail</button></td>
-            <td>21/11/2000</td>
-            <td>Waiting for approval</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Live stream “vaseline dry serum” on Facebook</td>
-            <td>Outerity</td>
-            <td><button>Detail</button></td>
-            <td>21/11/2000</td>
-            <td>Waiting for approval</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Live stream “vaseline dry serum” on Facebook</td>
-            <td>Outerity</td>
-            <td><button>Detail</button></td>
-            <td>21/11/2000</td>
-            <td>Waiting for approval</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div className={cx("tasks-column")}>
+        <div className={cx("tasks-column-heading")}>
+          <h2 className={cx("tasks-column-heading__title")}>Waiting</h2>
+          <button className={cx("tasks-column-heading__options")}>
+            <i className="fas fa-ellipsis-h" />
+          </button>
+        </div>
+        {data.length &&
+          data.map((item, index) => {
+            let status;
+            if (item.status === "waiting") {
+              status = (
+                <Link to={`/influencer/booking-history-detail/${item.id}`}>
+                  <div key={index} className={cx("task")} draggable="true">
+                    <div className={cx("task__tags")}>
+                      <img
+                        className={cx("avatar")}
+                        src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
+                        alt="avatar"
+                      />
+                      <span
+                        className={cx(
+                          "task__tag",
+                          "task__tag--illustration",
+                          "text"
+                        )}
+                      >
+                        {item.campaign.brand.username}
+                      </span>
+                    </div>
+                    <p>{item.campaign.name}</p>
+                    <div className={cx("task__stats")}>
+                      <span>{item.updated_at}</span>
+                      <span className={cx("task__status-waiting")} />
+                    </div>
+                  </div>
+                </Link>
+              );
+            }
+            return <div key={index}>{status}</div>;
+          })}
+      </div>
     </div>
   );
 };
 
-export default Apply;
+export default WaitingInfluencer;

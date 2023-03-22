@@ -1,81 +1,97 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styles from "./EditProfile.module.scss";
 import classNames from "classnames/bind";
-import Input from "../../../../../components/Input";
-
+import Button from "../../../../../components/Button/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import TableRows from "./TableRows";
+import { social } from "../../../../../api/influencer";
 const cx = classNames.bind(styles);
 
-const EditSocialMedia = () => {
+function EditSocialMedia() {
+  const account_id = localStorage.getItem("account_id");
+
+  const [rowsData, setRowsData] = useState([]);
+
+  const addTableRows = () => {
+    if (rowsData.length === 4) alert("Don't have more platform!");
+    else {
+      const rowsInput = {
+        account_id: account_id,
+        name: "",
+        username: "",
+        fullname: "",
+        link: "",
+        subcribers: 0,
+        avg_interactions: 0,
+      };
+      setRowsData([...rowsData, rowsInput]);
+    }
+  };
+
+  const deleteTableRows = (index) => {
+    const rows = [...rowsData];
+    rows.splice(index, 1);
+    setRowsData(rows);
+  };
+
+  const handleChange = (index, evnt) => {
+    const { name, value } = evnt.target;
+    const rowsInput = [...rowsData];
+    rowsInput[index][name] = value;
+    setRowsData(rowsInput);
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const socialData = {
+        socials: rowsData,
+      };
+      await social(socialData);
+      alert("Successfully created");
+      setRowsData([]);
+    } catch (error) {
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+        console.log(error.data.errors);
+      }
+    }
+  };
+
   return (
-    <form className={cx("form-inf")}>
-      <div className={cx("form-above")}>
-        <div className={cx("form-control-left")}>
-          <div className={cx("form-group")}>
-            <label className={cx("form-label")} for="platform">
-              Platform <strong className={cx("required")}>*</strong>
-            </label>
-            <div>
-              <select
-                name="platform"
-                id="platform"
-                placeholder="Enter platform"
-              >
-                <option value="" disabled selected>
-                  Select your option 
-                </option>
-                <option value="facebook">Facebook</option>
-                <option value="instagram">Instagram</option>
-                <option value="tiktok">Tiktok</option>
-                <option value="youtube">Youtube</option>
-              </select>
-            </div>
-          </div>
-          <Input
-            type="text"
-            placeholder="Enter username"
-            title="username"
-            primary={true}
-            large={true}
-            star
-          />
-          <Input
-            type="text"
-            placeholder="Enter full name"
-            title="Full name"
-            primary={true}
-            large={true}
-            star
-          />
+    <div className={cx("container")}>
+      <div style={{ width: "100%" }}>
+        <div className={cx("label")}>
+          <h4 style={{ width: "170px" }}>Platform</h4>
+          <h4 style={{ width: "150px" }}>Username</h4>
+          <h4 style={{ width: "220px" }}>Fullname</h4>
+          <h4 style={{ width: "250px" }}>Link</h4>
+          <h4 style={{ width: "100px" }}>Subcribes</h4>
+          <h4 style={{ width: "100px" }}>Avg interactives</h4>
+
+          <button onClick={addTableRows} className={cx("btn-plus")}>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
         </div>
-        <div className={cx("form-control-right")}>
-          <Input
-            type="text"
-            placeholder="Enter average intereaction"
-            title="Average intereaction"
+        <TableRows
+          rowsData={rowsData}
+          deleteTableRows={deleteTableRows}
+          handleChange={handleChange}
+        />{" "}
+        <div className={cx("submit")}>
+          <Button
             primary={true}
             large={true}
-            star
-          />
-          <Input
-            type="text"
-            placeholder="Enter subcribles"
-            title="Subcribles"
-            primary={true}
-            large={true}
-            star
-          />
-          <Input
-            type="text"
-            placeholder="Enter your link account"
-            title="Link"
-            primary={true}
-            large={true}
-            star
-          />
+            className={cx("heading-small")}
+            onClick={handleSubmit}
+          >
+            Save
+          </Button>
         </div>
       </div>
-    </form>
+    </div>
   );
-};
+}
 
 export default EditSocialMedia;

@@ -1,89 +1,156 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import { useState, useEffect } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { getTaskInfluencer } from "../../../../api/influencer";
 import styles from "./ProfileStyles.module.scss";
+import "./Feedback.css";
+
 const cx = classNames.bind(styles);
 
 const Feedback = () => {
+  const influencer_id = localStorage.getItem("account_id");
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({});
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  const getData = async () => {
+    const result = await getTaskInfluencer(influencer_id);
+    setData(result.data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
-    <section className={cx("inner","feedBack")}>
-      <div className={cx("container")}>
-      <h2 className={cx("heading")}>Feedback</h2>
-        <div className={cx("feedBack-container")}>
-        <div className={cx("content")}>
-            <div className={cx("feedBack")}>
-              <div className={cx("feedBack-infor")}>
-                <img
-                  src="https://iili.io/HEI4YS1.webp"
-                  alt="avatar"
-                  className={cx("feedBack-avatar")}
-                />
-                <div>
-                  <h4>Jack Williamson</h4>
-                  <div className={cx("feedBack-star")}>
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                  </div>
-                </div>
-              </div>
-              <p className={cx("feedBack-content")}>
-                Lorem ipsum dolor sit amet, consec adipis. Cursus ultricies sit
-                sit
-              </p>
-            </div>
-            <div className={cx("feedBack")}>
-              <div className={cx("feedBack-infor")}>
-                <img
-                  src="https://iili.io/HEI4YS1.webp"
-                  alt="avatar"
-                  className={cx("feedBack-avatar")}
-                />
-                <div>
-                  <h4>Jack Williamson</h4>
-                  <div className={cx("feedBack-star")}>
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                  </div>
-                </div>
-              </div>
-              <p className={cx("feedBack-content")}>
-                Lorem ipsum dolor sit amet, consec adipis. Cursus ultricies sit
-                sit
-              </p>
-            </div>
-            <div className={cx("feedBack")}>
-              <div className={cx("feedBack-infor")}>
-                <img
-                  src="https://iili.io/HEI4YS1.webp"
-                  alt="avatar"
-                  className={cx("feedBack-avatar")}
-                />
-                <div>
-                  <h4>Jack Williamson</h4>
-                  <div className={cx("feedBack-star")}>
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                  </div>
-                </div>
-              </div>
-              <p className={cx("feedBack-content")}>
-                Lorem ipsum dolor sit amet, consec adipis. Cursus ultricies sit
-                sit
-              </p>
-            </div>
+    // <section className={cx("inner", "feedBack")}>
+    //   <div className={cx("container")}>
+    //     <h2 className={cx("heading")}>Feedback</h2>
+    //     <div className={cx("feedBack-container")}>
+    //       <div className={cx("content")}>
+    //         {data.length &&
+    //           data.map((item, index) => {
+    //             if (item.status !== "done") {
+    //               return null;
+    //             }
+    //             if (item.feedbacks.length > 0) {
+    //               return (
+    //                 <div className={cx("feedBack")}>
+    //                   <div key={index} className={cx("feedBack-infor")}>
+    //                     <img
+    //                       src="https://iili.io/HEI4YS1.webp"
+    //                       alt="avatar"
+    //                       className={cx("feedBack-avatar")}
+    //                     />
+    //                     <div>
+    //                       <h4>{item.campaign.brand.username}</h4>
+    //                       <div className={cx("feedBack-star")}>
+    //                         <h4>Campaign</h4>
+    //                       </div>
+    //                     </div>
+    //                     {item.feedbacks.map((feedback, idx) => (
+    //                       <p key={idx} className={cx("feedBack-content")}>
+    //                         {feedback.content.replace(/(.{20})..+/, "$1....")}
+    //                       </p>
+    //                     ))}
+    //                   </div>
+    //                 </div>
+    //               );
+    //             }
+    //           })}
+    //         {/* {data
+    //             .filter((item) => item.feedbacks)
+    //             .map((item, index) => (
+
+    //             ))} */}
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
+    <div>
+      <section className={cx("testemonial")}>
+        <div className={cx("container")}>
+          <div className={cx("boxed")}>
+            <h2 className={cx("testemonial-heading", "heading-small")}>
+              TESTEMONIALS
+            </h2>
+            <h2 className={cx("same-heading")}>
+              What The People Thinks About Us
+            </h2>
           </div>
+          <Slider {...settings}>
+            {data.length &&
+              data.map((item, index) => {
+                if (item.status !== "done") {
+                  return null;
+                }
+                if (item.feedbacks.length > 0) {
+                  return (
+                    <div
+                      key={index}
+                      className={cx("testemonial-item")}
+                      style={{ width: "1000px !important" }}
+                    >
+                      <div className={cx("testemonial-top")}>
+                        <div className={cx("testemonial-info")}>
+                          <div className={cx("testemonial-avatar")}>
+                            <img src="https://iili.io/HEI4YS1.webp" alt="" />
+                          </div>
+                          <div className={cx("testemonial-content")}>
+                            <h3 className={cx("testemonial-name")}>Campaign</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={cx("text", "testemonial-desc")}>
+                        {item.feedbacks.map((feedback, idx) => (
+                          <p key={idx} className={cx("feedBack-content")}>
+                            {feedback.content.replace(/(.{50})..+/, "$1....")}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+          </Slider>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 export default Feedback;

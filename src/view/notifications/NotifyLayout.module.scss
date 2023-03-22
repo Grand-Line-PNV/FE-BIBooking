@@ -30,8 +30,8 @@
   width: 80%;
   padding: 4rem 2rem;
   border-radius: .8rem;
-  color: var(--light-notify);
-  background: var(--background-notify);
+  color: var(--Light-notify);
+  background: var(--Background-notify);
   box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, 0.3);
   position: relative;
   overflow: hidden;
@@ -41,7 +41,6 @@
 
 .modal__details {
   text-align: center;
-
   margin-bottom: 4rem;
   padding-bottom: 4rem;
   border-bottom: 1px solid hsla(0, 0%, 100%, .4);
@@ -53,7 +52,6 @@
 
 .modal__description {
   margin-top: 2rem;
-
   font-size: 1.6rem;
   font-style: italic;
 }

@@ -1,0 +1,200 @@
+.card {
+  transition: 200ms;
+  background: #fff;
+
+  .card__title {
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+
+    h3 {
+      flex: 0 1 200px;
+      text-align: right;
+      margin: 0;
+      color: #252525;
+      font-weight: 600;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+  }
+
+  .price-campaign,
+  .hasgtag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .card__body {
+    padding: 40px;
+    display: flex;
+    flex-flow: row no-wrap;
+    margin-bottom: 25px;
+
+    > .half {
+      box-sizing: border-box;
+      padding: 0 15px;
+      flex: 1 0 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .slider {
+      display: flex;
+      padding-top: 15px;
+      width: 100%;
+
+      img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+      }
+    }
+
+    .slide {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .icon-socialChannel {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .description {
+      margin-bottom: 25px;
+    }
+
+    span.stock {
+      display: flex;
+      gap: 0 10px;
+      align-items: center;
+    }
+
+    .reviews {
+      .stars {
+        display: inline-block;
+        list-style: none;
+        padding: 0;
+
+        > li {
+          display: inline-block;
+
+          .fa {
+            color: #f7c01b;
+          }
+        }
+      }
+
+      > span {
+        font-size: 14px;
+        margin-left: 5px;
+        color: #555;
+      }
+    }
+  }
+
+  .status_booking {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .accept-button, .reject-button {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .accept-button.visible, .reject-button.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .waiting,
+  .confirmed,
+  .in_progress,
+  .paid,
+  .done,
+  .cancel,
+  .reject {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+
+  .waiting:hover:after,
+  .confirmed:hover:after,
+  .in_progress:hover:after,
+  .paid:hover:after,
+  .done:hover:after,
+  .cancel:hover:after,
+  .reject:hover:after {
+    content: "Nội dung khi hover vào";
+    display: block;
+    position: absolute;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+  }
+
+  .waiting:hover:after {
+    content: "Influencer đợi Brand confirm yêu cầu apply campaign của Brand!";
+  }
+  .confirmed:hover:after {
+    content: "Brand đã đồng ý yêu cầu apply campaign!";
+  }
+  .in_progress:hover:after {
+    content: "Influencer đang trong giai đoạn hoàn thành task!";
+  }
+  .paid:hover:after {
+    content: "Đã thanh toán cho Influencer!";
+  }
+  .done:hover:after {
+    content: "Influencer đã hoàn thành task!";
+  }
+  .cancel:hover:after {
+    content: "Campaign đã bị hủy!";
+  }
+  .reject:hover:after {
+    content: "Brand đã từ chối nhận apply campaign!";
+  }
+
+  .card__footer {
+    padding: 40px 0;
+    display: flex;
+    flex-flow: row no-wrap;
+    align-items: center;
+    justify-content: end;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 40px;
+      width: calc(100% - 40px);
+      height: 3px;
+      background: var(--Linear-orange-color);
+      background: var(--Linear-orange-color-right);
+    }
+  }
+}

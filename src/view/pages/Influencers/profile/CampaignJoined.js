@@ -3,83 +3,73 @@ import { faFire } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
+import { useEffect } from "react";
+import { useState } from "react";
+import { getTaskInfluencer } from "../../../../api/influencer";
 const cx = classNames.bind(styles);
 
-const CampaignJoined = () => {
+const CampaignJoined = (campaign) => {
+  const influencer_id = localStorage.getItem("account_id");
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({});
+
+  const getData = async () => {
+    const result = await getTaskInfluencer(influencer_id);
+    setData(result.data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  console.log(data);
   return (
-    <section className={cx("inner","campaignJoined")}>
-      <div className={cx("container")}>
-        <div className={cx("campaignJoined-container")}>
-          <h2 className={cx("heading")}>Campaign joined</h2>
-          <p style={{textAlign: "center"}}>
-            There are many variations of passages of lorem lpsum available, but
-            the majority have suffered alteraction
-          </p>
-          <div className={cx("content")}>
-            <div className={cx("campaigns")}>
-              <div className={cx("campaign")}>
-                <img src="https://iili.io/HEoDkvI.png" alt="campaign" />
-                <div>
-                  <div className={cx("campaign-body")}>
-                    <div className={cx("campaign-brand")}>
-                      <FontAwesomeIcon icon={faFire} />
-                      <span style={{ marginLeft: "5px" }}>Jack Wilson</span>
+    <div>
+      <section className={cx("news", "boost")}>
+        <div className={cx("container")}>
+          <div className={cx("news-header", "boost-header")}>
+            <h2 className={cx("news-heading", "same-heading")}>
+              Campaign joined
+            </h2>
+            <p className={cx("news-text", "text", "text-medium")}>
+              There are many variations of passages of lorem lpsum available,
+              but the majority have suffered alteraction
+            </p>
+          </div>
+          <div className={cx("news-list", "boost-list")}>
+            {data.length &&
+              data.map((item, index) => {
+                if (item.status !== "done") {
+                  return null;
+                }
+                return (
+                  <div className={cx("news-item")}>
+                    <div className={cx("news-image")}>
+                      <img src="https://iili.io/HEoDkvI.png" alt="campaign" />
                     </div>
-                    <div className={cx("campaign-date")}>
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                      <span style={{ marginLeft: "5px" }}>6th June 2023</span>
+                    <div className={cx("news-desc")}>
+                      <div className={cx("news-inf")}>
+                        <FontAwesomeIcon icon={faFire} />{" "}
+                        <p className={cx("text", "text-medium")}>
+                          {item.campaign.brand.username}
+                        </p>
+                      </div>
+                      <div className={cx("news-date")}>
+                        <FontAwesomeIcon icon={faCalendarDays} />{" "}
+                        <p className={cx("text", "text-medium")}>
+                          {item.updated_at}
+                        </p>
+                      </div>
                     </div>
+                    <p className={cx("heading-small")}>
+                      <b> {item.campaign.name}</b>
+                    </p>
                   </div>
-                </div>
-                <h3 className={cx("campaign-title")}>
-                  Create videos and written content for products
-                </h3>
-              </div>
-            </div>
-            <div className={cx("campaigns")}>
-              <div className={cx("campaign")}>
-                <img src="https://iili.io/HEIrVa9.png" alt="campaign" />
-                <div>
-                  <div className={cx("campaign-body")}>
-                    <div className={cx("campaign-brand")}>
-                      <FontAwesomeIcon icon={faFire} />
-                      <span style={{ marginLeft: "5px" }}>Jack Wilson</span>
-                    </div>
-                    <div className={cx("campaign-date")}>
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                      <span style={{ marginLeft: "5px" }}>6th June 2023</span>
-                    </div>
-                  </div>
-                </div>
-                <h3 className={cx("campaign-title")}>
-                  Create videos and written content for products
-                </h3>
-              </div>
-            </div>
-            <div className={cx("campaigns")}>
-              <div className={cx("campaign")}>
-                <img src="https://iili.io/HEIrWve.png" alt="campaign" />
-                <div>
-                  <div className={cx("campaign-body")}>
-                    <div className={cx("campaign-brand")}>
-                      <FontAwesomeIcon icon={faFire} />
-                      <span style={{ marginLeft: "5px" }}>Jack Wilson</span>
-                    </div>
-                    <div className={cx("campaign-date")}>
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                      <span style={{ marginLeft: "5px" }}>6th June 2023</span>
-                    </div>
-                  </div>
-                </div>
-                <h3 className={cx("campaign-title")}>
-                  Create videos and written content for products
-                </h3>
-              </div>
-            </div>
+                );
+              })}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 export default CampaignJoined;

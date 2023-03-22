@@ -1,59 +1,45 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
+import { useState } from "react";
 const cx = classNames.bind(styles);
-const Infor = () => {
+
+const Infor = (prop) => {
+  const [data, setData] = useState(prop.info);
   return (
-    <section className={cx("inner","infor")}>
-      <div className={cx("container")}>
-        <div className={cx("infor-container")}>
-          <div className={cx("content")}>
-            <h2 className={cx("heading")}>I am creative web developer</h2>
-            <div className={cx("infor-desc")}>
-              <p>
-                Your future client wants to know about you before they hire. Put
-                some more information about yourself. For example, I provide
-                cost-effective and high quality products to meet my Clients’
-                needs and so on.
-              </p>
-            </div>
-            <div className={cx("infor-detail")}>
-          <div>
-            <div className={cx("label-infor")}>
-              <label>Name:</label>
-              <h4>Khanh Linh</h4>
-            </div>
-            <div className={cx("label-infor")}>
-              <label>Phone:</label>
-              <h4>+84 854 301 907</h4>
-            </div>
+    <div>
+      <section className={cx("boost")}>
+        <div className={cx("container")}>
+          <div className={cx("boost-header")}>
+            <h2 className={cx("boost-heading", "same-heading")}>
+              {data.title_for_job}
+            </h2>
+            <p className={cx("boost-text", "text", "text-medium")}>
+              {data.content_topic}
+            </p>
           </div>
-          <div>
-            <div className={cx("label-infor")}>
-              <label>Email:</label>
-              <h4>linh.nguyenthikhanh02@gmail.com</h4>
+          <div className={cx("boost-list")}>
+            <div className={cx("boost-item")}>
+              <h3 className={cx("boost-title")}>Name</h3>
+              <p className={cx("text", "text-medium")}>{data.fullname}</p>
+              <h3 className={cx("boost-title")}>Phone</h3>
+              <p className={cx("text", "text-medium")}>{data.phone_number}</p>
             </div>
-            <div className={cx("label-infor")}>
-              <label>Job:</label>
-              <h4>Web Developer</h4>
+            <div className={cx("boost-item")}>
+              <h3 className={cx("boost-title")}>Email</h3>
+              <p className={cx("text", "text-medium")}>{prop.email}</p>
+              <h3 className={cx("boost-title")}>Age</h3>
+              <p className={cx("text", "text-medium")}>{data.dob}</p>
             </div>
-          </div>
-          <div>
-            <div className={cx("label-infor")}>
-              <label>Age:</label>
-              <h4>20 years</h4>
-            </div>
-            <div className={cx("label-infor")}>
-              <label>From:</label>
-              <h4>Vietnam</h4>
+            <div className={cx("boost-item")}>
+              <h3 className={cx("boost-title")}>job</h3>
+              <p className={cx("text", "text-medium")}>{data.job}</p>
+              <h3 className={cx("boost-title")}>City</h3>
+              <p className={cx("text", "text-medium")}>{data.address_line4}</p>
             </div>
           </div>
         </div>
-          </div>
-          
-        </div>
-        
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 export default Infor;

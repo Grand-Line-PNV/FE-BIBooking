@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 export default function CreateCampaignLayout({ children }) {
   return (
     <>
-    <Header />
+      <Header />
       <section className={cx("form", "animation")}>
         <div className={cx("container")}>
           <div className={cx("form-container")}>{children}</div>

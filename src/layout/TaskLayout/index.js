@@ -1,73 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./TaskLayout.module.scss";
 import classNames from "classnames/bind";
-import Button from "../../components/Button/Button";
-// import { Avatar } from "../../../../../assets/images";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCheck, faPlus, faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
-import Input from "../../components/Input/index";
-
+import { useLocation } from "react-router-dom";
+import WaitingInfluencer from "../../view/pages/Influencers/task/Waiting";
+import InProgressInfluencer from "../../view/pages/Influencers/task/InProgress";
+import DoneInfluencer from "../../view/pages/Influencers/task/Done";
+import RejectInfluencer from "../../view/pages/Influencers/task/Reject";
+import PreLoader from "../../components/preLoader/PreLoader";
+import PaidInfluencer from "../../view/pages/Influencers/task/Paid";
 const cx = classNames.bind(styles);
 
-const TaskLayout = ({ children }) => {
-  const [open, setOpen] = useState(false)
-  // const handleIconMenu(){
+const TasksLayout = () => {
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, []);
 
-  // }
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
   return (
-    <div>
-      <Header/>
-      <section className={cx("task-setting", "animation")}>
-        <div className={cx("container")}>
-          <div className={cx("task-setting-container")}>
-            <div className={cx("task-info")}>
-              <div className={cx("search-input")}>
-                <Input
-                  type="text"
-                  placeholder="Search your tasks"
-                  primary={true}
-                  large={true}
-                />
-                <div className={cx("div-icon")}>
-                <FontAwesomeIcon icon={faSearch} className={cx("icon")}/>
-                </div>
-              </div>
-              <div className={cx("status-filter")}>
-                <p>Status</p>
-                <select>
-                  <option>All</option>
-                  <option>Waiting for comfirm</option>
-                  <option>Applying</option>
-                  <option>Waiting for comfirm</option>
-                </select>
-              </div>
-            </div>
-            {open ?
-              <div className={cx('icon-menu')}><FontAwesomeIcon icon={faBars} size='xl' /></div>
-              : ''}
-            {open ? ''
-              :
-              <div className={cx('icon-menu')}><FontAwesomeIcon icon={faXmark} size='xl' /></div>
-            }
-            <div
-              className={cx('nav-editProfile')}
-            >
-              <Link className={cx("task-title")} to='/influencer/task/applying'><h3>Applying (0)</h3></Link>
-              <Link className={cx("task-title")} to='/influencer/task/doing'><h3>Doing (0)</h3></Link>
-              <Link className={cx("task-title")} to='/influencer/task/waiting'><h3>Waiting for approval (0)</h3></Link>
-            </div>
-
-            {children}
-
+    <div className={cx("task-brand")}>
+      <main className={cx("tasks")}>
+        <div className={cx("tasks-info")}>
+          <h1>Influencer's Task</h1>
+          <div className={cx("tasks-participants")}>
+            <button className={cx("tasks-participants__add")}>
+              Add Participant
+            </button>
           </div>
         </div>
-      </section>
-      <Footer />
+        <div className={cx("tasks-tasks")}>
+          <WaitingInfluencer />
+          <PaidInfluencer />
+          <InProgressInfluencer />
+          <DoneInfluencer />
+          <RejectInfluencer />
+        </div>
+      </main>
+      {isLoading ? <PreLoader /> : <></>}
     </div>
   );
 };
 
-export default TaskLayout;
+export default TasksLayout;

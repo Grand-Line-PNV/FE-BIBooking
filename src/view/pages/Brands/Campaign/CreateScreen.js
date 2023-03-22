@@ -6,27 +6,50 @@ import Button from "../../../../components/Button/Button";
 import useFormData from "../../../../hooks/useFormData";
 import Input from "../../../../components/Input";
 import { createCampaignBrand } from "../../../../api/brand";
-import { brandAction } from "../../../../features/feature/brand";
 import { convertObjectToFormData } from "../../../../utils/convertDataUtils";
+import "./Create.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookF,
+  faInstagram,
+  faTiktok,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom";
+import PreLoader from "../../../../components/preLoader/PreLoader";
+import useDateValidation from "../../../../hooks/useDateValidation";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+import { useLocation } from "react-router-dom";
+
 
 const cx = classNames.bind(styles);
 
 export default function CreateCampaign() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location]);
   const brand_id = localStorage.getItem("account_id");
 
   const dispatch = useDispatch();
-  const [campaignImagesPreview, setCampaignImages] = useState(null);
-  const [productImagesPreview, setProductImages] = useState(null);
+  const navigation = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [imagesCampaign, setImagesCampaign] = useState([]);
+  const [imagesProduct, setImagesProduct] = useState([]);
+  const [selectedImagesCampaign, setSelectedImagesCampaign] = useState([]);
+  const [selectedImagesProduct, setSelectedImagesProduct] = useState([]);
 
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       brand_id,
       name: "",
       description: "",
-      price: 0,
+      price: "",
       industry: "",
       hashtag: "",
-      socialChannel: "",
+      socialChannel: [],
       amount: "",
       require: "",
       interest: "",
@@ -36,29 +59,80 @@ export default function CreateCampaign() {
       "productImages[]": [],
     });
 
+  const { startDate, handleChangeDate, handleStartDateChange } =
+    useDateValidation();
+
   const handleImageChangeCampaign = (e) => {
     const files = e.target.files;
-    // const previewURL = URL.createObjectURL(file);
-    // setCampaignImages(previewURL);
     setData({ ...data, "campaignImages[]": files });
+    setSelectedImagesCampaign(Array.from(files));
+
+    const updatedImages = [...imagesCampaign];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        updatedImages.push(e.target.result);
+        setImagesCampaign(updatedImages);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImageCampaign = (index) => {
+    const updatedImages = [...imagesCampaign];
+    updatedImages.splice(index, 1);
+    setImagesCampaign(updatedImages);
+
+    const updatedFiles = [...selectedImagesCampaign];
+    updatedFiles.splice(index, 1);
+    setSelectedImagesCampaign(updatedFiles);
+  };
+
+  const handleRemoveImageProduct = (index) => {
+    const updatedImages = [...imagesProduct];
+    updatedImages.splice(index, 1);
+    setImagesProduct(updatedImages);
+
+    const updatedFiles = [...selectedImagesProduct];
+    updatedFiles.splice(index, 1);
+    setSelectedImagesProduct(updatedFiles);
   };
 
   const handleImageChangeProduct = (e) => {
     const files = e.target.files;
-    // const previewURL = URL.createObjectURL(file);
-    // setProductImages(previewURL);
     setData({ ...data, "productImages[]": files });
+    setSelectedImagesProduct(Array.from(files));
+
+    const updatedImages = [...imagesProduct];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        updatedImages.push(e.target.result);
+        setImagesProduct(updatedImages);
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true);
       const formData = convertObjectToFormData(data);
       const response = await createCampaignBrand(formData);
-      // dispatch(brandAction.addOne(data));
-      console.log(response);
+      navigation("/brand/campaign");
+      Swal.fire("Successfully!", "You clicked the button!", "success");
     } catch (error) {
+      setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);
@@ -66,8 +140,28 @@ export default function CreateCampaign() {
     }
   };
 
+  const handleChangeChannel = (event) => {
+    const value = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setData((prevData) => ({
+        ...prevData,
+        socialChannel: [...prevData.socialChannel, value],
+      }));
+    } else {
+      setData((prevData) => ({
+        ...prevData,
+        socialChannel: prevData.socialChannel.filter(
+          (channel) => channel !== value
+        ),
+      }));
+    }
+  };
+
   return (
     <>
+      {isLoading ? <PreLoader /> : <></>}
       <p className={cx("profile-path", "heading-small")}>
         <span>Home</span>
         <span> Create Campaign</span>
@@ -117,16 +211,89 @@ export default function CreateCampaign() {
               )}
             </div>
             <div className={cx("form-group", "email-group")}>
-              <Input
-                type="text"
-                id={cx("socialChannel")}
-                title="Social Platform"
-                name="socialChannel"
-                value={data.socialChannel}
-                onChange={handleChange}
-                require
-                star
-              />
+              <label htmlFor="bio" className={cx("label-textarea")}>
+                Social Platform <strong className={cx("required")}>*</strong>
+              </label>
+              <div className="container-socialChannel">
+                <label className="option_item">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    name="socialChannel[]"
+                    value="facebook"
+                    checked={data.socialChannel.includes("facebook")}
+                    onChange={handleChangeChannel}
+                    id="facebook"
+                    multiple
+                  />
+                  <div className="option_inner facebook">
+                    <div className="tickmark" />
+                    <div className="icon">
+                      <FontAwesomeIcon
+                        icon={faFacebookF}
+                        className="icon-size"
+                      />
+                    </div>
+                  </div>
+                </label>
+                <label className="option_item">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    name="socialChannel[]"
+                    value="youtube"
+                    checked={data.socialChannel.includes("youtube")}
+                    onChange={handleChangeChannel}
+                    id="youtube"
+                    multiple
+                  />
+                  <div className="option_inner youtube">
+                    <div className="tickmark" />
+                    <div className="icon">
+                      <FontAwesomeIcon icon={faYoutube} className="icon-size" />
+                    </div>
+                  </div>
+                </label>
+                <label className="option_item">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    name="socialChannel[]"
+                    value="instagram"
+                    checked={data.socialChannel.includes("instagram")}
+                    onChange={handleChangeChannel}
+                    id="instagram"
+                    multiple
+                  />
+                  <div className="option_inner instagram">
+                    <div className="tickmark" />
+                    <div className="icon">
+                      <FontAwesomeIcon
+                        icon={faInstagram}
+                        className="icon-size"
+                      />
+                    </div>
+                  </div>
+                </label>
+                <label className="option_item">
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    name="socialChannel[]"
+                    value="tiktok"
+                    checked={data.socialChannel.includes("tiktok")}
+                    onChange={handleChangeChannel}
+                    id="tiktok"
+                    multiple
+                  />
+                  <div className="option_inner tiktok">
+                    <div className="tickmark" />
+                    <div className="icon">
+                      <FontAwesomeIcon icon={faTiktok} className="icon-size" />
+                    </div>
+                  </div>
+                </label>
+              </div>
               {errors.socialChannel && (
                 <div
                   className={cx("text", "text-medium")}
@@ -182,7 +349,7 @@ export default function CreateCampaign() {
             <div className={cx("form-group")}>
               <Input
                 type="text"
-                id={cx("name")}
+                id={cx("industry")}
                 title="Industry"
                 name="industry"
                 value={data.industry}
@@ -202,7 +369,7 @@ export default function CreateCampaign() {
             <div className={cx("form-group")}>
               <Input
                 type="text"
-                id={cx("name")}
+                id={cx("interest")}
                 title="Interest"
                 name="interest"
                 value={data.interest}
@@ -247,7 +414,7 @@ export default function CreateCampaign() {
                 title="Start Date"
                 name="started_date"
                 value={data.started_date}
-                onChange={handleChange}
+                onChange={handleStartDateChange(setData)}
                 require
                 star
               />
@@ -267,7 +434,8 @@ export default function CreateCampaign() {
                 title="End Date"
                 name="ended_date"
                 value={data.ended_date}
-                onChange={handleChange}
+                onChange={handleChangeDate(setData)}
+                min={startDate}
                 require
                 star
               />
@@ -292,14 +460,27 @@ export default function CreateCampaign() {
                   multiple
                   star
                 />
-                <img
-                  id="preview-img-campaign"
-                  className={cx("img-thumbnail")}
-                  alt=""
-                  name="productImages"
-                  src={campaignImagesPreview}
-                />
               </span>
+              <div className={cx("img-thumbnail")}>
+                {imagesCampaign.map((imageUrl, index) => (
+                  <>
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt="uploaded image"
+                      id="preview-img-product"
+                      name="productImages"
+                    />
+                    <Button
+                      className={cx("btn-delete")}
+                      primary={true}
+                      onClick={() => handleRemoveImageCampaign(index)}
+                    >
+                      Remove
+                    </Button>
+                  </>
+                ))}
+              </div>
               {errors.campaignImages && (
                 <div
                   className={cx("text", "text-medium")}
@@ -321,14 +502,27 @@ export default function CreateCampaign() {
                   multiple
                   star
                 />
-                <img
-                  id="preview-img-product"
-                  className={cx("img-thumbnail")}
-                  alt=""
-                  name="productImages"
-                  src={productImagesPreview}
-                />
               </span>
+              <div className={cx("img-thumbnail")}>
+                {imagesProduct.map((imageUrl, index) => (
+                  <>
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt="uploaded image"
+                      id="preview-img-product"
+                      name="productImages"
+                    />
+                    <Button
+                      className={cx("btn-delete")}
+                      primary={true}
+                      onClick={() => handleRemoveImageProduct(index)}
+                    >
+                      Remove
+                    </Button>
+                  </>
+                ))}
+              </div>
               {errors.productImages && (
                 <div
                   className={cx("text", "text-medium")}
@@ -359,6 +553,7 @@ export default function CreateCampaign() {
                 </div>
               )}
             </div>
+            {/*  */}
           </div>
           <div className={cx("submit-inf")}>
             <Button

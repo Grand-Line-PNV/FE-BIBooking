@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Hero from "../../view/pages/Home/Contents/Hero";
+import MoveToTop from "../../components/moveToTop/MoveToTop";
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +13,7 @@ export default function Default({ children }) {
     <>
       <div className={cx("wrapper")}>
         <Header />
-        <Hero />
+        <MoveToTop />
         <main>
           <div>{children}</div>
         </main>

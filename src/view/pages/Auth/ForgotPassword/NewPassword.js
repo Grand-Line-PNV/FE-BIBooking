@@ -7,14 +7,12 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 import useAuth from "../../../../hooks/useAuth";
 import { changePassword } from "../../../../api/feature";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  authorAction,
-  authorSelectors,
-} from "../../../../features/feature/author";
+import { useDispatch } from "react-redux";
 import useFormData from "../../../../hooks/useFormData";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert';
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
 const cx = classNames.bind(styles);
 
 const NewPassword = () => {
@@ -28,6 +26,7 @@ const NewPassword = () => {
     handleLock,
     handleUnLock,
   } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const email = sessionStorage.getItem("email");
   // const email='linh.nguyenthikhanh02@gmail.com'
   const { inputRefEmail, inputRefPassword, isFocusedEmail, isFocusedPassword } =
@@ -47,10 +46,11 @@ const NewPassword = () => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true)
       const res = await changePassword(data);
-      dispatch(authorAction.updateOne(res.data));
       navigation("/login");
     } catch (error) {
+      setIsLoading(false)
       if (error.status === 401) {
         setErrors({ verify: "Wrong!" });
       } else if (error.status === 422) {
@@ -61,6 +61,7 @@ const NewPassword = () => {
 
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <h2 style={{ marginTop: "40px" }}>Change password!</h2>
       <form className={cx("form")} onSubmit={handleSubmit}>
         <div

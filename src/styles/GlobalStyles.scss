@@ -12,10 +12,10 @@
     #f16736 50.83%,
     #ed3237 100%
   );
+  --Linear-orange-color-right: linear-gradient(to right, #f0a237 0%,#f16736 20%,#ed3237 20%, #ddd 20%,#ddd 100%);
 
-  --light-notify: hsl(0, 0%, 100%);
-  --background-notify: linear-gradient(to right bottom, hsl(19, 79%, 64%), hsl(27, 40%, 74%));
-  --background-notify: linear-gradient(to bottom, hsl(236, 50%, 98%), hsl(236, 50%, 94%));
+  --Light-notify: hsl(0, 0%, 100%);
+  --Background-notify: linear-gradient(to right bottom, hsl(19, 79%, 64%), hsl(27, 40%, 74%));
 }
 
 * {
@@ -70,7 +70,8 @@ html {
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  // font-family: "Inter", sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-rendering: optimizeSpeed;
   font-size: 1.6rem;
   line-height: 1.5;
@@ -86,8 +87,7 @@ input,
 
 input[type="text"],
 input[type="password"],
-input[type="email"],
-[tabindex] {
+input[type="email"] {
   width: 100%;
 }
 
@@ -115,7 +115,7 @@ input {
 }
 
 label,
-button {
+button, a {
   cursor: pointer;
 }
 

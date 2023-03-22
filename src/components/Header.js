@@ -4,16 +4,20 @@ import { LogoHomePage } from "../assets/images/index";
 import classNames from "classnames/bind";
 import Button from "../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faBell,
-  faRing,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
-import { faBellSlash } from "@fortawesome/free-regular-svg-icons";
-import Notify from '../view/notifications/Notify';
+import Notify from "../view/notifications/Notify";
+import { Link, useLocation } from "react-router-dom";
+import {
+  navLinkVisiter,
+  navLinkBrand,
+  navLinkInfluencer,
+  navLinkBrandInf,
+  navLinkInfluencerInf,
+} from "./navLink";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 
 const cx = classNames.bind(styles);
 
@@ -26,9 +30,11 @@ const STICKY_DEFAULTS = {
 };
 
 export default function Header() {
+  const accountId = localStorage.getItem("account_id");
+  const location = useLocation();
   const [sticky, setSticky] = useState(STICKY_DEFAULTS);
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const [userRole, setUserRole] = useState("");
   const [username, setUserName] = useState("");
@@ -54,12 +60,11 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-
-
   const navigation = useNavigate();
   useEffect(() => {
     const role = localStorage.getItem("role");
     const user = localStorage.getItem("username");
+
     setUserRole(role);
     setUserName(user);
   });
@@ -68,7 +73,8 @@ export default function Header() {
     localStorage.clear();
     setUserRole("");
     setUserName("");
-    navigation("/home");
+    navigation("/");
+    Swal.fire("Log out Successfully!", "You clicked the button!", "success");
   };
   // nav-bar
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -82,24 +88,27 @@ export default function Header() {
   };
 
   const handleScrollNavBar = () => {
-    const header = document.querySelector("[data-header]");
-    if (window.scrollY >= 10) {
-      header.classList.add("active");
-    } else {
-      header.classList.remove("active");
+    const header = document.querySelector("[data-header]") ?? {};
+    if (window.scrollY >= 10 && header !== null) {
+      if (header.classList) {
+        header.classList.add("active");
+      }
+    } else if (header !== null) {
+      if (header.classList) {
+        header.classList.remove("active");
+      }
     }
   };
 
   window.addEventListener("scroll", handleScrollNavBar);
 
   const handleOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
-
+    setOpen(false);
+  };
 
   return (
     <header
@@ -120,41 +129,34 @@ export default function Header() {
           onClick={closeNav}
         />
         <a href="#" className="logo">
-          <img src={LogoHomePage} alt="Ridex logo" />
+          <Link to={"/"}>
+            <img src={LogoHomePage} alt="B&IBooking logo" />
+          </Link>
         </a>
         {userRole === "1" ? (
           <nav className={`navbar ${isNavOpen ? "active" : ""}`} data-navbar>
             <ul className="navbar-list">
-              <li>
-                <a
-                  href="#home"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
+              {navLinkBrand.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
                 >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#featured-car"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  Booking
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  Campaign
-                </a>
-              </li>
+                  <Link className="nav-link" to={item.to}>
+                    <a
+                      href="#home"
+                      className="navbar-link"
+                      data-nav-link
+                      onClick={closeNav}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
               <li>
                 <a
                   href="#blog"
@@ -162,17 +164,13 @@ export default function Header() {
                   data-nav-link
                   onClick={closeNav}
                 >
-                  About us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#blog"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                   <Button outline={true} onClick={handleLogout} className="btn-mobile">Log out</Button>
+                  <Button
+                    outline={true}
+                    onClick={handleLogout}
+                    className="btn-mobile"
+                  >
+                    Log out
+                  </Button>
                 </a>
               </li>
             </ul>
@@ -180,36 +178,27 @@ export default function Header() {
         ) : userRole === "2" ? (
           <nav className={`navbar ${isNavOpen ? "active" : ""}`} data-navbar>
             <ul className="navbar-list">
-              <li>
-                <a
-                  href="#home"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
+              {navLinkInfluencer.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
                 >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#featured-car"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  Campaign
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  Task
-                </a>
-              </li>
+                  <Link className="nav-link" to={item.to}>
+                    <a
+                      href="#home"
+                      className="navbar-link"
+                      data-nav-link
+                      onClick={closeNav}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
               <li>
                 <a
                   href="#blog"
@@ -217,17 +206,13 @@ export default function Header() {
                   data-nav-link
                   onClick={closeNav}
                 >
-                  Revenue
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#blog"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  <Button outline={true} onClick={handleLogout} className="btn-mobile">Log out</Button>
+                  <Button
+                    outline={true}
+                    onClick={handleLogout}
+                    className="btn-mobile"
+                  >
+                    Log out
+                  </Button>
                 </a>
               </li>
             </ul>
@@ -235,36 +220,27 @@ export default function Header() {
         ) : (
           <nav className={`navbar ${isNavOpen ? "active" : ""}`} data-navbar>
             <ul className="navbar-list">
-              <li>
-                <a
-                  href="#home"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
+              {navLinkVisiter.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
                 >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#featured-car"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  Campaign
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  Task
-                </a>
-              </li>
+                  <Link className="nav-link" to={item.to}>
+                    <a
+                      href="#home"
+                      className="navbar-link"
+                      data-nav-link
+                      onClick={closeNav}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
+                </li>
+              ))}
               <li>
                 <a
                   href="#blog"
@@ -272,40 +248,93 @@ export default function Header() {
                   data-nav-link
                   onClick={closeNav}
                 >
-                  Revenue
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#blog"
-                  className="navbar-link"
-                  data-nav-link
-                  onClick={closeNav}
-                >
-                  <Button outline={true} to="/register" className="btn-mobile">Register</Button>
+                  <Button outline={true} to="/register" className="btn-mobile">
+                    Register
+                  </Button>
                 </a>
               </li>
             </ul>
           </nav>
         )}
         <div className="header-actions">
-          {!userRole ? (
-            <>
-              <Button outline={true} to="/register" className="btn-">
-                Register
-              </Button>
-            </>
-          ) : (
+          {userRole === "1" ? (
             <>
               <Button outline={true} onClick={handleLogout} className="btn-web">
                 Log out
               </Button>
-              <a href="#" className="btn user-btn" aria-label="Profile" id="modal-closed" onClick={handleOpen}>
-                <FontAwesomeIcon id="modal-closed" icon={faBell} color="#f16736" onClick={handleOpen}/>
+              <a
+                href="#"
+                className="btn user-btn"
+                aria-label="Profile"
+                id="modal-closed"
+              >
+                <FontAwesomeIcon
+                  id="modal-closed"
+                  color="#f16736"
+                  style={{position: "absolute"}}
+                />
+                <Notify onClose={handleClose} />
               </a>
-              <a href="#" className="btn user-btn" aria-label="Profile">
-                <FontAwesomeIcon icon={faUser} color="#f16736" />
+              {navLinkBrandInf.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
+                >
+                  <Link className="nav-link" to={item.to}>
+                    <a href="#" className="btn user-btn" aria-label="Profile">
+                      <FontAwesomeIcon icon={faUser} color="#f16736" />
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </>
+          ) : userRole === "2" ? (
+            <>
+              <Button outline={true} onClick={handleLogout} className="btn-web">
+                Log out
+              </Button>
+              <a
+                href="#"
+                className="btn user-btn"
+                aria-label="Profile"
+                id="modal-closed"
+              >
+                <FontAwesomeIcon
+                  id="modal-closed"
+                  color="#f16736"
+                  style={{position: "relative"}}
+                />
+                 <Notify onClose={handleClose} />
               </a>
+              {navLinkInfluencerInf.map((item, i) => (
+                <li
+                  key={i}
+                  className={
+                    item.to == location.pathname
+                      ? "nav-item active"
+                      : "nav-item "
+                  }
+                >
+                  <Link className="nav-link" to={`${item.to}/${accountId}`}>
+                    <a href="#" className="btn user-btn" aria-label="Profile">
+                      <FontAwesomeIcon icon={faUser} color="#f16736" />
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </>
+          ) : (
+            <>
+              <Button primary={true} to="/login" className="btn-">
+                Login
+              </Button>
+              <Button outline={true} to="/register" className="btn-">
+                Register
+              </Button>
             </>
           )}
           <button
@@ -318,11 +347,8 @@ export default function Header() {
             <span className="two" />
             <span className="three" />
           </button>
-            </div>
-          {
-            open && <Notify onClose={handleClose} />
-          }
         </div>
+      </div>
     </header>
   );
 }

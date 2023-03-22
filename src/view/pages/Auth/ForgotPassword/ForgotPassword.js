@@ -9,10 +9,14 @@ import { sendEmailChangePassword } from "../../../../api/feature";
 import useFormData from "../../../../hooks/useFormData";
 import { useNavigate } from "react-router-dom";
 import useInputFocus from "../../../../hooks/useInputFocus";
+import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
+import Swal from 'sweetalert';
 const cx = classNames.bind(styles);
+
 
 const ForgotPassword = () => {
   const { inputRef, isFocused } = useInputFocus();
+  const [isLoading, setIsLoading] = useState(false);
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
       email: "",
@@ -24,12 +28,14 @@ const ForgotPassword = () => {
     resetErrors();
     try {
       event.preventDefault();
+      setIsLoading(true)
       const res = await sendEmailChangePassword(data);
       sessionStorage.setItem("email", data.email);
       navigation("/verification");
     } catch (error) {
+      setIsLoading(false)
       if (error.status === 401) {
-        setErrors({ sendEmail: "Wrong!" });
+        setErrors(error.data.errors);
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }
@@ -37,6 +43,7 @@ const ForgotPassword = () => {
   };
   return (
     <Fragment>
+      {isLoading ? <PreLoaderLogin /> : <></>}
       <h2 style={{ marginTop: "40px" }}>Forgot Password!</h2>
       <form className={cx("form")} onSubmit={handleSubmit}>
         <div

@@ -1,0 +1,172 @@
+.sendRequest {
+  .container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+  }
+  .form {
+    width: 350px;
+  }
+  .form-payment {
+    lable {
+      display: inline-block;
+      font-size: 20px;
+      padding: 5px 0 5px 0;
+    }
+    input {
+      border: 1px solid #beb9b9;
+    }
+  }
+
+  .title {
+    color: #f15e40;
+  }
+
+  .image {
+    width: 100%;
+  }
+
+  .information {
+    position: absolute;
+    top: 110px;
+    right: 100px;
+
+    .content {
+      padding: 20px;
+
+      span {
+        padding: 10px;
+      }
+
+      .icon {
+        color: #f15e40;
+      }
+    }
+  }
+}
+
+.wrapper {
+  width: 1059.99px;
+  margin: 0 auto;
+  padding-top: 150px;
+}
+
+.background-white {
+  width: 900px;
+  height: 500px;
+  background-color: white;
+  position: absolute;
+  top: 20%;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0 rgb(186, 183, 183);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+.methods {
+  display: flex;
+}
+
+.services {
+  overflow-y: scroll;
+  height: 260px;
+  margin: 20px 0 20px 0;
+  justify-content: start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+}
+
+.services li {
+  border-radius: 5px;
+  width: 100px;
+  padding: 20px;
+  // background-color: transparent;
+  list-style-type: none;
+  text-align: center;
+  align-self: center;
+  border: 1px dotted grey;
+  cursor: pointer;
+}
+
+.services li:hover {
+  background-color: #f15e40;
+  border-color: #f15e40;
+  color: var(--white);
+}
+
+.selected {
+  background-color: #f15e40;
+  color: var(--white);
+}
+
+.deselect {
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.discount .title {
+  // padding: 20px;
+}
+
+.payment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px 20px;
+}
+
+.payments button {
+  width: 100%;
+}
+
+.payment input {
+  border: 1px solid grey;
+  padding: 6px 16px;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.method {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.methods img {
+  border-radius: 10px;
+  width: 80px;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  transition: 0.5s;
+  margin: 5px;
+}
+
+.method .chose {
+  display: block;
+  height: 10px;
+  width: 10px;
+  background-color: white;
+  border-radius: 100%;
+  transition: 0.5s;
+}
+
+.method:hover .chose {
+  background-color: #f15e40;
+}
+
+.chosen {
+  background-color: #f15e40 !important;
+}
