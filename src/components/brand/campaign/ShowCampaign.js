@@ -3,8 +3,13 @@ import classNames from "classnames/bind";
 import styles from "../../../assets/SCSS/ShowStyles.module.scss";
 import Button from "../../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import {
+  faBan,
+  faCalendar,
+  faClose,
+  faPlusCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 import {
   faFacebookSquare,
   faInstagram,
@@ -12,6 +17,8 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import PreLoader from "../../preLoader/PreLoader";
+import showToast from "../../toast/Toast";
+import { closeCampaignBrand } from "../../../api/brand";
 const cx = classNames.bind(styles);
 
 const ShowCampaignBrand = ({
@@ -21,6 +28,7 @@ const ShowCampaignBrand = ({
   setIsLoading,
   fetchData,
 }) => {
+  const navigation = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [filteredItems, setFilteredItems] = useState(data);
 
@@ -29,13 +37,27 @@ const ShowCampaignBrand = ({
     setIsLoading(false);
   }, [data]);
 
+  const handleCloseCampaign = async (id) => {
+    try {
+      setIsLoading(true);
+      const reject = await closeCampaignBrand(id);
+      navigation("/brand/campaign");
+      showToast(false, "Successfully!");
+    } catch (error) {
+      setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+      }
+    }
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((activeIndex) => (activeIndex + 1) % 3);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
 
   return (
     <div>
@@ -72,14 +94,30 @@ const ShowCampaignBrand = ({
                 </div>
                 <ul className={cx("card-list")}>
                   <li className={cx("card-list-item")}>
-                    <span>bởi</span>
-                    <span className={cx("card-item-text")}>Shopee</span>
-                  </li>
-                  <li className={cx("card-list-item")}>
                     <FontAwesomeIcon icon={faCalendar} />
                     <span className={cx("card-item-text")}>
                       {item.started_date}
                     </span>
+                  </li>
+                  <li className={cx("card-list-item")}>
+                    {item.campaign_status &&
+                      item.campaign_status.split(",").map((channel) => {
+                        let icon;
+                        if (channel === "apply") {
+                          icon = (
+                            <Button
+                              outline={true}
+                              large={true}
+                              onClick={() => handleCloseCampaign(item.id)}
+                            >
+                              Close <FontAwesomeIcon icon={faClose} />
+                            </Button>
+                          );
+                        } else if (channel === "closed") {
+                          icon = <></>;
+                        }
+                        return <div key={channel}>{icon}</div>;
+                      })}
                   </li>
                 </ul>
                 <div className={cx("card-campaign-wrapper")}>
@@ -120,15 +158,40 @@ const ShowCampaignBrand = ({
                     </ul>
                   </div>
                   <div>
-                    <Button primary={true} to={`/brand/campaign/${item.id}`}>
-                      Update
-                    </Button>
-                    <Button
-                      primary={true}
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      Delete
-                    </Button>
+                    {item.campaign_status &&
+                      item.campaign_status.split(",").map((channel) => {
+                        let icon;
+                        if (channel === "apply") {
+                          icon = (
+                            <>
+                              <Button
+                                primary={true}
+                                to={`/brand/campaign/${item.id}`}
+                              >
+                                Update
+                              </Button>
+                              <Button
+                                primary={true}
+                                onClick={() => handleDelete(item.id)}
+                              >
+                                Delete
+                              </Button>
+                            </>
+                          );
+                        } else if (channel === "closed") {
+                          icon = (
+                            <span className={cx("stock", "text", "text-small")}>
+                              <FontAwesomeIcon
+                                icon={faBan}
+                                color="#ff0000"
+                                style={{ fontSize: "32" }}
+                              />
+                              <p>Recruitment Expiration</p>
+                            </span>
+                          );
+                        }
+                        return <div key={channel}>{icon}</div>;
+                      })}
                   </div>
                 </div>
               </div>

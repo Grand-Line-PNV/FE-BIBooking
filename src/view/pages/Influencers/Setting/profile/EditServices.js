@@ -7,6 +7,7 @@ import { createService } from "../../../../../api/influencer";
 import ServiceRows from "./ServiceRows";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import showToast from "../../../../../components/toast/Toast";
 
 const cx = classNames.bind(styles);
 
@@ -44,8 +45,9 @@ const EditServices = () => {
         services: rowsData,
       };
       await createService(serviceData);
-      alert('Service created successfully')
+      showToast(false, "'Service created successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         console.log(error.data.errors);

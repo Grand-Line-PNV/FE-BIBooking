@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import showToast from "../../../../components/toast/Toast";
 
 // ----------------------------------------------------------------
-import {  verifyUser } from "../../../../api/feature";
+import { verifyUser } from "../../../../api/feature";
 import { useDispatch } from "react-redux";
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocus from "../../../../hooks/useInputFocus";
@@ -25,7 +26,7 @@ const Confirmation = () => {
       email: emailUser,
       otp: "",
       verify: 1,
-      error: ""
+      error: "",
     });
   const navigation = useNavigate();
   const dispatch = useDispatch();
@@ -34,13 +35,15 @@ const Confirmation = () => {
     resetErrors();
     try {
       event.preventDefault();
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await verifyUser(data);
       navigation(prePath === "register" ? "/login" : "/new-password");
+      showToast(false, "Successfully!");
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
       if (error.status === 401) {
-        setErrors({error: "Your OTP is wrong or has been expired!"});
+        showToast(true, "Error! An error occurred. Please try again later!");
+        setErrors({ error: "Your OTP is wrong or has been expired!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);
       }

@@ -20,6 +20,8 @@ import PreLoader from "../../../../components/preLoader/PreLoader";
 import { getDetailTaskInfluencer } from "../../../../api/influencer";
 import { updateStatusBooking } from "../../../../api/booking";
 import FeedbackScreen from "../../Feedback/FeedbackScreen";
+import showToast from "../../../../components/toast/Toast";
+import SubmitTask from "./SubmitTask";
 
 const cx = classNames.bind(styles);
 
@@ -47,21 +49,16 @@ const DetailsInfluencer = () => {
     getData();
   }, []);
 
-  const handleSubmitTask = () => {
-    const bookingId = data.id;
-    console.log(bookingId);
-    navigation(`/influencer/task/submit-task?bookingId=${bookingId}`);
-  };
-
   const handleCancelBooking = async (id) => {
     try {
       setIsLoading(true);
       const reject = await updateStatusBooking(id, {
         status: "cancel",
       });
-      console.log(reject);
       navigation("/influencer/task");
+      showToast(false, "Login Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
       }
@@ -255,15 +252,9 @@ const DetailsInfluencer = () => {
                     </p>
                     {visible && (
                       <>
-                        <Button
-                          className={`submitTask-button ${
-                            visible ? "visible" : ""
-                          }`}
-                          primary={true}
-                          onClick={handleSubmitTask}
-                        >
-                          <FontAwesomeIcon icon={faCheck} /> Submit Task
-                        </Button>
+                        <SubmitTask
+                          bookingId={data.id}
+                        />
                         <Button
                           className={`reject-button ${
                             visible ? "visible" : ""

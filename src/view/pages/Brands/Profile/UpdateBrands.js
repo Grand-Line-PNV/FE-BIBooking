@@ -17,6 +17,7 @@ import Select from "react-select";
 import { convertObjectToFormData } from "../../../../utils/convertDataUtils";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import { useNavigate, useParams } from "react-router-dom";
+import showToast from "../../../../components/toast/Toast";
 
 const cx = classNames.bind(styles);
 
@@ -98,8 +99,10 @@ export default function UpdateBrands() {
       dispatch(brandAction.updateOne(response));
       getData();
       navigation("/brand/profile");
+      showToast(false, "Successfully!");
     } catch (error) {
       setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);

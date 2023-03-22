@@ -5,8 +5,7 @@ import classNames from "classnames/bind";
 import Input from "../../../components/Input";
 import useFormData from "../../../hooks/useFormData";
 import { createFeedback } from "../../../api/feature";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
+import showToast from "../../../components/toast/Toast";
 import { useNavigate } from "react-router-dom";
 import PreLoader from "../../../components/preLoader/PreLoader";
 
@@ -29,10 +28,11 @@ const FeedbackScreen = (prop) => {
     try {
       event.preventDefault();
       setIsLoading(true);
-      await createFeedback(accountId, {...data});
-      Swal.fire("Feedback Successfully!", "You clicked the button!", "success");
+      await createFeedback(accountId, { ...data });
+      showToast(false, "Feedback Successfully!");
       setShow(false);
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {

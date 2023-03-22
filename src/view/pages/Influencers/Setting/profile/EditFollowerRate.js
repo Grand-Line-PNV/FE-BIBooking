@@ -6,6 +6,7 @@ import Button from "../../../../../components/Button/Button";
 import { createAudienceData } from "../../../../../api/influencer";
 import useFormData from "../../../../../hooks/useFormData";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
+import showToast from "../../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 
 const EditFollowrRate = () => {
@@ -32,9 +33,9 @@ const EditFollowrRate = () => {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
       await createAudienceData(formData);
-
-      alert("Successfully created");
+      showToast(false, "Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.message);
@@ -55,6 +56,7 @@ const EditFollowrRate = () => {
               </h4>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="Male"
@@ -66,6 +68,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="Female"
@@ -77,6 +80,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="Others"
@@ -95,6 +99,7 @@ const EditFollowrRate = () => {
               </h4>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="City 1"
@@ -106,6 +111,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="City 2"
@@ -117,6 +123,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="City 3"
@@ -128,6 +135,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="Other"
@@ -146,6 +154,7 @@ const EditFollowrRate = () => {
               </h4>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="Less than 18 years old"
@@ -157,6 +166,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="18 - 34 years old"
@@ -168,6 +178,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="35 - 44 years old"
@@ -179,6 +190,7 @@ const EditFollowrRate = () => {
               </div>
               <div>
                 <Input
+                  className={cx("form-input")}
                   small={true}
                   primary={true}
                   title="Other"

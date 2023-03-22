@@ -9,6 +9,7 @@ import {
 } from "../../../../../api/influencer";
 import useFormData from "../../../../../hooks/useFormData";
 import { convertObjectToFormData } from "../../../../../utils/convertDataUtils";
+import showToast from "../../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 
 const UpdateAudience = () => {
@@ -27,7 +28,8 @@ const UpdateAudience = () => {
     city4: 0,
   };
 
-  const { data, setData, handleChange, errors, setErrors, resetErrors } = useFormData(initialData);
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData(initialData);
 
   const handleSubmit = async (event) => {
     resetErrors();
@@ -35,8 +37,9 @@ const UpdateAudience = () => {
       event.preventDefault();
       const formData = convertObjectToFormData(data);
       await updateAudienceData(formData);
-      alert("Successfully updated");
+      showToast(false, "Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.message);
