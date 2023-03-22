@@ -82,6 +82,8 @@ import Echo from "laravel-echo";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import "./Notify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 window.Pusher = require("pusher-js");
 const echo = new Echo({
@@ -186,6 +188,12 @@ function Notication(props) {
   return (
     <>
       <section className="logo">
+      <FontAwesomeIcon
+            id="modal-closed"
+            icon={faBell}
+            color="#f16736"
+            onClick={toggleShow}
+          />
         <span
           onClick={toggleShow}
           ref={refCount}
@@ -198,6 +206,7 @@ function Notication(props) {
           }}
           className="count"
         >
+          
           0
         </span>
         <div
@@ -205,7 +214,7 @@ function Notication(props) {
           className="notification-list"
         >
           <div className="itemNotication">
-            <h1 style={{ borderBottom: "1px solid red", padding: "20px" }}>
+            <h1 style={{ borderBottom: "3px solid #f16736", padding: "20px" }}>
               B&I Booking
             </h1>
             <section className="content-notication-show">{listNotice}</section>

@@ -352,6 +352,7 @@ export default function CreateBrands() {
             </label>
             <Select
               name="province_code"
+              id="province_code"
               key={`province_code_${selectedProvince?.value}`}
               isDisabled={provinceOptions.length === 0}
               options={provinceOptions}
@@ -363,6 +364,7 @@ export default function CreateBrands() {
             />
             <Select
               name="district_code"
+              id="district_code"
               key={`district_code_${selectedDistrict?.value}`}
               isDisabled={districtOptions.length === 0}
               options={districtOptions}
@@ -374,6 +376,7 @@ export default function CreateBrands() {
             />
             <Select
               name="ward_code"
+              id="ward_code"
               key={`ward_code_${selectedWard?.value}`}
               isDisabled={wardOptions.length === 0}
               options={wardOptions}
@@ -387,6 +390,7 @@ export default function CreateBrands() {
               type="text"
               placeholder="Address"
               name="address_line1"
+              id="address_line1"
               disabled={!(selectedProvince && selectedDistrict && selectedWard)}
               value={data.address_line1}
               onChange={handleChange}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "./ShowCampaignStyles.module.scss";
+import styles from "../../../assets/SCSS/ShowStyles.module.scss";
 import Button from "../../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faPlusCircle } from "@fortawesome/free-solid-svg-icons";

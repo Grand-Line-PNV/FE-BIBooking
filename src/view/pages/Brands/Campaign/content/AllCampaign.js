@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "./CampaignStyles.module.scss";
+import styles from "../../../../../assets/SCSS/ShowStyles.module.scss";
 import Button from "../../../../../components/Button/Button";
 import useFormData from "../../../../../hooks/useFormData";
 import {
@@ -44,9 +44,9 @@ const AllCampaignBrand = () => {
           setIsLoading={setIsLoading}
         />
 
-        <div className={cx("btn-see-more")}>
+        {/* <div className={cx("btn-see-more")}>
           <Button outline={true}>Xem Thêm</Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -270,7 +270,6 @@ export default function Header() {
               >
                 <FontAwesomeIcon
                   id="modal-closed"
-                  icon={faBell}
                   color="#f16736"
                   style={{position: "absolute"}}
                 />
@@ -306,7 +305,6 @@ export default function Header() {
               >
                 <FontAwesomeIcon
                   id="modal-closed"
-                  icon={faBell}
                   color="#f16736"
                   style={{position: "relative"}}
                 />

@@ -11,7 +11,6 @@ import PaidInfluencer from "../../view/pages/Influencers/task/Paid";
 const cx = classNames.bind(styles);
 
 const TasksLayout = () => {
-  const [open, setOpen] = useState(false);
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {

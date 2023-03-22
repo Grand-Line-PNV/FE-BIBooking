@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import styles from "./ShowCampaignStyles.module.scss";
+import styles from "../../../assets/SCSS/ShowStyles.module.scss";
 import Button from "../../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

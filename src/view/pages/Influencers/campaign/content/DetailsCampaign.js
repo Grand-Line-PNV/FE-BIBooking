@@ -1,8 +1,8 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
 import Button from "../../../../../components/Button/Button";
 import styles from "./DetailCampaignStyles.module.scss";
+import classNames from "classnames/bind";
 import { getDetailsCampaignBrand } from "../../../../../api/brand";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
