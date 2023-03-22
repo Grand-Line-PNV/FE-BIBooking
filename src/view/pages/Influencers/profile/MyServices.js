@@ -4,33 +4,27 @@ const cx = classNames.bind(styles);
 
 const MyServices = (service) => {
   return (
-    <section className={cx("inner", "myServices")}>
-      <div className={cx("container")}>
-        <div className={cx("myServices-container")}>
-          <div className={cx("content")}>
-            <h2 className={cx("heading")}>My Services</h2>
-            <div className={cx("services")}>
-              {Object.values(service).map((datas) =>
-                datas.map((data, index) => (
-                  <div key={index}>
-                    <div className={cx("service")}>
-                      <div className={cx("service-point")}></div>
-                      <div>
-                        <h4>{data.name}</h4>
-                        <span>
-                          {data.description}
-                        </span>
-                      </div>
-                    </div>
-                    
-                  </div>
-                ))
-              )}
-            </div>
+    <div>
+      <section className={cx("boost")}>
+        <div className={cx("container")}>
+          <div className={cx("boost-header")}>
+            <h2 className={cx("boost-heading", "same-heading")}>My Services</h2>
+          </div>
+          <div className={cx("boost-list")}>
+            {Object.values(service).map((datas) =>
+              datas.map((data, index) => (
+                <div className={cx("boost-item")}>
+                  <h3 className={cx("boost-title")}>{data.name}</h3>
+                  <p className={cx("text", "text-medium")}>
+                    {data.description}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 export default MyServices;
