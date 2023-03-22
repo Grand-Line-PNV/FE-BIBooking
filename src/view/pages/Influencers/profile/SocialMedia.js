@@ -1,17 +1,18 @@
 import classNames from "classnames/bind";
 import styles from "./ProfileStyles.module.scss";
 import Button from "../../../../components/Button/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
 const SocialMedia = (social) => {
-
   return (
     <section className={cx("inner", "socialMedia")}>
       <div className={cx("container")}>
         <div className={cx("socialMedia-container")}>
           <div className={cx("content")}>
-            <h2 className={cx("heading")}>Social Media</h2>
+            <h2 className={cx("heading", "same-heading")}>Social Media</h2>
             {social &&
               Object.values(social).map((datas, index) =>
                 datas.map((data, index) => (
@@ -32,17 +33,27 @@ const SocialMedia = (social) => {
                         alt={data.name}
                       />
                     </div>
-                    <div className={cx("user")}>
-                      <h5>{data.username}</h5>
-                      <h5>{data.fullname}</h5>
+                    <div className={cx("")}>
+                      <h5 className={cx("text", "text-medium")}>
+                        {data.username}
+                      </h5>
+                      <h5 className={cx("text", "text-medium")}>
+                        {data.fullname}
+                      </h5>
                     </div>
                     <div className={cx("interaction")}>
-                      <h5>{data.avg_interactions}</h5>
-                      <h5>Average interaction</h5>
+                      <h5 className={cx("text", "text-medium")}>
+                        {data.avg_interactions}
+                      </h5>
+                      <h5 className={cx("heading-small")}>
+                        Average interaction
+                      </h5>
                     </div>
                     <div className={cx("subcribles")}>
-                      <h5>{data.subcribers}</h5>
-                      <h5>Subcribers</h5>
+                      <h5 className={cx("text", "text-medium")}>
+                        {data.subcribers}
+                      </h5>
+                      <h5 className={cx("heading-small")}>Subcribers</h5>
                     </div>
                     <Button
                       style={{
@@ -51,7 +62,7 @@ const SocialMedia = (social) => {
                       }}
                       to={data.link}
                     >
-                      Visit now
+                      <FontAwesomeIcon icon={faLink} />
                     </Button>
                   </div>
                 ))

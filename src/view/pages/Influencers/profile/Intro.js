@@ -18,8 +18,8 @@ const Intro = (prop) => {
                 Hello I'am {prop.username}
               </h2>
               <div className={cx("intro-desc")}>
-                <h4>I am a {prop.info.job}</h4>
-                <p>{prop.info.description}</p>
+                <h4 className={cx("same-heading")}>I am a {prop.info.job}</h4>
+                <p className={cx("text", "text-medium")}>{prop.info.description}</p>
                 {roleId == 1 ? (
                   <Button
                     primary={true}
@@ -41,18 +41,20 @@ const Intro = (prop) => {
             </div>
 
             <div className={cx("intro-image")}>
-              {Object.values(prop.file).map((i) => {
-                if (i.path === "avatars") {
-                  return (
-                    <img
-                      className={cx("image-avatar")}
-                      src={i.url}
-                      alt="HE9kxVe.png"
-                      border="0"
-                    />
-                  );
-                }
-              })}
+              <div className={cx("image-avatars")}>
+                {Object.values(prop.file).map((i) => {
+                  if (i.path === "avatars") {
+                    return (
+                      <img
+                        className={cx("image-avatar")}
+                        src={i.url}
+                        alt="HE9kxVe.png"
+                        border="0"
+                      />
+                    );
+                  }
+                })}
+              </div>
               <img
                 className={cx("image-background")}
                 src="https://iili.io/HEJFxol.png"

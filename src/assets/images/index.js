@@ -21,6 +21,9 @@ import SolutionImg from "./Solution-img.png";
 import NewsImg1 from "./img-news1.png";
 import NewsImg2 from "./img-news2.png";
 import NewsImg3 from "./img-news3.png";
+import ChartImg from "./Influencers/chart.png";
+import ChartImg1 from "./Influencers/chart1.png";
+import ChartImg2 from "./Influencers/chart2.png";
 
 export {
   NewsImg1,
@@ -46,4 +49,7 @@ export {
   NotifyImg,
   PlannerImg,
   ShoppingBagImg,
+  ChartImg,
+  ChartImg1,
+  ChartImg2,
 };
