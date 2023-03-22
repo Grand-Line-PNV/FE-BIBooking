@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import Button from "../../../components/Button/Button";
-import styles from "./BookingStyles.module.scss";
+import styles from "../../../assets/SCSS/ShowStyles.module.scss";
 import useFormData from "../../../hooks/useFormData";
 import { getAllInfluencer } from "../../../api/brand";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -174,6 +174,8 @@ const AllInfluencer = () => {
                                   className={cx("card-image")}
                                   src={i.url}
                                   alt={i.name}
+                                  width="100%"
+                                  height="100%"
                                 />
                               );
                             }
@@ -206,6 +208,7 @@ const AllInfluencer = () => {
                             </li>
                           </ul>
                           <div className={cx("card-campaign-wrapper")}>
+                            <p></p>
                             <Button
                               to={`/influencer/profile/${item.credential.account_id}`}
                               primary={true}
@@ -231,9 +234,9 @@ const AllInfluencer = () => {
           </>
         )}
 
-        <div className={cx("btn-see-more")}>
+        {/* <div className={cx("btn-see-more")}>
           <Button outline={true}>Xem Thêm</Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

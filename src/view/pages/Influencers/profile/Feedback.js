@@ -47,7 +47,7 @@ const Feedback = () => {
                         </div>
                         {item.feedbacks.map((feedback, idx) => (
                           <p key={idx} className={cx("feedBack-content")}>
-                            {feedback.content}
+                            {feedback.content.replace(/(.{50})..+/, "$1....")}
                           </p>
                         ))}
                       </div>

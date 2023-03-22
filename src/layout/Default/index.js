@@ -13,7 +13,6 @@ export default function Default({ children }) {
     <>
       <div className={cx("wrapper")}>
         <Header />
-        {/* <Hero /> */}
         <MoveToTop />
         <main>
           <div>{children}</div>

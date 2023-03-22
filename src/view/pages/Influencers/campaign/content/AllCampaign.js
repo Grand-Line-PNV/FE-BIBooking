@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "./CampaignStyles.module.scss";
+import styles from "../../../../../assets/SCSS/ShowStyles.module.scss";
 import Button from "../../../../../components/Button/Button";
 import ShowCampaignInfluencer from "../../../../../components/influencer/campaign/ShowCampaign";
 import useFormData from "../../../../../hooks/useFormData";
 import { getCampaignInfluencer } from "../../../../../api/influencer";
-import "./AllCampaign.css";
 import { useLocation } from "react-router-dom";
 
 const cx = classNames.bind(styles);
@@ -33,9 +32,9 @@ const AllCampaignInfluencer = () => {
         <ShowCampaignInfluencer
         />
 
-        <div className={cx("btn-see-more")}>
+        {/* <div className={cx("btn-see-more")}>
           <Button outline={true}>Xem Thêm</Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

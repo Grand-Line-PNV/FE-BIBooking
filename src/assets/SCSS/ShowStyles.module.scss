@@ -5,39 +5,37 @@
   --space-cadet: hsl(240, 22%, 25%);
   --carolina-blue: hsl(204, 91%, 53%);
   /**
-       * colors
-       */
+           * colors
+           */
 
   --gradient: linear-gradient(to top, var(--alice-blue-2), var(--alice-blue-3));
 
   --fs-4: 1.375rem;
   /**
-       * typography
-       */
-
+           * typography
+           */
 
   /**
-       * transition
-       */
+           * transition
+           */
 
   --transition: 0.5s ease;
 
   /**
-       * spacing
-       */
+           * spacing
+           */
 
   --section-padding: 50px;
 
   /**
-       * radius
-       */
-
+           * radius
+           */
 
   --radius-18: 18px;
 
   /**
-       * shadow
-       */
+           * shadow
+           */
 
   --shadow-1: 3px 3px 9px hsla(240, 14%, 69%, 0.2);
 }
@@ -61,17 +59,32 @@
 }
 
 /*-----------------------------------*\
-    #FEATURED CAR
-  \*-----------------------------------*/
+        #FEATURED CAR
+      \*-----------------------------------*/
+
+.section {
+  padding-top: 100px;
+  height: 90vh;
+}
+
+.container {
+  // position: relative;
+}
 
 .filter {
-  padding-top: 50px;
   display: flex;
   gap: 30px;
   align-items: center;
 }
 
-.filter__item {
+.filter__item,
+.gender,
+.career,
+.searching-cast {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 .filter__input {
@@ -81,13 +94,23 @@
   border-radius: 3px;
   height: 44px;
   padding: 0 15px;
+  position: relative;
+}
+
+.searching-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  position: absolute;
+  padding-right: 10px;
 }
 
 .featured-car-list {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 30px;
-  padding-top: 50px;
+  // height: 90vh;
 }
 
 .featured-car-link {
@@ -120,14 +143,37 @@
   border-radius: var(--radius-18);
   padding: 10px;
   box-shadow: var(--shadow-1);
-  margin-top: 80px;
+  margin-top: 20px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.featured-car-card:hover {
+  transform: scale(1.02);
 }
 
 .featured-car-card .card-banner {
   background: hsla(0, 0%, 0%, 0.2);
-  aspect-ratio: 3 / 2;
   border-radius: var(--radius-18);
+  aspect-ratio: 3 / 2;
   overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+}
+
+.slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
 }
 
 .card-banner img {
@@ -160,8 +206,8 @@
 }
 
 .featured-car-card .card-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
@@ -181,8 +227,11 @@
 }
 
 .featured-car-card .card-item-text {
+  font-size: 20px;
   color: var(--independence);
 }
+
+// new
 
 .featured-car-card .card-campaign-wrapper {
   display: flex;
@@ -222,6 +271,8 @@
 .list-icons li:nth-child(4) a span {
   color: black;
 }
+
+// new
 
 .featured-car-card .card-campaign {
   font-size: var(--fs-4);
@@ -269,6 +320,12 @@
   color: var(--white);
 }
 
+.btn-see-more {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
 @media (min-width: 1200px) {
   .featured-car-list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -276,16 +333,6 @@
 }
 
 @media (min-width: 350px) {
-  /**
-       * FEATURED CAR
-       */
-
-  .featured-car-card .card-list {
-    // grid-template-columns: 1fr 1fr;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
   .featured-car-card .card-campaign {
     margin-right: auto;
   }
@@ -296,7 +343,21 @@
   }
 }
 
+@media (min-width: 1200px) {
+  .container {
+    width: 100%;
+    max-width: 1585px;
+  }
+}
+
 @media (max-width: 1024px) {
+  .featured-car {
+    padding-top: 100px;
+  }
+  .container {
+    width: 90%;
+    margin: 0 auto;
+  }
   .create-campaign {
     left: 0;
     justify-content: start;
@@ -309,6 +370,12 @@
   .filter {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    width: 90%;
   }
 }
 
