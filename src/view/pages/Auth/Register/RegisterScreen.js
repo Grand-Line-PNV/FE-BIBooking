@@ -18,7 +18,7 @@ import useFormData from "../../../../hooks/useFormData";
 import useInputFocusRegister from "../../../../hooks/useInputFocusRegister";
 import { useState } from "react";
 import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
-import Swal from 'sweetalert';
+import showToast from "../../../../components/toast/Toast";
 
 // ------------------------------------------------------------------
 const cx = classNames.bind(styles);
@@ -52,7 +52,7 @@ const RegisterScreen = () => {
       password_confirmation: "",
       role_id: "1",
     });
-    const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigate();
   const handleToggleRight = (e) => {
@@ -61,7 +61,7 @@ const RegisterScreen = () => {
       email: "",
       password: "",
       password_confirmation: "",
-      role_id: e.target.value
+      role_id: e.target.value,
     });
     setErrors("");
   };
@@ -71,13 +71,13 @@ const RegisterScreen = () => {
       email: "",
       password: "",
       password_confirmation: "",
-      role_id: e.target.value
+      role_id: e.target.value,
     });
     setErrors("");
   };
   const handleSubmit = async (event) => {
     resetErrors();
-    setIsLoading(true)
+    setIsLoading(true);
     sessionStorage.setItem("path", "register");
     try {
       event.preventDefault();
@@ -85,7 +85,8 @@ const RegisterScreen = () => {
       sessionStorage.setItem("email", data.email);
       navigation("/verification");
     } catch (error) {
-      setIsLoading(false)
+      showToast(true, "Error! An error occurred. Please try again later!");
+      setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);

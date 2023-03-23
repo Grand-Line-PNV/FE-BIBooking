@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import PreLoader from "../../../../../components/preLoader/PreLoader";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+import showToast from "../../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 
 const EditProfile = () => {
@@ -83,7 +84,7 @@ const EditProfile = () => {
       });
 
       await createInfluencerProfile(formData);
-      Swal.fire("Successfully!", "You clicked the button!", "success");
+      showToast(false, "Successfully!");
       navigation("/influencer/setting/create-profile/social-media");
       setData({
         nickname: "",
@@ -101,6 +102,7 @@ const EditProfile = () => {
         address_line4: "",
       });
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
@@ -257,7 +259,6 @@ const EditProfile = () => {
               </div>
             )}
           </div>
-
           <div className={cx("form-control-right")}>
             {errors.phone_number && (
               <div
@@ -278,7 +279,6 @@ const EditProfile = () => {
               onChange={handleChange}
               star
             />
-
             {errors.gender && (
               <div
                 className={cx("text", "text-medium")}
@@ -336,7 +336,6 @@ const EditProfile = () => {
                 </div>
               </div>
             </div>
-
             <div className={cx("form-group")}>
               <label className={cx("form-label", "heading-small")}>
                 Provinces <strong className={cx("required")}>*</strong>
@@ -349,6 +348,7 @@ const EditProfile = () => {
                 onChange={(option) => onProvinceSelect(option)}
                 placeholder="Tỉnh/Thành"
                 defaultValue={selectedProvince}
+                className={cx("form-select")}
                 required
               />
               <Select
@@ -359,6 +359,7 @@ const EditProfile = () => {
                 onChange={(option) => onDistrictSelect(option)}
                 placeholder="Quận/Huyện"
                 defaultValue={selectedDistrict}
+                className={cx("form-select")}
                 required
               />
               <Select
@@ -369,11 +370,12 @@ const EditProfile = () => {
                 placeholder="Phường/Xã"
                 onChange={(option) => onWardSelect(option)}
                 defaultValue={selectedWard}
+                className={cx("form-select")}
                 required
               />
               <Input
                 type="text"
-                placeholder="Enter industry"
+                placeholder="Address"
                 name="address_line1"
                 disabled={
                   !(selectedProvince && selectedDistrict && selectedWard)
@@ -396,14 +398,11 @@ const EditProfile = () => {
         </div>
         <div lassName={cx("form-below")}>
           <Input
-            type="text"
+            rows="5"
             title="Title"
-            large={true}
-            primary={true}
-            value={data.title_for_job}
             name="title_for_job"
+            value={data.title_for_job}
             onChange={handleChange}
-            placeholder="Enter title"
           />
           {errors.title_for_job && (
             <div

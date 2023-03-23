@@ -16,8 +16,7 @@ import {
   navLinkBrandInf,
   navLinkInfluencerInf,
 } from "./navLink";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
+import showToast from "./toast/Toast";
 
 const cx = classNames.bind(styles);
 
@@ -74,7 +73,7 @@ export default function Header() {
     setUserRole("");
     setUserName("");
     navigation("/");
-    Swal.fire("Log out Successfully!", "You clicked the button!", "success");
+    showToast(false, "Log out Successfully!");
   };
   // nav-bar
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -271,7 +270,7 @@ export default function Header() {
                 <FontAwesomeIcon
                   id="modal-closed"
                   color="#f16736"
-                  style={{position: "absolute"}}
+                  style={{ position: "absolute" }}
                 />
                 <Notify onClose={handleClose} />
               </a>
@@ -306,9 +305,9 @@ export default function Header() {
                 <FontAwesomeIcon
                   id="modal-closed"
                   color="#f16736"
-                  style={{position: "relative"}}
+                  style={{ position: "relative" }}
                 />
-                 <Notify onClose={handleClose} />
+                <Notify onClose={handleClose} />
               </a>
               {navLinkInfluencerInf.map((item, i) => (
                 <li

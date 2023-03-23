@@ -16,8 +16,7 @@ import {
 import useFormData from "../../../../hooks/useFormData";
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
 import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
+import showToast from "../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 
 const LoginScreen = () => {
@@ -55,15 +54,11 @@ const LoginScreen = () => {
       localStorage.setItem("account_id", response.data.data.account.id);
       setIsLoading(false);
       navigation("/");
-      Swal.fire("Login Successfully!", "You clicked the button!", "success");
+      showToast(false, "Login Successfully!");
     } catch (error) {
       setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Username or password incorrect !",
-        });
         setErrors({ login: "Email or password wrong!" });
       } else if (error.status === 422) {
         setErrors(error.data.errors);

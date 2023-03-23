@@ -19,7 +19,7 @@ import {
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import { getDetailTaskBrand } from "../../../../api/brand";
 import { updateStatusBooking } from "../../../../api/booking";
-import Feedback from "../../Influencers/profile/Feedback";
+import showToast from "../../../../components/toast/Toast";
 import FeedbackScreen from "../../Feedback/FeedbackScreen";
 
 const cx = classNames.bind(styles);
@@ -47,6 +47,7 @@ const DetailsBrand = () => {
   const handlePayment = () => {
     const bookingId = data.id;
     navigation(`/brand/booking/payment?bookingId=${bookingId}`);
+    showToast(false, "Successfully!");
   };
 
   useEffect(() => {
@@ -60,7 +61,25 @@ const DetailsBrand = () => {
         status: "reject",
       });
       navigation("/brand/booking-history");
+      showToast(false, "Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+      }
+    }
+  };
+
+  const handleCancelBooking = async (id) => {
+    try {
+      setIsLoading(true);
+      const reject = await updateStatusBooking(id, {
+        status: "cancel",
+      });
+      navigation("/influencer/task");
+      showToast(false, "Login Successfully!");
+    } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
       }
@@ -246,17 +265,26 @@ const DetailsBrand = () => {
                 );
               } else if (status_booking === "in_progress") {
                 status = (
-                  <p
-                    className={cx("in_progress")}
-                    style={{
-                      color: "#ad9ccc",
-                      background: "#52397a",
-                      padding: "10px 20px",
-                      borderRadius: "99px",
-                    }}
-                  >
-                    in_progress
-                  </p>
+                  <>
+                    <p
+                      className={cx("in_progress")}
+                      style={{
+                        color: "#ad9ccc",
+                        background: "#52397a",
+                        padding: "10px 20px",
+                        borderRadius: "99px",
+                      }}
+                    >
+                      in_progress
+                    </p>
+                    <Button
+                      className={`reject-button ${visible ? "visible" : ""}`}
+                      outline={true}
+                      onClick={() => handleCancelBooking(data.id)}
+                    >
+                      <FontAwesomeIcon icon={faCancel} /> Cancer
+                    </Button>
+                  </>
                 );
               } else if (status_booking === "paid") {
                 status = (

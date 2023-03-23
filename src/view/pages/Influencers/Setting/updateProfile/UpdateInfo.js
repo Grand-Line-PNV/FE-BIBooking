@@ -17,9 +17,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faFileImage } from "@fortawesome/free-regular-svg-icons";
 import PreLoader from "../../../../../components/preLoader/PreLoader";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
 import { useNavigate } from "react-router-dom";
+import showToast from "../../../../../components/toast/Toast";
 
 const cx = classNames.bind(styles);
 
@@ -115,9 +114,10 @@ const UpdateInfo = () => {
       setIsLoading(true);
       const formData = convertObjectToFormData(data);
       await updateInfo(accountId, formData);
-      Swal.fire("Successfully!", "You clicked the button!", "success");
+      showToast(false, "Successfully!");
       navigation("/influencer/setting/update-profile/social-media");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {

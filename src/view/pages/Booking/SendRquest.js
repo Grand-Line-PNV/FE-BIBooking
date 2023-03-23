@@ -17,8 +17,7 @@ import {
 import useFormData from "../../../hooks/useFormData";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
+import showToast from "../../../components/toast/Toast";
 import PreLoader from "../../../components/preLoader/PreLoader";
 
 const cx = classNames.bind(styles);
@@ -61,8 +60,10 @@ const SendRequest = () => {
       await createBookingCampaignInfluencer(data);
       setIsLoading(false);
       navigation(`/brand/booking/payment?bookingId=${bookingId}`);
+      showToast(false, "Successfully!");
     } catch (error) {
       setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);

@@ -10,9 +10,8 @@ import useFormData from "../../../../hooks/useFormData";
 import { useNavigate } from "react-router-dom";
 import useInputFocus from "../../../../hooks/useInputFocus";
 import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
-import Swal from 'sweetalert';
+import showToast from "../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
-
 
 const ForgotPassword = () => {
   const { inputRef, isFocused } = useInputFocus();
@@ -28,12 +27,14 @@ const ForgotPassword = () => {
     resetErrors();
     try {
       event.preventDefault();
-      setIsLoading(true)
+      setIsLoading(true);
       const res = await sendEmailChangePassword(data);
       sessionStorage.setItem("email", data.email);
       navigation("/verification");
+      showToast(false, "Successfully!");
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
         setErrors(error.data.errors);
       } else if (error.status === 422) {

@@ -34,6 +34,10 @@ export function deleteCampaignBrand(id) {
   return http.delete("brand/delete-campaign/" + id);
 }
 
+export function closeCampaignBrand(id) {
+  return http.post("change-campaign-status/" + id);
+}
+
 // task
 export function getTaskBrand(id) {
   return http.get("brand/booking-history/" + id);
