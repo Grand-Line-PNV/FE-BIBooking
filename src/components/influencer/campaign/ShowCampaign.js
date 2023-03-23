@@ -58,7 +58,7 @@ const ShowCampaignInfluencer = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((activeIndex) => (activeIndex + 1) % 3);
-    }, 5000);
+    }, 100);
     return () => clearInterval(interval);
   }, []);
 
@@ -160,23 +160,19 @@ const ShowCampaignInfluencer = () => {
                     <Link to={`/influencer/campaign/${item.id}`}>
                       <div className={cx("featured-car-card")}>
                         <figure className={cx("card-banner", "slider")}>
-                          {item.files.map((file, index) => (
-                            <div
-                              className={
-                                index === activeIndex
-                                  ? cx("slide", "active")
-                                  : "slide"
-                              }
-                              key={file.id}
-                            >
-                              <img
-                                src={file.url}
-                                loading="lazy"
-                                width={440}
-                                height={300}
-                              />
-                            </div>
-                          ))}
+                          {item.files.map((file, i) => {
+                            if (file.path === "campaigns" && i === 0) {
+                              return (
+                                <div key={file.id}>
+                                  <img
+                                    src={file.url}
+                                    loading="lazy"
+                                    alt="campaigns"
+                                  />
+                                </div>
+                              );
+                            }
+                          })}
                         </figure>
                         <div className={cx("card-content")}>
                           <div className={cx("card-title-wrapper")}>

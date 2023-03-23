@@ -167,7 +167,7 @@ function Notication(props) {
           <section className="content-notication-empty">
             <p className="time"></p>
             <p style={{ marginBottom: 0 }} className="heading-small">
-              Không có thông báo mới
+              No notification
             </p>
           </section>
         </li>
@@ -188,12 +188,12 @@ function Notication(props) {
   return (
     <>
       <section className="logo">
-      <FontAwesomeIcon
-            id="modal-closed"
-            icon={faBell}
-            color="#f16736"
-            onClick={toggleShow}
-          />
+        <FontAwesomeIcon
+          id="modal-closed"
+          icon={faBell}
+          color="#f16736"
+          onClick={toggleShow}
+        />
         <span
           onClick={toggleShow}
           ref={refCount}
@@ -206,7 +206,6 @@ function Notication(props) {
           }}
           className="count"
         >
-          
           0
         </span>
         <div

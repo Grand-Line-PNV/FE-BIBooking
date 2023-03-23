@@ -1,10 +1,10 @@
 import Swal from "sweetalert2";
+import "./Toast.css";
+
 function showToast(hasError, msg) {
-  //   const hasError = true;
-  //   const msg = "An error occurred";
   Swal.mixin({
     toast: true,
-    position: "top-end",
+    position: "top-start",
     showConfirmButton: false,
     timer: 5000,
     timerProgressBar: true,

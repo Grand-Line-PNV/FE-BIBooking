@@ -165,23 +165,6 @@ span.stock {
   overflow: hidden;
 }
 
-.slider {
-  display: flex;
-  align-items: center;
-}
-
-.slide {
-  flex-shrink: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.slide.active {
-  opacity: 1;
-}
-
 .card-banner img {
   width: 100%;
   height: 100%;

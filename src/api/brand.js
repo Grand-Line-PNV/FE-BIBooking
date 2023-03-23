@@ -35,7 +35,7 @@ export function deleteCampaignBrand(id) {
 }
 
 export function closeCampaignBrand(id) {
-  return http.post("change-campaign-status/" + id);
+  return http.post("brand/change-campaign-status/" + id);
 }
 
 // task

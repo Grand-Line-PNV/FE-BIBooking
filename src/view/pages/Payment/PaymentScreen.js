@@ -52,15 +52,17 @@ const PaymentFormScreen = () => {
       setIsLoading(true);
       // Gọi API để tạo request đến VNPay
       const response = await createPaymentVnpay(data);
-      // const result = await getPaymentVnpay(id_payment)
-      navigation("/")
-        // .then(function (response) {
-        //   console.log(response);
-        //   //   window.location.replace(response.data.data);
-        // })
-        // .catch(function (error) {
-        //   console.log(error);
-        // });
+      console.log(response);
+      const id_payment = response.data.data.id;
+      console.log(id_payment);
+      const result = await getPaymentVnpay(id_payment)
+        .then(function (response) {
+          console.log(response);
+          //   window.location.replace(response.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       showToast(false, "Payment Successfully!");
     } catch (error) {
       showToast(true, "Error! An error occurred. Please try again later!");

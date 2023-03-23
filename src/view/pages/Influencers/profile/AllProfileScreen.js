@@ -50,7 +50,6 @@ const AllProfileScreen = () => {
 
   return (
     <div>
-      {isLoading ? <PreLoader /> : <></>}
       {info ? (
         <>
           <Intro info={info} file={file} username={username} />
@@ -62,28 +61,49 @@ const AllProfileScreen = () => {
           <Feedback feedback={feedback} booking={booking} />
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            textAlign: "center",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            width: "100%",
-            height: "100vh"
-          }}
-        >
-          <span className={cx("heading-small")}>You need create profile</span>
-          <Button
-            primary={true}
-            large={true}
-            className={cx("intro-button")}
-            to="/influencer/setting/create-profile"
-          >
-            Create Profile
-          </Button>
-        </div>
+        <>
+          {isLoading ? (
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                textAlign: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                width: "100%",
+                height: "100vh",
+              }}
+            >
+              <PreLoader />
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                textAlign: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                width: "100%",
+                height: "100vh",
+              }}
+            >
+              <span className={cx("heading-small")}>
+                You need create profile
+              </span>
+              <Button
+                primary={true}
+                large={true}
+                className={cx("intro-button")}
+                to="/influencer/setting/create-profile"
+              >
+                Create Profile
+              </Button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

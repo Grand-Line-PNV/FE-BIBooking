@@ -63,9 +63,7 @@ const Intro = (prop) => {
               />
             </div>
           </div>
-          <div
-            className={cx("product-img")}
-          >
+          <div className={cx("product-img")}>
             {Object.values(prop.file).map((i) => {
               if (i.path === "influencers") {
                 return (

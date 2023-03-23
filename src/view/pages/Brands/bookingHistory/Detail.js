@@ -85,12 +85,7 @@ const DetailsBrand = () => {
       }
     }
   };
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((activeIndex) => (activeIndex + 1) % 3);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+
   return (
     <div className={cx("card")}>
       {isLoading ? <PreLoader /> : <></>}
@@ -105,16 +100,15 @@ const DetailsBrand = () => {
         <div className={cx("half")}>
           <div className={cx("image", "slider")}>
             {data.campaign &&
-              data.campaign.files.map((file, index) => (
-                <div
-                  className={
-                    index === activeIndex ? cx("slide", "active") : "slide"
-                  }
-                  key={file.id}
-                >
-                  <img src={file.url} loading="lazy" width={440} height={300} />
-                </div>
-              ))}
+              data.campaign.files.map((file, i) => {
+                if (file.path === "campaigns" && i === 0) {
+                  return (
+                    <div key={file.id}>
+                      <img src={file.url} loading="lazy" alt="campaigns" />
+                    </div>
+                  );
+                }
+              })}
           </div>
         </div>
         <div className={cx("half")}>

@@ -18,6 +18,9 @@ import { convertObjectToFormData } from "../../../../utils/convertDataUtils";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import { useNavigate, useParams } from "react-router-dom";
 import showToast from "../../../../components/toast/Toast";
+import { infoInfluencer } from "../../../../api/influencer";
+import { faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const cx = classNames.bind(styles);
 
@@ -26,13 +29,19 @@ export default function UpdateBrands() {
   const navigation = useNavigate();
   const account_id = localStorage.getItem("account_id");
   const dispatch = useDispatch();
-  const [imagePreview, setImagePreview] = useState(null);
+  const [file, setFile] = useState();
+  const [imgPreview, setImgPreview] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  // let locationData = {
-  //   userId: location.user_id,
-  // }
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const { data, setData, handleChange, errors, setErrors, resetErrors } =
+    useFormData();
+
   const { state, onProvinceSelect, onDistrictSelect, onWardSelect } =
-    useLocationForm(false);
+    useLocationForm(true, {
+      userId: account_id,
+      wardCode: data.ward_code,
+    });
   const {
     provinceOptions,
     districtOptions,
@@ -41,28 +50,27 @@ export default function UpdateBrands() {
     selectedDistrict,
     selectedWard,
   } = state;
-  const { data, setData, handleChange, errors, setErrors, resetErrors } =
-    useFormData({
-      account_id,
-      fullname: "",
-      nickname: "",
-      brand_name: "",
-      dob: "",
-      description: "",
-      phone_number: "",
-      gender: "",
-      website: "",
-      industry: "",
-      image: "",
-      address_line1: "",
-      address_line2: "",
-      address_line3: "",
-      address_line4: "",
-    });
+  useEffect(() => {
+    setData((prevData) => ({
+      ...prevData,
+      address_line1: state.selectedWard?.label || "",
+      address_line2: state.selectedWard?.label || "",
+      address_line3: state.selectedDistrict?.label || "",
+      address_line4: state.selectedProvince?.label || "",
+    }));
+  }, [state, setData]);
+
+
 
   const getData = async () => {
-    const result = await infoBrand(account_id);
-    console.log(result.data.data);
+    const result = await infoInfluencer(account_id);
+    setFile(
+      result.data.data.files.filter((file) => {
+        if (file.path == "brands") {
+          return file.url;
+        }
+      })
+    );
     setData(result.data.data.credential);
   };
 
@@ -70,32 +78,22 @@ export default function UpdateBrands() {
     getData();
   }, []);
 
-  useEffect(() => {
-    setData((prevData) => ({
-      ...prevData,
-      address_line2: state.selectedWard?.label || "",
-      address_line3: state.selectedDistrict?.label || "",
-      address_line4: state.selectedProvince?.label || "",
-    }));
-  }, [state, setData]);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const previewURL = URL.createObjectURL(file);
-    setImagePreview(previewURL);
-    setData({ ...data, image: file });
+  const handleChangeAvt = (e) => {
+    setImgPreview(URL.createObjectURL(e.target.files[0]));
+    setFile(e.target.files[0]);
   };
+
+  useEffect(() => {
+    setData({ ...data, image: file });
+  }, [file]);
 
   const handleUpdate = async (event) => {
     resetErrors();
     try {
       event.preventDefault();
       setIsLoading(true);
-      const formData = convertObjectToFormData({
-        ...data,
-        ...{ ward_code: selectedWard.value },
-      });
-      const response = await updateInfoBrand(id, formData);
+      const formData = convertObjectToFormData(data);
+      const response = await updateInfoBrand(account_id, formData);
       dispatch(brandAction.updateOne(response));
       getData();
       navigation("/brand/profile");
@@ -182,7 +180,7 @@ export default function UpdateBrands() {
               id={cx("nickname")}
               title="Nick Name"
               name="nickname"
-              value={ data.nickname}
+              value={data.nickname}
               onChange={handleChange}
               require
               star
@@ -222,7 +220,7 @@ export default function UpdateBrands() {
               id={cx("phone_number")}
               title="Phone Number"
               name="phone_number"
-              value={ data.phone_number}
+              value={data.phone_number}
               onChange={handleChange}
               require
             />
@@ -241,7 +239,7 @@ export default function UpdateBrands() {
               id={cx("industry")}
               title="Industry"
               name="industry"
-              value={ data.industry}
+              value={data.industry}
               onChange={handleChange}
               require
               star
@@ -257,24 +255,35 @@ export default function UpdateBrands() {
           </div>
           <div className={cx("form-group")}>
             <span className={cx("form-input-img-profile")}>
-              <Input
-                type="file"
-                id={cx("campaignImages")}
-                title="Image"
-                name="campaignImages"
-                onChange={handleImageChange}
-                require
-                multiple
-                star
-              />
-              <img
-                id="preview-img"
-                className={cx("img-thumbnail-profile")}
-                style={{ width: "15rem" }}
-                alt=""
-                name="image"
-                src={imagePreview}
-              />
+              <div className={cx("images")}>
+                <Input
+                  type="file"
+                  id={cx("image")}
+                  title="Image"
+                  name="image"
+                  onChange={handleChangeAvt}
+                  accept="image/*"
+                  star
+                />
+                {file ? (
+                  <img
+                    src={
+                      imgPreview ||
+                      Object.values(file).map((i) => i.url) ||
+                      file
+                    }
+                    width={120}
+                    height={120}
+                    alt="avatar"
+                    className={cx("avatar")}
+                  />
+                ) : (
+                  <>
+                    <FontAwesomeIcon icon={faCloudArrowUp} size="xl" />
+                    <p>Browse Files to upload</p>
+                  </>
+                )}
+              </div>
             </span>
             {errors.image && (
               <div
@@ -330,9 +339,7 @@ export default function UpdateBrands() {
                   className={cx("radio")}
                   name="gender"
                   defaultValue="female"
-                  checked={
-                    data.gender === "female"
-                  }
+                  checked={data.gender === "female"}
                   onChange={handleChange}
                   id="female"
                 />
@@ -346,9 +353,7 @@ export default function UpdateBrands() {
                   className={cx("radio")}
                   name="gender"
                   defaultValue="other"
-                  checked={
-                    data.gender === "other"
-                  }
+                  checked={data.gender === "other"}
                   onChange={handleChange}
                   id="other"
                 />
