@@ -231,6 +231,7 @@ const publicRoutes = [
     component: SendRequest,
   },
   { path: "/feedback", component: FeedbackScreen },
+  { path: "/influencer/all-influencers", component: AllInfluencer },
 ];
 
 const privateRoutes = [{}];
