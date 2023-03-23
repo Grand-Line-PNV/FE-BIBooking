@@ -61,7 +61,7 @@ const navLinkInfluencer = [
     name: "TASK",
   },
   {
-    to: "/influencer/revenue",
+    to: "/influencer/all-influencers",
     name: "INFLUENCER",
   },
   {
