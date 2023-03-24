@@ -36,7 +36,6 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const role = useSelector(roleSelector);
-  console.log(role);
 
   const [lock, setLock] = useState("none");
   const [showPassword, setShowPassword] = useState(false);

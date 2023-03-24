@@ -31,9 +31,8 @@ const SendRequest = () => {
   const [dataInfluencer, setDataInfluencer] = useState([]);
   const { data, setData, handleChange, setErrors, errors } = useFormData({
     campaign_id: dataCampaign.id,
-    influencer_id: id,
+    influencer_id: parseInt(id),
   });
-  const [bookingId, setBookingId] = useState("");
 
   const getData = async () => {
     const [resultBrand, resultInfluencer] = await Promise.all([
@@ -48,18 +47,11 @@ const SendRequest = () => {
     getData();
   }, []);
 
-  const handleChangeOption = (event) => {
-    const campaignId = event.target.value;
-    setData({ ...data, campaign_id: parseInt(campaignId) });
-    setBookingId(campaignId);
-  };
-
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
       await createBookingCampaignInfluencer(data);
-      setIsLoading(false);
-      navigation(`/brand/booking/payment?bookingId=${bookingId}`);
+      navigation("/brand/booking-history");
       showToast(false, "Successfully!");
     } catch (error) {
       setIsLoading(false);
@@ -96,7 +88,7 @@ const SendRequest = () => {
                 <select
                   className={cx("select")}
                   name="campaign_id"
-                  onChange={handleChangeOption}
+                  onChange={handleChange}
                 >
                   <option disabled selected>
                     Choose your campaign
@@ -120,11 +112,7 @@ const SendRequest = () => {
                 )}
                 <br />
                 <div className={cx("btn")}>
-                  <Button
-                    primary={true}
-                    onClick={handleSubmit}
-                    to="/brand/booking/payment"
-                  >
+                  <Button primary={true} onClick={handleSubmit}>
                     Submit
                   </Button>
                 </div>

@@ -15,7 +15,6 @@ const BookingHistory = () => {
     setIsLoading(true);
     const result = await getTaskBrand(brand_id);
     setData(result.data.data);
-    console.log(result.data.data);
     setIsLoading(false);
   };
 

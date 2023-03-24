@@ -65,7 +65,6 @@ function UpdateSocialMedia() {
 
   const getData = async () => {
     const result = await infoInfluencer(account_id);
-    console.log(result.data.data.social_info);
     setRowsData(result.data.data.social_info);
   };
   useEffect(() => {
