@@ -19,7 +19,9 @@ const Intro = (prop) => {
               </h2>
               <div className={cx("intro-desc")}>
                 <h4 className={cx("same-heading")}>I am a {prop.info.job}</h4>
-                <p className={cx("text", "text-medium")}>{prop.info.description}</p>
+                <p className={cx("text", "text-medium")}>
+                  {prop.info.description}
+                </p>
                 {roleId == 1 ? (
                   <Button
                     primary={true}
@@ -39,7 +41,6 @@ const Intro = (prop) => {
                 )}
               </div>
             </div>
-
             <div className={cx("intro-image")}>
               <div className={cx("image-avatars")}>
                 {Object.values(prop.file).map((i) => {
@@ -62,31 +63,27 @@ const Intro = (prop) => {
               />
             </div>
           </div>
+          <div
+            className={cx("product-img")}
+          >
+            {Object.values(prop.file).map((i) => {
+              if (i.path === "influencers") {
+                return (
+                  <>
+                    <img
+                      style={{ width: "200px" }}
+                      className={cx("image-files")}
+                      src={i.url}
+                      alt="HE9kxVe.png"
+                      border="0"
+                    />
+                  </>
+                );
+              }
+            })}
+          </div>
         </div>
       </section>
-      <div
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
-        }}
-      >
-        {Object.values(prop.file).map((i) => {
-          if (i.path === "influencers") {
-            return (
-              <>
-                <img
-                  style={{ width: "200px" }}
-                  className={cx("image-files")}
-                  src={i.url}
-                  alt="HE9kxVe.png"
-                  border="0"
-                />
-              </>
-            );
-          }
-        })}
-      </div>
     </div>
   );
 };

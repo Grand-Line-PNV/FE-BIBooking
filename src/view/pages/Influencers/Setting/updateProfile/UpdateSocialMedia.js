@@ -9,6 +9,7 @@ import {
   updateSocialMedia,
   infoInfluencer,
 } from "../../../../../api/influencer";
+import showToast from "../../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 
 function UpdateSocialMedia() {
@@ -51,11 +52,10 @@ function UpdateSocialMedia() {
       const socialData = {
         socials: rowsData,
       };
-
-      // console.log('socialData', socialData);
       await updateSocialMedia(account_id, socialData);
-      alert("Successfully updated");
+      showToast(false, "Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         console.log(error.data.errors);
@@ -63,14 +63,14 @@ function UpdateSocialMedia() {
     }
   };
 
-  const getData = async() => {
+  const getData = async () => {
     const result = await infoInfluencer(account_id);
-    console.log(result.data.data.social_info)
+    console.log(result.data.data.social_info);
     setRowsData(result.data.data.social_info);
   };
   useEffect(() => {
-    getData()
-  },[])
+    getData();
+  }, []);
   return (
     <div className={cx("container")}>
       <div style={{ width: "100%" }}>

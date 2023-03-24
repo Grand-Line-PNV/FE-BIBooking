@@ -26,7 +26,11 @@
   .content {
     width: 50%;
   }
-
+  .product-img {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
   &-image {
     position: relative;
     .image-background {
@@ -63,7 +67,7 @@
 
 @media screen and (max-width: 1024px) {
   .intro {
-    padding-top: 150px;
+    padding-top: 100px;
     padding-bottom: 100px;
   }
   .intro-container {
@@ -73,11 +77,15 @@
     font-size: 30px;
     line-height: calc(43 / 30);
   }
+  .intro-image {
+    .image-avatar {
+      width: 250px;
+    }
+  }
 }
 
 @media screen and (max-width: 767px) {
   .intro {
-    padding-top: 70px;
     padding-bottom: 0;
   }
   .intro-container {
@@ -92,6 +100,21 @@
     padding-top: 50px;
     font-size: 30px;
     line-height: calc(43 / 30);
+  }
+  .product-img img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .intro {
+    padding-top: 200px;
+    padding-bottom: 0;
+  }
+  .intro-image {
+    .image-avatar {
+      width: 100px;
+    }
   }
 }
 
@@ -110,11 +133,10 @@
     gap: 0 40px;
   }
 
-  .myServices-container,
-  .feedBack-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .myServices-container {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     width: 100%;
   }
 }
@@ -123,7 +145,7 @@
 .socialMedia {
   &-content {
     width: 100%;
-    max-width: 600px;
+    // max-width: 600px;
   }
 
   .default {
@@ -182,6 +204,12 @@
       width: 60px;
     }
   }
+}
+
+@media screen and (max-width: 600px) {
+.socialMedia .content{
+  display: none;
+}
 }
 
 // booking
@@ -273,7 +301,7 @@
 
 // BoostBrand
 .boost {
-  // width: 78%;
+  padding-top: 50px;
   margin: 0 auto;
   &-header {
     max-width: 555px;
@@ -310,11 +338,9 @@
   }
   &-text {
     padding-top: 30px;
-    // width: 350px;
     margin: 0 auto;
   }
   &-image img {
-    // margin: 0 auto 30px;
   }
   &-image {
     width: 100px;
@@ -337,8 +363,6 @@
   &-title {
     font-size: 20px;
     font-weight: 700;
-    // margin-bottom: 30px;
-    // margin-bottom: 34px;
     margin-top: 20px;
   }
   &-item:active,
@@ -351,7 +375,6 @@
 
 @media screen and (max-width: 1024px) {
   .boost {
-    // padding: 50px 0;
     width: 90%;
   }
 
@@ -511,6 +534,9 @@
   .testemonial {
     width: 90%;
   }
+  .news-text{
+    display: none;
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -538,13 +564,14 @@
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
   }
   &-inf,
   &-date {
     display: flex;
     align-items: center;
-    gap: 0 10px;
+    gap: 10px;
   }
   &-heading {
     margin: 0 auto;

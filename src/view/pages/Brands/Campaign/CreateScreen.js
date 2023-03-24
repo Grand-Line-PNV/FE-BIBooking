@@ -18,8 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import useDateValidation from "../../../../hooks/useDateValidation";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+import showToast from "../../../../components/toast/Toast";
 import { useLocation } from "react-router-dom";
 
 
@@ -130,9 +129,10 @@ export default function CreateCampaign() {
       const formData = convertObjectToFormData(data);
       const response = await createCampaignBrand(formData);
       navigation("/brand/campaign");
-      Swal.fire("Successfully!", "You clicked the button!", "success");
+      showToast(false, "Successfully!");
     } catch (error) {
       setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         setErrors(error.data.errors);

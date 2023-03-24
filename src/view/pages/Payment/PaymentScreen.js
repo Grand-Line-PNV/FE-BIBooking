@@ -9,6 +9,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getDetailTaskInfluencer } from "../../../api/influencer";
 import { banks } from "../../../components/Bank_Name";
 import PreLoader from "../../../components/preLoader/PreLoader";
+import showToast from "../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 
 const PaymentFormScreen = () => {
@@ -51,16 +52,18 @@ const PaymentFormScreen = () => {
       setIsLoading(true);
       // Gọi API để tạo request đến VNPay
       const response = await createPaymentVnpay(data);
-      const id_payment = response.data.data.id;
-      const result = await getPaymentVnpay(id_payment)
-        .then(function (response) {
-          console.log(response);
-          //   window.location.replace(response.data.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      // const result = await getPaymentVnpay(id_payment)
+      navigation("/")
+        // .then(function (response) {
+        //   console.log(response);
+        //   //   window.location.replace(response.data.data);
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
+      showToast(false, "Payment Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 402) {
@@ -82,7 +85,7 @@ const PaymentFormScreen = () => {
             <div className={cx("background-white")}>
               <div className={cx("form")}>
                 <h3 className={cx("title")}>Payment methods</h3>
-                <from className={cx("form-payment")} >
+                <from className={cx("form-payment")}>
                   <lable>Bank</lable>
                   <br />
                   <select
@@ -143,7 +146,9 @@ const PaymentFormScreen = () => {
                 </div>
                 <div className={cx("payment")}>
                   <span>Sub total</span>
-                  <span>{bookingIfo.campaign && bookingIfo.campaign.price} VND</span>
+                  <span>
+                    {bookingIfo.campaign && bookingIfo.campaign.price} VND
+                  </span>
                 </div>
                 <div className={cx("payment")}>
                   <span>Tax</span>
@@ -155,7 +160,9 @@ const PaymentFormScreen = () => {
                 </div>
                 <div className={cx("payment")}>
                   <span>Total</span>
-                  <span>{bookingIfo.campaign && bookingIfo.campaign.price} VND</span>
+                  <span>
+                    {bookingIfo.campaign && bookingIfo.campaign.price} VND
+                  </span>
                 </div>
                 <Button primary={true}>Payment</Button>
               </div>

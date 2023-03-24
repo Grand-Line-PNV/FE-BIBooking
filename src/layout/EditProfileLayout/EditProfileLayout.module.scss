@@ -1,13 +1,10 @@
 .profile-setting {
-  padding-top:150px;
-
+  padding-top: 100px;
 
   &-container {
-    width: 1135px;
+    max-width: 1585px;
     margin: 0 auto;
   }
-
-
 
   & .profile-title {
     margin: 20px 0;
@@ -28,9 +25,6 @@
   & .profile-title:hover::after {
     width: 100%;
   }
-
-
-  
 }
 
 select {
@@ -48,10 +42,22 @@ option {
 .nav-editProfile {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start
+  align-items: flex-start;
 }
 .icon-menu {
-  display: none
+  display: none;
+}
+
+@media screen and (min-width: 1025px) {
+  .profile-setting-container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profile-setting-container {
+    width: 90%;
+  }
 }
 
 @media screen and (max-width: 400px) {
@@ -78,9 +84,8 @@ option {
     font-size: 10px;
     width: 380px;
     // margin: 5px;
-    h3{
+    h3 {
       color: var(--white) !important;
-
     }
   }
 }

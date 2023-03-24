@@ -22,8 +22,7 @@ import { useNavigate } from "react-router-dom";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import useDateValidation from "../../../../hooks/useDateValidation";
 import { useParams } from "react-router-dom";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+import showToast from "../../../../components/toast/Toast";
 import { useLocation } from "react-router-dom";
 
 const cx = classNames.bind(styles);
@@ -149,8 +148,9 @@ export default function UpdateCampaign() {
       const formData = convertObjectToFormData(data);
       await updateCampaignBrand(data.id, formData);
       navigation("/brand/campaign");
-      Swal.fire("Successfully!", "You clicked the button!", "success");
+      showToast(false, "Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
         setIsLoading(false);
       } else if (error.status === 422) {

@@ -8,6 +8,7 @@ import ServiceRows from "./ServiceRows";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
+import showToast from "../../../../../components/toast/Toast";
 
 const cx = classNames.bind(styles);
 
@@ -45,21 +46,22 @@ const UpdateServices = () => {
         services: rowsData,
       };
       await updateServices(serviceData);
-      alert('Service created successfully')
+      showToast(false, "Successfully!");
     } catch (error) {
       if (error.status === 401) {
+        showToast(true, "Error! An error occurred. Please try again later!");
       } else if (error.status === 422) {
         console.log(error.data.errors);
       }
     }
   };
-  const getData = async() => {
+  const getData = async () => {
     const result = await infoInfluencer(account_id);
     setRowsData(result.data.data.services);
   };
   useEffect(() => {
-    getData()
-  },[])
+    getData();
+  }, []);
   return (
     <Fragment>
       <form className={cx("form-inf")} onSubmit={handleSubmit}>

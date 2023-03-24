@@ -10,7 +10,7 @@ import { changePassword } from "../../../../api/feature";
 import { useDispatch } from "react-redux";
 import useFormData from "../../../../hooks/useFormData";
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert';
+import showToast from "../../../../components/toast/Toast";
 import useInputFocusLogin from "../../../../hooks/useInputFocusLogin";
 import PreLoaderLogin from "../../../../components/preLoader/PreLoaderLogin";
 const cx = classNames.bind(styles);
@@ -46,11 +46,13 @@ const NewPassword = () => {
     resetErrors();
     try {
       event.preventDefault();
-      setIsLoading(true)
+      setIsLoading(true);
       const res = await changePassword(data);
       navigation("/login");
+      showToast(false, "Successfully!");
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
         setErrors({ verify: "Wrong!" });
       } else if (error.status === 422) {

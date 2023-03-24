@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import TableRows from "./TableRows";
 import { social } from "../../../../../api/influencer";
+import showToast from "../../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 
 function EditSocialMedia() {
@@ -49,9 +50,10 @@ function EditSocialMedia() {
         socials: rowsData,
       };
       await social(socialData);
-      alert("Successfully created");
+      showToast(false, "Successfully!");
       setRowsData([]);
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
       } else if (error.status === 422) {
         console.log(error.data.errors);
@@ -63,13 +65,12 @@ function EditSocialMedia() {
     <div className={cx("container")}>
       <div style={{ width: "100%" }}>
         <div className={cx("label")}>
-          <h4 style={{ width: "170px" }}>Platform</h4>
-          <h4 style={{ width: "150px" }}>Username</h4>
-          <h4 style={{ width: "220px" }}>Fullname</h4>
-          <h4 style={{ width: "250px" }}>Link</h4>
-          <h4 style={{ width: "100px" }}>Subcribes</h4>
-          <h4 style={{ width: "100px" }}>Avg interactives</h4>
-
+          <h4>Platform</h4>
+          <h4>Username</h4>
+          <h4>Fullname</h4>
+          <h4>Link</h4>
+          <h4>Subcribes</h4>
+          <h4>Avg interactives</h4>
           <button onClick={addTableRows} className={cx("btn-plus")}>
             <FontAwesomeIcon icon={faPlus} />
           </button>

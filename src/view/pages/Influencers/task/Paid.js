@@ -22,7 +22,7 @@ const PaidInfluencer = () => {
     <div className={cx("nav-editProfile")}>
       <div className={cx("tasks-column")}>
         <div className={cx("tasks-column-heading")}>
-          <h2 className={cx("tasks-column-heading__title")}>Paid</h2>
+          <h2 className={cx("tasks-column-heading__title")}>waiting</h2>
           <button className={cx("tasks-column-heading__options")}>
             <i className="fas fa-ellipsis-h" />
           </button>

@@ -10,6 +10,7 @@
     
   }
   &-container {
+    
     display: flex;
     justify-content: space-between;
     
@@ -97,11 +98,4 @@
  .footer-desc {
   width: 200px;
  }
-}
-
-@media (min-width: 1025px) {
-  .footer-container {
-    width: 90%;
-    margin: 0 auto;
-  }
 }

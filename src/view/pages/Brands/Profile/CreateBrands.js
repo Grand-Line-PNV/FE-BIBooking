@@ -13,11 +13,12 @@ import Select from "react-select";
 import { convertObjectToFormData } from "../../../../utils/convertDataUtils";
 import PreLoader from "../../../../components/preLoader/PreLoader";
 import { useNavigate } from "react-router-dom";
+import showToast from "../../../../components/toast/Toast";
 
 const cx = classNames.bind(styles);
 
 export default function CreateBrands() {
-    const navigation = useNavigate();
+  const navigation = useNavigate();
   const account_id = localStorage.getItem("account_id");
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState(null);
@@ -84,7 +85,9 @@ export default function CreateBrands() {
       dispatch(brandAction.addOne(data));
       getData();
       navigation("/brand/profile");
+      showToast(false, "Successfully!");
     } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
       setIsLoading(false);
       if (error.status === 401) {
       } else if (error.status === 422) {
