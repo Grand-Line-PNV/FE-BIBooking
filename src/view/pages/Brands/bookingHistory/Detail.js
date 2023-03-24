@@ -86,6 +86,22 @@ const DetailsBrand = () => {
     }
   };
 
+  const handleCancelBooking = async (id) => {
+    try {
+      setIsLoading(true);
+      const reject = await updateStatusBooking(id, {
+        status: "cancel",
+      });
+      navigation("/influencer/task");
+      showToast(false, "Login Successfully!");
+    } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+      }
+    }
+  };
+
   return (
     <div className={cx("card")}>
       {isLoading ? <PreLoader /> : <></>}

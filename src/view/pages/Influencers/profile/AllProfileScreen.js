@@ -50,6 +50,7 @@ const AllProfileScreen = () => {
 
   return (
     <div>
+      {isLoading ? <PreLoader /> : <></>}
       {info ? (
         <>
           <Intro info={info} file={file} username={username} />
