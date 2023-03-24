@@ -1,8 +1,6 @@
 import classNames from "classnames/bind";
 import style from "./EditProfile.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faImage } from "@fortawesome/free-solid-svg-icons";
-import { faImages } from "@fortawesome/free-regular-svg-icons";
 import Button from "../../../../../components/Button/Button";
 import { useEffect, useState } from "react";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
