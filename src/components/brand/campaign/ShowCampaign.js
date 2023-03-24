@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBan,
   faCalendar,
+  faCheck,
   faClose,
   faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -40,9 +41,11 @@ const ShowCampaignBrand = ({
   const handleCloseCampaign = async (id) => {
     try {
       setIsLoading(true);
-      const reject = await closeCampaignBrand(id);
-      navigation("/brand/campaign");
+      const closed = await closeCampaignBrand(id);
       showToast(false, "Successfully!");
+      // navigation("/brand/campaign");
+      navigation("/");
+
     } catch (error) {
       setIsLoading(false);
       showToast(true, "Error! An error occurred. Please try again later!");
@@ -51,6 +54,22 @@ const ShowCampaignBrand = ({
       }
     }
   };
+
+  const handleOpenCampaign = async (id) => {
+    try {
+      setIsLoading(true);
+      const closed = await closeCampaignBrand(id);
+      showToast(false, "Successfully!");
+      navigation("/");
+    } catch (error) {
+      setIsLoading(false);
+      showToast(true, "Error! An error occurred. Please try again later!");
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+      }
+    }
+  };
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -71,20 +90,16 @@ const ShowCampaignBrand = ({
         {filteredItems.map((item, index) => (
           <li key={index}>
             <div className={cx("featured-car-card")}>
-              <figure className={cx("card-banner", "slider")}>
-                {item.files.map((file, index) => (
-                  <div
-                    className={index === activeIndex ? "slide active" : "slide"}
-                    key={file.id}
-                  >
-                    <img
-                      src={file.url}
-                      loading="lazy"
-                      width={440}
-                      height={300}
-                    />
-                  </div>
-                ))}
+              <figure className={cx("card-banner")}>
+                {item.files.map((file, i) => {
+                  if (file.path === "campaigns" && i === 0) {
+                    return (
+                      <div key={file.id}>
+                        <img src={file.url} loading="lazy" alt="campaigns" />
+                      </div>
+                    );
+                  }
+                })}
               </figure>
               <div className={cx("card-content")}>
                 <div className={cx("card-title-wrapper")}>
@@ -102,9 +117,9 @@ const ShowCampaignBrand = ({
                   <li className={cx("card-list-item")}>
                     {item.campaign_status &&
                       item.campaign_status.split(",").map((channel) => {
-                        let icon;
+                        let status;
                         if (channel === "apply") {
-                          icon = (
+                          status = (
                             <Button
                               outline={true}
                               large={true}
@@ -114,9 +129,17 @@ const ShowCampaignBrand = ({
                             </Button>
                           );
                         } else if (channel === "closed") {
-                          icon = <></>;
+                          status = (
+                            <Button
+                              outline={true}
+                              large={true}
+                              onClick={() => handleOpenCampaign(item.id)}
+                            >
+                              Open <FontAwesomeIcon icon={faCheck} />
+                            </Button>
+                          );
                         }
-                        return <div key={channel}>{icon}</div>;
+                        return <div key={channel}>{status}</div>;
                       })}
                   </li>
                 </ul>
@@ -160,9 +183,9 @@ const ShowCampaignBrand = ({
                   <div>
                     {item.campaign_status &&
                       item.campaign_status.split(",").map((channel) => {
-                        let icon;
+                        let status;
                         if (channel === "apply") {
-                          icon = (
+                          status = (
                             <>
                               <Button
                                 primary={true}
@@ -179,7 +202,7 @@ const ShowCampaignBrand = ({
                             </>
                           );
                         } else if (channel === "closed") {
-                          icon = (
+                          status = (
                             <span className={cx("stock", "text", "text-small")}>
                               <FontAwesomeIcon
                                 icon={faBan}
@@ -190,7 +213,7 @@ const ShowCampaignBrand = ({
                             </span>
                           );
                         }
-                        return <div key={channel}>{icon}</div>;
+                        return <div key={channel}>{status}</div>;
                       })}
                   </div>
                 </div>

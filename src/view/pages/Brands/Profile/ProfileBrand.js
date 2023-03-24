@@ -22,8 +22,6 @@ export default function ProfileBrand() {
     getData();
   }, []);
 
-  console.log(data);
-
   return (
     <div className={cx("nav-editProfile")}>
       <div className={cx("table-wrapper")}>

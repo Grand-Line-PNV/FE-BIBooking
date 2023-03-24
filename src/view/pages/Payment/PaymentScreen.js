@@ -15,17 +15,13 @@ const cx = classNames.bind(styles);
 const PaymentFormScreen = () => {
   const navigation = useNavigate();
   const [searchParams] = useSearchParams();
-  const id = searchParams.get("bookingId");
-  // const booking_id = parseInt(id);
-  // const booking_id = id ? parseInt(id) : null;
-  const booking_id = isNaN(id) ? null : parseInt(id);
-  console.log(booking_id);
+  const bookingId = searchParams.get("bookingId");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().substr(0, 10)
   );
   const { data, setData, handleChange, errors, setErrors, resetErrors } =
     useFormData({
-      booking_id,
+      booking_id: bookingId ? parseInt(bookingId) : null,
       description: "",
       number: 0,
       date: selectedDate,
@@ -35,15 +31,22 @@ const PaymentFormScreen = () => {
   const [bookingIfo, setBookingIf] = useState({});
 
   const getData = async () => {
-    const result = await getDetailTaskInfluencer(data.booking_id);
-    console.log(result);
-    setBookingIf(result.data.data);
+    try {
+      if (bookingId !== null) {
+        const result = await getDetailTaskInfluencer(bookingId);
+        setBookingIf(result.data.data);
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle the error here (e.g. show an error message to the user)
+    }
   };
+
   useEffect(() => {
-    if (booking_id) {
+    if (bookingId !== null) {
       getData();
     }
-  }, [booking_id]);
+  }, [bookingId]);
 
   const handleSubmit = async (event) => {
     resetErrors();
@@ -52,15 +55,14 @@ const PaymentFormScreen = () => {
       setIsLoading(true);
       // Gọi API để tạo request đến VNPay
       const response = await createPaymentVnpay(data);
-      // const result = await getPaymentVnpay(id_payment)
-      navigation("/")
-        // .then(function (response) {
-        //   console.log(response);
-        //   //   window.location.replace(response.data.data);
-        // })
-        // .catch(function (error) {
-        //   console.log(error);
-        // });
+      const id_payment = response.data.data.id;
+      const result = await getPaymentVnpay(id_payment)
+        .then(function (response) {
+          window.location.replace(response.data.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       showToast(false, "Payment Successfully!");
     } catch (error) {
       showToast(true, "Error! An error occurred. Please try again later!");

@@ -85,12 +85,23 @@ const DetailsBrand = () => {
       }
     }
   };
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((activeIndex) => (activeIndex + 1) % 3);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+
+  const handleCancelBooking = async (id) => {
+    try {
+      setIsLoading(true);
+      const reject = await updateStatusBooking(id, {
+        status: "cancel",
+      });
+      navigation("/influencer/task");
+      showToast(false, "Login Successfully!");
+    } catch (error) {
+      showToast(true, "Error! An error occurred. Please try again later!");
+      if (error.status === 401) {
+      } else if (error.status === 422) {
+      }
+    }
+  };
+
   return (
     <div className={cx("card")}>
       {isLoading ? <PreLoader /> : <></>}
@@ -105,16 +116,15 @@ const DetailsBrand = () => {
         <div className={cx("half")}>
           <div className={cx("image", "slider")}>
             {data.campaign &&
-              data.campaign.files.map((file, index) => (
-                <div
-                  className={
-                    index === activeIndex ? cx("slide", "active") : "slide"
-                  }
-                  key={file.id}
-                >
-                  <img src={file.url} loading="lazy" width={440} height={300} />
-                </div>
-              ))}
+              data.campaign.files.map((file, i) => {
+                if (file.path === "campaigns" && i === 0) {
+                  return (
+                    <div key={file.id}>
+                      <img src={file.url} loading="lazy" alt="campaigns" />
+                    </div>
+                  );
+                }
+              })}
           </div>
         </div>
         <div className={cx("half")}>

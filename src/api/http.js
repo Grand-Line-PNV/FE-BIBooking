@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_ROOT =
-  "http://127.0.0.1:8000/api";
+  "http://bi-booking.itek.run/api";
 
 axios.defaults.baseURL = API_ROOT;
 axios.defaults.timeout = 30000;

@@ -331,9 +331,6 @@ export default function Header() {
               <Button primary={true} to="/login" className="btn-">
                 Login
               </Button>
-              <Button outline={true} to="/register" className="btn-">
-                Register
-              </Button>
             </>
           )}
           <button

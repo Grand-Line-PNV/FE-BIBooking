@@ -56,7 +56,7 @@ const DetailsInfluencer = () => {
         status: "cancel",
       });
       navigation("/influencer/task");
-      showToast(false, "Login Successfully!");
+      showToast(false, "Successfully!");
     } catch (error) {
       showToast(true, "Error! An error occurred. Please try again later!");
       if (error.status === 401) {
@@ -79,13 +79,6 @@ const DetailsInfluencer = () => {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((activeIndex) => (activeIndex + 1) % 3);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className={cx("card")}>
       {isLoading ? <PreLoader /> : <></>}
@@ -100,16 +93,15 @@ const DetailsInfluencer = () => {
         <div className={cx("half")}>
           <div className={cx("image", "slider")}>
             {data.campaign &&
-              data.campaign.files.map((file, index) => (
-                <div
-                  className={
-                    index === activeIndex ? cx("slide", "active") : "slide"
-                  }
-                  key={file.id}
-                >
-                  <img src={file.url} loading="lazy" width={440} height={300} />
-                </div>
-              ))}
+              data.campaign.files.map((file, i) => {
+                if (file.path === "campaigns" && i === 0) {
+                  return (
+                    <div key={file.id}>
+                      <img src={file.url} loading="lazy" alt="campaigns" />
+                    </div>
+                  );
+                }
+              })}
           </div>
         </div>
         <div className={cx("half")}>
@@ -252,9 +244,7 @@ const DetailsInfluencer = () => {
                     </p>
                     {visible && (
                       <>
-                        <SubmitTask
-                          bookingId={data.id}
-                        />
+                        <SubmitTask bookingId={data.id} />
                         <Button
                           className={`reject-button ${
                             visible ? "visible" : ""

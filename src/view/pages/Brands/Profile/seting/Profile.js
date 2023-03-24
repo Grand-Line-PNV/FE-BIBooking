@@ -12,7 +12,6 @@ const ProfileSetingBrand = () => {
 
   const fetchData = async () => {
     const result = await infoBrand(brand_id);
-    console.log(result);
     setData(result.data.data);
   };
 

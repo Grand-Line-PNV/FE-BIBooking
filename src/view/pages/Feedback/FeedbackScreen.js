@@ -24,7 +24,6 @@ const FeedbackScreen = (prop) => {
   });
 
   const handleSubmit = async (event) => {
-    console.log(data);
     try {
       event.preventDefault();
       setIsLoading(true);

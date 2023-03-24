@@ -164,20 +164,11 @@ const AllInfluencer = () => {
                 data.map((item, index) => (
                   <>
                     <li key={index}>
-                      {/* <Link to={`/influencer/campaign/${item.id}`}> */}
                       <div className={cx("featured-car-card")}>
                         <figure className={cx("card-banner", "slider")}>
                           {item.files.map((i) => {
                             if (i.path === "avatars") {
-                              return (
-                                <img
-                                  className={cx("card-image")}
-                                  src={i.url}
-                                  alt={i.name}
-                                  width="100%"
-                                  height="100%"
-                                />
-                              );
+                              return <img src={i.url} alt={i.name} />;
                             }
                           })}
                         </figure>
