@@ -14,8 +14,6 @@ import { faCloudArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faFileImage } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 import PreLoader from "../../../../../components/preLoader/PreLoader";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
 import showToast from "../../../../../components/toast/Toast";
 const cx = classNames.bind(styles);
 

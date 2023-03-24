@@ -43,9 +43,8 @@ const ShowCampaignBrand = ({
       setIsLoading(true);
       const closed = await closeCampaignBrand(id);
       showToast(false, "Successfully!");
-      // navigation("/brand/campaign");
-      navigation("/");
-
+      setIsLoading(false);
+      fetchData()
     } catch (error) {
       setIsLoading(false);
       showToast(true, "Error! An error occurred. Please try again later!");
@@ -60,7 +59,9 @@ const ShowCampaignBrand = ({
       setIsLoading(true);
       const closed = await closeCampaignBrand(id);
       showToast(false, "Successfully!");
-      navigation("/");
+      // navigation("/");
+      setIsLoading(false);
+      fetchData()
     } catch (error) {
       setIsLoading(false);
       showToast(true, "Error! An error occurred. Please try again later!");

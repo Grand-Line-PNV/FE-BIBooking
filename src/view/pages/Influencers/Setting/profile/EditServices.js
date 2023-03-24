@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styles from "./EditProfile.module.scss";
 import classNames from "classnames/bind";
-import Input from "../../../../../components/Input";
 import Button from "../../../../../components/Button/Button";
 import { createService } from "../../../../../api/influencer";
 import ServiceRows from "./ServiceRows";
