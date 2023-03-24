@@ -45,8 +45,6 @@ const ShowCampaignBrand = ({
       showToast(false, "Successfully!");
       setIsLoading(false);
       fetchData()
-      // navigation("/brand/campaign");
-      // navigation("/");
     } catch (error) {
       setIsLoading(false);
       showToast(true, "Error! An error occurred. Please try again later!");
@@ -72,6 +70,14 @@ const ShowCampaignBrand = ({
       }
     }
   };
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((activeIndex) => (activeIndex + 1) % 3);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>

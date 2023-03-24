@@ -1,5 +1,4 @@
 import Swal from "sweetalert2";
-import "./Toast.css";
 
 function showToast(hasError, msg) {
   Swal.mixin({
